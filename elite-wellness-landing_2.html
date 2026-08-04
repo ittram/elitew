@@ -212,10 +212,16 @@ nav .nav-link:hover{color:var(--royal-blue)}
   .map-section{padding-bottom:3rem}
 }
 @media (max-width:768px){
-  header{padding:1rem 1.5rem;flex-wrap:wrap;gap:1rem}
-  nav{gap:1.2rem}
+  header{padding:12px 16px;flex-wrap:nowrap;gap:8px}
+  .logo{gap:8px;font-size:1rem;flex-shrink:0}
+  .dumbbell-icon{width:28px;height:14px}
+  .dumbbell-icon::before,.dumbbell-icon::after{width:6px;height:17px}
+  .logo-text{white-space:nowrap}
+  .logo-sub{font-size:.46rem;letter-spacing:.15em;margin-top:3px}
+  nav{gap:8px;flex-shrink:0}
   nav .nav-link{display:none}
-  nav .nav-keep{display:inline;font-size:.78rem}
+  .lang-toggle{font-size:.68rem;letter-spacing:.04em;white-space:nowrap}
+  .nav-cta{padding:8px 16px;font-size:.8rem;white-space:nowrap}
   .section,.classes-section,.reviews-section,.faq-section,.about-band{padding:4rem 1.5rem}
   .hero-title{font-size:20vw}
   .hero-script{font-size:4.6vw}
