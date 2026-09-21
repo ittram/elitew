@@ -3,8 +3,8 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Gym in Lagos, Algarve — Elite Wellness by Santos | Day Passes &amp; Memberships</title>
-<meta name="description" content="Family-run gym in Lagos, Portugal. Weights, machines, classes and an outdoor training deck. Day pass €10, no contract. Open Mon–Fri 7:00–21:00, Sat 9:00–13:00.">
+<title>Gym in Lagos, Algarve | Elite Wellness by Santos | Day Passes &amp; Memberships</title>
+<meta name="description" content="Family run gym in Lagos, Portugal. Weights, machines, classes and an outdoor training deck. Day pass €10, week pass €35.90, monthly from €21. Open Mon to Fri 7:00 to 21:00, Sat 9:00 to 13:00.">
 <link rel="alternate" hreflang="en" href="https://example.com/">
 <link rel="alternate" hreflang="pt-PT" href="https://example.com/pt">
 <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -91,7 +91,8 @@ body.show-grid .grid-overlay{display:block}
 .classes-section{background:var(--royal-blue);padding:8rem 4rem;position:relative}
 .classes-section .section-header{color:var(--white)}
 .classes-section .section-script{color:rgba(255,255,255,.6)}
-.classes-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:1rem;max-width:1400px;margin:0 auto}
+.classes-grid{display:grid;grid-template-columns:repeat(12,1fr);gap:24px}
+.classes-grid .class-card{grid-column:span 3}
 .class-card{background:var(--white);height:400px;position:relative;overflow:hidden;transition:transform .3s ease}
 .class-card:hover{transform:translateY(-10px)}
 .class-img{width:100%;height:100%;object-fit:cover;filter:grayscale(100%);background:#333}
@@ -99,41 +100,66 @@ body.show-grid .grid-overlay{display:block}
 .class-name{font-family:var(--font-display);font-size:2.1rem;color:var(--white);text-transform:uppercase;line-height:1}
 .class-tag{font-family:var(--font-body);font-weight:700;font-size:.75rem;letter-spacing:.12em;text-transform:uppercase;color:rgba(255,255,255,.75);margin-top:.4rem}
 /* ---------- timetable (data in schedule.js) ---------- */
+/* ---------- timetable (data in schedule.js) ----------
+   Columns: the table borrows the page grid. border-spacing equals the
+   24px gutter and the table is widened by one gutter on each side, so
+   6 equal table columns = 6 x 2 grid columns (time + Mon to Fri).
+   Vertical: every size is a multiple of 8px; lines are drawn with
+   inset shadows so they add no height. */
 .tt{margin-top:96px;color:var(--white)}
 .tt-head{text-align:center;margin-bottom:32px}
 .tt-title{font-family:var(--font-display);font-size:48px;line-height:48px;text-transform:uppercase}
 .tt-next{margin-top:16px;font-weight:800;font-size:12px;line-height:16px;letter-spacing:.12em;text-transform:uppercase;color:rgba(255,255,255,.75)}
 .tt-next b{color:var(--white)}
-.tt-table{width:100%;border-collapse:collapse;table-layout:fixed}
-.tt-table th,.tt-table td{border:1px solid rgba(255,255,255,.25);padding:16px;text-align:left;vertical-align:top}
-.tt-table thead th{font-family:var(--font-display);font-weight:400;font-size:20px;line-height:24px;text-transform:uppercase;letter-spacing:.04em;border-top:0;border-bottom:2px solid rgba(255,255,255,.5)}
-.tt-table thead th.is-today{background:var(--white);color:var(--royal-blue)}
-.tt-table thead th small{display:block;font-family:var(--font-body);font-weight:800;font-size:10px;line-height:12px;letter-spacing:.12em;margin-top:4px}
+.tt-clip{overflow:hidden}
+.tt-table{width:calc(100% + 24px);margin:0 -12px;border-collapse:collapse;table-layout:fixed}
+.tt-table th,.tt-table td{padding:16px 12px;text-align:left;vertical-align:top;border-left:1px solid rgba(255,255,255,.25);box-shadow:inset 0 1px 0 rgba(255,255,255,.25)}
 .tt-table th:first-child,.tt-table td:first-child{border-left:0}
-.tt-table th:last-child,.tt-table td:last-child{border-right:0}
-.tt-table tbody tr:last-child td,.tt-table tbody tr:last-child th{border-bottom:0}
-.tt-time{width:128px}
-.tt-time b{display:block;font-family:var(--font-display);font-weight:400;font-size:24px;line-height:28px}
-.tt-time span{display:block;font-size:12px;line-height:16px;font-weight:700;color:rgba(255,255,255,.65);margin-top:4px}
+.tt-table thead th{height:72px;font-family:var(--font-display);font-weight:400;font-size:24px;line-height:24px;text-transform:uppercase;letter-spacing:.04em;box-shadow:inset 0 -2px 0 rgba(255,255,255,.5)}
+.tt-table thead th.is-today{background:var(--white);color:var(--royal-blue);box-shadow:none}
+.tt-table thead th small{display:block;font-family:var(--font-body);font-weight:800;font-size:10px;line-height:16px;letter-spacing:.12em}
+.tt-table tbody tr:first-child th,.tt-table tbody tr:first-child td{box-shadow:none}
+.tt-time b{display:block;font-family:var(--font-display);font-weight:400;font-size:24px;line-height:32px}
+.tt-time span{display:block;font-size:12px;line-height:16px;font-weight:700;color:rgba(255,255,255,.65)}
 .tt-cell.is-today{background:rgba(255,255,255,.08)}
-.tt-cell.is-next{background:var(--white);color:var(--royal-blue)}
-.tt-name{font-family:var(--font-display);font-size:24px;line-height:28px;text-transform:uppercase}
-.tt-desc{margin-top:4px;font-weight:700;font-size:11px;line-height:16px;letter-spacing:.1em;text-transform:uppercase;opacity:.7}
+.tt-cell.is-next{background:var(--white);color:var(--royal-blue);box-shadow:none}
+.tt-name{font-family:var(--font-display);font-size:24px;line-height:32px;text-transform:uppercase}
+.tt-desc{font-weight:700;font-size:11px;line-height:16px;letter-spacing:.1em;text-transform:uppercase;opacity:.7}
 .tt-new{display:inline-block;margin-left:8px;font-family:var(--font-script);font-size:12px;line-height:16px;transform:rotate(-4deg);color:var(--white)}
 .tt-cell.is-next .tt-new{color:var(--royal-blue)}
-.tt-flag{display:inline-block;margin-bottom:8px;background:var(--royal-blue);color:var(--white);font-weight:800;font-size:10px;line-height:12px;letter-spacing:.12em;text-transform:uppercase;padding:4px 8px}
+.tt-flag{display:inline-block;vertical-align:middle;margin:-4px 0 0 8px;background:var(--royal-blue);color:var(--white);font-family:var(--font-body);font-weight:800;font-size:10px;line-height:16px;letter-spacing:.12em;text-transform:uppercase;padding:0 8px}
 .tt-tabs,.tt-list{display:none}
 .sr-only{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap}
-.tt-foot{margin-top:32px;display:flex;justify-content:space-between;flex-wrap:wrap;gap:16px;font-size:14px;line-height:20px;color:rgba(255,255,255,.85)}
-.tt-foot a{color:var(--white);font-weight:800;text-decoration:none;border-bottom:2px solid rgba(255,255,255,.5)}
-.tt-foot a:hover{border-color:var(--white)}
+.tt-foot{margin-top:32px;display:flex;justify-content:space-between;align-items:baseline;flex-wrap:wrap;gap:16px;font-size:16px;line-height:24px;color:rgba(255,255,255,.85)}
+.tt-foot a{color:var(--white);font-weight:800;text-decoration:none;box-shadow:inset 0 -2px 0 rgba(255,255,255,.5)}
+.tt-updated{font-weight:800;font-size:11px;letter-spacing:.12em;text-transform:uppercase;color:rgba(255,255,255,.65)}
+.tt-foot a:hover{box-shadow:inset 0 -2px 0 var(--white)}
 
 /* ---------- reviews ---------- */
 .reviews-section{background:var(--off-white);padding:8rem 4rem;text-align:center}
-.reviews-score{font-family:var(--font-display);font-size:8rem;line-height:1;color:var(--royal-blue)}
-.reviews-sub{font-family:var(--font-body);font-weight:800;text-transform:uppercase;letter-spacing:.15em;color:var(--silver-grey);margin-top:.6rem}
-.review-quote{font-family:var(--font-display);font-size:2.6rem;line-height:1.2;text-transform:uppercase;max-width:900px;margin:3.5rem auto 0;color:var(--black)}
-.review-attrib{margin-top:1.8rem;font-weight:800;text-transform:uppercase;letter-spacing:.2em;color:var(--silver-grey);font-size:.85rem}
+/* ---------- reviews: two rows in opposite directions, data in reviews.js ---------- */
+.rv-rating{margin-top:16px;font-weight:700;letter-spacing:.12em;text-transform:uppercase;font-size:12px;line-height:16px;color:var(--silver-grey)}
+.rv-rating a{color:inherit;text-decoration:none;box-shadow:inset 0 -2px 0 transparent;padding-bottom:2px;transition:color .2s,box-shadow .2s}
+.rv-rating a:hover{color:var(--royal-blue);box-shadow:inset 0 -2px 0 var(--royal-blue)}
+.rv-rating .stars{color:var(--royal-blue);font-size:14px;letter-spacing:.05em}
+.marquee{margin:64px -4rem 0;display:flex;flex-direction:column;gap:24px;overflow:hidden;-webkit-mask-image:linear-gradient(to right,transparent,#000 128px,#000 calc(100% - 128px),transparent);mask-image:linear-gradient(to right,transparent,#000 128px,#000 calc(100% - 128px),transparent)}
+.marquee-row{display:flex;gap:24px;width:max-content;animation:rv-left var(--rv-dur,60s) linear infinite}
+.marquee-row.reverse{animation-name:rv-right}
+.marquee:hover .marquee-row{animation-play-state:paused}
+@keyframes rv-left{from{transform:translateX(0)}to{transform:translateX(calc(-50% - 12px))}}
+@keyframes rv-right{from{transform:translateX(calc(-50% - 12px))}to{transform:translateX(0)}}
+.rv-card{flex:0 0 360px;display:flex;flex-direction:column;gap:16px;padding:24px;background:var(--white);box-shadow:inset 0 0 0 1px var(--light-grey);text-align:left;text-decoration:none;color:var(--black);transition:box-shadow .2s}
+.rv-card:hover{box-shadow:inset 0 0 0 2px var(--royal-blue)}
+.rv-stars{color:var(--royal-blue);font-size:14px;line-height:16px;letter-spacing:.05em}
+.rv-text{flex:1;font-size:16px;line-height:24px;display:-webkit-box;-webkit-line-clamp:4;-webkit-box-orient:vertical;overflow:hidden}
+.rv-who{display:flex;align-items:baseline;flex-wrap:wrap;gap:0 8px}
+.rv-name{font-family:var(--font-display);font-size:16px;line-height:24px;text-transform:uppercase;letter-spacing:.04em}
+.rv-meta{font-weight:700;font-size:11px;line-height:16px;letter-spacing:.12em;text-transform:uppercase;color:var(--silver-grey)}
+@media (prefers-reduced-motion:reduce){
+  .marquee{-webkit-mask-image:none;mask-image:none}
+  .marquee-row{animation:none;overflow-x:auto;width:auto;padding:0 4rem}
+}
+
 .reviews-more{margin-top:2.5rem}
 .link-strong{font-weight:800;text-transform:uppercase;letter-spacing:.1em;color:var(--royal-blue);text-decoration:none;border-bottom:3px solid var(--royal-blue)}
 .link-strong:hover{color:var(--black);border-color:var(--black)}
@@ -144,7 +170,8 @@ body.show-grid .grid-overlay{display:block}
 .about-band p{max-width:640px;margin:0 auto;font-size:1.2rem;line-height:1.75}
 
 /* ---------- pricing ---------- */
-.pricing-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:1.5rem;max-width:1280px;margin:0 auto}
+.pricing-grid{display:grid;grid-template-columns:repeat(12,1fr);gap:24px}
+.pricing-grid .price-card{grid-column:span 3}
 .price-card{border:4px solid var(--silver-grey);padding:2.2rem;position:relative;display:flex;flex-direction:column;background:var(--white)}
 .price-card h3{font-family:var(--font-display);font-size:1.9rem;color:var(--royal-blue);text-transform:uppercase;margin-bottom:1.2rem;min-height:2.1em;display:flex;align-items:flex-end}
 .price-big{font-family:var(--font-display);font-size:4.6rem;line-height:1;color:var(--black)}
@@ -155,9 +182,13 @@ body.show-grid .grid-overlay{display:block}
 .price-card.featured .price-big{color:var(--white)}
 .price-card.featured .price-sub{color:rgba(255,255,255,.75)}
 .badge-script{position:absolute;top:-1.6rem;right:1rem;font-family:var(--font-script);font-size:1.05rem;color:var(--black);transform:rotate(-4deg)}
-.pricing-includes{max-width:1280px;margin:2.5rem auto 0;text-align:center;font-size:1.05rem;line-height:1.7;color:var(--black)}
-.pricing-walkin{max-width:1280px;margin:2rem auto 0;text-align:center;font-family:var(--font-display);font-size:1.6rem;text-transform:uppercase;color:var(--black)}
-.pricing-note{max-width:1280px;margin:1.5rem auto 0;text-align:center;color:var(--silver-grey);font-weight:700;font-size:.8rem}
+.price-info{display:grid;grid-template-columns:repeat(12,1fr);column-gap:24px;row-gap:32px;margin-top:64px}
+.price-info div{grid-column:span 4;padding-top:16px;box-shadow:inset 0 2px 0 var(--black)}
+.price-info h4{font-family:var(--font-display);font-weight:400;font-size:20px;line-height:24px;text-transform:uppercase;color:var(--royal-blue);margin-bottom:8px}
+.price-info p{font-size:16px;line-height:24px}
+.price-info a{color:var(--royal-blue);font-weight:800;text-decoration:none;box-shadow:inset 0 -2px 0 var(--royal-blue)}
+.price-ask{display:block;font-size:3.2rem;text-decoration:none;color:var(--royal-blue);width:max-content;box-shadow:inset 0 -4px 0 var(--royal-blue)}
+.price-ask:hover{color:var(--black);box-shadow:inset 0 -4px 0 var(--black)}
 
 /* ---------- find us ---------- */
 .map-section{position:relative;background:var(--white)}
@@ -183,6 +214,7 @@ body.show-grid .grid-overlay{display:block}
 .faq-item summary::after{content:'+';font-family:var(--font-display);color:var(--royal-blue);font-size:1.8rem;margin-left:1rem;transition:transform .2s}
 .faq-item[open] summary::after{transform:rotate(45deg)}
 .faq-item p{padding:0 0 1.4rem;line-height:1.65;font-size:1rem;max-width:760px}
+.faq-item p a{color:var(--royal-blue);font-weight:700}
 .faq-item .todo{color:var(--silver-grey);font-weight:700}
 
 /* ---------- footer CTA ---------- */
@@ -208,10 +240,11 @@ body.show-grid .grid-overlay{display:block}
 /* ---------- responsive ---------- */
 @media (max-width:1100px){
   .pricing-grid{grid-template-columns:repeat(2,1fr)}
+  .pricing-grid .price-card{grid-column:auto}
   .classes-grid{grid-template-columns:repeat(2,1fr)}
-  .tt-time{width:96px}
-  .tt-table th,.tt-table td{padding:12px}
-  .tt-name{font-size:20px;line-height:24px}
+  .classes-grid .class-card{grid-column:auto}
+  .tt-table th,.tt-table td{padding:16px 12px}
+  .tt-name{font-size:20px;line-height:32px}
   .hours-card{position:static;width:auto;margin:2rem 4rem}
   .map-card{position:static;max-width:none;margin:2rem 4rem 0}
   .map-section{padding-bottom:3rem}
@@ -225,19 +258,21 @@ body.show-grid .grid-overlay{display:block}
   .lang-toggle{font-size:.68rem;letter-spacing:.04em;white-space:nowrap}
   .nav-cta{padding:8px 16px;font-size:.8rem;white-space:nowrap}
   .section,.classes-section,.reviews-section,.faq-section,.about-band{padding:4rem 1.5rem}
-  .tt{margin-top:64px}
-  .tt-title{font-size:32px;line-height:36px}
+  .classes-grid{gap:16px}
+  .tt{margin-top:80px}
+  .tt-head{margin-bottom:40px}
+  .tt-title{font-size:40px;line-height:48px}
   .tt-table{display:none}
-  .tt-tabs{display:grid;grid-template-columns:repeat(5,1fr);gap:4px;margin-bottom:16px}
-  .tt-tabs button{appearance:none;border:2px solid rgba(255,255,255,.5);background:transparent;color:var(--white);font-family:var(--font-display);font-size:16px;line-height:20px;text-transform:uppercase;padding:8px 0;cursor:pointer}
-  .tt-tabs button[aria-selected="true"]{background:var(--white);color:var(--royal-blue);border-color:var(--white)}
+  .tt-tabs{display:grid;grid-template-columns:repeat(5,1fr);gap:8px;margin-bottom:24px}
+  .tt-tabs button{appearance:none;border:0;box-shadow:inset 0 0 0 2px rgba(255,255,255,.5);background:transparent;color:var(--white);font-family:var(--font-display);font-size:16px;line-height:24px;text-transform:uppercase;padding:8px 0;cursor:pointer}
+  .tt-tabs button[aria-selected="true"]{background:var(--white);color:var(--royal-blue);box-shadow:none}
   .tt-list{display:block;list-style:none}
-  .tt-list li{display:grid;grid-template-columns:72px 1fr;gap:16px;padding:16px 12px;border-bottom:1px solid rgba(255,255,255,.25)}
-  .tt-list li.is-next{background:var(--white);color:var(--royal-blue)}
+  .tt-list li{display:grid;grid-template-columns:repeat(4,1fr);column-gap:16px;padding:24px 0;box-shadow:inset 0 -1px 0 rgba(255,255,255,.25)}
+  .tt-list li>div:last-child{grid-column:span 3}
+  .tt-list li.is-next{background:var(--white);color:var(--royal-blue);box-shadow:-12px 0 0 var(--white),12px 0 0 var(--white)}
   .tt-list li.is-next .tt-new{color:var(--royal-blue)}
-  .tt-list .tt-time{width:auto}
   .tt-list li.is-next .tt-time span{color:var(--royal-blue)}
-  .tt-foot{flex-direction:column}
+  .tt-foot{margin-top:40px;flex-direction:column;gap:8px}
   .hero{padding-top:48px}
   .hero-grid{grid-template-columns:repeat(4,1fr);column-gap:16px;padding:0 1.5rem}
   .hero-title{font-size:20vw}
@@ -248,9 +283,14 @@ body.show-grid .grid-overlay{display:block}
   .grid-overlay-cols div:nth-child(n+5){display:none}
   .section-header{font-size:2.6rem}
   .pricing-grid{grid-template-columns:1fr}
+  .price-info{grid-template-columns:1fr;margin-top:48px}
+  .price-info div{grid-column:auto}
   .gym-cols{grid-template-columns:1fr;gap:2.5rem}
-  .review-quote{font-size:1.6rem}
-  .reviews-score{font-size:5rem}
+  .rv-card{flex-basis:288px}
+  .marquee-row{gap:16px}
+  @keyframes rv-left{from{transform:translateX(0)}to{transform:translateX(calc(-50% - 8px))}}
+  @keyframes rv-right{from{transform:translateX(calc(-50% - 8px))}to{transform:translateX(0)}}
+  .marquee{margin:40px -1.5rem 0;gap:16px;-webkit-mask-image:linear-gradient(to right,transparent,#000 24px,#000 calc(100% - 24px),transparent);mask-image:linear-gradient(to right,transparent,#000 24px,#000 calc(100% - 24px),transparent)}
   .map-card,.hours-card{margin:1.5rem}
   .cta-huge{font-size:16vw}
   .footer-grid{grid-template-columns:1fr 1fr}
@@ -265,7 +305,7 @@ body.show-grid .grid-overlay{display:block}
   "image":"https://example.com/elite-wellness-lagos-outdoor-training-deck.jpg",
   "url":"https://example.com/",
   "telephone":"+351926565836",
-  "priceRange":"€10–€29",
+  "priceRange":"€10 to €35.90",
   "address":{"@type":"PostalAddress","streetAddress":"Rua Capitão Salgueiro Maia, Lote 13, Cave","addressLocality":"Lagos","addressRegion":"Algarve","postalCode":"8600-530","addressCountry":"PT"},
   "geo":{"@type":"GeoCoordinates","latitude":37.0947,"longitude":-8.6727},
   "aggregateRating":{"@type":"AggregateRating","ratingValue":"4.8","reviewCount":"153"},
@@ -288,31 +328,29 @@ body.show-grid .grid-overlay{display:block}
     <img class="logo-img" src="assets/elite-wellness-logo.png" alt="Elite Wellness by Santos" width="720" height="277">
   </a>
   <nav>
-    <a class="nav-link" href="#gym">The Gym</a>
-    <a class="nav-link" href="#classes">Classes</a>
-    <a class="nav-link" href="#reviews">Reviews</a>
+    <a class="nav-link" href="#timetable">Timetable</a>
     <a class="nav-link" href="#prices">Prices</a>
-    <a class="nav-link" href="#find-us">Find Us</a>
+    <a class="nav-link" href="#find-us">Location</a>
     <span class="lang-toggle"><a class="active" href="#">EN</a> <span class="inactive">|</span> <a class="inactive" href="/pt">PT</a></span>
     <a class="nav-cta" href="#prices">Join</a>
   </nav>
 </header>
 
-<!-- ============ HERO — there is a gym, and here's what it looks like ============ -->
+<!-- ============ HERO: there is a gym, and here's what it looks like ============ -->
 <section class="hero" id="top">
   <div class="hero-grid">
     <h1 class="hero-title">Train<br>In Lagos</h1>
-    <p class="hero-sub">Elite Wellness is a family-run gym in Lagos. Weights, machines, classes, indoors and out on the training deck.</p>
+    <p class="hero-sub">Elite Wellness is a family run gym in Lagos. Weights, machines, classes, indoors and out on the training deck.</p>
     <p class="hero-rating"><a href="https://maps.app.goo.gl/ks6o4URGCYT7rzHJ8" target="_blank" rel="noopener" aria-label="4.8 out of 5 from 153 Google reviews, opens Google Maps in a new tab"><span class="stars">★★★★★</span>&nbsp; 4.8 · 153 Google reviews</a></p>
   </div>
   <div class="hero-image-strip torn-top">
-    <img class="hero-img" src="https://images.unsplash.com/photo-1534438327276-14e5300c3a48?q=80&w=1200&auto=format&fit=crop" alt="PLACEHOLDER — replace with wide shot of the Elite Wellness gym floor">
-    <img class="hero-img" src="https://images.unsplash.com/photo-1517963879433-6ad2b056d712?q=80&w=1200&auto=format&fit=crop" alt="PLACEHOLDER — replace with photo of the outdoor training deck in use">
-    <img class="hero-img" src="https://images.unsplash.com/photo-1526506118085-60ce8714f8c5?q=80&w=1200&auto=format&fit=crop" alt="PLACEHOLDER — replace with photo of a class or coaching moment">
+    <img class="hero-img" src="https://images.unsplash.com/photo-1534438327276-14e5300c3a48?q=80&w=1200&auto=format&fit=crop" alt="PLACEHOLDER: replace with wide shot of the Elite Wellness gym floor">
+    <img class="hero-img" src="https://images.unsplash.com/photo-1517963879433-6ad2b056d712?q=80&w=1200&auto=format&fit=crop" alt="PLACEHOLDER: replace with photo of the outdoor training deck in use">
+    <img class="hero-img" src="https://images.unsplash.com/photo-1526506118085-60ce8714f8c5?q=80&w=1200&auto=format&fit=crop" alt="PLACEHOLDER: replace with photo of a class or coaching moment">
   </div>
 </section>
 
-<!-- ============ EQUIPMENT TICKER — the machines, at a glance ============ -->
+<!-- ============ EQUIPMENT TICKER: the machines, at a glance ============ -->
 <div class="equipment-ticker" aria-label="Equipment">
   <div class="ticker-content">
     Free weights &nbsp;//&nbsp; Resistance machines &nbsp;//&nbsp; Treadmills &nbsp;//&nbsp; Indoor bikes &nbsp;//&nbsp; Functional area &nbsp;//&nbsp; Outdoor training deck &nbsp;//&nbsp; Group classes &nbsp;//&nbsp;
@@ -320,7 +358,7 @@ body.show-grid .grid-overlay{display:block}
   </div>
 </div>
 
-<!-- ============ THE GYM — does it have what I train with ============ -->
+<!-- ============ THE GYM: does it have what I train with ============ -->
 <section class="section" id="gym">
   <div class="section-kicker">
     <h2 class="section-header">The gym</h2>
@@ -329,14 +367,14 @@ body.show-grid .grid-overlay{display:block}
   <div class="gym-cols">
     <div class="gym-col">
       <h3>Inside</h3>
-      <p>Free weights, resistance machines and cardio — treadmills and indoor bikes — plus a studio for classes. The floor was refitted in 2022, and full-height glass doors keep it bright with the air moving.</p>
+      <p>Free weights, resistance machines and cardio, including treadmills and indoor bikes, plus a studio for classes. The floor was refitted in 2022, and full height glass doors keep it bright with the air moving.</p>
     </div>
     <div class="gym-col">
       <h3>Outside</h3>
-      <p>A functional training deck and bikes in the garden. When the weather's good, training moves outdoors — that's how this gym started, and it never stopped.</p>
+      <p>A functional training deck and bikes in the garden. When the weather's good, training moves outdoors. That's how this gym started, and it never stopped.</p>
     </div>
   </div>
-  <p class="gym-note">[PLACEHOLDER — confirm equipment list and floor area post-remodel; add 2–3 real photos of the floor here]</p>
+  <p class="gym-note">[PLACEHOLDER: confirm the equipment list and floor area after the remodel, e.g. "12 resistance machines, dumbbells to 40 kg, 4 treadmills". Add 2 or 3 real photos of the floor here.]</p>
 </section>
 
 <!-- ============ CLASSES ============ -->
@@ -382,79 +420,90 @@ body.show-grid .grid-overlay{display:block}
       <h3 class="tt-title">This week</h3>
       <p class="tt-next" id="tt-next"></p>
     </div>
-    <table class="tt-table" id="tt-table" aria-label="Weekly class timetable"></table>
+    <div class="tt-clip"><table class="tt-table" id="tt-table" aria-label="Weekly class timetable"></table></div>
     <div class="tt-tabs" id="tt-tabs" role="tablist" aria-label="Choose a day"></div>
     <ul class="tt-list" id="tt-list"></ul>
     <noscript><p class="tt-foot"><a href="assets/timetable.webp">See the class timetable</a></p></noscript>
     <div class="tt-foot">
-      <span>Every class is included in every pass, day passes too. No booking needed.</span>
-      <span><a id="tt-poster" href="assets/timetable.webp" target="_blank" rel="noopener">See the poster</a>&nbsp;·&nbsp;<span id="tt-updated"></span></span>
+      <span>All classes are included in every pass. Just show up.</span>
+      <span class="tt-updated" id="tt-updated"></span>
     </div>
   </div>
 </section>
 
-<!-- ============ REVIEWS — what people say ============ -->
+<!-- ============ REVIEWS: rendered from reviews.js (see the note at the top of that file) ============ -->
 <section class="reviews-section" id="reviews">
-  <div class="reviews-score">4.8</div>
-  <div class="reviews-sub">from 153 Google reviews · the best-rated gym in Lagos</div>
-  <div class="review-quote">"The only place I've ever trained where the staff constantly walk the floor, offering advice."</div>
-  <div class="review-attrib">— Martin · Google review</div>
-  <div class="reviews-more">
-    <a class="link-strong" href="https://maps.app.goo.gl/u1Y17TLSevCZr2Tc9" target="_blank" rel="noopener">Read all 153 reviews on Google →</a>
+  <h2 class="section-header">Reviews</h2>
+  <p class="rv-rating"><a id="rv-summary" href="https://maps.app.goo.gl/ks6o4URGCYT7rzHJ8" target="_blank" rel="noopener"><span class="stars">★★★★★</span>&nbsp; <span id="rv-score">4.8 · 153 Google reviews</span></a></p>
+  <div class="marquee" aria-label="Google reviews">
+    <div class="marquee-row" id="rv-row-1"></div>
+    <div class="marquee-row reverse" id="rv-row-2"></div>
   </div>
+  <noscript><p class="rv-rating"><a href="https://maps.app.goo.gl/ks6o4URGCYT7rzHJ8">Read our reviews on Google</a></p></noscript>
 </section>
 
-<!-- ============ ABOUT — one short paragraph ============ -->
+<!-- ============ ABOUT: one short paragraph ============ -->
 <section class="about-band">
   <span class="section-script">since 2020</span>
-  <p>Elite Wellness is run by the Santos family — André, Joana and Ricardo, all qualified in physical education, and their father Jorge. It began as outdoor sessions on the Marina de Lagos during lockdown. The gym came later; the outdoor training never left.</p>
+  <p>Elite Wellness is run by the Santos family: André, Joana and Ricardo, all qualified in physical education, and their father Jorge. It began as outdoor sessions on the Marina de Lagos during lockdown. The gym came later; the outdoor training never left.</p>
 </section>
 
 <!-- ============ PRICES ============ -->
 <section class="section" id="prices" style="padding-top:2rem">
   <div class="section-kicker">
     <h2 class="section-header">Prices</h2>
-    <span class="section-script">no contract, ever</span>
+    <span class="section-script">no surprises</span>
   </div>
   <div class="pricing-grid">
     <div class="price-card">
       <h3>Day Pass</h3>
-      <div class="price-big">€10<span style="font-size:1.2rem">*</span></div>
-      <div class="price-sub">One day, full access</div>
+      <div class="price-big">€10</div>
+      <div class="price-sub">Single entry, full access</div>
       <p>Visiting Lagos? This one's yours.</p>
     </div>
     <div class="price-card">
       <h3>Week Pass</h3>
-      <div class="price-big">€29<span style="font-size:1.2rem">*</span></div>
+      <div class="price-big">€35.90</div>
       <div class="price-sub">Seven days, full access</div>
       <p>For a longer stay.</p>
     </div>
     <div class="price-card featured">
       <span class="badge-script">best value</span>
       <h3>Monthly</h3>
-      <div class="price-big">€19.90<span style="font-size:1.2rem">*</span></div>
-      <div class="price-sub">From, per month</div>
-      <p>Cancel any time.</p>
+      <div class="price-big">€21</div>
+      <div class="price-sub">Per month</div>
+      <p>3 month minimum. Insurance €24 a year, billed separately.</p>
     </div>
     <div class="price-card">
       <h3>Personal Training</h3>
-      <div class="price-big" style="font-size:3.2rem">Ask us</div>
-      <div class="price-sub">One-to-one coaching</div>
-      <p>Single sessions or blocks.</p>
+      <a class="price-big price-ask" href="https://wa.me/351926565836?text=Hi!%20I%27d%20like%20to%20ask%20about%20personal%20training." target="_blank" rel="noopener">Ask us</a>
+      <div class="price-sub">On WhatsApp</div>
+      <p>One to one coaching, single sessions or blocks.</p>
     </div>
   </div>
-  <p class="pricing-includes">Every pass includes the gym floor, all classes and the outdoor deck — plus a body assessment with a coach on your first visit. Bring a towel.</p>
-  <p class="pricing-walkin">No booking needed — pay at the door.</p>
-  <p class="pricing-note">* Final prices to be confirmed. [PLACEHOLDER]</p>
+  <div class="price-info">
+    <div>
+      <h4>Every pass includes</h4>
+      <p>The gym floor, all classes and the outdoor deck. Your first visit comes with a body assessment from a coach.</p>
+    </div>
+    <div>
+      <h4>Paying</h4>
+      <p>No booking needed. Pay at the desk, cash only.</p>
+    </div>
+    <div>
+      <h4>Bring</h4>
+      <p>Your own towel, water and trainers. Forgot something? Towels and locks are for sale at reception.</p>
+    </div>
+  </div>
 </section>
 
 <!-- ============ FIND US / HOURS ============ -->
 <section class="map-section" id="find-us">
-  <iframe class="map-frame" title="Map — Elite Wellness by Santos, Lagos" loading="lazy" referrerpolicy="no-referrer-when-downgrade" src="https://www.google.com/maps?q=Elite+Wellness+by+Santos,+Lagos,+Portugal&output=embed"></iframe>
+  <iframe class="map-frame" title="Map of Elite Wellness by Santos, Lagos" loading="lazy" referrerpolicy="no-referrer-when-downgrade" src="https://www.google.com/maps?q=Elite+Wellness+by+Santos,+Lagos,+Portugal&output=embed"></iframe>
   <div class="map-card">
     <h2>Where we are</h2>
     <address>Rua Capitão Salgueiro Maia, Lote 13, Cave<br>8600-530 Lagos, Algarve</address>
-    <p class="landmark">Opposite SPAR Ponta da Piedade. Parking on the street. Wheelchair-accessible entrance.</p>
+    <p class="landmark">Parking on the street. Wheelchair accessible entrance.</p>
     <div class="map-links">
       <a class="link-strong" href="https://maps.app.goo.gl/u1Y17TLSevCZr2Tc9" target="_blank" rel="noopener">Open in Google Maps →</a>
     </div>
@@ -462,12 +511,11 @@ body.show-grid .grid-overlay{display:block}
   <div class="hours-card">
     <h2>Open hours</h2>
     <ul class="hours-list">
-      <li><span>Monday – Friday</span><span>07:00 – 21:00</span></li>
-      <li><span>Saturday</span><span>09:00 – 13:00</span></li>
+      <li><span>Monday to Friday</span><span>07:00 to 21:00</span></li>
+      <li><span>Saturday</span><span>09:00 to 13:00</span></li>
       <li><span>Sunday</span><span class="closed">Closed</span></li>
-      <li><span>Public holidays</span><span class="closed">[PLACEHOLDER]</span></li>
+      <li><span>Public holidays</span><span class="closed">Closed</span></li>
     </ul>
-    <p class="hours-note">[PLACEHOLDER — confirm public-holiday hours]</p>
   </div>
 </section>
 
@@ -479,7 +527,11 @@ body.show-grid .grid-overlay{display:block}
   <div class="faq-grid" itemscope itemtype="https://schema.org/FAQPage">
     <details class="faq-item">
       <summary>Can I train without a membership?</summary>
-      <p>Yes — a day pass is €10, a week is €29. Walk in and pay at the desk.</p>
+      <p>Yes. A day pass is €10 and a week pass is €35.90. Walk in and pay at the desk. Cash only.</p>
+    </details>
+    <details class="faq-item">
+      <summary>Is there a minimum commitment?</summary>
+      <p>Not for day or week passes. The monthly membership (€21 a month) has a 3 month minimum, and there's a yearly insurance of €24, billed separately. <a href="https://wa.me/351926565836?text=Hi!%20I%27d%20like%20to%20ask%20about%20a%20monthly%20membership." target="_blank" rel="noopener">Ask us on WhatsApp</a>.</p>
     </details>
     <details class="faq-item">
       <summary>Do I need to book?</summary>
@@ -487,31 +539,31 @@ body.show-grid .grid-overlay{display:block}
     </details>
     <details class="faq-item">
       <summary>Do you speak English?</summary>
-      <p>Yes — English and Portuguese.</p>
+      <p>Yes, English and Portuguese.</p>
     </details>
     <details class="faq-item">
       <summary>Are there showers and lockers?</summary>
-      <p class="todo">[PLACEHOLDER — confirm and answer]</p>
+      <p>Yes. Showers and lockers in both changing rooms. The lockers need your own lock; if you don't have one, you can buy one at reception.</p>
     </details>
     <details class="faq-item">
       <summary>Do you provide towels?</summary>
-      <p>No — bring your own towel and a water bottle.</p>
+      <p>No. Bring your own towel, water and trainers. If you forget your towel, you can buy one at reception.</p>
     </details>
     <details class="faq-item">
       <summary>Is there air conditioning?</summary>
-      <p>No. The full-height glass doors open onto the outdoor deck, so the air moves — it's how the gym was designed.</p>
+      <p>No. The full height glass doors open onto the outdoor deck, so the air moves. It's how the gym was designed.</p>
     </details>
     <details class="faq-item">
       <summary>Do you have a squat rack?</summary>
-      <p>Smith machines and a full free-weight setup, but no power racks. <span class="todo">[PLACEHOLDER — confirm post-remodel]</span></p>
+      <p>Yes. Two squat racks, Smith machines and a full free weight setup.</p>
     </details>
     <details class="faq-item">
       <summary>Are you open on public holidays?</summary>
-      <p class="todo">[PLACEHOLDER — answer explicitly]</p>
+      <p>No. We're closed on all Portuguese public holidays and on Lagos's municipal holiday (27 October).</p>
     </details>
     <details class="faq-item">
       <summary>Do you do personal training?</summary>
-      <p>Yes — one-to-one with a qualified coach. Ask at the desk or message us for prices.</p>
+      <p>Yes, one to one with a qualified coach. <a href="https://wa.me/351926565836?text=Hi!%20I%27d%20like%20to%20ask%20about%20personal%20training." target="_blank" rel="noopener">Ask us on WhatsApp</a> for prices.</p>
     </details>
   </div>
 </section>
@@ -520,13 +572,12 @@ body.show-grid .grid-overlay{display:block}
 <footer class="footer-cta torn-top">
   <span class="cta-script">see you on the floor</span>
   <h2 class="cta-huge">Come train</h2>
-  <p class="cta-sub">Rua Capitão Salgueiro Maia, Lote 13, Lagos<br>Mon–Fri 07:00–21:00 · Sat 09:00–13:00</p>
+  <p class="cta-sub">Rua Capitão Salgueiro Maia, Lote 13, Lagos<br>Mon to Fri 07:00 to 21:00 · Sat 09:00 to 13:00</p>
   <a class="btn-main" href="https://maps.app.goo.gl/u1Y17TLSevCZr2Tc9" target="_blank" rel="noopener">Get directions</a>
   <div class="cta-secondary">
     <a href="https://wa.me/351926565836?text=Hi!%20I%20have%20a%20question%20about%20the%20gym." target="_blank" rel="noopener">Questions? WhatsApp us</a>
-    <a href="tel:+351926565836">Or call +351 926 565 836</a>
   </div>
-  <p class="cta-motto">Juntos Somos Elite — Together We Are Elite.</p>
+  <p class="cta-motto">Juntos Somos Elite. Together We Are Elite.</p>
 </footer>
 
 <!-- ============ FOOTER ============ -->
@@ -538,13 +589,12 @@ body.show-grid .grid-overlay{display:block}
     </div>
     <div>
       <h4>Contact</h4>
-      <a href="tel:+351926565836">+351 926 565 836</a>
-      <a href="https://wa.me/351926565836" target="_blank" rel="noopener">WhatsApp</a>
-      <a href="mailto:hello@example.com">[PLACEHOLDER — email]</a>
+      <a href="https://wa.me/351926565836?text=Hi!%20I%20have%20a%20question%20about%20the%20gym." target="_blank" rel="noopener">WhatsApp +351 926 565 836</a>
+      <a href="mailto:elitewellness.geral@gmail.com">elitewellness.geral@gmail.com</a>
     </div>
     <div>
       <h4>Hours</h4>
-      <p>Mon–Fri 07:00–21:00<br>Sat 09:00–13:00<br>Sun closed</p>
+      <p>Mon to Fri 07:00 to 21:00<br>Sat 09:00 to 13:00<br>Sun and public holidays closed</p>
     </div>
     <div>
       <h4>Follow</h4>
@@ -556,7 +606,7 @@ body.show-grid .grid-overlay{display:block}
   </div>
   <div class="footer-bottom">
     <span>© Elite Wellness by Santos · Lagos, Algarve, Portugal</span>
-    <span>Family-run since 2020</span>
+    <span>Family run since 2020</span>
   </div>
 </div>
 
@@ -572,6 +622,33 @@ body.show-grid .grid-overlay{display:block}
 })();
 </script>
 
+<script src="reviews.js"></script>
+<script>
+(function(){
+  var R=window.ELITE_REVIEWS; if(!R) return;
+  function esc(t){return String(t).replace(/[&<>"]/g,function(c){return{'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]})}
+  function card(r){
+    var n=Math.max(1,Math.min(5,Math.round(r.stars||5)));
+    return '<a class="rv-card" href="'+R.url+'" target="_blank" rel="noopener">'+
+      '<span class="rv-stars" aria-label="'+n+' out of 5 stars">'+'★★★★★'.slice(0,n)+'</span>'+
+      '<p class="rv-text">"'+esc(r.text)+'"</p>'+
+      '<div class="rv-who"><span class="rv-name">'+esc(r.name)+'</span><span class="rv-meta">Google review'+(r.note?' · '+esc(r.note):'')+'</span></div></a>';
+  }
+  var sm=document.getElementById('rv-summary'); sm.href=R.url;
+  document.getElementById('rv-score').textContent=R.rating+' · '+R.count+' Google reviews';
+  var rows=[document.getElementById('rv-row-1'),document.getElementById('rv-row-2')];
+  var sets=[[],[]]; R.reviews.forEach(function(r,i){sets[i%2].push(card(r))});
+  if(!sets[1].length) sets[1]=sets[0].slice();
+  rows.forEach(function(row,k){
+    var first=sets[k].join(''), hidden=first.replace(/<a /g,'<a aria-hidden="true" tabindex="-1" ');
+    var html=first, reps=1; row.innerHTML=html;
+    while(row.scrollWidth<window.innerWidth*1.2&&reps<20){html+=hidden;reps++;row.innerHTML=html}
+    var half=row.scrollWidth;
+    row.innerHTML=html+Array(reps+1).join(hidden);
+    row.style.setProperty('--rv-dur',Math.round(half/32)+'s');
+  });
+})();
+</script>
 <script src="schedule.js"></script>
 <script>
 (function(){
@@ -606,8 +683,7 @@ body.show-grid .grid-overlay{display:block}
 
   function cellHTML(x,flag){
     var c=info(x);
-    return (flag?'<span class="tt-flag">Next</span>':'')+
-      '<div class="tt-name">'+esc(c.name)+(x.isNew?'<span class="tt-new">new!</span>':'')+'</div>'+
+    return '<div class="tt-name">'+esc(c.name)+(flag?'<span class="tt-flag">Next</span>':'')+(x.isNew?'<span class="tt-new">new!</span>':'')+'</div>'+
       '<div class="tt-desc">'+esc(c.en||'')+'</div>';
   }
   function dur(t){var x=sessions.find(function(s){return s.time===t});return x&&x.minutes?x.minutes+' min':''}
@@ -641,7 +717,6 @@ body.show-grid .grid-overlay{display:block}
   showDay(days.indexOf(today)>-1?today:(next?next.day:days[0]));
 
   // footer
-  if(S.poster) document.getElementById('tt-poster').href=S.poster;
   if(S.updated){var u=new Date(S.updated+'T12:00:00');document.getElementById('tt-updated').textContent='Updated '+u.toLocaleDateString('en-GB',{day:'numeric',month:'long',year:'numeric'});}
 })();
 </script>
