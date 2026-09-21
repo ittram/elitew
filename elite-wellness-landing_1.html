@@ -111,8 +111,10 @@ body.show-grid .grid-overlay{display:block}
 .tt-title{font-family:var(--font-display);font-size:48px;line-height:48px;text-transform:uppercase}
 .tt-next{margin-top:16px;font-weight:800;font-size:12px;line-height:16px;letter-spacing:.12em;text-transform:uppercase;color:rgba(255,255,255,.75)}
 .tt-next b{color:var(--white)}
-.tt-table{width:calc(100% + 48px);margin:0 -24px;border-collapse:separate;border-spacing:24px 0;table-layout:fixed}
-.tt-table th,.tt-table td{padding:16px;text-align:left;vertical-align:top;box-shadow:inset 0 1px 0 rgba(255,255,255,.25)}
+.tt-clip{overflow:hidden}
+.tt-table{width:calc(100% + 24px);margin:0 -12px;border-collapse:collapse;table-layout:fixed}
+.tt-table th,.tt-table td{padding:16px 12px;text-align:left;vertical-align:top;border-left:1px solid rgba(255,255,255,.25);box-shadow:inset 0 1px 0 rgba(255,255,255,.25)}
+.tt-table th:first-child,.tt-table td:first-child{border-left:0}
 .tt-table thead th{height:72px;font-family:var(--font-display);font-weight:400;font-size:24px;line-height:24px;text-transform:uppercase;letter-spacing:.04em;box-shadow:inset 0 -2px 0 rgba(255,255,255,.5)}
 .tt-table thead th.is-today{background:var(--white);color:var(--royal-blue);box-shadow:none}
 .tt-table thead th small{display:block;font-family:var(--font-body);font-weight:800;font-size:10px;line-height:16px;letter-spacing:.12em}
@@ -125,7 +127,7 @@ body.show-grid .grid-overlay{display:block}
 .tt-desc{font-weight:700;font-size:11px;line-height:16px;letter-spacing:.1em;text-transform:uppercase;opacity:.7}
 .tt-new{display:inline-block;margin-left:8px;font-family:var(--font-script);font-size:12px;line-height:16px;transform:rotate(-4deg);color:var(--white)}
 .tt-cell.is-next .tt-new{color:var(--royal-blue)}
-.tt-flag{display:block;width:max-content;margin-bottom:8px;background:var(--royal-blue);color:var(--white);font-weight:800;font-size:10px;line-height:16px;letter-spacing:.12em;text-transform:uppercase;padding:0 8px}
+.tt-flag{display:inline-block;vertical-align:middle;margin:-4px 0 0 8px;background:var(--royal-blue);color:var(--white);font-family:var(--font-body);font-weight:800;font-size:10px;line-height:16px;letter-spacing:.12em;text-transform:uppercase;padding:0 8px}
 .tt-tabs,.tt-list{display:none}
 .sr-only{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap}
 .tt-foot{margin-top:32px;display:flex;justify-content:space-between;flex-wrap:wrap;gap:16px;font-size:14px;line-height:24px;color:rgba(255,255,255,.85)}
@@ -232,7 +234,7 @@ body.show-grid .grid-overlay{display:block}
   .pricing-grid{grid-template-columns:repeat(2,1fr)}
   .classes-grid{grid-template-columns:repeat(2,1fr)}
   .classes-grid .class-card{grid-column:auto}
-  .tt-table th,.tt-table td{padding:16px 8px}
+  .tt-table th,.tt-table td{padding:16px 12px}
   .tt-name{font-size:20px;line-height:32px}
   .hours-card{position:static;width:auto;margin:2rem 4rem}
   .map-card{position:static;max-width:none;margin:2rem 4rem 0}
@@ -313,11 +315,9 @@ body.show-grid .grid-overlay{display:block}
     <img class="logo-img" src="assets/elite-wellness-logo.png" alt="Elite Wellness by Santos" width="720" height="277">
   </a>
   <nav>
-    <a class="nav-link" href="#gym">The Gym</a>
-    <a class="nav-link" href="#classes">Classes</a>
-    <a class="nav-link" href="#reviews">Reviews</a>
+    <a class="nav-link" href="#timetable">Timetable</a>
     <a class="nav-link" href="#prices">Prices</a>
-    <a class="nav-link" href="#find-us">Find Us</a>
+    <a class="nav-link" href="#find-us">Location</a>
     <span class="lang-toggle"><a class="active" href="#">EN</a> <span class="inactive">|</span> <a class="inactive" href="/pt">PT</a></span>
     <a class="nav-cta" href="#prices">Join</a>
   </nav>
@@ -407,7 +407,7 @@ body.show-grid .grid-overlay{display:block}
       <h3 class="tt-title">This week</h3>
       <p class="tt-next" id="tt-next"></p>
     </div>
-    <table class="tt-table" id="tt-table" aria-label="Weekly class timetable"></table>
+    <div class="tt-clip"><table class="tt-table" id="tt-table" aria-label="Weekly class timetable"></table></div>
     <div class="tt-tabs" id="tt-tabs" role="tablist" aria-label="Choose a day"></div>
     <ul class="tt-list" id="tt-list"></ul>
     <noscript><p class="tt-foot"><a href="assets/timetable.webp">See the class timetable</a></p></noscript>
@@ -671,8 +671,7 @@ body.show-grid .grid-overlay{display:block}
 
   function cellHTML(x,flag){
     var c=info(x);
-    return (flag?'<span class="tt-flag">Next</span>':'')+
-      '<div class="tt-name">'+esc(c.name)+(x.isNew?'<span class="tt-new">new!</span>':'')+'</div>'+
+    return '<div class="tt-name">'+esc(c.name)+(flag?'<span class="tt-flag">Next</span>':'')+(x.isNew?'<span class="tt-new">new!</span>':'')+'</div>'+
       '<div class="tt-desc">'+esc(c.en||'')+'</div>';
   }
   function dur(t){var x=sessions.find(function(s){return s.time===t});return x&&x.minutes?x.minutes+' min':''}
