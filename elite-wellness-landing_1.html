@@ -98,8 +98,35 @@ body.show-grid .grid-overlay{display:block}
 .class-overlay{position:absolute;bottom:0;left:0;width:100%;padding:1.5rem;background:linear-gradient(transparent,rgba(0,0,0,.9))}
 .class-name{font-family:var(--font-display);font-size:2.1rem;color:var(--white);text-transform:uppercase;line-height:1}
 .class-tag{font-family:var(--font-body);font-weight:700;font-size:.75rem;letter-spacing:.12em;text-transform:uppercase;color:rgba(255,255,255,.75);margin-top:.4rem}
-.classes-note{max-width:1400px;margin:2.5rem auto 0;text-align:center;color:rgba(255,255,255,.85);font-size:1.05rem;line-height:1.6}
-.classes-note .todo{display:block;margin-top:.8rem;font-family:var(--font-script);color:rgba(255,255,255,.5);font-size:.95rem}
+/* ---------- timetable (data in schedule.js) ---------- */
+.tt{margin-top:96px;color:var(--white)}
+.tt-head{text-align:center;margin-bottom:32px}
+.tt-title{font-family:var(--font-display);font-size:48px;line-height:48px;text-transform:uppercase}
+.tt-next{margin-top:16px;font-weight:800;font-size:12px;line-height:16px;letter-spacing:.12em;text-transform:uppercase;color:rgba(255,255,255,.75)}
+.tt-next b{color:var(--white)}
+.tt-table{width:100%;border-collapse:collapse;table-layout:fixed}
+.tt-table th,.tt-table td{border:1px solid rgba(255,255,255,.25);padding:16px;text-align:left;vertical-align:top}
+.tt-table thead th{font-family:var(--font-display);font-weight:400;font-size:20px;line-height:24px;text-transform:uppercase;letter-spacing:.04em;border-top:0;border-bottom:2px solid rgba(255,255,255,.5)}
+.tt-table thead th.is-today{background:var(--white);color:var(--royal-blue)}
+.tt-table thead th small{display:block;font-family:var(--font-body);font-weight:800;font-size:10px;line-height:12px;letter-spacing:.12em;margin-top:4px}
+.tt-table th:first-child,.tt-table td:first-child{border-left:0}
+.tt-table th:last-child,.tt-table td:last-child{border-right:0}
+.tt-table tbody tr:last-child td,.tt-table tbody tr:last-child th{border-bottom:0}
+.tt-time{width:128px}
+.tt-time b{display:block;font-family:var(--font-display);font-weight:400;font-size:24px;line-height:28px}
+.tt-time span{display:block;font-size:12px;line-height:16px;font-weight:700;color:rgba(255,255,255,.65);margin-top:4px}
+.tt-cell.is-today{background:rgba(255,255,255,.08)}
+.tt-cell.is-next{background:var(--white);color:var(--royal-blue)}
+.tt-name{font-family:var(--font-display);font-size:24px;line-height:28px;text-transform:uppercase}
+.tt-desc{margin-top:4px;font-weight:700;font-size:11px;line-height:16px;letter-spacing:.1em;text-transform:uppercase;opacity:.7}
+.tt-new{display:inline-block;margin-left:8px;font-family:var(--font-script);font-size:12px;line-height:16px;transform:rotate(-4deg);color:var(--white)}
+.tt-cell.is-next .tt-new{color:var(--royal-blue)}
+.tt-flag{display:inline-block;margin-bottom:8px;background:var(--royal-blue);color:var(--white);font-weight:800;font-size:10px;line-height:12px;letter-spacing:.12em;text-transform:uppercase;padding:4px 8px}
+.tt-tabs,.tt-list{display:none}
+.sr-only{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap}
+.tt-foot{margin-top:32px;display:flex;justify-content:space-between;flex-wrap:wrap;gap:16px;font-size:14px;line-height:20px;color:rgba(255,255,255,.85)}
+.tt-foot a{color:var(--white);font-weight:800;text-decoration:none;border-bottom:2px solid rgba(255,255,255,.5)}
+.tt-foot a:hover{border-color:var(--white)}
 
 /* ---------- reviews ---------- */
 .reviews-section{background:var(--off-white);padding:8rem 4rem;text-align:center}
@@ -182,6 +209,9 @@ body.show-grid .grid-overlay{display:block}
 @media (max-width:1100px){
   .pricing-grid{grid-template-columns:repeat(2,1fr)}
   .classes-grid{grid-template-columns:repeat(2,1fr)}
+  .tt-time{width:96px}
+  .tt-table th,.tt-table td{padding:12px}
+  .tt-name{font-size:20px;line-height:24px}
   .hours-card{position:static;width:auto;margin:2rem 4rem}
   .map-card{position:static;max-width:none;margin:2rem 4rem 0}
   .map-section{padding-bottom:3rem}
@@ -195,6 +225,19 @@ body.show-grid .grid-overlay{display:block}
   .lang-toggle{font-size:.68rem;letter-spacing:.04em;white-space:nowrap}
   .nav-cta{padding:8px 16px;font-size:.8rem;white-space:nowrap}
   .section,.classes-section,.reviews-section,.faq-section,.about-band{padding:4rem 1.5rem}
+  .tt{margin-top:64px}
+  .tt-title{font-size:32px;line-height:36px}
+  .tt-table{display:none}
+  .tt-tabs{display:grid;grid-template-columns:repeat(5,1fr);gap:4px;margin-bottom:16px}
+  .tt-tabs button{appearance:none;border:2px solid rgba(255,255,255,.5);background:transparent;color:var(--white);font-family:var(--font-display);font-size:16px;line-height:20px;text-transform:uppercase;padding:8px 0;cursor:pointer}
+  .tt-tabs button[aria-selected="true"]{background:var(--white);color:var(--royal-blue);border-color:var(--white)}
+  .tt-list{display:block;list-style:none}
+  .tt-list li{display:grid;grid-template-columns:72px 1fr;gap:16px;padding:16px 12px;border-bottom:1px solid rgba(255,255,255,.25)}
+  .tt-list li.is-next{background:var(--white);color:var(--royal-blue)}
+  .tt-list li.is-next .tt-new{color:var(--royal-blue)}
+  .tt-list .tt-time{width:auto}
+  .tt-list li.is-next .tt-time span{color:var(--royal-blue)}
+  .tt-foot{flex-direction:column}
   .hero{padding-top:48px}
   .hero-grid{grid-template-columns:repeat(4,1fr);column-gap:16px;padding:0 1.5rem}
   .hero-title{font-size:20vw}
@@ -304,37 +347,50 @@ body.show-grid .grid-overlay{display:block}
   </div>
   <div class="classes-grid">
     <div class="class-card">
-      <img class="class-img" src="https://images.unsplash.com/photo-1518611012118-696072aa579a?q=80&w=800&auto=format&fit=crop" alt="PLACEHOLDER — Super Bike Elite class photo">
+      <img class="class-img" src="https://images.unsplash.com/photo-1533560904424-a0c61dc306fc?q=80&w=800&auto=format&fit=crop" alt="PLACEHOLDER: replace with a real HYROX class photo">
       <div class="class-overlay">
-        <div class="class-name">Super Bike Elite</div>
+        <div class="class-name">HYROX</div>
+        <div class="class-tag">Hybrid training</div>
+      </div>
+    </div>
+    <div class="class-card">
+      <img class="class-img" src="https://images.unsplash.com/photo-1571019614242-c5c5dee9f50b?q=80&w=800&auto=format&fit=crop" alt="PLACEHOLDER: replace with a real TRX class photo">
+      <div class="class-overlay">
+        <div class="class-name">TRX</div>
+        <div class="class-tag">Suspension training</div>
+      </div>
+    </div>
+    <div class="class-card">
+      <img class="class-img" src="https://images.unsplash.com/photo-1583454110551-21f2fa2afe61?q=80&w=800&auto=format&fit=crop" alt="PLACEHOLDER: replace with a real GAP class photo">
+      <div class="class-overlay">
+        <div class="class-name">GAP</div>
+        <div class="class-tag">Glutes, abs and legs</div>
+      </div>
+    </div>
+    <div class="class-card">
+      <img class="class-img" src="https://images.unsplash.com/photo-1518611012118-696072aa579a?q=80&w=800&auto=format&fit=crop" alt="PLACEHOLDER: replace with a real Bike Elite class photo">
+      <div class="class-overlay">
+        <div class="class-name">Bike Elite</div>
         <div class="class-tag">Indoor cycling</div>
       </div>
     </div>
-    <div class="class-card">
-      <img class="class-img" src="https://images.unsplash.com/photo-1571019614242-c5c5dee9f50b?q=80&w=800&auto=format&fit=crop" alt="PLACEHOLDER — Outdoor HIIT circuit photo">
-      <div class="class-overlay">
-        <div class="class-name">Outdoor HIIT</div>
-        <div class="class-tag">On the deck</div>
-      </div>
+  </div>
+
+  <!-- Weekly timetable: rendered from schedule.js. To update, see TIMETABLE.md -->
+  <div class="tt" id="timetable">
+    <div class="tt-head">
+      <h3 class="tt-title">This week</h3>
+      <p class="tt-next" id="tt-next"></p>
     </div>
-    <div class="class-card">
-      <img class="class-img" src="https://images.unsplash.com/photo-1533560904424-a0c61dc306fc?q=80&w=800&auto=format&fit=crop" alt="PLACEHOLDER — Elite Cross Training class photo">
-      <div class="class-overlay">
-        <div class="class-name">Cross Training</div>
-        <div class="class-tag">Strength &amp; conditioning</div>
-      </div>
-    </div>
-    <div class="class-card">
-      <img class="class-img" src="https://images.unsplash.com/photo-1583454110551-21f2fa2afe61?q=80&w=800&auto=format&fit=crop" alt="PLACEHOLDER — group class photo">
-      <div class="class-overlay">
-        <div class="class-name">&amp; More</div>
-        <div class="class-tag">Full timetable below</div>
-      </div>
+    <table class="tt-table" id="tt-table" aria-label="Weekly class timetable"></table>
+    <div class="tt-tabs" id="tt-tabs" role="tablist" aria-label="Choose a day"></div>
+    <ul class="tt-list" id="tt-list"></ul>
+    <noscript><p class="tt-foot"><a href="assets/timetable.webp">See the class timetable</a></p></noscript>
+    <div class="tt-foot">
+      <span>Every class is included in every pass, day passes too. No booking needed.</span>
+      <span><a id="tt-poster" href="assets/timetable.webp" target="_blank" rel="noopener">See the poster</a>&nbsp;·&nbsp;<span id="tt-updated"></span></span>
     </div>
   </div>
-  <p class="classes-note">Every class is included in every pass — day passes too.
-    <span class="todo">[PLACEHOLDER — weekly timetable goes here once supplied]</span>
-  </p>
 </section>
 
 <!-- ============ REVIEWS — what people say ============ -->
@@ -513,6 +569,80 @@ body.show-grid .grid-overlay{display:block}
     b.textContent=innerWidth>768?'12 col / 24px gutters / 4px baseline':'4 col / 16px gutters / 4px baseline';
     document.body.appendChild(b);
   }
+})();
+</script>
+
+<script src="schedule.js"></script>
+<script>
+(function(){
+  var S=window.ELITE_SCHEDULE; if(!S) return;
+  var DAYS=['mon','tue','wed','thu','fri','sat','sun'];
+  var NAMES={mon:'Mon',tue:'Tue',wed:'Wed',thu:'Thu',fri:'Fri',sat:'Sat',sun:'Sun'};
+  var LONG={mon:'Monday',tue:'Tuesday',wed:'Wednesday',thu:'Thursday',fri:'Friday',sat:'Saturday',sun:'Sunday'};
+  var sessions=S.sessions.slice().sort(function(a,b){return DAYS.indexOf(a.day)-DAYS.indexOf(b.day)||a.time.localeCompare(b.time)});
+  var days=DAYS.filter(function(d){return sessions.some(function(x){return x.day===d})});
+  var times=Array.from(new Set(sessions.map(function(x){return x.time}))).sort();
+  function esc(t){return String(t).replace(/[&<>"]/g,function(c){return{'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]})}
+  function info(x){var c=S.classes[x.class]||{name:x.class,en:''};return c}
+
+  // current time in Lisbon
+  var parts={};new Intl.DateTimeFormat('en-GB',{timeZone:'Europe/Lisbon',weekday:'short',hour:'2-digit',minute:'2-digit',hour12:false}).formatToParts(new Date()).forEach(function(p){parts[p.type]=p.value});
+  var today=(parts.weekday||'').toLowerCase().slice(0,3);
+  var nowHM=(parts.hour==='24'?'00':parts.hour)+':'+parts.minute;
+
+  // next class from now, wrapping to next week
+  var ti=DAYS.indexOf(today), next=null;
+  for(var k=0;k<8&&!next;k++){
+    var d=DAYS[(ti+k)%7];
+    next=sessions.find(function(x){return x.day===d&&(k>0||x.time>nowHM)})||null;
+  }
+  function when(x){
+    if(x.day===today) return 'Today';
+    if(DAYS[(ti+1)%7]===x.day) return 'Tomorrow';
+    return LONG[x.day];
+  }
+  var nextEl=document.getElementById('tt-next');
+  if(next) nextEl.innerHTML='Next class: <b>'+when(next)+' '+next.time+' · '+esc(info(next).name)+'</b>';
+
+  function cellHTML(x,flag){
+    var c=info(x);
+    return (flag?'<span class="tt-flag">Next</span>':'')+
+      '<div class="tt-name">'+esc(c.name)+(x.isNew?'<span class="tt-new">new!</span>':'')+'</div>'+
+      '<div class="tt-desc">'+esc(c.en||'')+'</div>';
+  }
+  function dur(t){var x=sessions.find(function(s){return s.time===t});return x&&x.minutes?x.minutes+' min':''}
+
+  // desktop table
+  var h='<thead><tr><th class="tt-time" scope="col"><span class="sr-only">Time</span></th>';
+  days.forEach(function(d){h+='<th scope="col"'+(d===today?' class="is-today"':'')+'>'+LONG[d]+(d===today?'<small>Today</small>':'')+'</th>'});
+  h+='</tr></thead><tbody>';
+  times.forEach(function(t){
+    h+='<tr><th class="tt-time" scope="row"><b>'+t+'</b><span>'+dur(t)+'</span></th>';
+    days.forEach(function(d){
+      var x=sessions.find(function(s){return s.day===d&&s.time===t});
+      var isNext=x&&next&&x===next;
+      h+='<td class="tt-cell'+(d===today?' is-today':'')+(isNext?' is-next':'')+'">'+(x?cellHTML(x,isNext):'')+'</td>';
+    });
+    h+='</tr>';
+  });
+  document.getElementById('tt-table').innerHTML=h+'</tbody>';
+
+  // mobile tabs + list
+  var tabs=document.getElementById('tt-tabs'), list=document.getElementById('tt-list');
+  function showDay(d){
+    Array.prototype.forEach.call(tabs.children,function(b){b.setAttribute('aria-selected',b.dataset.day===d?'true':'false')});
+    list.innerHTML=sessions.filter(function(x){return x.day===d}).map(function(x){
+      var isNext=next&&x===next;
+      return '<li class="'+(isNext?'is-next':'')+'"><div class="tt-time"><b>'+x.time+'</b><span>'+(x.minutes?x.minutes+' min':'')+'</span></div><div>'+cellHTML(x,isNext)+'</div></li>';
+    }).join('');
+  }
+  tabs.innerHTML=days.map(function(d){return '<button type="button" role="tab" data-day="'+d+'">'+NAMES[d]+'</button>'}).join('');
+  tabs.addEventListener('click',function(e){var b=e.target.closest('button');if(b)showDay(b.dataset.day)});
+  showDay(days.indexOf(today)>-1?today:(next?next.day:days[0]));
+
+  // footer
+  if(S.poster) document.getElementById('tt-poster').href=S.poster;
+  if(S.updated){var u=new Date(S.updated+'T12:00:00');document.getElementById('tt-updated').textContent='Updated '+u.toLocaleDateString('en-GB',{day:'numeric',month:'long',year:'numeric'});}
 })();
 </script>
 
