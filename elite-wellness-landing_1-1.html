@@ -299,7 +299,7 @@ body.show-grid .grid-overlay{display:block}
   .hero-grid{grid-template-columns:repeat(4,1fr);column-gap:16px;padding:0 1.5rem}
   .hero-title{font-size:20vw;line-height:calc(.865em + 6px)}
   .hero-sub,.hero-rating{grid-column:1 / -1}
-  .hero-sub{margin-top:32px;font-size:16px;line-height:24px}
+  .hero-sub{margin-top:32px;font-size:clamp(13px,calc((100vw - 48px) * .0435),16px);line-height:24px;text-wrap:balance}
   .hero-image-strip{margin-top:48px}
   .grid-overlay-cols{grid-template-columns:repeat(4,1fr);column-gap:16px;padding:0 1.5rem}
   .grid-overlay-cols div:nth-child(n+5){display:none}

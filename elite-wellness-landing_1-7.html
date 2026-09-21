@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Draft 1.5 (the best hour) | Gym in Lagos, Algarve | Elite Wellness by Santos | Day Passes &amp; Memberships</title>
+<title>Draft 1.7 (round language button, mobile menu) | Gym in Lagos, Algarve | Elite Wellness by Santos | Day Passes &amp; Memberships</title>
 <meta name="description" content="Family run gym in Lagos, Portugal. Weights, machines, classes and an outdoor training deck. Day pass €10, week pass €35.90, monthly from €21. Open Mon to Fri 7:00 to 21:00, Sat 9:00 to 13:00.">
 <link rel="alternate" hreflang="en" href="https://example.com/">
 <link rel="alternate" hreflang="pt-PT" href="https://example.com/pt">
@@ -320,24 +320,45 @@ body.show-grid .grid-overlay{display:block}
   .hero-image-strip{height:200px}
 }
 
-/* ---------- headline motion (review versions 1.2 to 1.6) ----------
-   One pass after load, then it settles. Reduced motion shows the final
-   state. Scrolling jumps to the final state. Click the headline to replay. */
-.hero-title{--hl:calc(.865em + 7px);line-height:var(--hl);cursor:default}
-.roll{display:inline-block;vertical-align:top;position:relative;overflow:hidden;height:var(--hl);white-space:nowrap}
-.roll.ready{transition:width .55s cubic-bezier(.2,.8,.2,1)}
-.roll-stack{display:block;will-change:transform}
-.roll.ready .roll-stack{transition:transform .55s cubic-bezier(.2,.8,.2,1)}
-.roll-word{display:block;height:var(--hl);text-align:center;white-space:nowrap}
-.roll.fade .roll-word{position:absolute;top:0;left:50%;transform:translateX(-50%);opacity:0;transition:opacity .7s ease}
-.roll.fade .roll-word.on{opacity:1}
-.ch{display:inline-block;white-space:pre}
-.settle .ch{animation:settle .7s cubic-bezier(.2,.8,.2,1) both;animation-delay:calc(var(--i) * 28ms + 150ms)}
-@keyframes settle{from{transform:translateY(.14em);opacity:0}to{transform:none;opacity:1}}
-@media (prefers-reduced-motion:reduce){.settle .ch{animation:none}}
-.hero-title{font-size:11.5vw}
-@media (max-width:768px){.hero-title{font-size:15vw}}
-@media (max-width:768px){.hero-title{--hl:calc(.865em + 6px)}}
+/* ---------- 1.7: round language button + mobile menu ---------- */
+.lang-btn{position:relative;flex:0 0 40px;width:40px;height:40px;border-radius:50%;border:2px solid var(--royal-blue);background:var(--white);color:var(--royal-blue);font-family:var(--font-body);font-weight:800;font-size:12px;letter-spacing:.08em;line-height:1;display:inline-flex;align-items:center;justify-content:center;cursor:pointer;transition:background .2s,color .2s}
+.lang-btn::before{content:'';position:absolute;inset:-6px;border-radius:50%}
+.lang-btn:hover,.lang-btn:focus-visible{background:var(--royal-blue);color:var(--white);outline:none}
+.lang-btn.swap{animation:lang-swap .4s cubic-bezier(.2,.8,.2,1)}
+@keyframes lang-swap{0%{transform:rotateY(0)}50%{transform:rotateY(90deg)}100%{transform:rotateY(0)}}
+.menu-btn{display:none;position:relative;width:52px;height:36px;border:0;padding:0;background:var(--royal-blue);clip-path:polygon(8% 0%,100% 0%,92% 100%,0% 100%);cursor:pointer;flex-direction:column;align-items:center;justify-content:center;gap:5px}
+.menu-btn span{display:block;width:20px;height:3px;background:var(--white);transition:transform .3s cubic-bezier(.2,.8,.2,1),opacity .2s}
+.menu-open .menu-btn span:nth-child(1){transform:translateY(8px) rotate(45deg)}
+.menu-open .menu-btn span:nth-child(2){opacity:0}
+.menu-open .menu-btn span:nth-child(3){transform:translateY(-8px) rotate(-45deg)}
+.menu{position:fixed;inset:0;z-index:99;background:var(--royal-blue);color:var(--white);visibility:hidden;clip-path:inset(0 0 100% 0);transition:clip-path .45s cubic-bezier(.2,.8,.2,1),visibility 0s linear .45s;overflow-y:auto}
+.menu-open .menu{visibility:visible;clip-path:inset(0 0 0 0);transition:clip-path .45s cubic-bezier(.2,.8,.2,1)}
+.menu-inner{padding:88px 24px 40px;min-height:100%;display:flex;flex-direction:column}
+.menu-status{font-weight:800;font-size:12px;line-height:16px;letter-spacing:.12em;text-transform:uppercase;color:rgba(255,255,255,.75);margin-bottom:16px}
+.menu-status b{color:var(--white)}
+.menu-status .dot{display:inline-block;width:8px;height:8px;border-radius:50%;background:#7CE38B;margin-right:8px;vertical-align:1px}
+.menu-status.closed .dot{background:rgba(255,255,255,.5)}
+.menu-links{list-style:none;border-top:1px solid rgba(255,255,255,.25)}
+.menu-links li{border-bottom:1px solid rgba(255,255,255,.25)}
+.menu-links a{display:grid;grid-template-columns:32px 1fr;column-gap:8px;padding:16px 0;color:var(--white);text-decoration:none}
+.mn{grid-row:1 / span 2;font-weight:800;font-size:12px;line-height:32px;color:rgba(255,255,255,.6)}
+.ml{font-family:var(--font-display);font-size:32px;line-height:32px;text-transform:uppercase}
+.ms{font-size:13px;line-height:20px;color:rgba(255,255,255,.75);margin-top:4px}
+.menu-actions{display:grid;grid-template-columns:1fr 1fr;gap:16px;margin-top:32px}
+.menu-cta{display:flex;align-items:center;justify-content:center;height:48px;background:var(--white);color:var(--royal-blue);font-family:var(--font-display);font-size:18px;text-transform:uppercase;text-decoration:none;clip-path:polygon(4% 0%,100% 0%,96% 100%,0% 100%)}
+.menu-cta.ghost{background:transparent;color:var(--white);clip-path:none;box-shadow:inset 0 0 0 2px var(--white)}
+.menu-open .menu-links li,.menu-open .menu-status,.menu-open .menu-actions{animation:menu-in .5s cubic-bezier(.2,.8,.2,1) both}
+.menu-open .menu-links li:nth-child(1){animation-delay:.08s}.menu-open .menu-links li:nth-child(2){animation-delay:.12s}.menu-open .menu-links li:nth-child(3){animation-delay:.16s}.menu-open .menu-links li:nth-child(4){animation-delay:.2s}.menu-open .menu-links li:nth-child(5){animation-delay:.24s}.menu-open .menu-actions{animation-delay:.28s}
+@keyframes menu-in{from{opacity:0;transform:translateY(12px)}to{opacity:1;transform:none}}
+@media (prefers-reduced-motion:reduce){.menu,.menu-open .menu{transition:none}.menu-open .menu-links li,.menu-open .menu-status,.menu-open .menu-actions,.lang-btn.swap{animation:none}}
+@media (max-width:768px){
+  header{padding-top:6px;padding-bottom:6px}
+  .nav-cta{display:none}
+  .menu-btn{display:inline-flex}
+  .lang-btn{flex-basis:36px;width:36px;height:36px;font-size:11px}
+  nav{gap:12px}
+}
+@media (min-width:769px){.menu{display:none}}
 </style>
 <script type="application/ld+json">
 {
@@ -373,16 +394,36 @@ body.show-grid .grid-overlay{display:block}
     <a class="nav-link" href="#timetable">Timetable</a>
     <a class="nav-link" href="#prices">Prices</a>
     <a class="nav-link" href="#find-us">Location</a>
-    <span class="lang-toggle"><a class="active" href="#">EN</a> <span class="inactive">|</span> <a class="inactive" href="/pt">PT</a></span>
+    <!-- on the live site this links to the Portuguese page (/pt); here it toggles to demo the interaction -->
+    <button class="lang-btn" type="button" id="lang-btn" aria-label="Mudar para português">PT</button>
     <a class="nav-cta" href="#prices">Join</a>
+    <button class="menu-btn" type="button" id="menu-btn" aria-label="Open menu" aria-expanded="false" aria-controls="menu"><span></span><span></span><span></span></button>
   </nav>
 </header>
+
+<!-- ============ MOBILE MENU: fast routes to what people look for ============ -->
+<div class="menu" id="menu" aria-hidden="true">
+  <div class="menu-inner">
+    <p class="menu-status" id="menu-status"></p>
+    <ol class="menu-links">
+      <li><a href="#timetable"><span class="mn">01</span><span class="ml">Timetable</span><span class="ms">This week's classes</span></a></li>
+      <li><a href="#prices"><span class="mn">02</span><span class="ml">Prices</span><span class="ms">Day pass €10 · Monthly €21</span></a></li>
+      <li><a href="#find-us"><span class="mn">03</span><span class="ml">Hours &amp; location</span><span class="ms">Rua Capitão Salgueiro Maia, Lagos</span></a></li>
+      <li><a href="#reviews"><span class="mn">04</span><span class="ml">Reviews</span><span class="ms">4.8 from 153 on Google</span></a></li>
+      <li><a href="#faq"><span class="mn">05</span><span class="ml">Good to know</span><span class="ms">Showers, towels, payment</span></a></li>
+    </ol>
+    <div class="menu-actions">
+      <a class="menu-cta" href="https://wa.me/351926565836?text=Hi!%20I%20have%20a%20question%20about%20the%20gym." target="_blank" rel="noopener">WhatsApp us</a>
+      <a class="menu-cta ghost" href="https://maps.app.goo.gl/ks6o4URGCYT7rzHJ8" target="_blank" rel="noopener">Directions</a>
+    </div>
+  </div>
+</div>
 
 <!-- ============ HERO: there is a gym, and here's what it looks like ============ -->
 <section class="hero" id="top">
   <div class="hero-grid">
     <p class="hero-rating"><a href="https://maps.app.goo.gl/ks6o4URGCYT7rzHJ8" target="_blank" rel="noopener" aria-label="4.8 out of 5 from 153 Google reviews, opens Google Maps in a new tab"><span class="stars">★★★★★</span>&nbsp; 4.8 · 153 Google reviews</a></p>
-    <h1 class="hero-title" title="Click to replay"><span class="sr-only">The best hour of your day</span><span aria-hidden="true"><span class="settle"><span class="ch" style="--i:0">T</span><span class="ch" style="--i:1">h</span><span class="ch" style="--i:2">e</span><span class="ch" style="--i:3"> </span><span class="ch" style="--i:4">b</span><span class="ch" style="--i:5">e</span><span class="ch" style="--i:6">s</span><span class="ch" style="--i:7">t</span><span class="ch" style="--i:8"> </span><span class="ch" style="--i:9">h</span><span class="ch" style="--i:10">o</span><span class="ch" style="--i:11">u</span><span class="ch" style="--i:12">r</span></span><br><span class="settle"><span class="ch" style="--i:13">O</span><span class="ch" style="--i:14">f</span><span class="ch" style="--i:15"> </span><span class="ch" style="--i:16">y</span><span class="ch" style="--i:17">o</span><span class="ch" style="--i:18">u</span><span class="ch" style="--i:19">r</span><span class="ch" style="--i:20"> </span><span class="ch" style="--i:21">d</span><span class="ch" style="--i:22">a</span><span class="ch" style="--i:23">y</span></span></span></h1>
+    <h1 class="hero-title">Train<br>In Lagos</h1>
     <p class="hero-sub">A family owned gym in Lagos. Weights, machines, classes and space to train outdoors.</p>
   </div>
   <div class="hero-image-strip torn-top">
@@ -573,7 +614,7 @@ body.show-grid .grid-overlay{display:block}
 </section>
 
 <!-- ============ FAQ ============ -->
-<section class="faq-section torn-top">
+<section class="faq-section torn-top" id="faq">
   <div class="section-kicker">
     <h2 class="section-header">Good to know</h2>
   </div>
@@ -804,54 +845,50 @@ body.show-grid .grid-overlay{display:block}
 
 
 <script>
-/* headline motion: see the CSS note above */
+/* 1.7: language button and mobile menu */
 (function(){
-  var reduce=window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-  var h1=document.querySelector('.hero-title'); if(!h1) return;
-  var rolls=[].slice.call(h1.querySelectorAll('.roll'));
-  var timers=[], done=false;
-  rolls.forEach(function(r){
-    var words=r.getAttribute('data-words').split('|');
-    r.innerHTML='<span class="roll-stack">'+words.map(function(w){return '<span class="roll-word">'+w+'</span>'}).join('')+'</span>';
-    r._w=[].slice.call(r.querySelectorAll('.roll-word'));
+  var lang=document.getElementById('lang-btn');
+  lang.addEventListener('click',function(){
+    var toPt=lang.textContent.trim()==='PT';
+    lang.textContent=toPt?'EN':'PT';
+    lang.setAttribute('aria-label',toPt?'Switch to English':'Mudar para português');
+    lang.classList.remove('swap'); void lang.offsetWidth; lang.classList.add('swap');
   });
-  function measure(){
-    rolls.forEach(function(r){
-      var probe=document.createElement('span'); probe.style.cssText='position:absolute;visibility:hidden;white-space:nowrap';
-      h1.appendChild(probe);
-      r._widths=r._w.map(function(w){probe.textContent=w.textContent;return probe.getBoundingClientRect().width});
-      h1.removeChild(probe);
-    });
+
+  var root=document.documentElement, btn=document.getElementById('menu-btn'), menu=document.getElementById('menu');
+  function setOpen(open){
+    root.classList.toggle('menu-open',open);
+    root.style.overflow=open?'hidden':'';
+    btn.setAttribute('aria-expanded',open?'true':'false');
+    btn.setAttribute('aria-label',open?'Close menu':'Open menu');
+    menu.setAttribute('aria-hidden',open?'false':'true');
+    if(open) status();
   }
-  function show(r,i){
-    r.style.width=Math.ceil(r._widths[i])+'px';
-    if(r.classList.contains('fade')) r._w.forEach(function(w,k){w.classList.toggle('on',k===i)});
-    else r.firstChild.style.transform='translateY('+(-i*r.getBoundingClientRect().height)+'px)';
-    r._i=i;
-  }
-  function finish(){ timers.forEach(clearTimeout); timers=[]; rolls.forEach(function(r){show(r,r._w.length-1)}); done=true; }
-  function play(){
-    timers.forEach(clearTimeout); timers=[]; done=false;
-    rolls.forEach(function(r){ r.classList.remove('ready'); show(r,0); });
-    void h1.offsetWidth; rolls.forEach(function(r){r.classList.add('ready')});
-    var delay=+(h1.getAttribute('data-delay')||1200), hold=+(h1.getAttribute('data-hold')||900);
-    var steps=Math.max.apply(null,rolls.map(function(r){return r._w.length}));
-    for(var s=1;s<steps;s++)(function(s){
-      timers.push(setTimeout(function(){rolls.forEach(function(r){ if(s<r._w.length) show(r,s) }); if(s===steps-1) done=true;}, delay+(s-1)*hold));
-    })(s);
-  }
-  function replaySettle(){
-    var st=h1.querySelectorAll('.settle'); [].forEach.call(st,function(e){e.classList.remove('settle');void e.offsetWidth;e.classList.add('settle')});
-  }
-  (document.fonts&&document.fonts.ready?document.fonts.ready:Promise.resolve()).then(function(){
-    measure();
-    if(!rolls.length) return;
-    if(reduce){ rolls.forEach(function(r){r.classList.add('ready')}); finish(); return; }
-    play();
+  btn.addEventListener('click',function(){ setOpen(!root.classList.contains('menu-open')) });
+  menu.addEventListener('click',function(e){
+    var a=e.target.closest('a[href^="#"]'); if(!a) return;
+    e.preventDefault(); setOpen(false);
+    var t=document.querySelector(a.getAttribute('href'));
+    if(t){ var y=t.getBoundingClientRect().top+window.scrollY-document.querySelector('header').offsetHeight; window.scrollTo({top:y,behavior:'smooth'}); }
   });
-  window.addEventListener('scroll',function(){ if(!done&&window.scrollY>40) finish(); },{passive:true});
-  var t; window.addEventListener('resize',function(){clearTimeout(t);t=setTimeout(function(){measure();rolls.forEach(function(r){r.classList.remove('ready');show(r,r._i||0);void r.offsetWidth;r.classList.add('ready')})},150)});
-  h1.addEventListener('click',function(){ if(reduce) return; window.scrollTo(0,0); replaySettle(); if(rolls.length){measure();play();} });
+  document.addEventListener('keydown',function(e){ if(e.key==='Escape'&&root.classList.contains('menu-open')){setOpen(false);btn.focus();} });
+  window.addEventListener('resize',function(){ if(window.innerWidth>768&&root.classList.contains('menu-open')) setOpen(false); });
+
+  // "Open now" line, Lisbon time. Mon to Fri 07:00 to 21:00, Sat 09:00 to 13:00, Sun closed.
+  var HOURS={1:['07:00','21:00'],2:['07:00','21:00'],3:['07:00','21:00'],4:['07:00','21:00'],5:['07:00','21:00'],6:['09:00','13:00']};
+  var NAMES=['Sunday','Monday','Tuesday','Wednesday','Thursday','Friday','Saturday'];
+  function status(){
+    var p={}; new Intl.DateTimeFormat('en-GB',{timeZone:'Europe/Lisbon',weekday:'short',hour:'2-digit',minute:'2-digit',hour12:false}).formatToParts(new Date()).forEach(function(x){p[x.type]=x.value});
+    var day=['Sun','Mon','Tue','Wed','Thu','Fri','Sat'].indexOf(p.weekday), now=(p.hour==='24'?'00':p.hour)+':'+p.minute;
+    var el=document.getElementById('menu-status'), h=HOURS[day];
+    if(h&&now>=h[0]&&now<h[1]){ el.className='menu-status'; el.innerHTML='<span class="dot"></span>Open now · <b>until '+h[1]+'</b>'; return; }
+    for(var k=0;k<8;k++){
+      var d=(day+k)%7, hh=HOURS[d]; if(!hh) continue;
+      if(k===0&&now>=hh[0]) continue;
+      var when=k===0?'today':k===1?'tomorrow':NAMES[d];
+      el.className='menu-status closed'; el.innerHTML='<span class="dot"></span>Closed · <b>opens '+when+' '+hh[0]+'</b>'; return;
+    }
+  }
 })();
 </script>
 </body>

@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Draft 1.5 (the best hour) | Gym in Lagos, Algarve | Elite Wellness by Santos | Day Passes &amp; Memberships</title>
+<title>Draft 1.2.1 (rolling verb, one direction) | Gym in Lagos, Algarve | Elite Wellness by Santos | Day Passes &amp; Memberships</title>
 <meta name="description" content="Family run gym in Lagos, Portugal. Weights, machines, classes and an outdoor training deck. Day pass €10, week pass €35.90, monthly from €21. Open Mon to Fri 7:00 to 21:00, Sat 9:00 to 13:00.">
 <link rel="alternate" hreflang="en" href="https://example.com/">
 <link rel="alternate" hreflang="pt-PT" href="https://example.com/pt">
@@ -331,12 +331,16 @@ body.show-grid .grid-overlay{display:block}
 .roll-word{display:block;height:var(--hl);text-align:center;white-space:nowrap}
 .roll.fade .roll-word{position:absolute;top:0;left:50%;transform:translateX(-50%);opacity:0;transition:opacity .7s ease}
 .roll.fade .roll-word.on{opacity:1}
+/* flip: the line keeps the width of the widest word, so nothing slides sideways;
+   every word leaves upwards and the next one arrives from below */
+.roll.flip .roll-word{position:absolute;top:0;left:0;right:0;opacity:0;transform:translateY(100%)}
+.roll.flip .roll-word.on{opacity:1;transform:none}
+.roll.flip .roll-word.out{opacity:0;transform:translateY(-100%)}
+.roll.flip.ready .roll-word{transition:transform .6s cubic-bezier(.65,0,.35,1),opacity .6s cubic-bezier(.65,0,.35,1)}
 .ch{display:inline-block;white-space:pre}
 .settle .ch{animation:settle .7s cubic-bezier(.2,.8,.2,1) both;animation-delay:calc(var(--i) * 28ms + 150ms)}
 @keyframes settle{from{transform:translateY(.14em);opacity:0}to{transform:none;opacity:1}}
 @media (prefers-reduced-motion:reduce){.settle .ch{animation:none}}
-.hero-title{font-size:11.5vw}
-@media (max-width:768px){.hero-title{font-size:15vw}}
 @media (max-width:768px){.hero-title{--hl:calc(.865em + 6px)}}
 </style>
 <script type="application/ld+json">
@@ -382,7 +386,7 @@ body.show-grid .grid-overlay{display:block}
 <section class="hero" id="top">
   <div class="hero-grid">
     <p class="hero-rating"><a href="https://maps.app.goo.gl/ks6o4URGCYT7rzHJ8" target="_blank" rel="noopener" aria-label="4.8 out of 5 from 153 Google reviews, opens Google Maps in a new tab"><span class="stars">★★★★★</span>&nbsp; 4.8 · 153 Google reviews</a></p>
-    <h1 class="hero-title" title="Click to replay"><span class="sr-only">The best hour of your day</span><span aria-hidden="true"><span class="settle"><span class="ch" style="--i:0">T</span><span class="ch" style="--i:1">h</span><span class="ch" style="--i:2">e</span><span class="ch" style="--i:3"> </span><span class="ch" style="--i:4">b</span><span class="ch" style="--i:5">e</span><span class="ch" style="--i:6">s</span><span class="ch" style="--i:7">t</span><span class="ch" style="--i:8"> </span><span class="ch" style="--i:9">h</span><span class="ch" style="--i:10">o</span><span class="ch" style="--i:11">u</span><span class="ch" style="--i:12">r</span></span><br><span class="settle"><span class="ch" style="--i:13">O</span><span class="ch" style="--i:14">f</span><span class="ch" style="--i:15"> </span><span class="ch" style="--i:16">y</span><span class="ch" style="--i:17">o</span><span class="ch" style="--i:18">u</span><span class="ch" style="--i:19">r</span><span class="ch" style="--i:20"> </span><span class="ch" style="--i:21">d</span><span class="ch" style="--i:22">a</span><span class="ch" style="--i:23">y</span></span></span></h1>
+    <h1 class="hero-title" data-delay="1200" data-hold="750" title="Click to replay"><span class="sr-only">Train in Lagos</span><span aria-hidden="true"><span class="roll flip" data-words="Move|Lift|Stretch|Ride|Train"></span><br>In Lagos</span></h1>
     <p class="hero-sub">A family owned gym in Lagos. Weights, machines, classes and space to train outdoors.</p>
   </div>
   <div class="hero-image-strip torn-top">
@@ -824,6 +828,11 @@ body.show-grid .grid-overlay{display:block}
     });
   }
   function show(r,i){
+    if(r.classList.contains('flip')){
+      r.style.width=Math.ceil(Math.max.apply(null,r._widths))+'px';
+      r._w.forEach(function(w,k){w.classList.toggle('on',k===i);w.classList.toggle('out',k<i)});
+      r._i=i; return;
+    }
     r.style.width=Math.ceil(r._widths[i])+'px';
     if(r.classList.contains('fade')) r._w.forEach(function(w,k){w.classList.toggle('on',k===i)});
     else r.firstChild.style.transform='translateY('+(-i*r.getBoundingClientRect().height)+'px)';
