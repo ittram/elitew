@@ -59,6 +59,7 @@
 
 <nav>
   <button class="active" data-src="elite-wellness-landing_1.html">Draft 1</button>
+  <button data-src="elite-wellness-landing_1-1.html">Draft 1.1</button>
   <button data-src="elite-wellness-landing_2.html">Draft 2</button>
   <a class="open-link" id="openLink" href="elite-wellness-landing_1.html" target="_blank" rel="noopener">Open in new tab ↗</a>
 </nav>
@@ -70,13 +71,18 @@
   const viewer = document.getElementById('viewer');
   const openLink = document.getElementById('openLink');
 
+  const gridParam = new URLSearchParams(location.search).get('grid') === '1' ? '?grid=1' : '';
+  const withGrid = src => src + gridParam;
+  viewer.src = withGrid(viewer.getAttribute('src'));
+  openLink.href = withGrid(openLink.getAttribute('href'));
+
   buttons.forEach(btn => {
     btn.addEventListener('click', () => {
       buttons.forEach(b => b.classList.remove('active'));
       btn.classList.add('active');
       const src = btn.dataset.src;
-      viewer.src = src;
-      openLink.href = src;
+      viewer.src = withGrid(src);
+      openLink.href = withGrid(src);
     });
   });
 </script>
