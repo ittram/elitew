@@ -130,8 +130,9 @@ body.show-grid .grid-overlay{display:block}
 .tt-flag{display:inline-block;vertical-align:middle;margin:-4px 0 0 8px;background:var(--royal-blue);color:var(--white);font-family:var(--font-body);font-weight:800;font-size:10px;line-height:16px;letter-spacing:.12em;text-transform:uppercase;padding:0 8px}
 .tt-tabs,.tt-list{display:none}
 .sr-only{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap}
-.tt-foot{margin-top:32px;display:flex;justify-content:space-between;flex-wrap:wrap;gap:16px;font-size:14px;line-height:24px;color:rgba(255,255,255,.85)}
+.tt-foot{margin-top:32px;display:flex;justify-content:space-between;align-items:baseline;flex-wrap:wrap;gap:16px;font-size:16px;line-height:24px;color:rgba(255,255,255,.85)}
 .tt-foot a{color:var(--white);font-weight:800;text-decoration:none;box-shadow:inset 0 -2px 0 rgba(255,255,255,.5)}
+.tt-updated{font-weight:800;font-size:11px;letter-spacing:.12em;text-transform:uppercase;color:rgba(255,255,255,.65)}
 .tt-foot a:hover{box-shadow:inset 0 -2px 0 var(--white)}
 
 /* ---------- reviews ---------- */
@@ -164,7 +165,8 @@ body.show-grid .grid-overlay{display:block}
 .about-band p{max-width:640px;margin:0 auto;font-size:1.2rem;line-height:1.75}
 
 /* ---------- pricing ---------- */
-.pricing-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:1.5rem;max-width:1280px;margin:0 auto}
+.pricing-grid{display:grid;grid-template-columns:repeat(12,1fr);gap:24px}
+.pricing-grid .price-card{grid-column:span 3}
 .price-card{border:4px solid var(--silver-grey);padding:2.2rem;position:relative;display:flex;flex-direction:column;background:var(--white)}
 .price-card h3{font-family:var(--font-display);font-size:1.9rem;color:var(--royal-blue);text-transform:uppercase;margin-bottom:1.2rem;min-height:2.1em;display:flex;align-items:flex-end}
 .price-big{font-family:var(--font-display);font-size:4.6rem;line-height:1;color:var(--black)}
@@ -175,10 +177,11 @@ body.show-grid .grid-overlay{display:block}
 .price-card.featured .price-big{color:var(--white)}
 .price-card.featured .price-sub{color:rgba(255,255,255,.75)}
 .badge-script{position:absolute;top:-1.6rem;right:1rem;font-family:var(--font-script);font-size:1.05rem;color:var(--black);transform:rotate(-4deg)}
-.pricing-includes{max-width:1280px;margin:2.5rem auto 0;text-align:center;font-size:1.05rem;line-height:1.7;color:var(--black)}
-.pricing-walkin{max-width:1280px;margin:2rem auto 0;text-align:center;font-family:var(--font-display);font-size:1.6rem;text-transform:uppercase;color:var(--black)}
-.pricing-note{max-width:1280px;margin:1.5rem auto 0;text-align:center;color:var(--silver-grey);font-weight:700;font-size:.8rem}
-.pricing-note a{color:var(--royal-blue)}
+.price-info{display:grid;grid-template-columns:repeat(12,1fr);column-gap:24px;row-gap:32px;margin-top:64px}
+.price-info div{grid-column:span 4;padding-top:16px;box-shadow:inset 0 2px 0 var(--black)}
+.price-info h4{font-family:var(--font-display);font-weight:400;font-size:20px;line-height:24px;text-transform:uppercase;color:var(--royal-blue);margin-bottom:8px}
+.price-info p{font-size:16px;line-height:24px}
+.price-info a{color:var(--royal-blue);font-weight:800;text-decoration:none;box-shadow:inset 0 -2px 0 var(--royal-blue)}
 .price-ask{display:block;font-size:3.2rem;text-decoration:none;color:var(--royal-blue);width:max-content;box-shadow:inset 0 -4px 0 var(--royal-blue)}
 .price-ask:hover{color:var(--black);box-shadow:inset 0 -4px 0 var(--black)}
 
@@ -232,6 +235,7 @@ body.show-grid .grid-overlay{display:block}
 /* ---------- responsive ---------- */
 @media (max-width:1100px){
   .pricing-grid{grid-template-columns:repeat(2,1fr)}
+  .pricing-grid .price-card{grid-column:auto}
   .classes-grid{grid-template-columns:repeat(2,1fr)}
   .classes-grid .class-card{grid-column:auto}
   .tt-table th,.tt-table td{padding:16px 12px}
@@ -250,19 +254,20 @@ body.show-grid .grid-overlay{display:block}
   .nav-cta{padding:8px 16px;font-size:.8rem;white-space:nowrap}
   .section,.classes-section,.reviews-section,.faq-section,.about-band{padding:4rem 1.5rem}
   .classes-grid{gap:16px}
-  .tt{margin-top:64px}
-  .tt-title{font-size:32px;line-height:40px}
+  .tt{margin-top:80px}
+  .tt-head{margin-bottom:40px}
+  .tt-title{font-size:40px;line-height:48px}
   .tt-table{display:none}
-  .tt-tabs{display:grid;grid-template-columns:repeat(5,1fr);gap:8px;margin-bottom:16px}
+  .tt-tabs{display:grid;grid-template-columns:repeat(5,1fr);gap:8px;margin-bottom:24px}
   .tt-tabs button{appearance:none;border:0;box-shadow:inset 0 0 0 2px rgba(255,255,255,.5);background:transparent;color:var(--white);font-family:var(--font-display);font-size:16px;line-height:24px;text-transform:uppercase;padding:8px 0;cursor:pointer}
   .tt-tabs button[aria-selected="true"]{background:var(--white);color:var(--royal-blue);box-shadow:none}
   .tt-list{display:block;list-style:none}
-  .tt-list li{display:grid;grid-template-columns:repeat(4,1fr);column-gap:16px;padding:16px 0;box-shadow:inset 0 -1px 0 rgba(255,255,255,.25)}
+  .tt-list li{display:grid;grid-template-columns:repeat(4,1fr);column-gap:16px;padding:24px 0;box-shadow:inset 0 -1px 0 rgba(255,255,255,.25)}
   .tt-list li>div:last-child{grid-column:span 3}
   .tt-list li.is-next{background:var(--white);color:var(--royal-blue);box-shadow:-12px 0 0 var(--white),12px 0 0 var(--white)}
   .tt-list li.is-next .tt-new{color:var(--royal-blue)}
   .tt-list li.is-next .tt-time span{color:var(--royal-blue)}
-  .tt-foot{flex-direction:column;gap:8px}
+  .tt-foot{margin-top:40px;flex-direction:column;gap:8px}
   .hero{padding-top:48px}
   .hero-grid{grid-template-columns:repeat(4,1fr);column-gap:16px;padding:0 1.5rem}
   .hero-title{font-size:20vw}
@@ -273,6 +278,8 @@ body.show-grid .grid-overlay{display:block}
   .grid-overlay-cols div:nth-child(n+5){display:none}
   .section-header{font-size:2.6rem}
   .pricing-grid{grid-template-columns:1fr}
+  .price-info{grid-template-columns:1fr;margin-top:48px}
+  .price-info div{grid-column:auto}
   .gym-cols{grid-template-columns:1fr;gap:2.5rem}
   .rv-card{flex-basis:288px}
   .reviews-more .link-strong{font-size:.75rem}
@@ -412,8 +419,8 @@ body.show-grid .grid-overlay{display:block}
     <ul class="tt-list" id="tt-list"></ul>
     <noscript><p class="tt-foot"><a href="assets/timetable.webp">See the class timetable</a></p></noscript>
     <div class="tt-foot">
-      <span>Every class is included in every pass, day passes too. No booking needed.</span>
-      <span><a id="tt-poster" href="assets/timetable.webp" target="_blank" rel="noopener">See the poster</a>&nbsp;·&nbsp;<span id="tt-updated"></span></span>
+      <span>All classes are included in every pass. Just show up.</span>
+      <span class="tt-updated" id="tt-updated"></span>
     </div>
   </div>
 </section>
@@ -488,7 +495,7 @@ body.show-grid .grid-overlay{display:block}
     <div class="price-card featured">
       <span class="badge-script">best value</span>
       <h3>Monthly</h3>
-      <div class="price-big">€21<span style="font-size:1.2rem">*</span></div>
+      <div class="price-big">€21</div>
       <div class="price-sub">Per month</div>
       <p>3 month minimum. Insurance €24 a year, billed separately.</p>
     </div>
@@ -499,9 +506,20 @@ body.show-grid .grid-overlay{display:block}
       <p>One to one coaching, single sessions or blocks.</p>
     </div>
   </div>
-  <p class="pricing-includes">Every pass includes the gym floor, all classes and the outdoor deck, plus a body assessment with a coach on your first visit. Bring a towel.</p>
-  <p class="pricing-walkin">No booking needed. Pay at the desk, cash only.</p>
-  <p class="pricing-note">* Monthly membership: minimum 3 months, plus insurance of €24 a year, billed separately. <a href="https://wa.me/351926565836?text=Hi!%20I%27d%20like%20to%20ask%20about%20a%20monthly%20membership." target="_blank" rel="noopener">Questions? WhatsApp us</a></p>
+  <div class="price-info">
+    <div>
+      <h4>Every pass includes</h4>
+      <p>The gym floor, all classes and the outdoor deck. Your first visit comes with a body assessment from a coach.</p>
+    </div>
+    <div>
+      <h4>Paying</h4>
+      <p>No booking needed. Pay at the desk, cash only.</p>
+    </div>
+    <div>
+      <h4>Bring</h4>
+      <p>Your own towel, water and trainers. Forgot something? Towels and locks are for sale at reception.</p>
+    </div>
+  </div>
 </section>
 
 <!-- ============ FIND US / HOURS ============ -->
@@ -705,7 +723,6 @@ body.show-grid .grid-overlay{display:block}
   showDay(days.indexOf(today)>-1?today:(next?next.day:days[0]));
 
   // footer
-  if(S.poster) document.getElementById('tt-poster').href=S.poster;
   if(S.updated){var u=new Date(S.updated+'T12:00:00');document.getElementById('tt-updated').textContent='Updated '+u.toLocaleDateString('en-GB',{day:'numeric',month:'long',year:'numeric'});}
 })();
 </script>
