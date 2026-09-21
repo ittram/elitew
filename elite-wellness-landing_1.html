@@ -137,28 +137,34 @@ body.show-grid .grid-overlay{display:block}
 
 /* ---------- reviews ---------- */
 .reviews-section{background:var(--off-white);padding:8rem 4rem;text-align:center}
-/* ---------- reviews: two rows in opposite directions, data in reviews.js ---------- */
+/* ---------- reviews: two rows in opposite directions, data in reviews.js ----------
+   Motion is driven from JS in exact pixels (Web Animations), so it doesn't depend on
+   how a browser sizes the row. Cards have a fixed size; long text is clamped with "More". */
 .rv-rating{margin-top:16px;font-weight:700;letter-spacing:.12em;text-transform:uppercase;font-size:12px;line-height:16px;color:var(--silver-grey)}
 .rv-rating a{color:inherit;text-decoration:none;box-shadow:inset 0 -2px 0 transparent;padding-bottom:2px;transition:color .2s,box-shadow .2s}
 .rv-rating a:hover{color:var(--royal-blue);box-shadow:inset 0 -2px 0 var(--royal-blue)}
 .rv-rating .stars{color:var(--royal-blue);font-size:14px;letter-spacing:.05em}
-.marquee{margin:64px -4rem 0;display:flex;flex-direction:column;gap:24px;overflow:hidden;-webkit-mask-image:linear-gradient(to right,transparent,#000 128px,#000 calc(100% - 128px),transparent);mask-image:linear-gradient(to right,transparent,#000 128px,#000 calc(100% - 128px),transparent)}
-.marquee-row{display:flex;width:max-content;will-change:transform;animation:rv-left var(--rv-dur,60s) linear infinite}
-.marquee-row.reverse{animation-name:rv-right}
-.marquee:hover .marquee-row{animation-play-state:paused}
-@keyframes rv-left{from{transform:translate3d(0,0,0)}to{transform:translate3d(-50%,0,0)}}
-@keyframes rv-right{from{transform:translate3d(-50%,0,0)}to{transform:translate3d(0,0,0)}}
-.rv-card{flex:0 0 360px;margin-right:24px;display:flex;flex-direction:column;gap:16px;padding:24px;background:var(--white);box-shadow:inset 0 0 0 1px var(--light-grey);text-align:left;text-decoration:none;color:var(--black);transition:box-shadow .2s}
+.marquee{margin:64px -4rem 0;overflow:hidden;-webkit-mask-image:linear-gradient(to right,transparent,#000 128px,#000 calc(100% - 128px),transparent);mask-image:linear-gradient(to right,transparent,#000 128px,#000 calc(100% - 128px),transparent)}
+.marquee-row{display:flex;flex-wrap:nowrap;will-change:transform}
+.marquee-row+.marquee-row{margin-top:24px}
+.rv-card{flex:0 0 360px;width:360px;height:232px;margin-right:24px;padding:24px;display:flex;flex-direction:column;background:var(--white);box-shadow:inset 0 0 0 1px var(--light-grey);text-align:left;text-decoration:none;color:var(--black);transition:box-shadow .2s;overflow:hidden}
 .rv-card:hover{box-shadow:inset 0 0 0 2px var(--royal-blue)}
-.rv-stars{color:var(--royal-blue);font-size:14px;line-height:16px;letter-spacing:.05em}
-.rv-text{flex:1;font-size:16px;line-height:24px;display:-webkit-box;-webkit-line-clamp:4;-webkit-box-orient:vertical;overflow:hidden}
-.rv-who{display:flex;align-items:baseline;flex-wrap:wrap;gap:0 8px}
-.rv-name{font-family:var(--font-display);font-size:16px;line-height:24px;text-transform:uppercase;letter-spacing:.04em}
-.rv-meta{font-weight:700;font-size:11px;line-height:16px;letter-spacing:.12em;text-transform:uppercase;color:var(--silver-grey)}
+.rv-top{display:flex;align-items:center;gap:12px;height:40px}
+.rv-avatar{flex:0 0 40px;height:40px;display:flex;align-items:center;justify-content:center;background:var(--royal-blue);color:var(--white);font-family:var(--font-display);font-size:20px;line-height:24px}
+.rv-who{min-width:0}
+.rv-name{display:block;font-family:var(--font-display);font-size:16px;line-height:24px;text-transform:uppercase;letter-spacing:.04em;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.rv-meta{display:block;font-weight:700;font-size:11px;line-height:16px;letter-spacing:.12em;text-transform:uppercase;color:var(--silver-grey);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.rv-line{display:flex;align-items:center;gap:8px;height:16px;margin-top:16px;font-size:12px;line-height:16px;color:var(--silver-grey)}
+.rv-stars{color:var(--royal-blue);font-size:14px;letter-spacing:.05em}
+.rv-body{position:relative;margin-top:16px;height:96px;overflow:hidden}
+.rv-text{font-size:16px;line-height:24px;display:-webkit-box;-webkit-line-clamp:4;-webkit-box-orient:vertical;overflow:hidden}
+.rv-more{display:none;position:absolute;right:0;bottom:0;padding-left:40px;background:linear-gradient(to right,rgba(255,255,255,0),var(--white) 32px);font-weight:800;font-size:16px;line-height:24px;color:var(--royal-blue)}
+.rv-card.is-clamped .rv-more{display:block}
 @media (prefers-reduced-motion:reduce){
   .marquee{-webkit-mask-image:none;mask-image:none}
-  .marquee-row{animation:none;overflow-x:auto;width:auto;padding:0 4rem}
+  .marquee-row{overflow-x:auto;padding:0 4rem}
 }
+
 
 .reviews-more{margin-top:2.5rem}
 .link-strong{font-weight:800;text-transform:uppercase;letter-spacing:.1em;color:var(--royal-blue);text-decoration:none;border-bottom:3px solid var(--royal-blue)}
@@ -286,8 +292,9 @@ body.show-grid .grid-overlay{display:block}
   .price-info{grid-template-columns:1fr;margin-top:48px}
   .price-info div{grid-column:auto}
   .gym-cols{grid-template-columns:1fr;gap:2.5rem}
-  .rv-card{flex-basis:288px;margin-right:16px}
-  .marquee{margin:40px -1.5rem 0;gap:16px;-webkit-mask-image:linear-gradient(to right,transparent,#000 24px,#000 calc(100% - 24px),transparent);mask-image:linear-gradient(to right,transparent,#000 24px,#000 calc(100% - 24px),transparent)}
+  .rv-card{flex-basis:288px;width:288px;height:216px;margin-right:16px;padding:16px}
+  .marquee-row+.marquee-row{margin-top:16px}
+  .marquee{margin:40px -1.5rem 0;-webkit-mask-image:linear-gradient(to right,transparent,#000 24px,#000 calc(100% - 24px),transparent);mask-image:linear-gradient(to right,transparent,#000 24px,#000 calc(100% - 24px),transparent)}
   .map-card,.hours-card{margin:1.5rem}
   .cta-huge{font-size:16vw}
   .footer-grid{grid-template-columns:1fr 1fr}
@@ -623,34 +630,55 @@ body.show-grid .grid-overlay{display:block}
 <script>
 (function(){
   var R=window.ELITE_REVIEWS; if(!R) return;
-  function esc(t){return String(t).replace(/[&<>"]/g,function(c){return{'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]})}
-  function card(r){
-    var n=Math.max(1,Math.min(5,Math.round(r.stars||5)));
-    return '<a class="rv-card" href="'+R.url+'" target="_blank" rel="noopener">'+
-      '<span class="rv-stars" aria-label="'+n+' out of 5 stars">'+'★★★★★'.slice(0,n)+'</span>'+
-      '<p class="rv-text">"'+esc(r.text)+'"</p>'+
-      '<div class="rv-who"><span class="rv-name">'+esc(r.name)+'</span><span class="rv-meta">Google review'+(r.note?' · '+esc(r.note):'')+'</span></div></a>';
-  }
-  var sm=document.getElementById('rv-summary'); sm.href=R.url;
-  document.getElementById('rv-score').textContent=R.rating+' · '+R.count+' Google reviews';
+  var marquee=document.querySelector('.marquee');
   var rows=[document.getElementById('rv-row-1'),document.getElementById('rv-row-2')];
-  var sets=[[],[]]; R.reviews.forEach(function(r,i){sets[i%2].push(card(r))});
-  if(!sets[1].length) sets[1]=sets[0].slice();
-  var filledFor=0;
-  function build(){
-    var need=Math.max(window.innerWidth,screen.width||0)+400;
-    rows.forEach(function(row,k){
-      var first=sets[k].join(''), hidden=first.replace(/<a /g,'<a aria-hidden="true" tabindex="-1" ');
-      var one=first; row.innerHTML=one;
-      var setW=row.scrollWidth, copies=Math.max(1,Math.ceil(need/setW));
-      for(var c=1;c<copies;c++) one+=hidden;
-      row.innerHTML=one+Array(copies+1).join(hidden);   // two identical halves
-      row.style.setProperty('--rv-dur',Math.round(setW*copies/32)+'s');
-    });
-    filledFor=need;
+  var SPEED=32; // pixels per second
+  function esc(t){return String(t).replace(/[&<>"]/g,function(c){return{'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]})}
+  function ago(ym){
+    if(!ym) return '';
+    var p=ym.split('-'), now=new Date();
+    var m=(now.getFullYear()-(+p[0]))*12+(now.getMonth()+1-(+p[1]));
+    if(m<=0) return 'This month'; if(m===1) return 'A month ago'; if(m<12) return m+' months ago';
+    var y=Math.floor(m/12); return y===1?'A year ago':y+' years ago';
   }
-  build();
-  window.addEventListener('resize',function(){ if(Math.max(window.innerWidth,screen.width||0)+400>filledFor) build(); });
+  function card(r,hidden){
+    var n=Math.max(1,Math.min(5,Math.round(r.stars||5)));
+    return '<a class="rv-card" href="'+R.url+'" target="_blank" rel="noopener"'+(hidden?' aria-hidden="true" tabindex="-1"':'')+'>'+
+      '<div class="rv-top"><span class="rv-avatar" aria-hidden="true">'+esc(r.name.charAt(0))+'</span>'+
+      '<span class="rv-who"><span class="rv-name">'+esc(r.name)+'</span><span class="rv-meta">'+(r.note?esc(r.note):'Google review')+'</span></span></div>'+
+      '<div class="rv-line"><span class="rv-stars" aria-label="'+n+' out of 5 stars">'+'★★★★★'.slice(0,n)+'</span>'+(r.date?'<span>'+ago(r.date)+'</span>':'')+'</div>'+
+      '<div class="rv-body"><p class="rv-text">'+esc(r.text)+'</p><span class="rv-more">More</span></div></a>';
+  }
+  var sm=document.getElementById('rv-summary'); if(sm){sm.href=R.url; document.getElementById('rv-score').textContent=R.rating+' · '+R.count+' Google reviews';}
+  var sets=[[],[]]; R.reviews.forEach(function(r,i){sets[i%2].push(r)});
+  if(!sets[1].length) sets[1]=sets[0].slice();
+  var anims=[], builtFor=0;
+  function build(){
+    anims.forEach(function(a){a.cancel()}); anims=[];
+    var view=Math.max(marquee.clientWidth,window.innerWidth);
+    rows.forEach(function(row,k){
+      var list=sets[k];
+      // one copy = the review set repeated until it is wider than the view
+      row.innerHTML=list.map(function(r){return card(r,false)}).join('');
+      var cards=row.children, step=cards[cards.length-1].offsetLeft+cards[cards.length-1].offsetWidth+parseFloat(getComputedStyle(cards[0]).marginRight)-cards[0].offsetLeft;
+      var copies=Math.max(1,Math.ceil((view+step)/step));
+      var html='';
+      for(var c=0;c<copies*2;c++) html+=list.map(function(r){return card(r,c>0)}).join('');
+      row.innerHTML=html;
+      var dist=step*copies;                       // exact pixel length of one copy
+      row.style.width=(dist*2)+'px';
+      Array.prototype.forEach.call(row.querySelectorAll('.rv-text'),function(t){ if(t.scrollHeight>t.clientHeight+1) t.closest('.rv-card').classList.add('is-clamped') });
+      if(window.matchMedia('(prefers-reduced-motion: reduce)').matches||!row.animate) return;
+      var from='translate3d(0,0,0)', to='translate3d('+(-dist)+'px,0,0)';
+      anims.push(row.animate(k===0?[{transform:from},{transform:to}]:[{transform:to},{transform:from}],{duration:dist/SPEED*1000,iterations:Infinity,easing:'linear'}));
+    });
+    builtFor=view;
+  }
+  function start(){ build(); }
+  if(document.fonts&&document.fonts.ready) document.fonts.ready.then(start); else start();
+  marquee.addEventListener('mouseenter',function(){anims.forEach(function(a){a.pause()})});
+  marquee.addEventListener('mouseleave',function(){anims.forEach(function(a){a.play()})});
+  var t; window.addEventListener('resize',function(){clearTimeout(t);t=setTimeout(function(){ if(Math.abs(Math.max(marquee.clientWidth,window.innerWidth)-builtFor)>40) build(); },200)});
 })();
 </script>
 <script src="schedule.js"></script>
