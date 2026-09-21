@@ -143,12 +143,12 @@ body.show-grid .grid-overlay{display:block}
 .rv-rating a:hover{color:var(--royal-blue);box-shadow:inset 0 -2px 0 var(--royal-blue)}
 .rv-rating .stars{color:var(--royal-blue);font-size:14px;letter-spacing:.05em}
 .marquee{margin:64px -4rem 0;display:flex;flex-direction:column;gap:24px;overflow:hidden;-webkit-mask-image:linear-gradient(to right,transparent,#000 128px,#000 calc(100% - 128px),transparent);mask-image:linear-gradient(to right,transparent,#000 128px,#000 calc(100% - 128px),transparent)}
-.marquee-row{display:flex;gap:24px;width:max-content;animation:rv-left var(--rv-dur,60s) linear infinite}
+.marquee-row{display:flex;width:max-content;will-change:transform;animation:rv-left var(--rv-dur,60s) linear infinite}
 .marquee-row.reverse{animation-name:rv-right}
 .marquee:hover .marquee-row{animation-play-state:paused}
-@keyframes rv-left{from{transform:translateX(0)}to{transform:translateX(calc(-50% - 12px))}}
-@keyframes rv-right{from{transform:translateX(calc(-50% - 12px))}to{transform:translateX(0)}}
-.rv-card{flex:0 0 360px;display:flex;flex-direction:column;gap:16px;padding:24px;background:var(--white);box-shadow:inset 0 0 0 1px var(--light-grey);text-align:left;text-decoration:none;color:var(--black);transition:box-shadow .2s}
+@keyframes rv-left{from{transform:translate3d(0,0,0)}to{transform:translate3d(-50%,0,0)}}
+@keyframes rv-right{from{transform:translate3d(-50%,0,0)}to{transform:translate3d(0,0,0)}}
+.rv-card{flex:0 0 360px;margin-right:24px;display:flex;flex-direction:column;gap:16px;padding:24px;background:var(--white);box-shadow:inset 0 0 0 1px var(--light-grey);text-align:left;text-decoration:none;color:var(--black);transition:box-shadow .2s}
 .rv-card:hover{box-shadow:inset 0 0 0 2px var(--royal-blue)}
 .rv-stars{color:var(--royal-blue);font-size:14px;line-height:16px;letter-spacing:.05em}
 .rv-text{flex:1;font-size:16px;line-height:24px;display:-webkit-box;-webkit-line-clamp:4;-webkit-box-orient:vertical;overflow:hidden}
@@ -286,10 +286,7 @@ body.show-grid .grid-overlay{display:block}
   .price-info{grid-template-columns:1fr;margin-top:48px}
   .price-info div{grid-column:auto}
   .gym-cols{grid-template-columns:1fr;gap:2.5rem}
-  .rv-card{flex-basis:288px}
-  .marquee-row{gap:16px}
-  @keyframes rv-left{from{transform:translateX(0)}to{transform:translateX(calc(-50% - 8px))}}
-  @keyframes rv-right{from{transform:translateX(calc(-50% - 8px))}to{transform:translateX(0)}}
+  .rv-card{flex-basis:288px;margin-right:16px}
   .marquee{margin:40px -1.5rem 0;gap:16px;-webkit-mask-image:linear-gradient(to right,transparent,#000 24px,#000 calc(100% - 24px),transparent);mask-image:linear-gradient(to right,transparent,#000 24px,#000 calc(100% - 24px),transparent)}
   .map-card,.hours-card{margin:1.5rem}
   .cta-huge{font-size:16vw}
@@ -639,14 +636,21 @@ body.show-grid .grid-overlay{display:block}
   var rows=[document.getElementById('rv-row-1'),document.getElementById('rv-row-2')];
   var sets=[[],[]]; R.reviews.forEach(function(r,i){sets[i%2].push(card(r))});
   if(!sets[1].length) sets[1]=sets[0].slice();
-  rows.forEach(function(row,k){
-    var first=sets[k].join(''), hidden=first.replace(/<a /g,'<a aria-hidden="true" tabindex="-1" ');
-    var html=first, reps=1; row.innerHTML=html;
-    while(row.scrollWidth<window.innerWidth*1.2&&reps<20){html+=hidden;reps++;row.innerHTML=html}
-    var half=row.scrollWidth;
-    row.innerHTML=html+Array(reps+1).join(hidden);
-    row.style.setProperty('--rv-dur',Math.round(half/32)+'s');
-  });
+  var filledFor=0;
+  function build(){
+    var need=Math.max(window.innerWidth,screen.width||0)+400;
+    rows.forEach(function(row,k){
+      var first=sets[k].join(''), hidden=first.replace(/<a /g,'<a aria-hidden="true" tabindex="-1" ');
+      var one=first; row.innerHTML=one;
+      var setW=row.scrollWidth, copies=Math.max(1,Math.ceil(need/setW));
+      for(var c=1;c<copies;c++) one+=hidden;
+      row.innerHTML=one+Array(copies+1).join(hidden);   // two identical halves
+      row.style.setProperty('--rv-dur',Math.round(setW*copies/32)+'s');
+    });
+    filledFor=need;
+  }
+  build();
+  window.addEventListener('resize',function(){ if(Math.max(window.innerWidth,screen.width||0)+400>filledFor) build(); });
 })();
 </script>
 <script src="schedule.js"></script>
