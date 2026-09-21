@@ -36,14 +36,7 @@ a{color:inherit}
 /* ---------- header ---------- */
 header{display:flex;justify-content:space-between;align-items:center;padding:1.2rem 4rem;position:sticky;top:0;left:0;width:100%;z-index:100;background:var(--white);border-bottom:2px solid var(--light-grey)}
 .logo{display:flex;align-items:center;gap:1rem;font-family:var(--font-display);font-size:1.4rem;letter-spacing:.05em;line-height:1;text-decoration:none}
-.dumbbell-icon{width:40px;height:20px;background:var(--royal-blue);position:relative}
-.dumbbell-icon::before,.dumbbell-icon::after{content:'';position:absolute;width:8px;height:24px;background:var(--royal-blue);top:-2px}
-.dumbbell-icon::before{left:-4px}
-.dumbbell-icon::after{right:-4px}
-.logo-text{display:flex;flex-direction:column}
-.logo-elite{color:var(--royal-blue)}
-.logo-wellness{color:var(--silver-grey);letter-spacing:.12em}
-.logo-sub{font-family:var(--font-body);font-size:.55rem;letter-spacing:.2em;color:var(--black);margin-top:4px;font-weight:700}
+.logo-img{display:block;height:56px;width:auto}
 nav{display:flex;align-items:center;gap:2rem}
 nav .nav-link{font-family:var(--font-body);font-weight:800;font-size:.85rem;letter-spacing:.08em;text-transform:uppercase;text-decoration:none;color:var(--black)}
 nav .nav-link:hover{color:var(--royal-blue)}
@@ -193,10 +186,7 @@ nav .nav-link:hover{color:var(--royal-blue)}
 @media (max-width:768px){
   header{padding:12px 16px;flex-wrap:nowrap;gap:8px}
   .logo{gap:8px;font-size:1rem;flex-shrink:0}
-  .dumbbell-icon{width:28px;height:14px}
-  .dumbbell-icon::before,.dumbbell-icon::after{width:6px;height:17px}
-  .logo-text{white-space:nowrap}
-  .logo-sub{font-size:.46rem;letter-spacing:.15em;margin-top:3px}
+  .logo-img{height:40px}
   nav{gap:8px;flex-shrink:0}
   nav .nav-link{display:none}
   .lang-toggle{font-size:.68rem;letter-spacing:.04em;white-space:nowrap}
@@ -240,12 +230,7 @@ nav .nav-link:hover{color:var(--royal-blue)}
 <!-- ============ HEADER ============ -->
 <header>
   <a class="logo" href="#top" aria-label="Elite Wellness by Santos">
-    <div class="dumbbell-icon" aria-hidden="true"></div>
-    <div class="logo-text">
-      <span class="logo-elite">ELITE</span>
-      <span class="logo-wellness">WELLNESS</span>
-      <span class="logo-sub">BY SANTOS GINÁSIO</span>
-    </div>
+    <img class="logo-img" src="assets/elite-wellness-logo.png" alt="Elite Wellness by Santos" width="720" height="277">
   </a>
   <nav>
     <a class="nav-link" href="#gym">The Gym</a>
@@ -406,7 +391,7 @@ nav .nav-link:hover{color:var(--royal-blue)}
   <div class="map-card">
     <h2>Where we are</h2>
     <address>Rua Capitão Salgueiro Maia, Lote 13, Cave<br>8600-530 Lagos, Algarve</address>
-    <p class="landmark">Opposite SPAR Ponta da Piedade. Five minutes from the centre, parking on the street. Wheelchair-accessible entrance.</p>
+    <p class="landmark">Opposite SPAR Ponta da Piedade. Parking on the street. Wheelchair-accessible entrance.</p>
     <div class="map-links">
       <a class="link-strong" href="https://maps.app.goo.gl/u1Y17TLSevCZr2Tc9" target="_blank" rel="noopener">Open in Google Maps →</a>
     </div>
