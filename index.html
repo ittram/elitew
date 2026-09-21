@@ -13,6 +13,8 @@
     display: flex;
     flex-direction: column;
     height: 100vh;
+    height: 100dvh;
+    overflow: hidden;
   }
   nav {
     display: flex;
@@ -21,6 +23,17 @@
     background: #111;
     border-bottom: 1px solid #333;
     flex-shrink: 0;
+    /* one row that scrolls sideways on small screens instead of widening the page */
+    overflow-x: auto;
+    overscroll-behavior-x: contain;
+    -webkit-overflow-scrolling: touch;
+    scrollbar-width: none;
+  }
+  nav::-webkit-scrollbar { display: none; }
+  nav button, nav a.open-link { flex: 0 0 auto; white-space: nowrap; }
+  @media (max-width: 600px) {
+    nav { gap: 6px; padding: 8px 10px; }
+    nav button { padding: 6px 12px; font-size: 13px; }
   }
   nav button {
     appearance: none;
@@ -50,6 +63,7 @@
   nav a.open-link:hover { text-decoration: underline; }
   iframe {
     flex: 1;
+    min-height: 0;
     width: 100%;
     border: none;
   }
@@ -86,6 +100,7 @@
       buttons.forEach(b => b.classList.remove('active'));
       btn.classList.add('active');
       const src = btn.dataset.src;
+      btn.scrollIntoView({ inline: 'nearest', block: 'nearest', behavior: 'smooth' });
       viewer.src = withGrid(src);
       openLink.href = withGrid(src);
     });
