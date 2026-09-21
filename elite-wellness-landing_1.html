@@ -136,8 +136,22 @@ body.show-grid .grid-overlay{display:block}
 .reviews-section{background:var(--off-white);padding:8rem 4rem;text-align:center}
 .reviews-score{font-family:var(--font-display);font-size:8rem;line-height:1;color:var(--royal-blue)}
 .reviews-sub{font-family:var(--font-body);font-weight:800;text-transform:uppercase;letter-spacing:.15em;color:var(--silver-grey);margin-top:.6rem}
-.review-quote{font-family:var(--font-display);font-size:2.6rem;line-height:1.2;text-transform:uppercase;max-width:900px;margin:3.5rem auto 0;color:var(--black)}
-.review-attrib{margin-top:1.8rem;font-weight:800;text-transform:uppercase;letter-spacing:.2em;color:var(--silver-grey);font-size:.85rem}
+/* ---------- review marquee: cards travel left to right, pause on hover ---------- */
+.marquee{margin:64px -4rem 0;overflow:hidden;-webkit-mask-image:linear-gradient(to right,transparent,#000 128px,#000 calc(100% - 128px),transparent);mask-image:linear-gradient(to right,transparent,#000 128px,#000 calc(100% - 128px),transparent)}
+.marquee-track{display:flex;gap:24px;width:max-content;padding:8px 0;animation:marquee-ltr var(--marquee-duration,60s) linear infinite}
+.marquee:hover .marquee-track,.marquee:focus-within .marquee-track{animation-play-state:paused}
+@keyframes marquee-ltr{from{transform:translateX(calc(-50% - 12px))}to{transform:translateX(0)}}
+.rv-card{flex:0 0 384px;display:flex;flex-direction:column;gap:16px;padding:24px;background:var(--white);box-shadow:inset 0 0 0 3px var(--light-grey);text-align:left;text-decoration:none;color:var(--black);transition:box-shadow .2s}
+.rv-card:hover{box-shadow:inset 0 0 0 3px var(--royal-blue)}
+.rv-head{display:flex;align-items:center;gap:16px}
+.rv-avatar{flex:0 0 40px;height:40px;display:flex;align-items:center;justify-content:center;background:var(--royal-blue);color:var(--white);font-family:var(--font-display);font-size:20px;line-height:24px}
+.rv-name{font-family:var(--font-display);font-size:16px;line-height:24px;text-transform:uppercase;letter-spacing:.04em}
+.rv-meta{font-weight:800;font-size:11px;line-height:16px;letter-spacing:.1em;text-transform:uppercase;color:var(--silver-grey)}
+.rv-text{font-size:16px;line-height:24px}
+@media (prefers-reduced-motion:reduce){
+  .marquee{overflow-x:auto;-webkit-mask-image:none;mask-image:none}
+  .marquee-track{animation:none;padding:8px 64px}
+}
 .reviews-more{margin-top:2.5rem}
 .link-strong{font-weight:800;text-transform:uppercase;letter-spacing:.1em;color:var(--royal-blue);text-decoration:none;border-bottom:3px solid var(--royal-blue)}
 .link-strong:hover{color:var(--black);border-color:var(--black)}
@@ -254,7 +268,9 @@ body.show-grid .grid-overlay{display:block}
   .section-header{font-size:2.6rem}
   .pricing-grid{grid-template-columns:1fr}
   .gym-cols{grid-template-columns:1fr;gap:2.5rem}
-  .review-quote{font-size:1.6rem}
+  .rv-card{flex-basis:288px}
+  .reviews-more .link-strong{font-size:.75rem}
+  .marquee{margin:48px -1.5rem 0;-webkit-mask-image:linear-gradient(to right,transparent,#000 32px,#000 calc(100% - 32px),transparent);mask-image:linear-gradient(to right,transparent,#000 32px,#000 calc(100% - 32px),transparent)}
   .reviews-score{font-size:5rem}
   .map-card,.hours-card{margin:1.5rem}
   .cta-huge{font-size:16vw}
@@ -398,14 +414,45 @@ body.show-grid .grid-overlay{display:block}
   </div>
 </section>
 
-<!-- ============ REVIEWS — what people say ============ -->
+<!-- ============ REVIEWS: marquee of real Google reviews ============ -->
+<!--
+  To add a review, copy one <a class="rv-card"> block inside #rv-track.
+  Keep quotes word for word from Google. Example:
+  <a class="rv-card" href="https://maps.app.goo.gl/ks6o4URGCYT7rzHJ8" target="_blank" rel="noopener">
+    <div class="rv-head"><span class="rv-avatar" aria-hidden="true">J</span><div><div class="rv-name">Jane</div><div class="rv-meta">Google review · Member</div></div></div>
+    <p class="rv-text">"Quote exactly as written on Google."</p>
+  </a>
+  [PLACEHOLDER: add 4 to 6 more recent reviews so the loop feels fuller.]
+-->
 <section class="reviews-section" id="reviews">
   <div class="reviews-score">4.8</div>
   <div class="reviews-sub">from 153 Google reviews · the best-rated gym in Lagos</div>
-  <div class="review-quote">"The only place I've ever trained where the staff constantly walk the floor, offering advice."</div>
-  <div class="review-attrib">— Martin · Google review</div>
+  <div class="marquee" aria-label="Google reviews">
+    <div class="marquee-track" id="rv-track">
+      <a class="rv-card" href="https://maps.app.goo.gl/ks6o4URGCYT7rzHJ8" target="_blank" rel="noopener">
+        <div class="rv-head"><span class="rv-avatar" aria-hidden="true">M</span><div><div class="rv-name">Martin</div><div class="rv-meta">Google review · Member for two years</div></div></div>
+        <p class="rv-text">"This is the only place I have ever worked out where the staff constantly roam the gym, interacting with members and offering advice."</p>
+      </a>
+      <a class="rv-card" href="https://maps.app.goo.gl/ks6o4URGCYT7rzHJ8" target="_blank" rel="noopener">
+        <div class="rv-head"><span class="rv-avatar" aria-hidden="true">A</span><div><div class="rv-name">Alessandro</div><div class="rv-meta">Google review · Visitor</div></div></div>
+        <p class="rv-text">"Great find while travelling. Easy for visitors to access, really friendly staff, clean and modern equipment."</p>
+      </a>
+      <a class="rv-card" href="https://maps.app.goo.gl/ks6o4URGCYT7rzHJ8" target="_blank" rel="noopener">
+        <div class="rv-head"><span class="rv-avatar" aria-hidden="true">B</span><div><div class="rv-name">Brian</div><div class="rv-meta">Google review</div></div></div>
+        <p class="rv-text">"It's never too busy where you can't get on equipment."</p>
+      </a>
+      <a class="rv-card" href="https://maps.app.goo.gl/ks6o4URGCYT7rzHJ8" target="_blank" rel="noopener">
+        <div class="rv-head"><span class="rv-avatar" aria-hidden="true">S</span><div><div class="rv-name">Sahirah</div><div class="rv-meta">Google review · Visitor</div></div></div>
+        <p class="rv-text">"The lady at the counter and her dad were both genuinely helpful, going the extra mile giving tips on sights to see."</p>
+      </a>
+      <a class="rv-card" href="https://maps.app.goo.gl/ks6o4URGCYT7rzHJ8" target="_blank" rel="noopener">
+        <div class="rv-head"><span class="rv-avatar" aria-hidden="true">E</span><div><div class="rv-name">Emily</div><div class="rv-meta">Google review · On holiday</div></div></div>
+        <p class="rv-text">"I was training for a run back home whilst on holiday in Lagos and needed a treadmill..."</p>
+      </a>
+    </div>
+  </div>
   <div class="reviews-more">
-    <a class="link-strong" href="https://maps.app.goo.gl/u1Y17TLSevCZr2Tc9" target="_blank" rel="noopener">Read all 153 reviews on Google →</a>
+    <a class="link-strong" href="https://maps.app.goo.gl/ks6o4URGCYT7rzHJ8" target="_blank" rel="noopener">Read all 153 reviews on Google →</a>
   </div>
 </section>
 
@@ -577,6 +624,14 @@ body.show-grid .grid-overlay{display:block}
 })();
 </script>
 
+<script>
+(function(){
+  var t=document.getElementById('rv-track'); if(!t) return;
+  var cards=Array.prototype.slice.call(t.children);
+  cards.forEach(function(c){var k=c.cloneNode(true);k.setAttribute('aria-hidden','true');k.setAttribute('tabindex','-1');t.appendChild(k)});
+  t.style.setProperty('--marquee-duration',(cards.length*10)+'s');
+})();
+</script>
 <script src="schedule.js"></script>
 <script>
 (function(){
