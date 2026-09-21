@@ -1,0 +1,856 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Draft 1.2 (rolling verb) | Gym in Lagos, Algarve | Elite Wellness by Santos | Day Passes &amp; Memberships</title>
+<meta name="description" content="Family run gym in Lagos, Portugal. Weights, machines, classes and an outdoor training deck. Day pass €10, week pass €35.90, monthly from €21. Open Mon to Fri 7:00 to 21:00, Sat 9:00 to 13:00.">
+<link rel="alternate" hreflang="en" href="https://example.com/">
+<link rel="alternate" hreflang="pt-PT" href="https://example.com/pt">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Anton&family=Inter:wght@400;700;800&family=Rock+Salt&display=swap" rel="stylesheet">
+<style>
+:root{
+  --royal-blue:#2B3EAA;
+  --silver-grey:#8A8A8A;
+  --light-grey:#E5E5E5;
+  --off-white:#F4F4F2;
+  --white:#FFFFFF;
+  --black:#000000;
+  --font-display:'Anton',sans-serif;
+  --font-body:'Inter',sans-serif;
+  --font-script:'Rock Salt',cursive;
+}
+*{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+body{background:var(--white);color:var(--black);font-family:var(--font-body);overflow-x:hidden;-webkit-font-smoothing:antialiased}
+img{max-width:100%;display:block}
+a{color:inherit}
+
+/* ---------- torn edges ---------- */
+.torn-bottom{clip-path:polygon(0% 0%,100% 0%,100% calc(100% - 10px),95% 100%,90% calc(100% - 12px),85% 100%,80% calc(100% - 12px),75% 100%,70% calc(100% - 10px),65% 100%,60% calc(100% - 12px),55% 100%,50% calc(100% - 12px),45% 100%,40% calc(100% - 14px),35% 100%,30% calc(100% - 12px),25% 100%,20% calc(100% - 10px),15% 100%,10% calc(100% - 12px),5% 100%,0% calc(100% - 10px))}
+.torn-top{clip-path:polygon(0% 10px,5% 0%,10% 12px,15% 0%,20% 10px,25% 0%,30% 12px,35% 0%,40% 14px,45% 0%,50% 12px,55% 0%,60% 12px,65% 0%,70% 10px,75% 0%,80% 12px,85% 0%,90% 12px,95% 0%,100% 10px,100% 100%,0% 100%)}
+.torn-both{clip-path:polygon(0% 10px,5% 0%,10% 12px,15% 0%,20% 10px,25% 0%,30% 12px,35% 0%,40% 14px,45% 0%,50% 12px,55% 0%,60% 12px,65% 0%,70% 10px,75% 0%,80% 12px,85% 0%,90% 12px,95% 0%,100% 10px,100% calc(100% - 10px),95% 100%,90% calc(100% - 12px),85% 100%,80% calc(100% - 12px),75% 100%,70% calc(100% - 10px),65% 100%,60% calc(100% - 12px),55% 100%,50% calc(100% - 12px),45% 100%,40% calc(100% - 14px),35% 100%,30% calc(100% - 12px),25% 100%,20% calc(100% - 10px),15% 100%,10% calc(100% - 12px),5% 100%,0% calc(100% - 10px))}
+
+/* ---------- header ---------- */
+header{display:flex;justify-content:space-between;align-items:center;padding:14px 4rem;position:sticky;top:0;left:0;width:100%;z-index:100;background:var(--white);border-bottom:2px solid var(--light-grey)}
+.logo{display:flex;align-items:center;gap:1rem;font-family:var(--font-display);font-size:1.4rem;letter-spacing:.05em;line-height:1;text-decoration:none}
+.logo-img{display:block;height:40px;width:auto}
+nav{display:flex;align-items:center;gap:2rem}
+nav .nav-link{font-family:var(--font-body);font-weight:800;font-size:.85rem;letter-spacing:.08em;text-transform:uppercase;text-decoration:none;color:var(--black)}
+nav .nav-link:hover{color:var(--royal-blue)}
+.lang-toggle{font-family:var(--font-body);font-weight:800;font-size:.85rem;letter-spacing:.08em}
+.lang-toggle a{text-decoration:none}
+.lang-toggle .active{color:var(--royal-blue)}
+.lang-toggle .inactive{color:var(--silver-grey)}
+.nav-cta{background:var(--royal-blue);color:var(--white);padding:10px 28px;font-family:var(--font-display);text-transform:uppercase;font-size:1rem;line-height:24px;border:none;clip-path:polygon(5% 0%,100% 0%,95% 100%,0% 100%);cursor:pointer;transition:transform .2s ease;text-decoration:none;display:inline-block}
+.nav-cta:hover{transform:scale(1.05) skewX(-5deg)}
+
+/* ---------- hero ---------- */
+/* hero on the 12-column grid: 64px margins, 24px gutters, 4px vertical rhythm */
+.hero{position:relative;padding-top:96px}
+.hero-grid{display:grid;grid-template-columns:repeat(12,1fr);column-gap:24px;padding:0 4rem;text-align:center}
+.hero-title{grid-column:1 / -1;font-family:var(--font-display);font-size:14vw;line-height:calc(.865em + 7px);color:var(--royal-blue);letter-spacing:-.02em;text-transform:uppercase}
+.hero-sub{grid-column:4 / 10;margin-top:40px;font-size:18px;line-height:28px;text-wrap:balance}
+.hero-rating{grid-column:4 / 10;margin-bottom:24px;font-family:var(--font-body);font-weight:700;letter-spacing:.12em;text-transform:uppercase;font-size:12px;line-height:16px;color:var(--silver-grey)}
+.hero-rating .stars{color:var(--royal-blue);font-size:14px;letter-spacing:.05em}
+.hero-rating{position:relative;z-index:1}
+.hero-rating a{color:inherit;text-decoration:none;border-bottom:2px solid transparent;padding-bottom:2px;transition:color .2s,border-color .2s}
+.hero-rating a:hover{color:var(--royal-blue);border-color:var(--royal-blue)}
+@media (min-width:1600px){.hero-sub,.hero-rating{grid-column:5 / 9}}
+.hero-image-strip{display:flex;width:100%;height:300px;overflow:hidden;margin-top:64px}
+.hero-img{flex:1;height:100%;object-fit:cover;filter:grayscale(100%) contrast(120%);opacity:.85;transition:opacity .3s;background:#222}
+.hero-img:hover{opacity:1}
+
+/* grid overlay, shown with ?grid=1 */
+.grid-overlay{display:none;position:fixed;inset:0;z-index:9999;pointer-events:none}
+body.show-grid .grid-overlay{display:block}
+.grid-overlay::before{content:'';position:absolute;inset:0;background-image:repeating-linear-gradient(to bottom,rgba(255,0,90,.05) 0 1px,transparent 1px 4px),repeating-linear-gradient(to bottom,rgba(255,0,90,.12) 0 1px,transparent 1px 16px)}
+.grid-overlay-cols{height:100%;padding:0 4rem;display:grid;grid-template-columns:repeat(12,1fr);column-gap:24px}
+.grid-overlay-cols div{background:rgba(43,62,170,.07);border-left:1px solid rgba(43,62,170,.18);border-right:1px solid rgba(43,62,170,.18)}
+.grid-badge{position:fixed;bottom:16px;left:16px;background:var(--black);color:var(--white);font-family:var(--font-body);font-weight:800;font-size:11px;letter-spacing:.08em;text-transform:uppercase;padding:8px 12px;z-index:10000}
+
+/* ---------- equipment ticker ---------- */
+.equipment-ticker{background:var(--silver-grey);color:var(--white);padding:1rem 0;overflow:hidden;white-space:nowrap}
+.ticker-content{display:inline-block;font-family:var(--font-display);font-size:1.3rem;text-transform:uppercase;letter-spacing:.08em;animation:ticker 30s linear infinite}
+@keyframes ticker{0%{transform:translateX(0)}100%{transform:translateX(-50%)}}
+
+/* ---------- shared section bits ---------- */
+.section{padding:6rem 4rem}
+.section-kicker{position:relative;text-align:center;margin-bottom:4rem}
+.section-header{font-family:var(--font-display);font-size:4.5rem;text-transform:uppercase;line-height:1;color:var(--royal-blue)}
+.section-script{font-family:var(--font-script);font-size:1.6rem;color:var(--silver-grey);display:inline-block;transform:rotate(-3deg) translateY(-8px)}
+
+/* ---------- the gym ---------- */
+.gym-cols{max-width:1100px;margin:0 auto;display:grid;grid-template-columns:1fr 1fr;gap:4rem}
+.gym-col h3{font-family:var(--font-display);font-size:2.2rem;text-transform:uppercase;color:var(--black);margin-bottom:1rem}
+.gym-col p{line-height:1.7;font-size:1.05rem}
+.gym-note{max-width:1100px;margin:3rem auto 0;text-align:center;font-size:.85rem;font-weight:700;color:var(--silver-grey)}
+
+/* ---------- classes ---------- */
+.classes-section{background:var(--royal-blue);padding:8rem 4rem;position:relative}
+.classes-section .section-header{color:var(--white)}
+.classes-section .section-script{color:rgba(255,255,255,.6)}
+.classes-grid{display:grid;grid-template-columns:repeat(12,1fr);gap:24px}
+.classes-grid .class-card{grid-column:span 3}
+.class-card{background:var(--white);height:400px;position:relative;overflow:hidden;transition:transform .3s ease}
+.class-card:hover{transform:translateY(-10px)}
+.class-img{width:100%;height:100%;object-fit:cover;filter:grayscale(100%);background:#333}
+.class-overlay{position:absolute;bottom:0;left:0;width:100%;padding:1.5rem;background:linear-gradient(transparent,rgba(0,0,0,.9))}
+.class-name{font-family:var(--font-display);font-size:2.1rem;color:var(--white);text-transform:uppercase;line-height:1}
+.class-tag{font-family:var(--font-body);font-weight:700;font-size:.75rem;letter-spacing:.12em;text-transform:uppercase;color:rgba(255,255,255,.75);margin-top:.4rem}
+/* ---------- timetable (data in schedule.js) ---------- */
+/* ---------- timetable (data in schedule.js) ----------
+   Columns: the table borrows the page grid. border-spacing equals the
+   24px gutter and the table is widened by one gutter on each side, so
+   6 equal table columns = 6 x 2 grid columns (time + Mon to Fri).
+   Vertical: every size is a multiple of 8px; lines are drawn with
+   inset shadows so they add no height. */
+.tt{margin-top:96px;color:var(--white)}
+.tt-head{text-align:center;margin-bottom:32px}
+.tt-title{font-family:var(--font-display);font-size:48px;line-height:48px;text-transform:uppercase}
+.tt-next{margin-top:16px;font-weight:800;font-size:12px;line-height:16px;letter-spacing:.12em;text-transform:uppercase;color:rgba(255,255,255,.75)}
+.tt-next b{color:var(--white)}
+.tt-clip{overflow:hidden}
+.tt-table{width:calc(100% + 24px);margin:0 -12px;border-collapse:collapse;table-layout:fixed}
+.tt-table th,.tt-table td{padding:16px 12px;text-align:left;vertical-align:top;border-left:1px solid rgba(255,255,255,.25);box-shadow:inset 0 1px 0 rgba(255,255,255,.25)}
+.tt-table th:first-child,.tt-table td:first-child{border-left:0}
+.tt-table thead th{height:72px;font-family:var(--font-display);font-weight:400;font-size:24px;line-height:24px;text-transform:uppercase;letter-spacing:.04em;box-shadow:inset 0 -2px 0 rgba(255,255,255,.5)}
+.tt-table thead th.is-today{background:var(--white);color:var(--royal-blue);box-shadow:none}
+.tt-table thead th small{display:block;font-family:var(--font-body);font-weight:800;font-size:10px;line-height:16px;letter-spacing:.12em}
+.tt-table tbody tr:first-child th,.tt-table tbody tr:first-child td{box-shadow:none}
+.tt-time b{display:block;font-family:var(--font-display);font-weight:400;font-size:24px;line-height:32px}
+.tt-time span{display:block;font-size:12px;line-height:16px;font-weight:700;color:rgba(255,255,255,.65)}
+.tt-cell.is-today{background:rgba(255,255,255,.08)}
+.tt-cell.is-next{background:var(--white);color:var(--royal-blue);box-shadow:none}
+.tt-name{font-family:var(--font-display);font-size:24px;line-height:32px;text-transform:uppercase}
+.tt-desc{font-weight:700;font-size:11px;line-height:16px;letter-spacing:.1em;text-transform:uppercase;opacity:.7}
+.tt-new{display:inline-block;margin-left:8px;font-family:var(--font-script);font-size:12px;line-height:16px;transform:rotate(-4deg);color:var(--white)}
+.tt-cell.is-next .tt-new{color:var(--royal-blue)}
+.tt-flag{display:inline-block;vertical-align:middle;margin:-4px 0 0 8px;background:var(--royal-blue);color:var(--white);font-family:var(--font-body);font-weight:800;font-size:10px;line-height:16px;letter-spacing:.12em;text-transform:uppercase;padding:0 8px}
+.tt-tabs,.tt-list{display:none}
+.sr-only{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap}
+.tt-foot{margin-top:32px;display:flex;justify-content:space-between;align-items:baseline;flex-wrap:wrap;gap:16px;font-size:16px;line-height:24px;color:rgba(255,255,255,.85)}
+.tt-foot a{color:var(--white);font-weight:800;text-decoration:none;box-shadow:inset 0 -2px 0 rgba(255,255,255,.5)}
+.tt-updated{font-weight:800;font-size:11px;letter-spacing:.12em;text-transform:uppercase;color:rgba(255,255,255,.65)}
+.tt-foot a:hover{box-shadow:inset 0 -2px 0 var(--white)}
+
+/* ---------- reviews ---------- */
+.reviews-section{background:var(--off-white);padding:8rem 4rem;text-align:center}
+/* ---------- reviews: two rows in opposite directions, data in reviews.js ----------
+   Motion is driven from JS in exact pixels (Web Animations), so it doesn't depend on
+   how a browser sizes the row. Cards have a fixed size; long text is clamped with "More". */
+.rv-rating{margin-top:16px;font-weight:700;letter-spacing:.12em;text-transform:uppercase;font-size:12px;line-height:16px;color:var(--silver-grey)}
+.rv-rating a{color:inherit;text-decoration:none;box-shadow:inset 0 -2px 0 transparent;padding-bottom:2px;transition:color .2s,box-shadow .2s}
+.rv-rating a:hover{color:var(--royal-blue);box-shadow:inset 0 -2px 0 var(--royal-blue)}
+.rv-rating .stars{color:var(--royal-blue);font-size:14px;letter-spacing:.05em}
+.marquee{margin:64px -4rem 0;overflow:hidden;-webkit-mask-image:linear-gradient(to right,transparent,#000 128px,#000 calc(100% - 128px),transparent);mask-image:linear-gradient(to right,transparent,#000 128px,#000 calc(100% - 128px),transparent)}
+.marquee-row{display:flex;flex-wrap:nowrap;will-change:transform}
+.marquee-row+.marquee-row{margin-top:24px}
+.rv-card{flex:0 0 360px;width:360px;height:232px;margin-right:24px;padding:24px;display:flex;flex-direction:column;background:var(--white);box-shadow:inset 0 0 0 1px var(--light-grey);text-align:left;text-decoration:none;color:var(--black);transition:box-shadow .2s;overflow:hidden}
+.rv-card:hover{box-shadow:inset 0 0 0 2px var(--royal-blue)}
+.rv-top{display:flex;align-items:center;gap:12px;height:40px}
+.rv-avatar{flex:0 0 40px;height:40px;display:flex;align-items:center;justify-content:center;background:var(--royal-blue);color:var(--white);font-family:var(--font-display);font-size:20px;line-height:24px}
+.rv-who{min-width:0}
+.rv-name{display:block;font-family:var(--font-display);font-size:16px;line-height:24px;text-transform:uppercase;letter-spacing:.04em;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.rv-meta{display:block;font-weight:700;font-size:11px;line-height:16px;letter-spacing:.12em;text-transform:uppercase;color:var(--silver-grey);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.rv-line{display:flex;align-items:center;gap:8px;height:16px;margin-top:16px;font-size:12px;line-height:16px;color:var(--silver-grey)}
+.rv-stars{color:var(--royal-blue);font-size:14px;letter-spacing:.05em}
+.rv-body{position:relative;margin-top:16px;height:96px;overflow:hidden}
+.rv-text{font-size:16px;line-height:24px;display:-webkit-box;-webkit-line-clamp:4;-webkit-box-orient:vertical;overflow:hidden}
+.rv-more{display:none;position:absolute;right:0;bottom:0;padding-left:40px;background:linear-gradient(to right,rgba(255,255,255,0),var(--white) 32px);font-weight:800;font-size:16px;line-height:24px;color:var(--royal-blue)}
+.rv-card.is-clamped .rv-more{display:block}
+@media (prefers-reduced-motion:reduce){
+  .marquee{-webkit-mask-image:none;mask-image:none}
+  .marquee-row{overflow-x:auto;padding:0 4rem}
+}
+
+
+.reviews-more{margin-top:2.5rem}
+.link-strong{font-weight:800;text-transform:uppercase;letter-spacing:.1em;color:var(--royal-blue);text-decoration:none;border-bottom:3px solid var(--royal-blue)}
+.link-strong:hover{color:var(--black);border-color:var(--black)}
+
+/* ---------- about band ---------- */
+.about-band{padding:7rem 4rem;text-align:center}
+.about-band .section-script{margin-bottom:1.5rem}
+.about-band p{max-width:640px;margin:0 auto;font-size:1.2rem;line-height:1.75}
+/* family faces: overlapping circles; a photo covers the initial when assets/team/<name>.jpg exists */
+.family{margin-top:40px;display:flex;flex-direction:column;align-items:center;gap:16px}
+.family-faces{display:flex;list-style:none}
+.family-faces li{position:relative;width:80px;height:80px;margin-left:-16px;border-radius:50%;background:var(--royal-blue);box-shadow:0 0 0 4px var(--white);overflow:hidden;transition:transform .2s}
+.family-faces li:first-child{margin-left:0}
+.family-faces li:hover{transform:translateY(-4px);z-index:1}
+.family-faces b{position:absolute;inset:0;display:flex;align-items:center;justify-content:center;font-family:var(--font-display);font-weight:400;font-size:32px;line-height:40px;color:var(--white)}
+.family-faces img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover}
+.family-names{font-weight:700;font-size:12px;line-height:16px;letter-spacing:.12em;text-transform:uppercase;color:var(--silver-grey)}
+
+/* ---------- pricing ---------- */
+.pricing-grid{display:grid;grid-template-columns:repeat(12,1fr);gap:24px}
+.pricing-grid .price-card{grid-column:span 3}
+.price-card{border:4px solid var(--silver-grey);padding:2.2rem;position:relative;display:flex;flex-direction:column;background:var(--white)}
+.price-card h3{font-family:var(--font-display);font-size:1.9rem;color:var(--royal-blue);text-transform:uppercase;margin-bottom:1.2rem;min-height:2.1em;display:flex;align-items:flex-end}
+.price-big{font-family:var(--font-display);font-size:4.6rem;line-height:1;color:var(--black)}
+.price-sub{font-family:var(--font-body);font-size:.95rem;color:var(--silver-grey);font-weight:800;text-transform:uppercase;letter-spacing:.05em;margin-top:.6rem}
+.price-card p{margin-top:1.2rem;line-height:1.55;font-size:.98rem}
+.price-card.featured{border-color:var(--royal-blue);background:var(--royal-blue);color:var(--white)}
+.price-card.featured h3{color:var(--white)}
+.price-card.featured .price-big{color:var(--white)}
+.price-card.featured .price-sub{color:rgba(255,255,255,.75)}
+.badge-script{position:absolute;top:2.2rem;right:2.2rem;font-family:var(--font-script);font-size:1.05rem;line-height:1.9rem;color:var(--white);transform:rotate(-6deg)}
+/* practical notes under the prices, ruled like the timetable:
+   desktop = three cells of 4 columns with a rule in each gutter,
+   mobile  = rows with the label in column 1 and the text in columns 2 to 4 */
+.price-info{display:grid;grid-template-columns:repeat(12,1fr);column-gap:24px;margin-top:64px;box-shadow:inset 0 1px 0 var(--light-grey),inset 0 -1px 0 var(--light-grey)}
+.price-info div{grid-column:span 4;position:relative;padding:24px 0}
+.price-info div+div::before{content:'';position:absolute;left:-12px;top:0;bottom:0;width:1px;background:var(--light-grey)}
+.price-info h4{font-family:var(--font-display);font-weight:400;font-size:20px;line-height:24px;text-transform:uppercase;color:var(--royal-blue);margin-bottom:8px}
+.price-info p{font-size:16px;line-height:24px}
+.price-info a{color:var(--royal-blue);font-weight:800;text-decoration:none;box-shadow:inset 0 -2px 0 var(--royal-blue)}
+.price-ask{display:block;font-size:3.2rem;text-decoration:none;color:var(--royal-blue);width:max-content;box-shadow:inset 0 -4px 0 var(--royal-blue)}
+.price-ask:hover{color:var(--black);box-shadow:inset 0 -4px 0 var(--black)}
+
+/* ---------- find us ---------- */
+.map-section{position:relative;background:var(--white)}
+.map-frame{width:100%;height:70vh;border:0;filter:grayscale(100%) contrast(105%)}
+.map-card{position:absolute;top:3rem;left:4rem;background:var(--white);border:4px solid var(--black);padding:2.2rem;max-width:420px;z-index:5}
+.map-card h2{font-family:var(--font-display);font-size:2.6rem;color:var(--royal-blue);text-transform:uppercase;margin-bottom:1rem}
+.map-card address{font-style:normal;font-weight:700;line-height:1.6;font-size:.98rem}
+.map-card .landmark{color:var(--silver-grey);font-weight:700;font-size:.9rem;margin-top:.8rem;line-height:1.5}
+.map-links{margin-top:1.4rem;display:flex;gap:1rem;flex-wrap:wrap}
+.hours-card{position:absolute;top:3rem;right:4rem;background:var(--white);border:4px solid var(--royal-blue);padding:2.2rem;width:380px;z-index:5}
+.hours-card h2{font-family:var(--font-display);font-size:2.2rem;color:var(--royal-blue);text-transform:uppercase;margin-bottom:1.2rem}
+.hours-list{list-style:none;font-weight:700;font-size:1rem}
+.hours-list li{display:flex;justify-content:space-between;border-bottom:2px solid var(--light-grey);padding:.7rem 0}
+.hours-list .closed{color:var(--silver-grey)}
+.hours-note{margin-top:1rem;font-size:.8rem;font-weight:700;color:var(--silver-grey)}
+
+/* ---------- FAQ ---------- */
+.faq-section{background:var(--light-grey);padding:8rem 4rem}
+.faq-grid{max-width:900px;margin:0 auto}
+.faq-item{border-bottom:3px solid var(--silver-grey)}
+.faq-item summary{font-family:var(--font-display);font-size:1.35rem;text-transform:uppercase;padding:1.4rem 0;cursor:pointer;list-style:none;display:flex;justify-content:space-between;align-items:center;color:var(--black)}
+.faq-item summary::-webkit-details-marker{display:none}
+.faq-item summary::after{content:'+';font-family:var(--font-display);color:var(--royal-blue);font-size:1.8rem;margin-left:1rem;transition:transform .2s}
+.faq-item[open] summary::after{transform:rotate(45deg)}
+.faq-item p{padding:0 0 1.4rem;line-height:1.65;font-size:1rem;max-width:760px}
+.faq-item p a{color:var(--royal-blue);font-weight:700}
+.faq-item .todo{color:var(--silver-grey);font-weight:700}
+
+/* ---------- footer CTA ---------- */
+.footer-cta{background:var(--black);padding:8rem 2rem 4rem;text-align:center;position:relative;color:var(--white)}
+.cta-script{font-family:var(--font-script);color:var(--silver-grey);font-size:2rem;display:block;transform:rotate(-2deg) translateY(-10px)}
+.cta-huge{font-family:var(--font-display);font-size:9vw;color:var(--white);text-transform:uppercase;line-height:1;margin-bottom:2rem}
+.cta-sub{max-width:520px;margin:0 auto 2.5rem;line-height:1.7;color:rgba(255,255,255,.85)}
+.btn-main{display:inline-block;background:var(--royal-blue);color:var(--white);padding:1.5rem 4rem;font-family:var(--font-display);font-size:1.7rem;text-decoration:none;text-transform:uppercase;border:4px solid var(--white);transition:all .3s ease}
+.btn-main:hover{background:var(--white);color:var(--royal-blue);border-color:var(--royal-blue)}
+.cta-secondary{display:flex;gap:2.5rem;justify-content:center;margin-top:2rem;flex-wrap:wrap}
+.cta-secondary a{font-weight:800;text-transform:uppercase;letter-spacing:.12em;font-size:.85rem;color:rgba(255,255,255,.8);text-decoration:none;border-bottom:2px solid var(--royal-blue);padding-bottom:.2rem}
+.cta-secondary a:hover{color:var(--white)}
+.cta-motto{font-family:var(--font-script);color:var(--silver-grey);font-size:1.2rem;margin-top:4rem;transform:rotate(-1deg)}
+
+/* ---------- footer ---------- */
+.site-footer{background:var(--black);color:var(--silver-grey);padding:3rem 4rem 4rem;border-top:2px solid rgba(255,255,255,.12)}
+.footer-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:2rem;max-width:1280px;margin:0 auto}
+.footer-grid h4{font-family:var(--font-display);color:var(--white);text-transform:uppercase;font-size:1.05rem;margin-bottom:1rem;letter-spacing:.05em}
+.footer-grid p,.footer-grid a{font-size:.88rem;line-height:1.8;color:var(--silver-grey);text-decoration:none;display:block}
+.footer-grid a:hover{color:var(--white)}
+.footer-bottom{max-width:1280px;margin:3rem auto 0;padding-top:2rem;border-top:1px solid rgba(255,255,255,.12);display:flex;justify-content:space-between;flex-wrap:wrap;gap:1rem;font-size:.8rem;font-weight:700;letter-spacing:.08em;text-transform:uppercase}
+
+/* ---------- responsive ---------- */
+@media (max-width:1100px){
+  .pricing-grid{grid-template-columns:repeat(2,1fr)}
+  .pricing-grid .price-card{grid-column:auto}
+  .classes-grid{grid-template-columns:repeat(2,1fr)}
+  .classes-grid .class-card{grid-column:auto}
+  .tt-table th,.tt-table td{padding:16px 12px}
+  .tt-name{font-size:20px;line-height:32px}
+  .hours-card{position:static;width:auto;margin:2rem 4rem}
+  .map-card{position:static;max-width:none;margin:2rem 4rem 0}
+  .map-section{padding-bottom:3rem}
+}
+@media (max-width:768px){
+  header{padding:8px 1.5rem;flex-wrap:nowrap;gap:8px}
+  .logo{gap:8px;font-size:1rem;flex-shrink:0}
+  .logo-img{height:32px}
+  nav{gap:8px;flex-shrink:0}
+  nav .nav-link{display:none}
+  .lang-toggle{font-size:.68rem;letter-spacing:.04em;white-space:nowrap}
+  .nav-cta{padding:6px 16px;font-size:.8rem;line-height:19px;white-space:nowrap}
+  .section,.classes-section,.reviews-section,.faq-section,.about-band{padding:4rem 1.5rem}
+  .family-faces li{width:64px;height:64px;margin-left:-12px}
+  .family-faces b{font-size:24px;line-height:32px}
+  .classes-grid{gap:16px}
+  .tt{margin-top:80px}
+  .tt-head{margin-bottom:40px}
+  .tt-title{font-size:40px;line-height:48px}
+  .tt-table{display:none}
+  .tt-tabs{display:grid;grid-template-columns:repeat(5,1fr);gap:8px;margin-bottom:24px}
+  .tt-tabs button{appearance:none;border:0;box-shadow:inset 0 0 0 2px rgba(255,255,255,.5);background:transparent;color:var(--white);font-family:var(--font-display);font-size:16px;line-height:24px;text-transform:uppercase;padding:8px 0;cursor:pointer}
+  .tt-tabs button[aria-selected="true"]{background:var(--white);color:var(--royal-blue);box-shadow:none}
+  .tt-list{display:block;list-style:none}
+  .tt-list li{display:grid;grid-template-columns:repeat(4,1fr);column-gap:16px;padding:24px 0;box-shadow:inset 0 -1px 0 rgba(255,255,255,.25)}
+  .tt-list li>div:last-child{grid-column:span 3}
+  .tt-list li.is-next{background:var(--white);color:var(--royal-blue);box-shadow:-12px 0 0 var(--white),12px 0 0 var(--white)}
+  .tt-list li.is-next .tt-new{color:var(--royal-blue)}
+  .tt-list li.is-next .tt-time span{color:var(--royal-blue)}
+  .tt-foot{margin-top:40px;flex-direction:column;gap:8px}
+  .hero{padding-top:48px}
+  .hero-grid{grid-template-columns:repeat(4,1fr);column-gap:16px;padding:0 1.5rem}
+  .hero-title{font-size:20vw;line-height:calc(.865em + 6px)}
+  .hero-sub,.hero-rating{grid-column:1 / -1}
+  .hero-sub{margin-top:32px;font-size:16px;line-height:24px}
+  .hero-image-strip{margin-top:48px}
+  .grid-overlay-cols{grid-template-columns:repeat(4,1fr);column-gap:16px;padding:0 1.5rem}
+  .grid-overlay-cols div:nth-child(n+5){display:none}
+  .section-header{font-size:2.6rem}
+  .pricing-grid{grid-template-columns:1fr}
+  .price-info{grid-template-columns:1fr;margin-top:48px;box-shadow:inset 0 1px 0 var(--light-grey)}
+  .price-info div{grid-column:auto;display:grid;grid-template-columns:repeat(4,1fr);column-gap:16px;align-items:start;padding:24px 0;box-shadow:inset 0 -1px 0 var(--light-grey)}
+  .price-info div+div::before{display:none}
+  .price-info h4{grid-column:1;margin:0;font-size:16px;line-height:24px}
+  .price-info p{grid-column:2 / -1}
+  .gym-cols{grid-template-columns:1fr;gap:2.5rem}
+  .rv-card{flex-basis:288px;width:288px;height:216px;margin-right:16px;padding:16px}
+  .marquee-row+.marquee-row{margin-top:16px}
+  .marquee{margin:40px -1.5rem 0;-webkit-mask-image:linear-gradient(to right,transparent,#000 24px,#000 calc(100% - 24px),transparent);mask-image:linear-gradient(to right,transparent,#000 24px,#000 calc(100% - 24px),transparent)}
+  .map-card,.hours-card{margin:1.5rem}
+  .cta-huge{font-size:16vw}
+  .footer-grid{grid-template-columns:1fr 1fr}
+  .hero-image-strip{height:200px}
+}
+
+/* ---------- headline motion (review versions 1.2 to 1.6) ----------
+   One pass after load, then it settles. Reduced motion shows the final
+   state. Scrolling jumps to the final state. Click the headline to replay. */
+.hero-title{--hl:calc(.865em + 7px);line-height:var(--hl);cursor:default}
+.roll{display:inline-block;vertical-align:top;position:relative;overflow:hidden;height:var(--hl);white-space:nowrap}
+.roll.ready{transition:width .55s cubic-bezier(.2,.8,.2,1)}
+.roll-stack{display:block;will-change:transform}
+.roll.ready .roll-stack{transition:transform .55s cubic-bezier(.2,.8,.2,1)}
+.roll-word{display:block;height:var(--hl);text-align:center;white-space:nowrap}
+.roll.fade .roll-word{position:absolute;top:0;left:50%;transform:translateX(-50%);opacity:0;transition:opacity .7s ease}
+.roll.fade .roll-word.on{opacity:1}
+.ch{display:inline-block;white-space:pre}
+.settle .ch{animation:settle .7s cubic-bezier(.2,.8,.2,1) both;animation-delay:calc(var(--i) * 28ms + 150ms)}
+@keyframes settle{from{transform:translateY(.14em);opacity:0}to{transform:none;opacity:1}}
+@media (prefers-reduced-motion:reduce){.settle .ch{animation:none}}
+@media (max-width:768px){.hero-title{--hl:calc(.865em + 6px)}}
+</style>
+<script type="application/ld+json">
+{
+  "@context":"https://schema.org",
+  "@type":"HealthClub",
+  "name":"Elite Wellness by Santos",
+  "image":"https://example.com/elite-wellness-lagos-outdoor-training-deck.jpg",
+  "url":"https://example.com/",
+  "telephone":"+351926565836",
+  "priceRange":"€10 to €35.90",
+  "address":{"@type":"PostalAddress","streetAddress":"Rua Capitão Salgueiro Maia, Lote 13, Cave","addressLocality":"Lagos","addressRegion":"Algarve","postalCode":"8600-530","addressCountry":"PT"},
+  "geo":{"@type":"GeoCoordinates","latitude":37.0947,"longitude":-8.6727},
+  "aggregateRating":{"@type":"AggregateRating","ratingValue":"4.8","reviewCount":"153"},
+  "openingHoursSpecification":[
+    {"@type":"OpeningHoursSpecification","dayOfWeek":["Monday","Tuesday","Wednesday","Thursday","Friday"],"opens":"07:00","closes":"21:00"},
+    {"@type":"OpeningHoursSpecification","dayOfWeek":"Saturday","opens":"09:00","closes":"13:00"}
+  ],
+  "sameAs":["https://www.instagram.com/elitewellnessbysantos/","https://www.facebook.com/elitewellnessbysantos","https://maps.app.goo.gl/u1Y17TLSevCZr2Tc9"]
+}
+</script>
+</head>
+<body>
+
+<!-- grid overlay, shown with ?grid=1 -->
+<div class="grid-overlay" aria-hidden="true"><div class="grid-overlay-cols"><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div></div></div>
+
+<!-- ============ HEADER ============ -->
+<header>
+  <a class="logo" href="#top" aria-label="Elite Wellness by Santos">
+    <img class="logo-img" src="assets/elite-wellness-logo.png" alt="Elite Wellness by Santos" width="720" height="215">
+  </a>
+  <nav>
+    <a class="nav-link" href="#timetable">Timetable</a>
+    <a class="nav-link" href="#prices">Prices</a>
+    <a class="nav-link" href="#find-us">Location</a>
+    <span class="lang-toggle"><a class="active" href="#">EN</a> <span class="inactive">|</span> <a class="inactive" href="/pt">PT</a></span>
+    <a class="nav-cta" href="#prices">Join</a>
+  </nav>
+</header>
+
+<!-- ============ HERO: there is a gym, and here's what it looks like ============ -->
+<section class="hero" id="top">
+  <div class="hero-grid">
+    <p class="hero-rating"><a href="https://maps.app.goo.gl/ks6o4URGCYT7rzHJ8" target="_blank" rel="noopener" aria-label="4.8 out of 5 from 153 Google reviews, opens Google Maps in a new tab"><span class="stars">★★★★★</span>&nbsp; 4.8 · 153 Google reviews</a></p>
+    <h1 class="hero-title" data-delay="1200" data-hold="750" title="Click to replay"><span class="sr-only">Train in Lagos</span><span aria-hidden="true"><span class="roll" data-words="Move|Lift|Stretch|Ride|Train"></span><br>In Lagos</span></h1>
+    <p class="hero-sub">A family owned gym in Lagos. Weights, machines, classes and space to train outdoors.</p>
+  </div>
+  <div class="hero-image-strip torn-top">
+    <img class="hero-img" src="https://images.unsplash.com/photo-1534438327276-14e5300c3a48?q=80&w=1200&auto=format&fit=crop" alt="PLACEHOLDER: replace with wide shot of the Elite Wellness gym floor">
+    <img class="hero-img" src="https://images.unsplash.com/photo-1517963879433-6ad2b056d712?q=80&w=1200&auto=format&fit=crop" alt="PLACEHOLDER: replace with photo of the outdoor training deck in use">
+    <img class="hero-img" src="https://images.unsplash.com/photo-1526506118085-60ce8714f8c5?q=80&w=1200&auto=format&fit=crop" alt="PLACEHOLDER: replace with photo of a class or coaching moment">
+  </div>
+</section>
+
+<!-- ============ EQUIPMENT TICKER: the machines, at a glance ============ -->
+<div class="equipment-ticker" aria-label="Equipment">
+  <div class="ticker-content">
+    Free weights &nbsp;//&nbsp; Resistance machines &nbsp;//&nbsp; Treadmills &nbsp;//&nbsp; Indoor bikes &nbsp;//&nbsp; Functional area &nbsp;//&nbsp; Outdoor training deck &nbsp;//&nbsp; Group classes &nbsp;//&nbsp;
+    Free weights &nbsp;//&nbsp; Resistance machines &nbsp;//&nbsp; Treadmills &nbsp;//&nbsp; Indoor bikes &nbsp;//&nbsp; Functional area &nbsp;//&nbsp; Outdoor training deck &nbsp;//&nbsp; Group classes &nbsp;//&nbsp;
+  </div>
+</div>
+
+<!-- ============ THE GYM: does it have what I train with ============ -->
+<section class="section" id="gym">
+  <div class="section-kicker">
+    <h2 class="section-header">The gym</h2>
+    <span class="section-script">have a look around</span>
+  </div>
+  <div class="gym-cols">
+    <div class="gym-col">
+      <h3>Inside</h3>
+      <p>Free weights, resistance machines and cardio, including treadmills and indoor bikes, plus a studio for classes. The floor was refitted in 2022, and full height glass doors keep it bright with the air moving.</p>
+    </div>
+    <div class="gym-col">
+      <h3>Outside</h3>
+      <p>A functional training deck and bikes in the garden. When the weather's good, training moves outdoors. That's how this gym started, and it never stopped.</p>
+    </div>
+  </div>
+  <p class="gym-note">[PLACEHOLDER: confirm the equipment list and floor area after the remodel, e.g. "12 resistance machines, dumbbells to 40 kg, 4 treadmills". Add 2 or 3 real photos of the floor here.]</p>
+</section>
+
+<!-- ============ CLASSES ============ -->
+<section class="classes-section torn-both" id="classes">
+  <div class="section-kicker">
+    <h2 class="section-header">Classes</h2>
+    <span class="section-script">included in every pass</span>
+  </div>
+  <div class="classes-grid">
+    <div class="class-card">
+      <img class="class-img" src="https://images.unsplash.com/photo-1533560904424-a0c61dc306fc?q=80&w=800&auto=format&fit=crop" alt="PLACEHOLDER: replace with a real HYROX class photo">
+      <div class="class-overlay">
+        <div class="class-name">HYROX</div>
+        <div class="class-tag">Hybrid training</div>
+      </div>
+    </div>
+    <div class="class-card">
+      <img class="class-img" src="https://images.unsplash.com/photo-1571019614242-c5c5dee9f50b?q=80&w=800&auto=format&fit=crop" alt="PLACEHOLDER: replace with a real TRX class photo">
+      <div class="class-overlay">
+        <div class="class-name">TRX</div>
+        <div class="class-tag">Suspension training</div>
+      </div>
+    </div>
+    <div class="class-card">
+      <img class="class-img" src="https://images.unsplash.com/photo-1583454110551-21f2fa2afe61?q=80&w=800&auto=format&fit=crop" alt="PLACEHOLDER: replace with a real GAP class photo">
+      <div class="class-overlay">
+        <div class="class-name">GAP</div>
+        <div class="class-tag">Glutes, abs and legs</div>
+      </div>
+    </div>
+    <div class="class-card">
+      <img class="class-img" src="https://images.unsplash.com/photo-1518611012118-696072aa579a?q=80&w=800&auto=format&fit=crop" alt="PLACEHOLDER: replace with a real Bike Elite class photo">
+      <div class="class-overlay">
+        <div class="class-name">Bike Elite</div>
+        <div class="class-tag">Indoor cycling</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Weekly timetable: rendered from schedule.js. To update, see TIMETABLE.md -->
+  <div class="tt" id="timetable">
+    <div class="tt-head">
+      <h3 class="tt-title">This week</h3>
+      <p class="tt-next" id="tt-next"></p>
+    </div>
+    <div class="tt-clip"><table class="tt-table" id="tt-table" aria-label="Weekly class timetable"></table></div>
+    <div class="tt-tabs" id="tt-tabs" role="tablist" aria-label="Choose a day"></div>
+    <ul class="tt-list" id="tt-list"></ul>
+    <noscript><p class="tt-foot"><a href="assets/timetable.webp">See the class timetable</a></p></noscript>
+    <div class="tt-foot">
+      <span>All classes are included in every pass. Just show up.</span>
+      <span class="tt-updated" id="tt-updated"></span>
+    </div>
+  </div>
+</section>
+
+<!-- ============ PRICES ============ -->
+<section class="section" id="prices">
+  <div class="section-kicker">
+    <h2 class="section-header">Prices</h2>
+    <span class="section-script">no surprises</span>
+  </div>
+  <div class="pricing-grid">
+    <div class="price-card">
+      <h3>Day Pass</h3>
+      <div class="price-big">€10</div>
+      <div class="price-sub">Single entry, full access</div>
+      <p>Visiting Lagos? This one's yours.</p>
+    </div>
+    <div class="price-card">
+      <h3>Week Pass</h3>
+      <div class="price-big">€35.90</div>
+      <div class="price-sub">Seven days, full access</div>
+      <p>For a longer stay.</p>
+    </div>
+    <div class="price-card featured">
+      <span class="badge-script">best value</span>
+      <h3>Monthly</h3>
+      <div class="price-big">€21</div>
+      <div class="price-sub">Per month</div>
+      <p>3 month minimum. Insurance €24 a year, billed separately.</p>
+    </div>
+    <div class="price-card">
+      <h3>Personal Training</h3>
+      <a class="price-big price-ask" href="https://wa.me/351926565836?text=Hi!%20I%27d%20like%20to%20ask%20about%20personal%20training." target="_blank" rel="noopener">Ask us</a>
+      <div class="price-sub">On WhatsApp</div>
+      <p>One to one coaching, single sessions or blocks.</p>
+    </div>
+  </div>
+  <div class="price-info">
+    <div>
+      <h4>Included</h4>
+      <p>The gym floor, all classes and the outdoor deck. Your first visit comes with a body assessment from a coach.</p>
+    </div>
+    <div>
+      <h4>Paying</h4>
+      <p>No booking needed. Pay at the desk, cash only.</p>
+    </div>
+    <div>
+      <h4>Bring</h4>
+      <p>Your own towel, water and trainers. Forgot something? Towels and locks are for sale at reception.</p>
+    </div>
+  </div>
+</section>
+
+<!-- ============ REVIEWS: rendered from reviews.js (see the note at the top of that file) ============ -->
+<section class="reviews-section" id="reviews">
+  <h2 class="section-header">Reviews</h2>
+  <p class="rv-rating"><a id="rv-summary" href="https://maps.app.goo.gl/ks6o4URGCYT7rzHJ8" target="_blank" rel="noopener"><span class="stars">★★★★★</span>&nbsp; <span id="rv-score">4.8 · 153 Google reviews</span></a></p>
+  <div class="marquee" aria-label="Google reviews">
+    <div class="marquee-row" id="rv-row-1"></div>
+    <div class="marquee-row reverse" id="rv-row-2"></div>
+  </div>
+  <noscript><p class="rv-rating"><a href="https://maps.app.goo.gl/ks6o4URGCYT7rzHJ8">Read our reviews on Google</a></p></noscript>
+</section>
+
+<!-- ============ ABOUT: one short paragraph + the family ============
+     Photos: add square photos (at least 240 x 240) as assets/team/andre.jpg,
+     joana.jpg, ricardo.jpg and jorge.jpg. Until a photo exists, the initial shows. -->
+<section class="about-band">
+  <span class="section-script">since 2020</span>
+  <p>Elite Wellness is run by the Santos family: André, Joana and Ricardo, all qualified in physical education, and their father Jorge. It began as outdoor sessions on the Marina de Lagos during lockdown. The gym came later; the outdoor training never left.</p>
+  <div class="family">
+    <ul class="family-faces" aria-label="The Santos family">
+      <li title="André"><b aria-hidden="true">A</b><img src="assets/team/andre.jpg" alt="André" onerror="this.remove()"></li>
+      <li title="Joana"><b aria-hidden="true">J</b><img src="assets/team/joana.jpg" alt="Joana" onerror="this.remove()"></li>
+      <li title="Ricardo"><b aria-hidden="true">R</b><img src="assets/team/ricardo.jpg" alt="Ricardo" onerror="this.remove()"></li>
+      <li title="Jorge"><b aria-hidden="true">J</b><img src="assets/team/jorge.jpg" alt="Jorge" onerror="this.remove()"></li>
+    </ul>
+    <span class="family-names">André · Joana · Ricardo · Jorge</span>
+  </div>
+</section>
+
+<!-- ============ FIND US / HOURS ============ -->
+<section class="map-section" id="find-us">
+  <iframe class="map-frame" title="Map of Elite Wellness by Santos, Lagos" loading="lazy" referrerpolicy="no-referrer-when-downgrade" src="https://www.google.com/maps?q=Elite+Wellness+by+Santos,+Lagos,+Portugal&output=embed"></iframe>
+  <div class="map-card">
+    <h2>Where we are</h2>
+    <address>Rua Capitão Salgueiro Maia, Lote 13, Cave<br>8600-530 Lagos, Algarve</address>
+    <p class="landmark">Parking on the street. Wheelchair accessible entrance.</p>
+    <div class="map-links">
+      <a class="link-strong" href="https://maps.app.goo.gl/u1Y17TLSevCZr2Tc9" target="_blank" rel="noopener">Open in Google Maps →</a>
+    </div>
+  </div>
+  <div class="hours-card">
+    <h2>Open hours</h2>
+    <ul class="hours-list">
+      <li><span>Monday to Friday</span><span>07:00 to 21:00</span></li>
+      <li><span>Saturday</span><span>09:00 to 13:00</span></li>
+      <li><span>Sunday</span><span class="closed">Closed</span></li>
+      <li><span>Public holidays</span><span class="closed">Closed</span></li>
+    </ul>
+  </div>
+</section>
+
+<!-- ============ FAQ ============ -->
+<section class="faq-section torn-top">
+  <div class="section-kicker">
+    <h2 class="section-header">Good to know</h2>
+  </div>
+  <div class="faq-grid" itemscope itemtype="https://schema.org/FAQPage">
+    <details class="faq-item">
+      <summary>Can I train without a membership?</summary>
+      <p>Yes. A day pass is €10 and a week pass is €35.90. Walk in and pay at the desk. Cash only.</p>
+    </details>
+    <details class="faq-item">
+      <summary>Is there a minimum commitment?</summary>
+      <p>Not for day or week passes. The monthly membership (€21 a month) has a 3 month minimum, and there's a yearly insurance of €24, billed separately. <a href="https://wa.me/351926565836?text=Hi!%20I%27d%20like%20to%20ask%20about%20a%20monthly%20membership." target="_blank" rel="noopener">Ask us on WhatsApp</a>.</p>
+    </details>
+    <details class="faq-item">
+      <summary>Do I need to book?</summary>
+      <p>No. Just come by during opening hours.</p>
+    </details>
+    <details class="faq-item">
+      <summary>Do you speak English?</summary>
+      <p>Yes, English and Portuguese.</p>
+    </details>
+    <details class="faq-item">
+      <summary>Are there showers and lockers?</summary>
+      <p>Yes. Showers and lockers in both changing rooms. The lockers need your own lock; if you don't have one, you can buy one at reception.</p>
+    </details>
+    <details class="faq-item">
+      <summary>Do you provide towels?</summary>
+      <p>No. Bring your own towel, water and trainers. If you forget your towel, you can buy one at reception.</p>
+    </details>
+    <details class="faq-item">
+      <summary>Is there air conditioning?</summary>
+      <p>No. The full height glass doors open onto the outdoor deck, so the air moves. It's how the gym was designed.</p>
+    </details>
+    <details class="faq-item">
+      <summary>Do you have a squat rack?</summary>
+      <p>Yes. Two squat racks, Smith machines and a full free weight setup.</p>
+    </details>
+    <details class="faq-item">
+      <summary>Are you open on public holidays?</summary>
+      <p>No. We're closed on all Portuguese public holidays and on Lagos's municipal holiday (27 October).</p>
+    </details>
+    <details class="faq-item">
+      <summary>Do you do personal training?</summary>
+      <p>Yes, one to one with a qualified coach. <a href="https://wa.me/351926565836?text=Hi!%20I%27d%20like%20to%20ask%20about%20personal%20training." target="_blank" rel="noopener">Ask us on WhatsApp</a> for prices.</p>
+    </details>
+  </div>
+</section>
+
+<!-- ============ FINAL CTA ============ -->
+<footer class="footer-cta torn-top">
+  <span class="cta-script">see you on the floor</span>
+  <h2 class="cta-huge">Come train</h2>
+  <p class="cta-sub">Rua Capitão Salgueiro Maia, Lote 13, Lagos<br>Mon to Fri 07:00 to 21:00 · Sat 09:00 to 13:00</p>
+  <a class="btn-main" href="https://maps.app.goo.gl/u1Y17TLSevCZr2Tc9" target="_blank" rel="noopener">Get directions</a>
+  <div class="cta-secondary">
+    <a href="https://wa.me/351926565836?text=Hi!%20I%20have%20a%20question%20about%20the%20gym." target="_blank" rel="noopener">Questions? WhatsApp us</a>
+  </div>
+  <p class="cta-motto">Juntos Somos Elite. Together We Are Elite.</p>
+</footer>
+
+<!-- ============ FOOTER ============ -->
+<div class="site-footer">
+  <div class="footer-grid">
+    <div>
+      <h4>Elite Wellness by Santos</h4>
+      <p>Rua Capitão Salgueiro Maia, Lote 13, Cave<br>8600-530 Lagos, Algarve, Portugal</p>
+    </div>
+    <div>
+      <h4>Contact</h4>
+      <a href="https://wa.me/351926565836?text=Hi!%20I%20have%20a%20question%20about%20the%20gym." target="_blank" rel="noopener">WhatsApp +351 926 565 836</a>
+      <a href="mailto:elitewellness.geral@gmail.com">elitewellness.geral@gmail.com</a>
+    </div>
+    <div>
+      <h4>Hours</h4>
+      <p>Mon to Fri 07:00 to 21:00<br>Sat 09:00 to 13:00<br>Sun and public holidays closed</p>
+    </div>
+    <div>
+      <h4>Follow</h4>
+      <a href="https://www.instagram.com/elitewellnessbysantos/" target="_blank" rel="noopener">Instagram</a>
+      <a href="https://www.facebook.com/elitewellnessbysantos" target="_blank" rel="noopener">Facebook</a>
+      <a href="https://maps.app.goo.gl/u1Y17TLSevCZr2Tc9" target="_blank" rel="noopener">Google Maps</a>
+      <a href="https://www.nit.pt/fit/ginasios-e-outdoor/treinar-num-ginasio-ao-ar-livre-sim-e-possivel-no-elite-wellness-em-lagos" target="_blank" rel="noopener">As featured in NiT</a>
+    </div>
+  </div>
+  <div class="footer-bottom">
+    <span>© Elite Wellness by Santos · Lagos, Algarve, Portugal</span>
+    <span>Family run since 2020</span>
+  </div>
+</div>
+
+<script>
+(function(){
+  if(new URLSearchParams(location.search).get('grid')==='1'){
+    document.body.classList.add('show-grid');
+    var b=document.createElement('div');
+    b.className='grid-badge';
+    b.textContent=innerWidth>768?'12 col / 24px gutters / 4px baseline':'4 col / 16px gutters / 4px baseline';
+    document.body.appendChild(b);
+  }
+})();
+</script>
+
+<script src="reviews.js"></script>
+<script>
+(function(){
+  var R=window.ELITE_REVIEWS; if(!R) return;
+  var marquee=document.querySelector('.marquee');
+  var rows=[document.getElementById('rv-row-1'),document.getElementById('rv-row-2')];
+  var SPEED=32; // pixels per second
+  function esc(t){return String(t).replace(/[&<>"]/g,function(c){return{'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]})}
+  function ago(ym){
+    if(!ym) return '';
+    var p=ym.split('-'), now=new Date();
+    var m=(now.getFullYear()-(+p[0]))*12+(now.getMonth()+1-(+p[1]));
+    if(m<=0) return 'This month'; if(m===1) return 'A month ago'; if(m<12) return m+' months ago';
+    var y=Math.floor(m/12); return y===1?'A year ago':y+' years ago';
+  }
+  function card(r,hidden){
+    var n=Math.max(1,Math.min(5,Math.round(r.stars||5)));
+    return '<a class="rv-card" href="'+R.url+'" target="_blank" rel="noopener"'+(hidden?' aria-hidden="true" tabindex="-1"':'')+'>'+
+      '<div class="rv-top"><span class="rv-avatar" aria-hidden="true">'+esc(r.name.charAt(0))+'</span>'+
+      '<span class="rv-who"><span class="rv-name">'+esc(r.name)+'</span><span class="rv-meta">'+(r.note?esc(r.note):'Google review')+'</span></span></div>'+
+      '<div class="rv-line"><span class="rv-stars" aria-label="'+n+' out of 5 stars">'+'★★★★★'.slice(0,n)+'</span>'+(r.date?'<span>'+ago(r.date)+'</span>':'')+'</div>'+
+      '<div class="rv-body"><p class="rv-text">'+esc(r.text)+'</p><span class="rv-more">More</span></div></a>';
+  }
+  var sm=document.getElementById('rv-summary'); if(sm){sm.href=R.url; document.getElementById('rv-score').textContent=R.rating+' · '+R.count+' Google reviews';}
+  var sets=[[],[]]; R.reviews.forEach(function(r,i){sets[i%2].push(r)});
+  if(!sets[1].length) sets[1]=sets[0].slice();
+  var anims=[], builtFor=0;
+  function build(){
+    anims.forEach(function(a){a.cancel()}); anims=[];
+    var view=Math.max(marquee.clientWidth,window.innerWidth);
+    rows.forEach(function(row,k){
+      var list=sets[k];
+      // one copy = the review set repeated until it is wider than the view
+      row.innerHTML=list.map(function(r){return card(r,false)}).join('');
+      var cards=row.children, step=cards[cards.length-1].offsetLeft+cards[cards.length-1].offsetWidth+parseFloat(getComputedStyle(cards[0]).marginRight)-cards[0].offsetLeft;
+      var copies=Math.max(1,Math.ceil((view+step)/step));
+      var html='';
+      for(var c=0;c<copies*2;c++) html+=list.map(function(r){return card(r,c>0)}).join('');
+      row.innerHTML=html;
+      var dist=step*copies;                       // exact pixel length of one copy
+      row.style.width=(dist*2)+'px';
+      Array.prototype.forEach.call(row.querySelectorAll('.rv-text'),function(t){ if(t.scrollHeight>t.clientHeight+1) t.closest('.rv-card').classList.add('is-clamped') });
+      if(window.matchMedia('(prefers-reduced-motion: reduce)').matches||!row.animate) return;
+      var from='translate3d(0,0,0)', to='translate3d('+(-dist)+'px,0,0)';
+      anims.push(row.animate(k===0?[{transform:from},{transform:to}]:[{transform:to},{transform:from}],{duration:dist/SPEED*1000,iterations:Infinity,easing:'linear'}));
+    });
+    builtFor=view;
+  }
+  function start(){ build(); }
+  if(document.fonts&&document.fonts.ready) document.fonts.ready.then(start); else start();
+  marquee.addEventListener('mouseenter',function(){anims.forEach(function(a){a.pause()})});
+  marquee.addEventListener('mouseleave',function(){anims.forEach(function(a){a.play()})});
+  var t; window.addEventListener('resize',function(){clearTimeout(t);t=setTimeout(function(){ if(Math.abs(Math.max(marquee.clientWidth,window.innerWidth)-builtFor)>40) build(); },200)});
+})();
+</script>
+<script src="schedule.js"></script>
+<script>
+(function(){
+  var S=window.ELITE_SCHEDULE; if(!S) return;
+  var DAYS=['mon','tue','wed','thu','fri','sat','sun'];
+  var NAMES={mon:'Mon',tue:'Tue',wed:'Wed',thu:'Thu',fri:'Fri',sat:'Sat',sun:'Sun'};
+  var LONG={mon:'Monday',tue:'Tuesday',wed:'Wednesday',thu:'Thursday',fri:'Friday',sat:'Saturday',sun:'Sunday'};
+  var sessions=S.sessions.slice().sort(function(a,b){return DAYS.indexOf(a.day)-DAYS.indexOf(b.day)||a.time.localeCompare(b.time)});
+  var days=DAYS.filter(function(d){return sessions.some(function(x){return x.day===d})});
+  var times=Array.from(new Set(sessions.map(function(x){return x.time}))).sort();
+  function esc(t){return String(t).replace(/[&<>"]/g,function(c){return{'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]})}
+  function info(x){var c=S.classes[x.class]||{name:x.class,en:''};return c}
+
+  // current time in Lisbon
+  var parts={};new Intl.DateTimeFormat('en-GB',{timeZone:'Europe/Lisbon',weekday:'short',hour:'2-digit',minute:'2-digit',hour12:false}).formatToParts(new Date()).forEach(function(p){parts[p.type]=p.value});
+  var today=(parts.weekday||'').toLowerCase().slice(0,3);
+  var nowHM=(parts.hour==='24'?'00':parts.hour)+':'+parts.minute;
+
+  // next class from now, wrapping to next week
+  var ti=DAYS.indexOf(today), next=null;
+  for(var k=0;k<8&&!next;k++){
+    var d=DAYS[(ti+k)%7];
+    next=sessions.find(function(x){return x.day===d&&(k>0||x.time>nowHM)})||null;
+  }
+  function when(x){
+    if(x.day===today) return 'Today';
+    if(DAYS[(ti+1)%7]===x.day) return 'Tomorrow';
+    return LONG[x.day];
+  }
+  var nextEl=document.getElementById('tt-next');
+  if(next) nextEl.innerHTML='Next class: <b>'+when(next)+' '+next.time+' · '+esc(info(next).name)+'</b>';
+
+  function cellHTML(x,flag){
+    var c=info(x);
+    return '<div class="tt-name">'+esc(c.name)+(flag?'<span class="tt-flag">Next</span>':'')+(x.isNew?'<span class="tt-new">new!</span>':'')+'</div>'+
+      '<div class="tt-desc">'+esc(c.en||'')+'</div>';
+  }
+  function dur(t){var x=sessions.find(function(s){return s.time===t});return x&&x.minutes?x.minutes+' min':''}
+
+  // desktop table
+  var h='<thead><tr><th class="tt-time" scope="col"><span class="sr-only">Time</span></th>';
+  days.forEach(function(d){h+='<th scope="col"'+(d===today?' class="is-today"':'')+'>'+LONG[d]+(d===today?'<small>Today</small>':'')+'</th>'});
+  h+='</tr></thead><tbody>';
+  times.forEach(function(t){
+    h+='<tr><th class="tt-time" scope="row"><b>'+t+'</b><span>'+dur(t)+'</span></th>';
+    days.forEach(function(d){
+      var x=sessions.find(function(s){return s.day===d&&s.time===t});
+      var isNext=x&&next&&x===next;
+      h+='<td class="tt-cell'+(d===today?' is-today':'')+(isNext?' is-next':'')+'">'+(x?cellHTML(x,isNext):'')+'</td>';
+    });
+    h+='</tr>';
+  });
+  document.getElementById('tt-table').innerHTML=h+'</tbody>';
+
+  // mobile tabs + list
+  var tabs=document.getElementById('tt-tabs'), list=document.getElementById('tt-list');
+  function showDay(d){
+    Array.prototype.forEach.call(tabs.children,function(b){b.setAttribute('aria-selected',b.dataset.day===d?'true':'false')});
+    list.innerHTML=sessions.filter(function(x){return x.day===d}).map(function(x){
+      var isNext=next&&x===next;
+      return '<li class="'+(isNext?'is-next':'')+'"><div class="tt-time"><b>'+x.time+'</b><span>'+(x.minutes?x.minutes+' min':'')+'</span></div><div>'+cellHTML(x,isNext)+'</div></li>';
+    }).join('');
+  }
+  tabs.innerHTML=days.map(function(d){return '<button type="button" role="tab" data-day="'+d+'">'+NAMES[d]+'</button>'}).join('');
+  tabs.addEventListener('click',function(e){var b=e.target.closest('button');if(b)showDay(b.dataset.day)});
+  showDay(days.indexOf(today)>-1?today:(next?next.day:days[0]));
+
+  // footer
+  if(S.updated){var u=new Date(S.updated+'T12:00:00');document.getElementById('tt-updated').textContent='Updated '+u.toLocaleDateString('en-GB',{day:'numeric',month:'long',year:'numeric'});}
+})();
+</script>
+
+
+<script>
+/* headline motion: see the CSS note above */
+(function(){
+  var reduce=window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  var h1=document.querySelector('.hero-title'); if(!h1) return;
+  var rolls=[].slice.call(h1.querySelectorAll('.roll'));
+  var timers=[], done=false;
+  rolls.forEach(function(r){
+    var words=r.getAttribute('data-words').split('|');
+    r.innerHTML='<span class="roll-stack">'+words.map(function(w){return '<span class="roll-word">'+w+'</span>'}).join('')+'</span>';
+    r._w=[].slice.call(r.querySelectorAll('.roll-word'));
+  });
+  function measure(){
+    rolls.forEach(function(r){
+      var probe=document.createElement('span'); probe.style.cssText='position:absolute;visibility:hidden;white-space:nowrap';
+      h1.appendChild(probe);
+      r._widths=r._w.map(function(w){probe.textContent=w.textContent;return probe.getBoundingClientRect().width});
+      h1.removeChild(probe);
+    });
+  }
+  function show(r,i){
+    r.style.width=Math.ceil(r._widths[i])+'px';
+    if(r.classList.contains('fade')) r._w.forEach(function(w,k){w.classList.toggle('on',k===i)});
+    else r.firstChild.style.transform='translateY('+(-i*r.getBoundingClientRect().height)+'px)';
+    r._i=i;
+  }
+  function finish(){ timers.forEach(clearTimeout); timers=[]; rolls.forEach(function(r){show(r,r._w.length-1)}); done=true; }
+  function play(){
+    timers.forEach(clearTimeout); timers=[]; done=false;
+    rolls.forEach(function(r){ r.classList.remove('ready'); show(r,0); });
+    void h1.offsetWidth; rolls.forEach(function(r){r.classList.add('ready')});
+    var delay=+(h1.getAttribute('data-delay')||1200), hold=+(h1.getAttribute('data-hold')||900);
+    var steps=Math.max.apply(null,rolls.map(function(r){return r._w.length}));
+    for(var s=1;s<steps;s++)(function(s){
+      timers.push(setTimeout(function(){rolls.forEach(function(r){ if(s<r._w.length) show(r,s) }); if(s===steps-1) done=true;}, delay+(s-1)*hold));
+    })(s);
+  }
+  function replaySettle(){
+    var st=h1.querySelectorAll('.settle'); [].forEach.call(st,function(e){e.classList.remove('settle');void e.offsetWidth;e.classList.add('settle')});
+  }
+  (document.fonts&&document.fonts.ready?document.fonts.ready:Promise.resolve()).then(function(){
+    measure();
+    if(!rolls.length) return;
+    if(reduce){ rolls.forEach(function(r){r.classList.add('ready')}); finish(); return; }
+    play();
+  });
+  window.addEventListener('scroll',function(){ if(!done&&window.scrollY>40) finish(); },{passive:true});
+  var t; window.addEventListener('resize',function(){clearTimeout(t);t=setTimeout(function(){measure();rolls.forEach(function(r){r.classList.remove('ready');show(r,r._i||0);void r.offsetWidth;r.classList.add('ready')})},150)});
+  h1.addEventListener('click',function(){ if(reduce) return; window.scrollTo(0,0); replaySettle(); if(rolls.length){measure();play();} });
+})();
+</script>
+</body>
+</html>
