@@ -188,8 +188,12 @@ body.show-grid .grid-overlay{display:block}
 .price-card.featured .price-big{color:var(--white)}
 .price-card.featured .price-sub{color:rgba(255,255,255,.75)}
 .badge-script{position:absolute;top:-1.6rem;right:1rem;font-family:var(--font-script);font-size:1.05rem;color:var(--black);transform:rotate(-4deg)}
-.price-info{display:grid;grid-template-columns:repeat(12,1fr);column-gap:24px;row-gap:32px;margin-top:64px}
-.price-info div{grid-column:span 4;padding-top:16px;box-shadow:inset 0 2px 0 var(--black)}
+/* practical notes under the prices, ruled like the timetable:
+   desktop = three cells of 4 columns with a rule in each gutter,
+   mobile  = rows with the label in column 1 and the text in columns 2 to 4 */
+.price-info{display:grid;grid-template-columns:repeat(12,1fr);column-gap:24px;margin-top:64px;box-shadow:inset 0 1px 0 var(--light-grey),inset 0 -1px 0 var(--light-grey)}
+.price-info div{grid-column:span 4;position:relative;padding:24px 0}
+.price-info div+div::before{content:'';position:absolute;left:-12px;top:0;bottom:0;width:1px;background:var(--light-grey)}
 .price-info h4{font-family:var(--font-display);font-weight:400;font-size:20px;line-height:24px;text-transform:uppercase;color:var(--royal-blue);margin-bottom:8px}
 .price-info p{font-size:16px;line-height:24px}
 .price-info a{color:var(--royal-blue);font-weight:800;text-decoration:none;box-shadow:inset 0 -2px 0 var(--royal-blue)}
@@ -289,8 +293,11 @@ body.show-grid .grid-overlay{display:block}
   .grid-overlay-cols div:nth-child(n+5){display:none}
   .section-header{font-size:2.6rem}
   .pricing-grid{grid-template-columns:1fr}
-  .price-info{grid-template-columns:1fr;margin-top:48px}
-  .price-info div{grid-column:auto}
+  .price-info{grid-template-columns:1fr;margin-top:48px;box-shadow:inset 0 1px 0 var(--light-grey)}
+  .price-info div{grid-column:auto;display:grid;grid-template-columns:repeat(4,1fr);column-gap:16px;align-items:start;padding:24px 0;box-shadow:inset 0 -1px 0 var(--light-grey)}
+  .price-info div+div::before{display:none}
+  .price-info h4{grid-column:1;margin:0;font-size:16px;line-height:24px}
+  .price-info p{grid-column:2 / -1}
   .gym-cols{grid-template-columns:1fr;gap:2.5rem}
   .rv-card{flex-basis:288px;width:288px;height:216px;margin-right:16px;padding:16px}
   .marquee-row+.marquee-row{margin-top:16px}
@@ -470,7 +477,7 @@ body.show-grid .grid-overlay{display:block}
   </div>
   <div class="price-info">
     <div>
-      <h4>Every pass includes</h4>
+      <h4>Included</h4>
       <p>The gym floor, all classes and the outdoor deck. Your first visit comes with a body assessment from a coach.</p>
     </div>
     <div>
