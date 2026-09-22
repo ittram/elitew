@@ -5,7 +5,8 @@
 - **Small design iterations and fixes go into the current draft**, in place. Do not spin up a new version for a font size, a wrap, a colour or a bug.
 - Register every new draft in the `DRAFTS` list at the top of the script in `index.html`, with `v`, `file`, `label` (2 to 4 words saying what it tests), `date`, a `status`, `tested` and `next`.
 - **The newest version is always first and is the one the page loads.** `index.html` sorts `DRAFTS` by version number, so a new entry orders itself; give the new draft `status:'latest'` and drop the previous latest to `status:'open'`.
-- Drafts we no longer compare get `archived:true` and a one line `why`. They stay in the Archive panel and still open.
+- Drafts we no longer compare get `archived:true`, a `group` (the archive panel's subheading) and a one line `why`. They stay in the Archive panel and still open.
+- Clicking the draft you are already on opens its About panel. There is no separate About button, to keep room for the chips on a phone.
 - The bar must stay **one line tall** and work on a phone: chips scroll sideways, the tools stay pinned on the right.
 
 ## Copy

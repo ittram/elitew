@@ -61,11 +61,8 @@
 <div class="bar">
   <div class="chips" id="chips" role="tablist" aria-label="Drafts"></div>
   <div class="tools">
-    <button class="tool" id="infoBtn" aria-expanded="false" aria-controls="infoPanel" title="What this draft tests">
-      <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.6"><circle cx="8" cy="8" r="6.5"/><path d="M8 7.2v4M8 4.6v.1" stroke-linecap="round"/></svg><span class="txt">About</span>
-    </button>
     <button class="tool" id="archBtn" aria-expanded="false" aria-controls="archPanel" title="Archived drafts">
-      <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.6"><rect x="1.8" y="2.5" width="12.4" height="3.2" rx=".8"/><path d="M3 5.7v7.3h10V5.7M6.3 8.4h3.4" stroke-linecap="round"/></svg><span class="txt">Archive</span><span class="count" id="archCount"></span>
+      <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.6"><rect x="1.8" y="2.5" width="12.4" height="3.2" rx=".8"/><path d="M3 5.7v7.3h10V5.7M6.3 8.4h3.4" stroke-linecap="round"/></svg><span class="txt">Archive</span>
     </button>
     <a class="tool" id="openLink" target="_blank" rel="noopener" title="Open this draft in a new tab">
       <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M9 2.5h4.5V7M13.5 2.5 7.5 8.5M12 9.5v4H2.5V4h4" stroke-linecap="round" stroke-linejoin="round"/></svg>
@@ -85,44 +82,44 @@ const DRAFTS = [
   { v:'1.9.6.6', file:'elite-wellness-landing_1-9-6-6.html', label:'Hours, location, footer', date:'22 Sep 2026', status:'latest',
     tested:'The signed off contact work: one Hours and location band (blue panel with the live status, the hours and the address, map filling the right half on desktop, map as a band on a phone), a real footer, and the action bar that follows you on every screen.',
     next:'Next pass: the timetable, classes and prices in the same design language as the gym section. Headline choice (1.2 to 1.6) is still open.' },
-  { v:'1.9.6.5', file:'elite-wellness-landing_1-9-6-5.html', label:'Two columns on desktop', date:'22 Sep 2026', archived:true,
+  { v:'1.9.6.5', file:'elite-wellness-landing_1-9-6-5.html', label:'Two columns on desktop', date:'22 Sep 2026', archived:true, group:'Hours, location and footer',
     tested:'Desktop back to two big columns with the map on the right, running to the edge of the screen. The phone layout and all the styling stay as they were, and a Get directions button sits under the address.',
     why:'Step towards 1.9.6.6.' },
-  { v:'1.9.6.4', file:'elite-wellness-landing_1-9-6-4.html', label:'Final polish', date:'22 Sep 2026', archived:true,
+  { v:'1.9.6.4', file:'elite-wellness-landing_1-9-6-4.html', label:'Final polish', date:'22 Sep 2026', archived:true, group:'Hours, location and footer',
     tested:'No highlight on the hours, the live line carries that on its own. No script line under the title. The note reads free parking, cash at reception. The Google Maps link moved onto the map, bottom right, where it belongs.',
     why:'Step towards 1.9.6.6.' },
-  { v:'1.9.6.3', file:'elite-wellness-landing_1-9-6-3.html', label:'8px rhythm, taller map', date:'22 Sep 2026', archived:true,
+  { v:'1.9.6.3', file:'elite-wellness-landing_1-9-6-3.html', label:'8px rhythm, taller map', date:'22 Sep 2026', archived:true, group:'Hours, location and footer',
     tested:'Same centred heading and band padding as the other sections, every space on the 8px grid, the map band taller at 432px, no Volt in the hours (today is marked in white), and the action bar back to real buttons, aligned right and on phones only.',
     why:'Step towards 1.9.6.6.' },
   { v:'1.9.6.2', file:'elite-wellness-landing_1-9-6-2.html', label:'Map as the strip between',
-    date:'22 Sep 2026', archived:true,
+    date:'22 Sep 2026', archived:true, group:'Hours, location and footer',
     tested:'One blue block instead of a split: title and live status, the hours as four cells across the width with today marked in Volt, then the map full width as the strip that separates hours from address, then the address and the Google link.',
     why:'Step towards 1.9.6.6.' },
-  { v:'1.9.6.1', file:'elite-wellness-landing_1-9-6-1.html', label:'Hours first, then location', date:'22 Sep 2026', archived:true,
+  { v:'1.9.6.1', file:'elite-wellness-landing_1-9-6-1.html', label:'Hours first, then location', date:'22 Sep 2026', archived:true, group:'Hours, location and footer',
     tested:'The blue panel restructured: title, live status, then the hours, then the location, with the buttons dropped because the footer and the action bar already carry them. The bar shows two short lines with a real day name. The blue pin over the map is gone.',
     why:'Step towards 1.9.6.6.' },
-  { v:'1.9.6', file:'elite-wellness-landing_1-9-6.html', label:'Split with action bar', date:'22 Sep 2026', archived:true,
+  { v:'1.9.6', file:'elite-wellness-landing_1-9-6.html', label:'Split with action bar', date:'22 Sep 2026', archived:true, group:'Hours, location and footer',
     tested:'1.9.4 and 1.9.5 combined: the full width blue panel against the map, plus the black action bar that follows you on a phone. On a phone the map comes first, then the panel. The map fades in instead of flashing, and carries our own blue pin.',
     why:'Kept. Refined into 1.9.6.6.' },
-  { v:'1.9.1', file:'elite-wellness-landing_1-9-1.html', label:'Map first', date:'22 Sep 2026', archived:true,
+  { v:'1.9.1', file:'elite-wellness-landing_1-9-1.html', label:'Map first', date:'22 Sep 2026', archived:true, group:'Hours, location and footer',
     tested:'The map leads the section and the facts sit under it in three plain columns. The footer is a slim strip of links and small print, with no second call to action.',
     why:'Not taken forward.' },
-  { v:'1.9.2', file:'elite-wellness-landing_1-9-2.html', label:'Gym card', date:'22 Sep 2026', archived:true,
+  { v:'1.9.2', file:'elite-wellness-landing_1-9-2.html', label:'Gym card', date:'22 Sep 2026', archived:true, group:'Hours, location and footer',
     tested:'Everything on one bordered card: a map strip, the live open now line, the address, the hours and the two buttons. The footer keeps a "Come train" line, underlined in Volt.',
     why:'Dropped.' },
-  { v:'1.9.3', file:'elite-wellness-landing_1-9-3.html', label:'Board', date:'22 Sep 2026', archived:true,
+  { v:'1.9.3', file:'elite-wellness-landing_1-9-3.html', label:'Board', date:'22 Sep 2026', archived:true, group:'Hours, location and footer',
     tested:'The contact block is the dark moment of the page, with the hours set as a board in the display font and an inverted map. The footer goes quiet and white.',
     why:'Dropped. Two dark bands close together fight each other.' },
-  { v:'1.9.4', file:'elite-wellness-landing_1-9-4.html', label:'Split', date:'22 Sep 2026', archived:true,
+  { v:'1.9.4', file:'elite-wellness-landing_1-9-4.html', label:'Split', date:'22 Sep 2026', archived:true, group:'Hours, location and footer',
     tested:'A full width blue panel of facts against the map, edge to edge. The boldest of the five. The footer is a single thin black line of links.',
     why:'Kept. The split layout became 1.9.6.' },
-  { v:'1.9.5', file:'elite-wellness-landing_1-9-5.html', label:'Sticky bar', date:'22 Sep 2026', archived:true,
+  { v:'1.9.5', file:'elite-wellness-landing_1-9-5.html', label:'Sticky bar', date:'22 Sep 2026', archived:true, group:'Hours, location and footer',
     tested:'The contact block stays plain and the coolness moves to a black action bar that slides up once you are past the hero and steps aside at the footer.',
     why:'Kept. The action bar became part of 1.9.6.' },
-  { v:'1.9', file:'elite-wellness-landing_1-9.html', label:'Contact and footer', date:'22 Sep 2026', archived:true,
+  { v:'1.9', file:'elite-wellness-landing_1-9.html', label:'Contact and footer', date:'22 Sep 2026', archived:true, group:'Hours, location and footer',
     tested:'One contact block instead of two: hours, address and the map together, with a live open now line. A real footer: the closing call, the links and the small print, one column on a phone.',
     why:'Replaced. The section and the footer were rebuilt from here.' },
-  { v:'1.8', file:'elite-wellness-landing_1-8.html', label:'Floor plan', date:'22 Sep 2026', archived:true,
+  { v:'1.8', file:'elite-wellness-landing_1-8.html', label:'Floor plan', date:'22 Sep 2026', archived:true, group:'Full page drafts',
     tested:'The Gym section: a real isometric floor plan drawn from the emergency plan, with a walking route from the entrance and icon markers you can tap. Also the second accent colour, Volt.',
     why:'Kept. Everything from 1.8 is in 1.9.' },
   { v:'1.6', file:'elite-wellness-landing_1-6.html', label:'Best hour, then Lagos', date:'21 Sep 2026', status:'open',
@@ -141,15 +138,15 @@ const DRAFTS = [
     tested:'Hero headline: the verb rolls through before landing on TRAIN.',
     next:'Open decision, see 1.6.' },
 
-  { v:'1.7', file:'elite-wellness-landing_1-7.html', label:'Language button, mobile menu', date:'21 Sep 2026', archived:true,
+  { v:'1.7', file:'elite-wellness-landing_1-7.html', label:'Language button, mobile menu', date:'21 Sep 2026', archived:true, group:'Full page drafts',
     tested:'Round PT/EN language button and the full screen mobile menu.', why:'Kept. Everything from 1.7 is in 1.8.' },
-  { v:'1.4', file:'elite-wellness-landing_1-4.html', label:'Bilingual flip', date:'21 Sep 2026', archived:true,
+  { v:'1.4', file:'elite-wellness-landing_1-4.html', label:'Bilingual flip', date:'21 Sep 2026', archived:true, group:'Headline tests',
     tested:'Hero headline flipping between Portuguese and English.', why:'Dropped.' },
-  { v:'1.1', file:'elite-wellness-landing_1-1.html', label:'Slimmer header', date:'21 Sep 2026', archived:true,
+  { v:'1.1', file:'elite-wellness-landing_1-1.html', label:'Slimmer header', date:'21 Sep 2026', archived:true, group:'Full page drafts',
     tested:'Slimmer header, rating above the headline, "best value" inside the monthly card.', why:'Kept. It is the base of 1.7 and 1.8.' },
-  { v:'1', file:'elite-wellness-landing_1.html', label:'First full draft', date:'21 Sep 2026', archived:true,
+  { v:'1', file:'elite-wellness-landing_1.html', label:'First full draft', date:'21 Sep 2026', archived:true, group:'Full page drafts',
     tested:'The first complete page: logo, timetable, prices, reviews, family.', why:'Replaced by 1.1 and later.' },
-  { v:'2', file:'elite-wellness-landing_2.html', label:'Early alternative', date:'Aug 2026', archived:true,
+  { v:'2', file:'elite-wellness-landing_2.html', label:'Early alternative', date:'Aug 2026', archived:true, group:'Full page drafts',
     tested:'An early alternative layout.', why:'Not taken forward.' }
 ];
 
@@ -160,7 +157,7 @@ DRAFTS.sort((a, b) => { const A = vnum(a.v), B = vnum(b.v); for (let i = 0; i < 
 const chips = document.getElementById('chips');
 const viewer = document.getElementById('viewer');
 const openLink = document.getElementById('openLink');
-const infoBtn = document.getElementById('infoBtn'), infoPanel = document.getElementById('infoPanel');
+const infoPanel = document.getElementById('infoPanel');
 const archBtn = document.getElementById('archBtn'), archPanel = document.getElementById('archPanel');
 const grid = new URLSearchParams(location.search).get('grid') === '1' ? '?grid=1' : '';
 const live = DRAFTS.filter(d => !d.archived), archived = DRAFTS.filter(d => d.archived);
@@ -169,12 +166,11 @@ let current = null;
 
 live.forEach(d => {
   const b = document.createElement('button');
-  b.className = 'chip'; b.setAttribute('role','tab'); b.dataset.v = d.v;
+  b.className = 'chip'; b.setAttribute('role','tab'); b.dataset.v = d.v; b.title = 'Click again to see what this draft tests';
   b.innerHTML = (d.status === 'latest' ? '<i class="dot" aria-hidden="true"></i>' : '') + '<b>' + esc(d.v) + '</b><span>' + esc(d.label) + '</span>';
-  b.addEventListener('click', () => show(d.v));
+  b.addEventListener('click', e => { if (current && current.v === d.v) { e.stopPropagation(); toggle(null, infoPanel); } else show(d.v); });
   chips.appendChild(b);
 });
-document.getElementById('archCount').textContent = archived.length;
 
 function statusTag(d){
   if (d.archived) return '<span class="status">Archived</span>';
@@ -189,9 +185,16 @@ function renderInfo(d){
     (d.why ? '<div class="label">Why archived</div><p>' + esc(d.why) + '</p>' : '');
 }
 function renderArchive(){
+  const order = ['Hours, location and footer', 'Full page drafts', 'Headline tests'];
+  const names = [...new Set(archived.map(d => d.group || 'Other'))].sort((a, b) => {
+    const A = order.indexOf(a), B = order.indexOf(b);
+    return (A < 0 ? 99 : A) - (B < 0 ? 99 : B);
+  });
   archPanel.innerHTML = '<h2>Archive</h2><div class="meta"><span>Drafts we no longer compare. They still open if you need them.</span></div>' +
-    '<ul class="arch">' + archived.map(d =>
-      '<li><button data-v="' + esc(d.v) + '"' + (current && current.v === d.v ? ' class="active"' : '') + '><span class="v">' + esc(d.v) + '</span><span>' + esc(d.label) + '</span><span class="why">' + esc(d.why) + '</span></button></li>').join('') + '</ul>';
+    names.map(n => '<div class="label">' + esc(n) + '</div><ul class="arch">' +
+      archived.filter(d => (d.group || 'Other') === n).map(d =>
+        '<li><button data-v="' + esc(d.v) + '"' + (current && current.v === d.v ? ' class="active"' : '') + '><span class="v">' + esc(d.v) + '</span><span>' + esc(d.label) + '</span><span class="why">' + esc(d.why) + '</span></button></li>').join('') +
+      '</ul>').join('');
   archPanel.querySelectorAll('button[data-v]').forEach(b => b.addEventListener('click', () => { show(b.dataset.v); close(); }));
 }
 function show(v, push = true){
@@ -209,15 +212,14 @@ function show(v, push = true){
   if (push) history.replaceState(null, '', location.pathname + location.search + '#' + d.v);
 }
 function toggle(btn, panel){
-  const open = !panel.classList.contains('open');
+  const wasOpen = panel.classList.contains('open');
   close();
-  if (open) { if (panel === archPanel) renderArchive(); panel.classList.add('open'); btn.setAttribute('aria-expanded','true'); }
+  if (!wasOpen) { if (panel === archPanel) renderArchive(); panel.classList.add('open'); if (btn) btn.setAttribute('aria-expanded','true'); }
 }
 function close(){
   [infoPanel, archPanel].forEach(p => p.classList.remove('open'));
-  [infoBtn, archBtn].forEach(b => b.setAttribute('aria-expanded','false'));
+  archBtn.setAttribute('aria-expanded','false');
 }
-infoBtn.addEventListener('click', e => { e.stopPropagation(); toggle(infoBtn, infoPanel); });
 archBtn.addEventListener('click', e => { e.stopPropagation(); toggle(archBtn, archPanel); });
 [infoPanel, archPanel].forEach(p => p.addEventListener('click', e => e.stopPropagation()));
 document.addEventListener('click', close);
