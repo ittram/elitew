@@ -216,21 +216,23 @@ body.show-grid .grid-overlay{display:block}
 .price-ask:hover{color:var(--black);box-shadow:inset 0 -4px 0 var(--black)}
 
 /* ---------- find us ---------- */
-/* ---------- hours and location: two columns on desktop, one on a phone, the map always between the hours and the address ---------- */
-.find-block{background:var(--royal-blue);color:var(--white);padding:8rem 0}
-.find-inner{max-width:1100px;margin:0 auto;padding:0 4rem}
-.find-block .section-header{color:var(--white)}
-.find-block .section-kicker{margin-bottom:24px}
-.find-status{display:flex;align-items:center;justify-content:center;gap:8px;font-weight:800;font-size:12px;line-height:16px;letter-spacing:.12em;text-transform:uppercase;color:rgba(255,255,255,.7);margin-bottom:48px}
+/* ---------- hours and location ----------
+   desktop: the blue panel holds everything, the map fills the right half
+   phone: one column, heading, hours, the map as a band, then the address ---------- */
+.find-block{background:var(--royal-blue);color:var(--white)}
+.find-split{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);align-items:start;min-height:620px}
+.find-head{grid-area:1 / 1;padding:5rem 4rem 0}
+.find-a{grid-area:2 / 1;padding:0 4rem}
+.find-b{grid-area:3 / 1;padding:40px 4rem 5rem}
+.find-map{grid-area:1 / 2 / 4 / 3;align-self:stretch;position:relative;background:rgba(255,255,255,.08)}
+.find-map iframe{display:block;width:100%;height:100%;min-height:620px;border:0;filter:grayscale(100%) contrast(105%);opacity:0;transition:opacity .5s ease}
+.find-map.ready iframe{opacity:1}
+.find-block .section-kicker{text-align:left;margin-bottom:16px}
+.find-block .section-header{color:var(--white);font-size:clamp(34px,3.4vw,54px)}
+.find-status{display:flex;align-items:center;gap:8px;font-weight:800;font-size:12px;line-height:16px;letter-spacing:.12em;text-transform:uppercase;color:rgba(255,255,255,.7);margin-bottom:40px}
 .find-status b{color:var(--white)}
 .find-status .dot{width:8px;height:8px;border-radius:50%;background:var(--white)}
 .find-status.closed .dot{background:rgba(255,255,255,.45)}
-.find-split{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);column-gap:48px;align-items:start;padding-left:max(4rem, calc((100vw - 1100px) / 2))}
-.find-a{grid-area:1 / 1}
-.find-b{grid-area:2 / 1;padding-top:40px}
-.find-map{grid-area:1 / 2 / 3 / 3;align-self:stretch;position:relative;background:rgba(255,255,255,.08);min-height:480px}
-.find-map iframe{display:block;width:100%;height:100%;min-height:480px;border:0;filter:grayscale(100%) contrast(105%);opacity:0;transition:opacity .5s ease}
-.find-map.ready iframe{opacity:1}
 .hours-row{list-style:none;border-top:1px solid rgba(255,255,255,.3)}
 .hours-row li{display:flex;align-items:baseline;justify-content:space-between;gap:24px;padding:16px 0;border-bottom:1px solid rgba(255,255,255,.3)}
 .hr-d{font-weight:800;font-size:11px;line-height:16px;letter-spacing:.12em;text-transform:uppercase;color:rgba(255,255,255,.65)}
@@ -319,8 +321,10 @@ body.show-grid .grid-overlay{display:block}
   .classes-grid .class-card{grid-column:auto}
   .tt-table th,.tt-table td{padding:16px 12px}
   .tt-name{font-size:20px;line-height:32px}
-  .find-split{column-gap:32px;padding-left:4rem}
-  .find-map,.find-map iframe{min-height:420px}
+  .find-head{padding:4rem 2.5rem 0}
+  .find-a{padding:0 2.5rem}
+  .find-b{padding:32px 2.5rem 4rem}
+  .find-split,.find-map iframe{min-height:560px}
 }
 @media (max-width:768px){
   header{padding:8px 1.5rem;flex-wrap:nowrap;gap:8px}
@@ -367,16 +371,17 @@ body.show-grid .grid-overlay{display:block}
   .rv-card{flex-basis:288px;width:288px;height:216px;margin-right:16px;padding:16px}
   .marquee-row+.marquee-row{margin-top:16px}
   .marquee{margin:40px -1.5rem 0;-webkit-mask-image:linear-gradient(to right,transparent,#000 24px,#000 calc(100% - 24px),transparent);mask-image:linear-gradient(to right,transparent,#000 24px,#000 calc(100% - 24px),transparent)}
-  .find-block{padding:4rem 0}
-  .find-inner{padding:0 1.5rem}
-  .find-block .section-kicker{margin-bottom:16px}
-  .find-status{margin-bottom:24px}
-  .find-split{grid-template-columns:1fr;padding-left:0}
-  .find-a,.find-b{grid-area:auto;padding:0 1.5rem}
-  .find-map{grid-area:auto;min-height:0;margin:32px 0}
+  .find-split{grid-template-columns:1fr;min-height:0}
+  .find-head,.find-a,.find-b,.find-map{grid-area:auto}
+  .find-head{padding:4rem 1.5rem 0;text-align:center}
+  .find-block .section-kicker{text-align:center;margin-bottom:16px}
+  .find-status{justify-content:center;margin-bottom:24px}
+  .find-a{padding:0 1.5rem}
+  .find-a .find-label{display:none}
+  .find-map{margin:32px 0}
   .find-map,.find-map iframe{min-height:0}
   .find-map iframe{height:288px}
-  .find-b{padding-top:0}
+  .find-b{padding:0 1.5rem 4rem}
   .hr-t{font-size:1.15rem;line-height:24px}
   .find-cta{width:100%}
   .site-footer{padding:2.5rem 1.5rem 2rem}
@@ -724,15 +729,17 @@ body.show-grid .grid-overlay{display:block}
 
 <!-- ============ FIND US / HOURS ============ -->
 <section id="find-us" class="find-block">
-  <div class="find-inner">
-    <div class="section-kicker">
-      <h2 class="section-header">Hours &amp; location</h2>
-    </div>
-    <p class="find-status" data-status="find-status"></p>
-  </div>
-  <!-- desktop: two columns with the map on the right. phone: hours, then the map, then the address -->
+  <!-- desktop: everything in the blue panel on the left, the map fills the right half.
+       phone: heading, hours, then the map band, then the address -->
   <div class="find-split">
+    <div class="find-head">
+      <div class="section-kicker">
+        <h2 class="section-header">Hours &amp; location</h2>
+      </div>
+      <p class="find-status" data-status="find-status"></p>
+    </div>
     <div class="find-a">
+      <p class="find-label">Open hours</p>
       <ul class="hours-row">
         <li><span class="hr-d">Monday to Friday</span><span class="hr-t">07:00 to 21:00</span></li>
         <li><span class="hr-d">Saturday</span><span class="hr-t">09:00 to 13:00</span></li>
@@ -745,7 +752,7 @@ body.show-grid .grid-overlay{display:block}
     </div>
     <div class="find-b">
       <p class="find-label">Where to find us</p>
-      <address class="find-address"><span>Rua Capitão Salgueiro Maia, Lote 13, Cave</span><span>8600-530 Lagos, Algarve</span></address>
+      <address class="find-address"><span>Rua Capitão Salgueiro Maia</span><span>Lote 13, Cave, 8600-530 Lagos</span></address>
       <p class="find-note">Free parking outside. Cash only at the reception.</p>
       <a class="btn on-dark ghost find-cta" href="https://maps.app.goo.gl/ks6o4URGCYT7rzHJ8" target="_blank" rel="noopener">Get directions</a>
     </div>
