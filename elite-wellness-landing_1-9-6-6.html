@@ -237,12 +237,14 @@ body.show-grid .grid-overlay{display:block}
 .hr-t{font-family:var(--font-display);font-size:1.5rem;line-height:32px;letter-spacing:.01em}
 .hr-t.off{color:rgba(255,255,255,.55)}
 .find-label{font-weight:800;font-size:10px;line-height:16px;letter-spacing:.18em;text-transform:uppercase;color:rgba(255,255,255,.6);margin-bottom:8px}
-.find-address{font-style:normal;font-family:var(--font-display);font-size:1.35rem;line-height:32px;text-transform:uppercase;color:var(--white)}
-.find-note{color:rgba(255,255,255,.7);font-weight:700;font-size:.85rem;line-height:24px;margin-top:8px}
+.find-address{font-style:normal;font-family:var(--font-display);font-size:clamp(.95rem,4.2vw,1.35rem);line-height:32px;text-transform:uppercase;color:var(--white)}
+.find-address span{display:block;white-space:nowrap}   /* two lines, never three */
+.find-note{color:rgba(255,255,255,.75);font-size:.9rem;line-height:24px;margin-top:8px}
 .find-cta{margin-top:24px}
 .find-label{font-weight:800;font-size:10px;line-height:16px;letter-spacing:.18em;text-transform:uppercase;color:rgba(255,255,255,.6);margin-bottom:8px}
-.find-address{font-style:normal;font-family:var(--font-display);font-size:1.35rem;line-height:32px;text-transform:uppercase;color:var(--white)}
-.find-note{color:rgba(255,255,255,.7);font-weight:700;font-size:.85rem;line-height:24px;margin-top:8px}
+.find-address{font-style:normal;font-family:var(--font-display);font-size:clamp(.95rem,4.2vw,1.35rem);line-height:32px;text-transform:uppercase;color:var(--white)}
+.find-address span{display:block;white-space:nowrap}   /* two lines, never three */
+.find-note{color:rgba(255,255,255,.75);font-size:.9rem;line-height:24px;margin-top:8px}
 /* buttons: .btn is the primary, .btn.ghost is the secondary (outline), .on-dark flips both for dark backgrounds */
 .btn{display:inline-flex;align-items:center;justify-content:center;font-family:var(--font-display);font-size:1.05rem;line-height:1;text-transform:uppercase;letter-spacing:.02em;text-decoration:none;padding:16px 24px;border:2px solid var(--royal-blue);background:var(--royal-blue);color:var(--white);transition:background .2s,color .2s,border-color .2s}
 .btn:hover,.btn:focus-visible{background:var(--accent);border-color:var(--accent);color:var(--accent-ink);outline:none}
@@ -743,7 +745,7 @@ body.show-grid .grid-overlay{display:block}
     </div>
     <div class="find-b">
       <p class="find-label">Where to find us</p>
-      <address class="find-address">Rua Capitão Salgueiro Maia, Lote 13, Cave<br>8600-530 Lagos, Algarve</address>
+      <address class="find-address"><span>Rua Capitão Salgueiro Maia, Lote 13, Cave</span><span>8600-530 Lagos, Algarve</span></address>
       <p class="find-note">Free parking outside. Cash only at the reception.</p>
       <a class="btn on-dark ghost find-cta" href="https://maps.app.goo.gl/ks6o4URGCYT7rzHJ8" target="_blank" rel="noopener">Get directions</a>
     </div>

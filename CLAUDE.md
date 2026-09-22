@@ -1,7 +1,8 @@
 # Elite Wellness landing page: house rules
 
 ## Drafts and the version bar
-- Every change goes into a **new draft file**, never into an older one: `elite-wellness-landing_<version>.html`, with dots as dashes (`1.9.6.1` → `elite-wellness-landing_1-9-6-1.html`).
+- A **new draft file** is for a new direction or a version the user asks for: `elite-wellness-landing_<version>.html`, with dots as dashes (`1.9.6.1` → `elite-wellness-landing_1-9-6-1.html`).
+- **Small design iterations and fixes go into the current draft**, in place. Do not spin up a new version for a font size, a wrap, a colour or a bug.
 - Register every new draft in the `DRAFTS` list at the top of the script in `index.html`, with `v`, `file`, `label` (2 to 4 words saying what it tests), `date`, a `status`, `tested` and `next`.
 - **The newest version is always first and is the one the page loads.** `index.html` sorts `DRAFTS` by version number, so a new entry orders itself; give the new draft `status:'latest'` and drop the previous latest to `status:'open'`.
 - Drafts we no longer compare get `archived:true` and a one line `why`. They stay in the Archive panel and still open.
