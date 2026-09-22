@@ -29,7 +29,7 @@
   .tool svg { width:16px; height:16px; }
 
   /* panels drop down over the preview, so the bar itself never grows */
-  .panel { position:absolute; top:calc(100% + 6px); right:10px; width:min(440px, calc(100vw - 20px)); background:#181818; border:1px solid #3a3a3a; border-radius:10px; box-shadow:0 12px 40px rgba(0,0,0,.5); padding:16px; white-space:normal; display:none; }
+  .panel { position:absolute; top:calc(100% + 6px); right:10px; width:min(440px, calc(100vw - 20px)); background:#181818; border:1px solid #3a3a3a; border-radius:10px; box-shadow:0 12px 40px rgba(0,0,0,.5); padding:16px; white-space:normal; display:none; max-height:calc(100dvh - 70px);overflow-y:auto;-webkit-overflow-scrolling:touch;overscroll-behavior:contain}
   .panel.open { display:block; }
   .panel h2 { margin:0 0 4px; font-size:16px; }
   .meta { display:flex; gap:8px; align-items:center; flex-wrap:wrap; margin:0 0 12px; font-size:12px; color:var(--muted); }
@@ -79,6 +79,21 @@
 /* All drafts live here. Newest first.
    To archive one, set archived: true and say why. The first draft that is not archived loads by default. */
 const DRAFTS = [
+  { v:'2.0.1', file:'elite-wellness-landing_2-0-1.html', label:'Footer: directory', date:'22 Sep 2026', status:'open',
+    tested:'Four columns: brand with the two actions and the address, then Train, Visit and Follow, then a legal bar. The classic search friendly footer, done clean.',
+    next:'One of five single footer designs, all built on 1.9.6.6. They also remove the second, leftover footer.' },
+  { v:'2.0.2', file:'elite-wellness-landing_2-0-2.html', label:'Footer: index', date:'22 Sep 2026', status:'open',
+    tested:'The sections as a big numbered index, like the floor plan legend, then a three column detail band with contact, hours and social, then a legal bar.',
+    next:'One of five single footer designs, all built on 1.9.6.6. They also remove the second, leftover footer.' },
+  { v:'2.0.3', file:'elite-wellness-landing_2-0-3.html', label:'Footer: closing call', date:'22 Sep 2026', status:'open',
+    tested:'A last "Come train" with the two buttons and the full contact block on the left, the link columns on the right, then a legal bar.',
+    next:'One of five single footer designs, all built on 1.9.6.6. They also remove the second, leftover footer.' },
+  { v:'2.0.4', file:'elite-wellness-landing_2-0-4.html', label:'Footer: ask first', date:'22 Sep 2026', status:'open',
+    tested:'An outlined "Questions? Ask us" panel with the WhatsApp number across the top, then four columns of brand, Train, Visit and Follow.',
+    next:'One of five single footer designs, all built on 1.9.6.6. They also remove the second, leftover footer.' },
+  { v:'2.0.5', file:'elite-wellness-landing_2-0-5.html', label:'Footer: sitemap rail', date:'22 Sep 2026', status:'open',
+    tested:'A brand rail on the left with address, hours and social, and a three column sitemap on the right. The densest one, best for search.',
+    next:'One of five single footer designs, all built on 1.9.6.6. They also remove the second, leftover footer.' },
   { v:'1.9.6.6', file:'elite-wellness-landing_1-9-6-6.html', label:'Hours, location, footer', date:'22 Sep 2026', status:'latest',
     tested:'The signed off contact work: one Hours and location band (blue panel with the live status, the hours and the address, map filling the right half on desktop, map as a band on a phone), a real footer, and the action bar that follows you on every screen.',
     next:'Next pass: the timetable, classes and prices in the same design language as the gym section. Headline choice (1.2 to 1.6) is still open.' },
