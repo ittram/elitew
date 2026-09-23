@@ -526,6 +526,9 @@ V4_JS = '''
 
 # ============================================================ 2.4.5 the receipt
 V5_SEC = (KICKER % 'build it and see') + '''  <div class="rc">
+    <button class="rc-sticky" type="button" id="rc-sticky" aria-hidden="true" tabindex="-1">
+      <span id="rc-sticky-n"></span><b id="rc-sticky-p"></b>
+    </button>
     <div class="rc-build">
       <fieldset class="rc-set">
         <legend class="rc-leg">Who are you</legend>
@@ -584,9 +587,25 @@ V5_CSS = ALLCSS + '''
 .rc-total b{font-family:var(--font-display);font-size:44px;line-height:1;color:var(--accent)}
 .rc-note{font-size:12px;line-height:18px;color:rgba(255,255,255,.6);margin-top:16px}
 .rc-receipt .btn{width:100%;justify-content:center;margin-top:24px}
+.rc-sticky{display:none}
 @media (max-width:768px){
   .rc{grid-template-columns:1fr;gap:32px}
   .rc-receipt{position:static}
+  /* the total follows you down the options, so two choices can be compared */
+  .rc-sticky{display:flex;position:sticky;top:50px;z-index:40;width:calc(100% + 3rem);margin:0 -1.5rem 8px;
+    align-items:center;justify-content:space-between;gap:16px;appearance:none;border:0;cursor:pointer;
+    background:var(--black);color:var(--white);padding:12px 1.5rem;text-align:left;font-family:var(--font-body)}
+  .rc-sticky span{font-size:13px;line-height:18px;color:rgba(255,255,255,.7);min-width:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+  .rc-sticky b{font-family:var(--font-display);font-size:26px;line-height:1;color:var(--accent);white-space:nowrap}
+  /* an even grid instead of ragged wrapping */
+  .rc-set{margin-bottom:24px}
+  .rc-chips{display:grid;grid-template-columns:repeat(2,1fr);gap:8px}
+  #rc-who{grid-template-columns:repeat(3,1fr)}
+  #rc-stay .rc-chip:last-child{grid-column:1 / -1}
+  .rc-chip{text-align:center;padding:12px 8px;font-size:13px;line-height:18px;display:flex;flex-direction:column;justify-content:center;min-height:56px}
+  .rc-chip small{font-size:11px;margin-top:2px}
+  .rc-build .rc-set:last-child{margin-bottom:0}
+  .rc-lines{min-height:0}
 }
 '''
 
@@ -657,9 +676,14 @@ V5_JS = '''
     document.getElementById('rc-total').textContent = E.money(total);
     document.getElementById('rc-total-l').textContent = label;
     document.getElementById('rc-note').textContent = notes.join(' ');
+    document.getElementById('rc-sticky-n').textContent = title;
+    document.getElementById('rc-sticky-p').textContent = E.money(total);
     cur={id:id,title:title,price:total,totalLabel:label,lines:lines.filter(function(l){return !l[2]}),notes:notes};
   }
   document.getElementById('rc-go').addEventListener('click',function(){ if(cur) E.review(cur) });
+  document.getElementById('rc-sticky').addEventListener('click',function(){
+    document.querySelector('.rc-receipt').scrollIntoView({behavior:'smooth',block:'center'});
+  });
   sets(); render();
 })();
 '''
