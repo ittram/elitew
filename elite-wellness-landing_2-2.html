@@ -91,7 +91,7 @@ body.show-grid .grid-overlay{display:block}
 .section{padding:6rem 4rem}
 .section-kicker{position:relative;text-align:center;margin-bottom:4rem}
 .section-header{font-family:var(--font-display);font-size:4.5rem;text-transform:uppercase;line-height:1;color:var(--royal-blue)}
-.section-script{font-family:var(--font-script);font-size:1.6rem;color:var(--silver-grey);display:inline-block;transform:rotate(-3deg) translateY(-8px)}
+.section-script{font-family:var(--font-script);font-size:1.6rem;line-height:1.1;text-wrap:balance;color:var(--silver-grey);display:inline-block;transform:rotate(-3deg) translateY(-8px)}
 
 /* ---------- the gym ---------- */
 .gym-cols{max-width:1100px;margin:0 auto;display:grid;grid-template-columns:1fr 1fr;gap:4rem}
@@ -378,7 +378,9 @@ body.show-grid .grid-overlay{display:block}
   .tt-list li.is-next{background:var(--white);color:var(--royal-blue);box-shadow:-12px 0 0 var(--white),12px 0 0 var(--white)}
   .tt-list li.is-next .tt-new{color:var(--royal-blue)}
   .tt-list li.is-next .tt-time span{color:var(--royal-blue)}
-  .tt-foot{margin-top:40px;flex-direction:column;gap:8px}
+  .tt-foot{margin-top:32px;flex-direction:column;align-items:flex-start;gap:8px;font-size:14px;line-height:20px}
+  .tt-foot>span:first-child{max-width:32ch;text-wrap:balance}
+  .tt-updated{color:rgba(255,255,255,.5)}
   .hero{padding-top:48px}
   .hero-grid{grid-template-columns:repeat(4,1fr);column-gap:16px;padding:0 1.5rem}
   .hero-title{font-size:20vw;line-height:calc(.865em + 6px)}
@@ -388,6 +390,7 @@ body.show-grid .grid-overlay{display:block}
   .grid-overlay-cols{grid-template-columns:repeat(4,1fr);column-gap:16px;padding:0 1.5rem}
   .grid-overlay-cols div:nth-child(n+5){display:none}
   .section-header{font-size:2.6rem}
+  .section-script{font-size:1.35rem;transform:rotate(-3deg) translateY(-2px)}
   .pricing-grid{grid-template-columns:1fr}
   .price-info{grid-template-columns:1fr;margin-top:48px;box-shadow:inset 0 1px 0 var(--light-grey)}
   .price-info div{grid-column:auto;display:grid;grid-template-columns:repeat(4,1fr);column-gap:16px;align-items:start;padding:24px 0;box-shadow:inset 0 -1px 0 var(--light-grey)}
@@ -675,7 +678,7 @@ body.show-grid .grid-overlay{display:block}
     <ul class="tt-list" id="tt-list"></ul>
     <noscript><p class="tt-foot"><a href="assets/timetable.webp">See the class timetable</a></p></noscript>
     <div class="tt-foot">
-      <span>All classes are included in every pass. Just show up.</span>
+      <span>No booking. Come during opening hours and join in.</span>
       <span class="tt-updated" id="tt-updated"></span>
     </div>
   </div>
