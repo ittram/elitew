@@ -257,19 +257,26 @@ body.show-grid .grid-overlay{display:block}
 .btn.on-dark.ghost{background:transparent;color:var(--white)}
 .btn.on-dark.ghost:hover,.btn.on-dark.ghost:focus-visible{background:var(--white);border-color:var(--white);color:var(--black)}
 /* ---------- footer: full width, text only. the action bar keeps the two actions ---------- */
-.site-footer{background:var(--black);color:var(--white);padding:4rem 4rem 2rem}
-.ft-grid{display:grid;grid-template-columns:1.3fr 1fr 1fr 1.2fr;column-gap:48px;row-gap:40px}
+.site-footer{background:var(--black);color:var(--white);padding:64px 4rem 16px}
+.ft-grid{display:grid;grid-template-columns:minmax(0,1fr) auto;column-gap:64px;row-gap:40px;align-items:start}
+.ft-cols{display:grid;grid-template-columns:repeat(3,auto);column-gap:64px;row-gap:32px}
+.ft-end{text-align:right}
+.ft-end .ft-list{justify-items:end}
 .ft-mark{font-family:var(--font-display);font-size:1.2rem;line-height:32px;letter-spacing:.04em;text-transform:uppercase}
-.ft-motto{font-family:var(--font-script);font-size:.9rem;color:var(--silver-grey);margin:4px 0 16px}
+.ft-motto{font-family:var(--font-script);font-size:.9rem;color:var(--silver-grey);margin:0 0 16px}
 .ft-h{font-weight:800;font-size:10px;line-height:16px;letter-spacing:.18em;text-transform:uppercase;color:rgba(255,255,255,.55);margin-bottom:8px}
-.ft-body{font-style:normal;font-size:.85rem;line-height:24px;color:rgba(255,255,255,.7)}
+.ft-body{font-style:normal;font-size:.85rem;line-height:24px;color:rgba(255,255,255,.7);margin-bottom:16px}
+.ft-body:last-child{margin-bottom:0}
 .ft-body a{color:rgba(255,255,255,.85);text-decoration:none;border-bottom:1px solid rgba(255,255,255,.25)}
 .ft-body a:hover,.ft-body a:focus-visible{color:var(--accent);border-color:var(--accent)}
-.ft-list{list-style:none;display:grid;gap:4px}
+.ft-list{list-style:none;display:grid;gap:8px;max-width:260px}
 .ft-list a{color:rgba(255,255,255,.85);font-size:.85rem;line-height:24px;text-decoration:none}
 .ft-list a:hover,.ft-list a:focus-visible{color:var(--accent)}
-.ft-inline{grid-auto-flow:column;justify-content:start;gap:16px}
-.ft-legal{border-top:1px solid rgba(255,255,255,.18);margin-top:40px;padding-top:16px;padding-bottom:64px;display:flex;justify-content:space-between;gap:16px;flex-wrap:wrap;font-size:.75rem;line-height:24px;color:var(--silver-grey)}
+.ft-social a{display:inline-flex;align-items:center;gap:8px}
+.ft-social svg{width:16px;height:16px;flex:0 0 16px;fill:none;stroke:currentColor;stroke-width:1.4}
+.ft-social a:hover svg{color:var(--accent)}
+.ft-todo{color:var(--silver-grey);font-size:.72rem;line-height:16px;display:block}
+.ft-legal{border-top:1px solid rgba(255,255,255,.18);margin-top:48px;padding-top:16px;padding-bottom:64px;display:flex;justify-content:space-between;gap:16px;flex-wrap:wrap;font-size:.75rem;line-height:24px;color:var(--silver-grey)}
 /* the action bar slides up once you are past the hero and steps aside for the footer */
 /* the action bar follows you on every screen, and steps aside at the footer */
 .action-bar{position:fixed;left:0;right:0;bottom:0;z-index:80;display:flex;align-items:center;gap:8px;padding:8px 16px calc(8px + env(safe-area-inset-bottom));background:var(--black);color:var(--white);transform:translateY(110%);transition:transform .35s cubic-bezier(.2,.8,.2,1)}
@@ -381,8 +388,11 @@ body.show-grid .grid-overlay{display:block}
   .hr-t{font-size:1.15rem;line-height:24px}
   .find-cta{width:100%}
   .action-bar{padding-bottom:calc(8px + env(safe-area-inset-bottom))}
-  .site-footer{padding:3rem 1.5rem 1.5rem}
+  .site-footer{padding:48px 1.5rem 16px}
   .ft-grid{grid-template-columns:1fr;row-gap:32px}
+  .ft-cols{grid-template-columns:1fr;row-gap:32px}
+  .ft-end,.ft-end .ft-list{text-align:left;justify-items:start}
+  .ft-list{max-width:none}
   .ft-legal{flex-direction:column;gap:8px;margin-top:32px;padding-bottom:72px}
   .hero-image-strip{height:200px}
 }
@@ -806,34 +816,39 @@ body.show-grid .grid-overlay{display:block}
 <!-- ============ FINAL CTA ============ -->
 <footer class="site-footer">
   <div class="ft-grid">
-    <div>
+    <div class="ft-brand">
       <p class="ft-mark">Elite Wellness by Santos</p>
       <p class="ft-motto">Juntos Somos Elite</p>
       <address class="ft-body">Rua Capitão Salgueiro Maia, Lote 13, Cave<br>8600-530 Lagos, Algarve, Portugal</address>
+      <p class="ft-body"><a href="https://wa.me/351926565836?text=Hi!%20I%20have%20a%20question%20about%20the%20gym." target="_blank" rel="noopener">WhatsApp +351 926 565 836</a><br><a href="mailto:elitewellness.geral@gmail.com">elitewellness.geral@gmail.com</a><br>We speak English and Portuguese</p>
     </div>
-    <div>
-      <p class="ft-h">Open hours</p>
-      <p class="ft-body">Monday to Friday 07:00 to 21:00<br>Saturday 09:00 to 13:00<br>Sunday closed<br>Public holidays closed</p>
-    </div>
-    <div>
-      <p class="ft-h">On this page</p>
-      <ul class="ft-list">
-        <li><a href="#prices">Prices and passes</a></li>
-        <li><a href="#classes">Class timetable</a></li>
-        <li><a href="#gym">The gym</a></li>
-        <li><a href="#find-us">Hours and location</a></li>
-        <li><a href="#faq">Good to know</a></li>
-      </ul>
-    </div>
-    <div>
-      <p class="ft-h">Ask us</p>
-      <p class="ft-body"><a href="https://wa.me/351926565836?text=Hi!%20I%20have%20a%20question%20about%20the%20gym." target="_blank" rel="noopener">WhatsApp +351 926 565 836</a><br><a href="mailto:elitewellness.geral@gmail.com">elitewellness.geral@gmail.com</a><br>English and Portuguese</p>
-      <p class="ft-h" style="margin-top:32px">Follow</p>
-      <ul class="ft-list ft-inline">
-        <li><a href="https://www.instagram.com/elitewellnessbysantos/" target="_blank" rel="noopener">Instagram</a></li>
-        <li><a href="https://www.facebook.com/elitewellnessbysantos" target="_blank" rel="noopener">Facebook</a></li>
-        <li><a href="https://maps.app.goo.gl/ks6o4URGCYT7rzHJ8" target="_blank" rel="noopener">Google</a></li>
-      </ul>
+    <div class="ft-cols">
+      <div>
+        <p class="ft-h">Explore</p>
+        <ul class="ft-list">
+          <li><a href="#prices">Prices and passes</a></li>
+          <li><a href="#classes">Class timetable</a></li>
+          <li><a href="#gym">The gym</a></li>
+          <li><a href="#find-us">Hours and location</a></li>
+          <li><a href="#faq">Good to know</a></li>
+        </ul>
+      </div>
+      <div>
+        <p class="ft-h">Follow</p>
+        <ul class="ft-list ft-social">
+          <li><a href="https://www.instagram.com/elitewellnessbysantos/" target="_blank" rel="noopener"><svg viewBox="0 0 16 16" aria-hidden="true"><rect x="1.8" y="1.8" width="12.4" height="12.4" rx="3.6"/><circle cx="8" cy="8" r="3.1"/><circle cx="11.9" cy="4.1" r=".9" fill="currentColor" stroke="none"/></svg>Instagram</a></li>
+          <li><a href="https://www.facebook.com/elitewellnessbysantos" target="_blank" rel="noopener"><svg viewBox="0 0 16 16" aria-hidden="true"><path d="M9.6 15V8.6h2.1l.3-2.4H9.6V4.7c0-.7.2-1.2 1.2-1.2h1.3V1.3C11.9 1.3 11.1 1.2 10.2 1.2 8.4 1.2 7.1 2.3 7.1 4.4v1.8H5v2.4h2.1V15"/></svg>Facebook</a></li>
+          <li><a href="https://maps.app.goo.gl/ks6o4URGCYT7rzHJ8" target="_blank" rel="noopener"><svg viewBox="0 0 16 16" aria-hidden="true"><path d="M14.4 8.2c0-.5 0-.9-.1-1.3H8v2.6h3.6a3.1 3.1 0 0 1-1.3 2v1.7h2.1c1.3-1.2 2-2.9 2-5z"/><path d="M8 14.6c1.8 0 3.3-.6 4.4-1.6l-2.1-1.7c-.6.4-1.4.7-2.3.7-1.8 0-3.3-1.2-3.8-2.8H1.9v1.8A6.6 6.6 0 0 0 8 14.6z"/><path d="M4.2 9.2a4 4 0 0 1 0-2.5V4.9H1.9a6.6 6.6 0 0 0 0 6l2.3-1.7z"/><path d="M8 4c1 0 1.9.3 2.6 1l1.9-1.9A6.6 6.6 0 0 0 1.9 4.9l2.3 1.8C4.7 5.1 6.2 4 8 4z"/></svg>Google</a></li>
+        </ul>
+      </div>
+      <div class="ft-end">
+        <p class="ft-h">Legal</p>
+        <ul class="ft-list">
+          <li><a href="#faq">Terms of entry</a></li>
+          <li><span class="ft-todo">[PLACEHOLDER: privacy policy, e.g. /privacidade]</span></li>
+          <li><span class="ft-todo">[PLACEHOLDER: Livro de Reclamações, e.g. livroreclamacoes.pt, once confirmed]</span></li>
+        </ul>
+      </div>
     </div>
   </div>
   <div class="ft-legal">
