@@ -132,47 +132,7 @@
     track('pricing_confirm', { plan:choice.id, price:choice.price });
   }
 
-  /* ---------- one plan, from one state object ----------
-     Every 2.4.5.x variant keeps the same state and gets the same plan back,
-     so they differ only in where the price and the button sit. */
-  function plan(st){
-    var lines=[], notes=[], total=0, title, id, label;
-    if(st.who==='visitor'){
-      var v=P.visitor.filter(function(x){return x.id===st.stay})[0];
-      lines=[[v.name+' visitor pass',money(v.price)],['Sports insurance','Included',true]];
-      total=v.price; title=v.name+' visitor pass'; id=v.id; label='To pay at the desk';
-      if(v.days<4) notes.push('Paid each time you come. From four days on, the week pass costs less.');
-      if(v.days>=28) notes.push('Four weeks as a member is '+money(fourWeeks().member)+' and it does not stop after four weeks.');
-    } else if(st.who==='member'){
-      var p=memberPlan(st.plan), dd=st.pay==='dd', rate=dd?p.dd:p.desk;
-      lines=[[p.name+', first 2 weeks',money(rate)],['Sports insurance, once a year',money(P.insurance.year)],
-             ['Then '+money(rate)+' every 2 weeks','',true]];
-      total=rate+P.insurance.year; title=p.name+' member plan'; id=p.id; label='To pay on your first visit';
-      notes.push(dd ? 'Direct debit saves you '+money(P.member.ddSavingYear)+' a year against paying at the desk.'
-                    : 'Switching to direct debit would save you '+money(P.member.ddSavingYear)+' a year.');
-    } else {
-      var k=P.pt.packs.filter(function(x){return x.id===st.pack})[0];
-      lines=[[k.name+' with a coach',money(k.total)]];
-      if(k.sessions>1) lines.push([money(k.each)+' a session, valid '+k.months+' months','',true]);
-      total=k.total; title=k.name+' with a coach'; id=k.id; label='To pay at the desk';
-      notes.push('Bring someone with you and the second person is '+money(P.pt.second)+' a session.');
-      if(k.sessions>1) notes.push(P.pt.note);
-    }
-    return {id:id,title:title,price:total,totalLabel:label,who:st.who,
-            lines:lines.filter(function(l){return !l[2]}),detail:lines,notes:notes};
-  }
-
-  /* the page's own action bar steps aside while a pricing bar owns the bottom */
-  function ownBottom(sectionId){
-    var sec=document.getElementById(sectionId||'prices');
-    if(!sec||!('IntersectionObserver' in window)) return;
-    new IntersectionObserver(function(es){
-      document.documentElement.classList.toggle('pricing-bottom', es[0].isIntersecting);
-    },{rootMargin:'-40% 0px -20% 0px'}).observe(sec);
-  }
-
   window.EWPricing = {
-    plan:plan, ownBottom:ownBottom,
     P:P, money:money, track:track,
     visitorFor:visitorFor, memberPlan:memberPlan, memberFirst:memberFirst,
     memberYear:memberYear, fourWeeks:fourWeeks,

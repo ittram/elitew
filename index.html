@@ -79,24 +79,9 @@
 /* All drafts live here. Newest first.
    To archive one, set archived: true and say why. The first draft that is not archived loads by default. */
 const DRAFTS = [
-  { v:'2.4.5.5', file:'elite-wellness-landing_2-4-5-5.html', at:'#prices', label:'Builder: a sheet you can open', date:'23 Sep 2026', status:'latest',
-    tested:'A sheet rises from the bottom the moment you are in the section: the plan and the total on the lip, the button under it, and a tap opens the full breakdown. The most app like of the five, and the only one where the detail is there without leaving the options.',
-    next:'One of five ways to fix the builder. Pick one and it becomes the Prices section.' },
-  { v:'2.4.5.4', file:'elite-wellness-landing_2-4-5-4.html', at:'#prices', label:'Builder: price on the option', date:'23 Sep 2026', status:'open',
-    tested:'No summary anywhere. Every option carries its own real total, insurance and all, and the one you pick opens underneath with the breakdown and the button. The price cannot go off screen because it is attached to the thing you tapped.',
-    next:'One of five ways to fix the builder. Pick one and it becomes the Prices section.' },
-  { v:'2.4.5.3', file:'elite-wellness-landing_2-4-5-3.html', at:'#prices', label:'Builder: one question at a time', date:'23 Sep 2026', status:'open',
-    tested:'Two or three questions, one per screen, big targets, then the price on its own with the button. Nothing sticks, nothing floats, and there is only ever one thing to do.',
-    next:'One of five ways to fix the builder. Pick one and it becomes the Prices section.' },
-  { v:'2.4.5.2', file:'elite-wellness-landing_2-4-5-2.html', at:'#prices', label:'Builder: the card rides along', date:'23 Sep 2026', status:'open',
-    tested:'The plan card moves to the top and sticks under the header while you pick, carrying the name, the total and the button. One surface, always in reach, and it leaves the bottom of the screen to the page.',
-    next:'One of five ways to fix the builder. Pick one and it becomes the Prices section.' },
-  { v:'2.4.5.1', file:'elite-wellness-landing_2-4-5-1.html', at:'#prices', label:'Builder: one bar at the bottom', date:'23 Sep 2026', status:'open',
-    tested:'One black bar at the bottom with the plan, the total and the button, and the page action bar steps aside while you are in the section so there is only ever one bar. The leanest of the five: no card, no sheet, nothing to scroll to.',
-    next:'One of five ways to fix the builder. Pick one and it becomes the Prices section.' },
-  { v:'2.4.5', file:'elite-wellness-landing_2-4-5.html', at:'#prices', label:'Prices: the receipt', date:'23 Sep 2026', archived:true, group:'Prices',
+  { v:'2.4.5', file:'elite-wellness-landing_2-4-5.html', at:'#prices', label:'Prices: the receipt', date:'23 Sep 2026', status:'latest',
     tested:'You build the plan and a receipt adds it up as you go: who you are, how long or how often, how you pay, and a coach if you want one. The strongest one for the screen at the desk, and the only one that sells personal training without a separate pitch.',
-    why:'The idea was right and the mobile layout was not. Replaced by 2.4.5.1 to 2.4.5.5.' },
+    next:'One of five ways to show the real price list. Pick one and it moves into the page.' },
   { v:'2.4.4', file:'elite-wellness-landing_2-4-4.html', at:'#prices', label:'Prices: the whole list', date:'23 Sep 2026', status:'open',
     tested:'Everything on one page in three tables, with the arithmetic done for you: what each visitor pass works out at per day, what a member plan costs for a year with the insurance in it, and what each coaching pack saves. No interaction needed, and every price is in the HTML for search.',
     next:'One of five ways to show the real price list. Pick one and it moves into the page.' },
@@ -112,9 +97,9 @@ const DRAFTS = [
   { v:'2.3', file:'elite-wellness-landing_2-3.html', label:'First real photo', date:'23 Sep 2026', status:'open',
     tested:'The first frame of the hero strip is a real photo of our own free weights instead of a stock placeholder. Black and white is baked into the file, so the frame reads the same whether or not the CSS filter runs, and it ships in two sizes so a phone does not download the big one.',
     next:'Photo direction. If this treatment is right, the other two hero frames and the four class cards follow. Headline choice (1.2 to 1.6) is still open.' },
-  { v:'2.2', file:'elite-wellness-landing_2-2.html', at:'#footer', label:'Full page, footer signed off', date:'23 Sep 2026', archived:true, group:'Full page drafts',
+  { v:'2.2', file:'elite-wellness-landing_2-2.html', at:'#footer', label:'Full page, footer signed off', date:'23 Sep 2026', status:'open',
     tested:'The full page with the footer signed off: brand, address, phone, email and languages on the left, then Explore, Social and press, and Legal, right aligned to the content. No buttons in it, because the action bar carries WhatsApp and Directions to the end of the page. Links brighten to white on hover, the bar action goes blue.',
-    why:'Kept. 2.3 is this page plus the first real photo.' },
+    next:'The footer is signed off. Next pass: the timetable, classes and prices in the same design language as the gym section. Headline choice (1.2 to 1.6) is still open.' },
   { v:'2.1.1', file:'elite-wellness-landing_2-1-1.html', at:'#footer', label:'Footer: one row', date:'23 Sep 2026', archived:true, group:'Footer',
     tested:'One row: name and address left, five links in the middle, WhatsApp on the right, then a legal line with the hours. The shortest of the five, 225px on desktop.',
     why:'Not taken forward. The four column directory of 2.0.1 won, and became 2.2.' },
@@ -256,7 +241,7 @@ function renderInfo(d){
 }
 function renderArchive(){
   // Newest work first. Add new groups to the top of this list.
-  const order = ['Prices', 'Footer', 'Hours, location and footer', 'Full page drafts', 'Headline tests'];
+  const order = ['Footer', 'Hours, location and footer', 'Full page drafts', 'Headline tests'];
   const names = [...new Set(archived.map(d => d.group || 'Other'))].sort((a, b) => {
     const A = order.indexOf(a), B = order.indexOf(b);
     return (A < 0 ? 99 : A) - (B < 0 ? 99 : B);

@@ -40,6 +40,3 @@
 .pr-inc p{font-size:14px;line-height:20px;color:#3a3a3a}
 .pr-inc b{display:block;font-weight:800;font-size:11px;letter-spacing:.12em;text-transform:uppercase;color:var(--black);margin-bottom:4px}
 @media (max-width:768px){ .pr-inc{grid-template-columns:1fr;gap:16px} }
-
-/* while a pricing bar owns the bottom of the screen, the page's bar steps aside */
-html.pricing-bottom .action-bar{transform:translateY(110%)}
