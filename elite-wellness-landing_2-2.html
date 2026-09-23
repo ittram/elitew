@@ -104,6 +104,7 @@ body.show-grid .grid-overlay{display:block}
 .classes-section .section-header{color:var(--white)}
 .classes-section .section-script{color:rgba(255,255,255,.6)}
 .classes-grid{display:grid;grid-template-columns:repeat(12,1fr);gap:24px}
+.classes-dots{display:none}
 .classes-grid .class-card{grid-column:span 3}
 .class-card{background:var(--white);height:400px;position:relative;overflow:hidden;transition:transform .3s ease}
 .class-card:hover{transform:translateY(-10px)}
@@ -237,7 +238,7 @@ body.show-grid .grid-overlay{display:block}
 .find-block .section-header{color:var(--white);font-size:clamp(34px,3.4vw,54px)}
 .find-status{display:flex;align-items:center;gap:8px;font-weight:800;font-size:12px;line-height:16px;letter-spacing:.12em;text-transform:uppercase;color:rgba(255,255,255,.7);margin-bottom:40px}
 .find-status b{color:var(--white)}
-.find-status .dot{width:8px;height:8px;border-radius:50%;background:var(--white)}
+.find-status .dot{width:8px;height:8px;border-radius:50%;background:var(--accent)}
 .find-status.closed .dot{background:rgba(255,255,255,.45)}
 .hours-row{list-style:none;border-top:1px solid rgba(255,255,255,.3)}
 .hours-row li{display:flex;align-items:baseline;justify-content:space-between;gap:24px;padding:16px 0;border-bottom:1px solid rgba(255,255,255,.3)}
@@ -350,7 +351,14 @@ body.show-grid .grid-overlay{display:block}
   .section,.classes-section,.reviews-section,.faq-section,.about-band{padding:4rem 1.5rem}
   .family-faces li{width:64px;height:64px;margin-left:-12px}
   .family-faces b{font-size:24px;line-height:32px}
-  .classes-grid{gap:16px}
+  /* the four cards become one strip you swipe, with a peek of the next */
+  .classes-grid{display:flex;grid-template-columns:none;gap:16px;overflow-x:auto;scroll-snap-type:x mandatory;margin:0 -1.5rem;padding:0 1.5rem;scroll-padding-left:1.5rem;-webkit-overflow-scrolling:touch;scrollbar-width:none;overscroll-behavior-x:contain}
+  .classes-grid::-webkit-scrollbar{display:none}
+  .classes-grid .class-card{flex:0 0 86%;scroll-snap-align:start;height:420px}
+  .class-card:hover{transform:none}
+  .classes-dots{display:flex;gap:8px;margin-top:24px}
+  .classes-dots button{appearance:none;border:0;padding:0;flex:1 1 0;height:2px;background:rgba(255,255,255,.35);cursor:pointer;transition:background .2s ease}
+  .classes-dots button[aria-selected="true"]{background:var(--white)}
   .tt{margin-top:80px}
   .tt-head{margin-bottom:40px}
   .tt-title{font-size:40px;line-height:48px}
@@ -358,7 +366,10 @@ body.show-grid .grid-overlay{display:block}
   .tt-tabs{display:grid;grid-template-columns:repeat(5,1fr);gap:8px;margin-bottom:24px}
   .tt-tabs button{appearance:none;border:0;box-shadow:inset 0 0 0 2px rgba(255,255,255,.5);background:transparent;color:var(--white);font-family:var(--font-display);font-size:16px;line-height:24px;text-transform:uppercase;padding:8px 0;cursor:pointer}
   .tt-tabs button[aria-selected="true"]{background:var(--white);color:var(--royal-blue);box-shadow:none}
-  .tt-list{display:block;list-style:none}
+  .tt-list{display:block;list-style:none;touch-action:pan-y}
+  .tt-list.in-r{animation:ttIn .22s ease both}
+  .tt-list.in-l{animation:ttIn .22s ease both;--from:-24px}
+  @keyframes ttIn{from{opacity:0;transform:translateX(var(--from,24px))}to{opacity:1;transform:none}}
   .tt-list li{display:grid;grid-template-columns:repeat(4,1fr);column-gap:16px;padding:24px 0;box-shadow:inset 0 -1px 0 rgba(255,255,255,.25)}
   .tt-list li>div:last-child{grid-column:span 3}
   .tt-list li.is-next{background:var(--white);color:var(--royal-blue);box-shadow:-12px 0 0 var(--white),12px 0 0 var(--white)}
@@ -537,7 +548,7 @@ body.show-grid .grid-overlay{display:block}
     <img class="logo-img" src="assets/elite-wellness-logo.png" alt="Elite Wellness by Santos" width="720" height="215">
   </a>
   <nav>
-    <a class="nav-link" href="#timetable">Timetable</a>
+    <a class="nav-link" href="#classes">Classes</a>
     <a class="nav-link" href="#prices">Prices</a>
     <a class="nav-link" href="#find-us">Location</a>
     <!-- on the live site this links to the Portuguese page (/pt); here it toggles to demo the interaction -->
@@ -552,7 +563,7 @@ body.show-grid .grid-overlay{display:block}
   <div class="menu-inner">
     <p class="menu-status" data-status="menu-status" id="menu-status"></p>
     <ol class="menu-links">
-      <li><a href="#timetable"><span class="mn">01</span><span class="ml">Timetable</span><span class="ms">This week's classes</span></a></li>
+      <li><a href="#classes"><span class="mn">01</span><span class="ml">Classes</span><span class="ms">What we run, and when</span></a></li>
       <li><a href="#prices"><span class="mn">02</span><span class="ml">Prices</span><span class="ms">Day pass €10 · Monthly €21</span></a></li>
       <li><a href="#find-us"><span class="mn">03</span><span class="ml">Hours &amp; location</span><span class="ms">Rua Capitão Salgueiro Maia, Lagos</span></a></li>
       <li><a href="#reviews"><span class="mn">04</span><span class="ml">Reviews</span><span class="ms">4.8 from 153 on Google</span></a></li>
@@ -647,6 +658,8 @@ body.show-grid .grid-overlay{display:block}
       </div>
     </div>
   </div>
+  <!-- phones flip through the cards, so they get dots; hidden on desktop, where it is a grid -->
+  <div class="classes-dots" id="classes-dots" role="tablist" aria-label="Choose a class"></div>
 
   <!-- Weekly timetable: rendered from schedule.js. To update, see TIMETABLE.md -->
   <div class="tt" id="timetable">
@@ -1017,6 +1030,7 @@ body.show-grid .grid-overlay{display:block}
   // mobile tabs + list
   var tabs=document.getElementById('tt-tabs'), list=document.getElementById('tt-list');
   function showDay(d){
+    cur=Math.max(0,days.indexOf(d));
     Array.prototype.forEach.call(tabs.children,function(b){b.setAttribute('aria-selected',b.dataset.day===d?'true':'false')});
     list.innerHTML=sessions.filter(function(x){return x.day===d}).map(function(x){
       var isNext=next&&x===next;
@@ -1025,10 +1039,59 @@ body.show-grid .grid-overlay{display:block}
   }
   tabs.innerHTML=days.map(function(d){return '<button type="button" role="tab" data-day="'+d+'">'+NAMES[d]+'</button>'}).join('');
   tabs.addEventListener('click',function(e){var b=e.target.closest('button');if(b)showDay(b.dataset.day)});
+
+  /* on a phone you can also swipe the day left or right */
+  var cur=0, calm=window.matchMedia('(prefers-reduced-motion:reduce)');
+  function step(n){
+    var i=Math.min(days.length-1,Math.max(0,cur+n));
+    if(i===cur) return;
+    var back=n<0;
+    showDay(days[i]);
+    if(calm.matches) return;
+    list.classList.remove('in-l','in-r'); void list.offsetWidth;
+    list.classList.add(back?'in-l':'in-r');
+  }
+  var x0=null,y0=null;
+  list.addEventListener('touchstart',function(e){var t=e.changedTouches[0];x0=t.clientX;y0=t.clientY},{passive:true});
+  list.addEventListener('touchend',function(e){
+    if(x0===null) return;
+    var t=e.changedTouches[0], dx=t.clientX-x0, dy=t.clientY-y0;
+    x0=null;
+    if(Math.abs(dx)>48&&Math.abs(dx)>Math.abs(dy)*1.5) step(dx<0?1:-1);
+  },{passive:true});
+
   showDay(days.indexOf(today)>-1?today:(next?next.day:days[0]));
 
   // footer
   if(S.updated){var u=new Date(S.updated+'T12:00:00');document.getElementById('tt-updated').textContent='Updated '+u.toLocaleDateString('en-GB',{day:'numeric',month:'long',year:'numeric'});}
+})();
+</script>
+
+
+<script>
+/* 2.2: on a phone the class cards are a strip you swipe. The dots follow it. */
+(function(){
+  var grid=document.querySelector('.classes-grid'), dots=document.getElementById('classes-dots');
+  if(!grid||!dots) return;
+  var cards=[].slice.call(grid.querySelectorAll('.class-card'));
+  dots.innerHTML=cards.map(function(c,i){
+    var name=(c.querySelector('.class-name')||{}).textContent||('Class '+(i+1));
+    return '<button type="button" role="tab" aria-label="Show '+name+'" aria-selected="'+(i?'false':'true')+'"></button>';
+  }).join('');
+  var btns=[].slice.call(dots.children);
+  function mark(i){ btns.forEach(function(b,k){ b.setAttribute('aria-selected', k===i?'true':'false') }); }
+  btns.forEach(function(b,i){ b.addEventListener('click',function(){
+    grid.scrollTo({left:cards[i].offsetLeft-cards[0].offsetLeft, behavior:'smooth'});
+  })});
+  var tick;
+  grid.addEventListener('scroll',function(){
+    clearTimeout(tick);
+    tick=setTimeout(function(){
+      var x=grid.scrollLeft, best=0, d=Infinity;
+      cards.forEach(function(c,i){ var v=Math.abs((c.offsetLeft-cards[0].offsetLeft)-x); if(v<d){d=v;best=i} });
+      mark(best);
+    },60);
+  },{passive:true});
 })();
 </script>
 
