@@ -8,6 +8,7 @@
 - Drafts we no longer compare get `archived:true`, a `group` (the archive panel's subheading) and a one line `why` replacing `next`. They stay in the Archive panel and still open.
 - When a section is signed off, archive every other draft of it and leave only the latest on the bar. The bar carries the current page plus whatever decision is still open.
 - A new archive group goes to the top of the `order` list in `renderArchive()`, so the newest work reads first.
+- Give each draft an `at`: the section its work lives in, as a selector (`'#find-us'`, `'footer.site-footer'`). The bar opens the draft there instead of at the top, and the About panel says so. Leave it off for drafts about the hero or the header.
 - Clicking the draft you are already on opens its About panel. There is no separate About button, to keep room for the chips on a phone.
 - The bar must stay **one line tall** and work on a phone: chips scroll sideways, the tools stay pinned on the right.
 
