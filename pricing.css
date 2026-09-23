@@ -1,0 +1,42 @@
+/* Shared by every 2.4.x draft: the confirm flow, and the bits every pricing
+   treatment needs. Each draft styles its own picker on top of this. */
+
+/* ---------- the flow ---------- */
+.ewf{position:fixed;inset:0;z-index:120;background:rgba(0,0,0,.55);display:none;align-items:flex-end;justify-content:center}
+.ewf.on{display:flex}
+.ewf-sheet{position:relative;background:var(--white);color:var(--black);width:100%;max-width:520px;max-height:92dvh;overflow-y:auto;overscroll-behavior:contain;padding:40px 24px 32px}
+.ewf-x{position:absolute;top:8px;right:12px;appearance:none;border:0;background:transparent;font-size:28px;line-height:1;cursor:pointer;color:var(--black);padding:8px}
+.ewf-kicker{font-weight:800;font-size:11px;letter-spacing:.14em;text-transform:uppercase;color:var(--silver-grey);margin-bottom:8px}
+.ewf-title{font-family:var(--font-display);font-size:34px;line-height:1.05;text-transform:uppercase;margin-bottom:16px}
+.ewf-lede{font-size:15px;line-height:24px;margin-bottom:24px;color:#3a3a3a}
+.ewf-lines{margin-bottom:8px}
+.ewf-line{display:flex;justify-content:space-between;gap:16px;align-items:baseline;padding:12px 0;box-shadow:inset 0 -1px 0 var(--light-grey);font-size:15px;line-height:24px}
+.ewf-line b{font-weight:700;white-space:nowrap}
+.ewf-total{display:flex;justify-content:space-between;gap:16px;align-items:baseline;padding:16px 0 8px;font-size:15px}
+.ewf-total b{font-family:var(--font-display);font-size:34px;line-height:1;color:var(--royal-blue)}
+.ewf-note{font-size:13px;line-height:20px;color:#5a5a5a;margin-top:8px}
+.ewf-inc{margin-top:24px}
+.ewf-inc-h{font-weight:800;font-size:11px;letter-spacing:.14em;text-transform:uppercase;color:var(--silver-grey);margin:24px 0 8px}
+.ewf-inc ul,.ewf-bring{list-style:none;margin:0;padding:0}
+.ewf-inc li,.ewf-bring li{font-size:15px;line-height:24px;padding:4px 0 4px 20px;position:relative}
+.ewf-inc li::before,.ewf-bring li::before{content:"";position:absolute;left:0;top:13px;width:8px;height:2px;background:var(--royal-blue)}
+.ewf-go{width:100%;margin-top:32px;justify-content:center}
+.ewf-back{display:block;width:100%;margin-top:12px;appearance:none;border:0;background:transparent;font-family:var(--font-body);font-size:13px;color:var(--silver-grey);text-decoration:underline;cursor:pointer;padding:8px}
+.ewf-acts{display:flex;gap:8px;margin-top:32px}
+.ewf-acts .btn{flex:1 1 0;justify-content:center;text-align:center}
+@media (min-width:769px){
+  .ewf{align-items:center}
+  .ewf-sheet{padding:48px 40px 40px}
+}
+@media (prefers-reduced-motion:no-preference){
+  .ewf.on .ewf-sheet{animation:ewfUp .25s cubic-bezier(.2,.7,.3,1) both}
+  @keyframes ewfUp{from{transform:translateY(24px);opacity:0}to{transform:none;opacity:1}}
+}
+
+/* ---------- bits every treatment uses ---------- */
+.pr-legal{font-size:12px;line-height:20px;color:var(--silver-grey);margin-top:24px}
+.pr-todo{display:inline-block;font-weight:800;font-size:8px;letter-spacing:.1em;text-transform:uppercase;color:var(--silver-grey);border:1px solid var(--light-grey);border-radius:999px;padding:1px 5px;vertical-align:3px;margin-left:4px;cursor:help}
+.pr-inc{display:grid;grid-template-columns:repeat(3,1fr);gap:16px;margin-top:48px;padding-top:24px;box-shadow:inset 0 1px 0 var(--light-grey)}
+.pr-inc p{font-size:14px;line-height:20px;color:#3a3a3a}
+.pr-inc b{display:block;font-weight:800;font-size:11px;letter-spacing:.12em;text-transform:uppercase;color:var(--black);margin-bottom:4px}
+@media (max-width:768px){ .pr-inc{grid-template-columns:1fr;gap:16px} }
