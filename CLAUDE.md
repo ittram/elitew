@@ -27,6 +27,8 @@
 - 12 column grid, 8px and 4px spacing, torn edges between bands.
 - **On a phone everything is one column.** No two column rows in the footer or anywhere else.
 - Motion is small and purposeful: the route draws itself once, the action bar slides up, nothing loops.
+- **Photos are black and white.** Bake the grey into the file rather than leaving it to the CSS filter, keep a 4:3 master so a frame can crop landscape or portrait, ship 800 and 1600 wide as webp with a `srcset`, and strip every byte of metadata (phone photos carry location). Named after what they show, e.g. `assets/hero-free-weights.webp`.
+- Files that come back from the sandbox pick up a C2PA chunk on the way. Strip it on the device before committing, or the file is bigger than the one that was made.
 
 ## Working habits
 - Verify with a screenshot at 1440 and at 390 wide before saying it is done, and check the page never scrolls sideways.

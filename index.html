@@ -79,7 +79,10 @@
 /* All drafts live here. Newest first.
    To archive one, set archived: true and say why. The first draft that is not archived loads by default. */
 const DRAFTS = [
-  { v:'2.2', file:'elite-wellness-landing_2-2.html', at:'#footer', label:'Full page, footer signed off', date:'23 Sep 2026', status:'latest',
+  { v:'2.3', file:'elite-wellness-landing_2-3.html', label:'First real photo', date:'23 Sep 2026', status:'latest',
+    tested:'The first frame of the hero strip is a real photo of our own free weights instead of a stock placeholder. Black and white is baked into the file, so the frame reads the same whether or not the CSS filter runs, and it ships in two sizes so a phone does not download the big one.',
+    next:'Photo direction. If this treatment is right, the other two hero frames and the four class cards follow. Headline choice (1.2 to 1.6) is still open.' },
+  { v:'2.2', file:'elite-wellness-landing_2-2.html', at:'#footer', label:'Full page, footer signed off', date:'23 Sep 2026', status:'open',
     tested:'The full page with the footer signed off: brand, address, phone, email and languages on the left, then Explore, Social and press, and Legal, right aligned to the content. No buttons in it, because the action bar carries WhatsApp and Directions to the end of the page. Links brighten to white on hover, the bar action goes blue.',
     next:'The footer is signed off. Next pass: the timetable, classes and prices in the same design language as the gym section. Headline choice (1.2 to 1.6) is still open.' },
   { v:'2.1.1', file:'elite-wellness-landing_2-1-1.html', at:'#footer', label:'Footer: one row', date:'23 Sep 2026', archived:true, group:'Footer',
