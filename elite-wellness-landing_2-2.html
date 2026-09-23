@@ -366,7 +366,10 @@ body.show-grid .grid-overlay{display:block}
   .tt-tabs{display:grid;grid-template-columns:repeat(5,1fr);gap:8px;margin-bottom:24px}
   .tt-tabs button{appearance:none;border:0;box-shadow:inset 0 0 0 2px rgba(255,255,255,.5);background:transparent;color:var(--white);font-family:var(--font-display);font-size:16px;line-height:24px;text-transform:uppercase;padding:8px 0;cursor:pointer}
   .tt-tabs button[aria-selected="true"]{background:var(--white);color:var(--royal-blue);box-shadow:none}
-  .tt-list{display:block;list-style:none;touch-action:pan-y}
+  /* room for four classes, so the day keeps its height when it only has three */
+  .tt-list{display:block;list-style:none;touch-action:pan-y;min-height:384px;box-shadow:inset 0 -1px 0 rgba(255,255,255,.25)}
+  /* the closing rule belongs to the block, not the last class, so the spare slot reads as room */
+  .tt-list li:last-child:not(.is-next){box-shadow:none}
   .tt-list.in-r{animation:ttIn .22s ease both}
   .tt-list.in-l{animation:ttIn .22s ease both;--from:-24px}
   @keyframes ttIn{from{opacity:0;transform:translateX(var(--from,24px))}to{opacity:1;transform:none}}
