@@ -275,7 +275,8 @@ body.show-grid .grid-overlay{display:block}
 .ft-social a{display:inline-flex;align-items:center;gap:8px}
 .ft-social svg{width:16px;height:16px;flex:0 0 16px;fill:none;stroke:currentColor;stroke-width:1.4}
 .ft-social a:hover svg{color:var(--accent)}
-.ft-todo{color:var(--silver-grey);font-size:.72rem;line-height:16px;display:block}
+.ft-soon{color:rgba(255,255,255,.45);font-size:.85rem;line-height:24px;cursor:default}
+.ft-chip{margin-left:8px;padding:2px 6px;border:1px solid rgba(255,255,255,.3);border-radius:999px;font-size:8px;line-height:12px;letter-spacing:.12em;text-transform:uppercase;vertical-align:4px;color:rgba(255,255,255,.55)}
 .ft-legal{border-top:1px solid rgba(255,255,255,.18);margin-top:48px;padding-top:16px;padding-bottom:64px;display:flex;justify-content:space-between;gap:16px;flex-wrap:wrap;font-size:.75rem;line-height:24px;color:var(--silver-grey)}
 /* the action bar slides up once you are past the hero and steps aside for the footer */
 /* the action bar follows you on every screen, and steps aside at the footer */
@@ -826,27 +827,29 @@ body.show-grid .grid-overlay{display:block}
       <div>
         <p class="ft-h">Explore</p>
         <ul class="ft-list">
-          <li><a href="#prices">Prices and passes</a></li>
-          <li><a href="#classes">Class timetable</a></li>
           <li><a href="#gym">The gym</a></li>
+          <li><a href="#classes">Classes</a></li>
+          <li><a href="#prices">Prices</a></li>
+          <li><a href="#reviews">Reviews</a></li>
           <li><a href="#find-us">Hours and location</a></li>
           <li><a href="#faq">Good to know</a></li>
         </ul>
       </div>
       <div>
-        <p class="ft-h">Follow</p>
+        <p class="ft-h">Social and press</p>
         <ul class="ft-list ft-social">
           <li><a href="https://www.instagram.com/elitewellnessbysantos/" target="_blank" rel="noopener"><svg viewBox="0 0 16 16" aria-hidden="true"><rect x="1.8" y="1.8" width="12.4" height="12.4" rx="3.6"/><circle cx="8" cy="8" r="3.1"/><circle cx="11.9" cy="4.1" r=".9" fill="currentColor" stroke="none"/></svg>Instagram</a></li>
           <li><a href="https://www.facebook.com/elitewellnessbysantos" target="_blank" rel="noopener"><svg viewBox="0 0 16 16" aria-hidden="true"><path d="M9.6 15V8.6h2.1l.3-2.4H9.6V4.7c0-.7.2-1.2 1.2-1.2h1.3V1.3C11.9 1.3 11.1 1.2 10.2 1.2 8.4 1.2 7.1 2.3 7.1 4.4v1.8H5v2.4h2.1V15"/></svg>Facebook</a></li>
           <li><a href="https://maps.app.goo.gl/ks6o4URGCYT7rzHJ8" target="_blank" rel="noopener"><svg viewBox="0 0 16 16" aria-hidden="true"><path d="M14.4 8.2c0-.5 0-.9-.1-1.3H8v2.6h3.6a3.1 3.1 0 0 1-1.3 2v1.7h2.1c1.3-1.2 2-2.9 2-5z"/><path d="M8 14.6c1.8 0 3.3-.6 4.4-1.6l-2.1-1.7c-.6.4-1.4.7-2.3.7-1.8 0-3.3-1.2-3.8-2.8H1.9v1.8A6.6 6.6 0 0 0 8 14.6z"/><path d="M4.2 9.2a4 4 0 0 1 0-2.5V4.9H1.9a6.6 6.6 0 0 0 0 6l2.3-1.7z"/><path d="M8 4c1 0 1.9.3 2.6 1l1.9-1.9A6.6 6.6 0 0 0 1.9 4.9l2.3 1.8C4.7 5.1 6.2 4 8 4z"/></svg>Google</a></li>
+        <li><a href="https://www.nit.pt/fit/ginasios-e-outdoor/treinar-num-ginasio-ao-ar-livre-sim-e-possivel-no-elite-wellness-em-lagos" target="_blank" rel="noopener"><svg viewBox="0 0 16 16" aria-hidden="true"><path d="M2.2 3.2h8.4v9.6H3.4a1.2 1.2 0 0 1-1.2-1.2z"/><path d="M10.6 5.6h2.1a1.1 1.1 0 0 1 1.1 1.1v4.9a1.2 1.2 0 0 1-1.2 1.2"/><path d="M4 5.6h5M4 8h5M4 10.4h3"/></svg>As featured in NiT</a></li>
         </ul>
       </div>
       <div class="ft-end">
         <p class="ft-h">Legal</p>
         <ul class="ft-list">
           <li><a href="#faq">Terms of entry</a></li>
-          <li><span class="ft-todo">[PLACEHOLDER: privacy policy, e.g. /privacidade]</span></li>
-          <li><span class="ft-todo">[PLACEHOLDER: Livro de Reclamações, e.g. livroreclamacoes.pt, once confirmed]</span></li>
+          <li><span class="ft-soon">Privacy policy<sup class="ft-chip" title="[PLACEHOLDER: link the privacy page once it exists, e.g. /privacidade]">todo</sup></span></li>
+          <li><span class="ft-soon">Livro de Reclamações<sup class="ft-chip" title="[PLACEHOLDER: link livroreclamacoes.pt once the family confirms the gym is registered]">todo</sup></span></li>
         </ul>
       </div>
     </div>
