@@ -79,7 +79,16 @@
 /* All drafts live here. Newest first.
    To archive one, set archived: true and say why. The first draft that is not archived loads by default. */
 const DRAFTS = [
-  { v:'2.4.5', file:'elite-wellness-landing_2-4-5.html', at:'#prices', label:'Prices: the receipt', date:'23 Sep 2026', status:'latest',
+  { v:'2.4.5.3', file:'elite-wellness-landing_2-4-5-3.html', at:'#prices', label:'Receipt: the strip gets a button', date:'23 Sep 2026', status:'latest',
+    tested:'2.4.5 with one change, on phones only. The strip at the top keeps its place and gets the button, so it is no longer a dead end. The card below and the page bar step aside inside Prices, so the strip is the only price on screen.',
+    next:'One of three fixes to 2.4.5 on a phone. Desktop is pixel identical to 2.4.5 in all three.' },
+  { v:'2.4.5.2', file:'elite-wellness-landing_2-4-5-2.html', at:'#prices', label:'Receipt: the bar opens up', date:'23 Sep 2026', status:'open',
+    tested:'2.4.5 with one change, on phones only. Inside Prices the page bar turns into the price row, and a tap opens it upward into the breakdown. The card below goes, so the bar is the one surface for the price, the detail and the button.',
+    next:'One of three fixes to 2.4.5 on a phone. Desktop is pixel identical to 2.4.5 in all three.' },
+  { v:'2.4.5.1', file:'elite-wellness-landing_2-4-5-1.html', at:'#prices', label:'Receipt: the bar hands off', date:'23 Sep 2026', status:'open',
+    tested:'2.4.5 with one change, on phones only. Inside Prices the page bar turns into the price row. When the card and its own button scroll into view, the bar steps away and the card takes over, so there is only ever one price and one button on screen.',
+    next:'One of three fixes to 2.4.5 on a phone. Desktop is pixel identical to 2.4.5 in all three.' },
+  { v:'2.4.5', file:'elite-wellness-landing_2-4-5.html', at:'#prices', label:'Prices: the receipt', date:'23 Sep 2026', status:'open',
     tested:'You build the plan and a receipt adds it up as you go: who you are, how long or how often, how you pay, and a coach if you want one. The strongest one for the screen at the desk, and the only one that sells personal training without a separate pitch.',
     next:'One of five ways to show the real price list. Pick one and it moves into the page.' },
   { v:'2.4.4', file:'elite-wellness-landing_2-4-4.html', at:'#prices', label:'Prices: the whole list', date:'23 Sep 2026', status:'open',
