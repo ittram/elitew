@@ -42,5 +42,9 @@ The events, in order: `pricing_who` or `pricing_door` or `pricing_dial` or
 `pricing_confirm` (they said yes), `pricing_close` (they left, with the step
 they left from), plus `pricing_see_all` and `pricing_restart`.
 
+The folding steps (2.4.5.4.1 on) add `pricing_kind` (Passes, Membership or
+Personal training was chosen) and `pricing_insured` (a member said their
+insurance is already paid, which takes the 24 euro off the first payment).
+
 The drop from `pricing_review` to `pricing_confirm` is the number that says
 whether paying online is worth building.
