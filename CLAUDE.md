@@ -11,7 +11,7 @@
 
 ## Copy
 - No dashes in the copy: no "—", "–" or "-", except where unavoidable, such as the postcode 8600-530.
-- Every "ask us" and contact link goes to WhatsApp on +351926565836 as a `wa.me` link. Never a phone link.
+- Every "ask us" and contact button goes to WhatsApp on +351926565836 as a `wa.me` link. The one exception is the phone number printed in the footer, which is a `tel:` link so it dials.
 - Google Maps link: https://maps.app.goo.gl/ks6o4URGCYT7rzHJ8
 - Prices: day pass €10 (single entry, full access), week €35.90, monthly €21 with a 3 month minimum plus €24 a year insurance billed separately, personal training is "ask us" on WhatsApp, cash only at the desk.
 - Closed on all Portuguese public holidays and on Lagos's municipal holiday.

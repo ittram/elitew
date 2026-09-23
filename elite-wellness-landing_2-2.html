@@ -272,6 +272,7 @@ body.show-grid .grid-overlay{display:block}
 .ft-h{font-weight:800;font-size:10px;line-height:16px;letter-spacing:.18em;text-transform:uppercase;color:rgba(255,255,255,.55);margin-bottom:8px}
 .ft-body{font-style:normal;font-size:.85rem;line-height:24px;color:rgba(255,255,255,.7);margin-bottom:16px}
 .ft-body:last-child{margin-bottom:0}
+.ft-langs{margin-top:16px}
 .ft-body a{color:rgba(255,255,255,.85);text-decoration:none;border-bottom:1px solid rgba(255,255,255,.25)}
 .ft-body a:hover,.ft-body a:focus-visible{color:var(--accent);border-color:var(--accent)}
 .ft-list{list-style:none;display:grid;gap:8px;max-width:260px}
@@ -295,6 +296,7 @@ body.show-grid .grid-overlay{display:block}
 .bar-status .dot{width:8px;height:8px;border-radius:50%;background:var(--accent);flex:0 0 auto}
 .bar-status.closed .dot{background:rgba(255,255,255,.45)}
 .action-bar .btn{flex:0 0 auto;padding:12px 16px;font-size:.9rem}
+.action-bar .btn:not(.ghost){border:0;padding:14px 24px;clip-path:polygon(5% 0%,100% 0%,95% 100%,0% 100%)}
 @media (min-width:769px){.action-bar{gap:16px;padding:12px 4rem}.bar-status{font-size:12px;letter-spacing:.12em}.bar-status .bs-txt{flex-direction:row;gap:8px;align-items:baseline}}
 @media (prefers-reduced-motion:reduce){.action-bar{transition:none}}
 /* the map fades in when it is ready, with our own pin over the middle */
@@ -826,7 +828,8 @@ body.show-grid .grid-overlay{display:block}
       <img class="ft-logo" src="assets/elite-wellness-logo-white.png" width="720" height="215" alt="Elite Wellness by Santos">
       <p class="ft-motto">Juntos Somos Elite</p>
       <address class="ft-body">Rua Capitão Salgueiro Maia, Lote 13, Cave<br>8600-530 Lagos, Algarve, Portugal</address>
-      <p class="ft-body"><a href="https://wa.me/351926565836?text=Hi!%20I%20have%20a%20question%20about%20the%20gym." target="_blank" rel="noopener">WhatsApp +351 926 565 836</a><br><a href="mailto:elitewellness.geral@gmail.com">elitewellness.geral@gmail.com</a><br>We speak English and Portuguese</p>
+      <p class="ft-body"><a href="tel:+351926565836">+351 926 565 836</a><br><a href="mailto:elitewellness.geral@gmail.com">elitewellness.geral@gmail.com</a></p>
+      <p class="ft-body ft-langs">We speak Portuguese and English</p>
     </div>
     <div class="ft-cols">
       <div>
