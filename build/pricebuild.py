@@ -436,9 +436,9 @@ V4_SEC = (KICKER % 'the whole list, and the maths') + '''  <p class="ht-lede">Mo
     <caption class="ht-cap">Living here <em>paid every 2 weeks, not monthly</em></caption>
     <thead><tr><th scope="col">Plan</th><th scope="col">Direct debit</th><th scope="col">At the desk</th><th scope="col">A year, all in</th><th scope="col"></th></tr></thead>
     <tbody>
-      <tr><th scope="row">Once a week</th><td class="n">€13</td><td class="d">€18</td><td class="d">€362</td><td class="a"><button class="ht-go" type="button" data-m="w1">Choose</button></td></tr>
-      <tr><th scope="row">Three a week</th><td class="n">€19.50</td><td class="d">€24.50</td><td class="d">€531</td><td class="a"><button class="ht-go" type="button" data-m="w3">Choose</button></td></tr>
-      <tr class="ht-best"><th scope="row">Unlimited <i>best value</i></th><td class="n">€21</td><td class="d">€26</td><td class="d">€570</td><td class="a"><button class="ht-go" type="button" data-m="un">Choose</button></td></tr>
+      <tr><th scope="row">Once a week</th><td class="n">€13</td><td class="d" data-l="at the desk">€18</td><td class="d" data-l="a year">€362</td><td class="a"><button class="ht-go" type="button" data-m="w1">Choose</button></td></tr>
+      <tr><th scope="row">Three a week</th><td class="n">€19.50</td><td class="d" data-l="at the desk">€24.50</td><td class="d" data-l="a year">€531</td><td class="a"><button class="ht-go" type="button" data-m="w3">Choose</button></td></tr>
+      <tr class="ht-best"><th scope="row">Unlimited <i>best value</i></th><td class="n">€21</td><td class="d" data-l="at the desk">€26</td><td class="d" data-l="a year">€570</td><td class="a"><button class="ht-go" type="button" data-m="un">Choose</button></td></tr>
     </tbody>
   </table>
   <p class="ht-read">The year column includes the €24 sports insurance and 26 payments. Direct debit saves €130 a year. Unlimited costs €1.50 more than three a week and lets you come any day.</p>
@@ -447,10 +447,10 @@ V4_SEC = (KICKER % 'the whole list, and the maths') + '''  <p class="ht-lede">Mo
     <caption class="ht-cap">With a coach</caption>
     <thead><tr><th scope="col">Personal training</th><th scope="col">Each</th><th scope="col">Total</th><th scope="col">You save</th></tr></thead>
     <tbody>
-      <tr><th scope="row">Single session</th><td class="d">€50</td><td class="n">€50</td><td class="d"></td></tr>
-      <tr><th scope="row">8 sessions, valid 2 months</th><td class="d">€45</td><td class="n">€360</td><td class="d">€40</td></tr>
-      <tr><th scope="row">12 sessions, valid 2 months</th><td class="d">€40</td><td class="n">€480</td><td class="d">€120</td></tr>
-      <tr><th scope="row">20 sessions, valid 3 months</th><td class="d">€30</td><td class="n">€600</td><td class="d">€400</td></tr>
+      <tr><th scope="row">Single session</th><td class="d" data-l="a session">€50</td><td class="n">€50</td><td class="d"></td></tr>
+      <tr><th scope="row">8 sessions, valid 2 months</th><td class="d" data-l="a session">€45</td><td class="n">€360</td><td class="d" data-l="saved">€40</td></tr>
+      <tr><th scope="row">12 sessions, valid 2 months</th><td class="d" data-l="a session">€40</td><td class="n">€480</td><td class="d" data-l="saved">€120</td></tr>
+      <tr><th scope="row">20 sessions, valid 3 months</th><td class="d" data-l="a session">€30</td><td class="n">€600</td><td class="d" data-l="saved">€400</td></tr>
     </tbody>
   </table>
   <p class="ht-read">Bring someone and the second person is €15 a session. Packs of two sessions a week or fewer do not include the gym on the other days, so add a member plan if you want to train around them.</p>
@@ -474,15 +474,29 @@ V4_CSS = ALLCSS + '''
 .ht-go{appearance:none;border:0;background:transparent;font-family:var(--font-body);font-weight:800;font-size:11px;letter-spacing:.12em;text-transform:uppercase;color:var(--royal-blue);cursor:pointer;padding:4px 0 4px 16px;text-decoration:underline}
 .ht-read{font-size:13px;line-height:20px;color:var(--silver-grey);margin-top:16px;max-width:64ch}
 @media (max-width:768px){
+  /* a phone reads this as a list, not a table: name and a caption on the left,
+     the price on the right, and the whole row is the tap target */
   .ht,.ht thead,.ht tbody,.ht th,.ht td,.ht tr{display:block}
   .ht thead{display:none}
-  .ht tr{padding:16px 0;box-shadow:inset 0 -1px 0 var(--light-grey)}
-  .ht th[scope=row]{padding:0 0 8px;box-shadow:none;font-weight:700}
-  .ht td{display:inline-block;padding:0 16px 0 0;box-shadow:none;text-align:left}
-  .ht td.n{font-size:20px}
-  .ht td.d::before{content:attr(data-l) " "}
-  .ht td.a{display:block;padding:8px 0 0}
-  .ht-go{padding-left:0}
+  .ht{margin-top:40px}
+  .ht-lede{margin-bottom:40px}
+  .ht-cap{display:block;width:100%;padding-bottom:8px}
+  .ht-cap em{display:block;margin:4px 0 0}
+  .ht tr{position:relative;display:grid;grid-template-columns:1fr auto;column-gap:16px;align-items:baseline;padding:16px 20px 16px 0;box-shadow:inset 0 -1px 0 var(--light-grey)}
+  .ht tr:first-child{box-shadow:inset 0 1px 0 var(--black),inset 0 -1px 0 var(--light-grey)}
+  .ht th[scope=row]{grid-column:1;grid-row:1;padding:0;box-shadow:none;font-weight:700;font-size:16px;line-height:24px}
+  .ht td{padding:0;box-shadow:none;text-align:left}
+  .ht td.n{grid-column:2;grid-row:1;font-size:22px;text-align:right}
+  .ht td.d{grid-row:2;font-size:12px;line-height:20px;color:var(--silver-grey);padding-top:2px}
+  .ht td.d:empty{display:none}
+  .ht td.d[data-l]::after{content:" " attr(data-l)}
+  .ht td.a{position:static;padding:0}
+  .ht-go{position:absolute;inset:0;width:100%;padding:0;font-size:0;text-decoration:none}
+  .ht-go::after{content:"›";position:absolute;right:0;top:50%;transform:translateY(-50%);font-family:var(--font-body);font-weight:400;font-size:22px;line-height:1;color:var(--silver-grey)}
+  .ht-go:active{background:rgba(0,0,0,.05)}
+  .ht-best th[scope=row],.ht-best td{background:transparent}
+  .ht-best{background:var(--off-white,#F4F4F2);padding-left:12px;margin-left:-12px}
+  .ht-read{margin-top:12px}
 }
 '''
 
