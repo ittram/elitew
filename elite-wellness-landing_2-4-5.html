@@ -742,6 +742,7 @@ body.show-grid .grid-overlay{display:block}
         <div class="rc-chips" id="rc-who">
           <button class="rc-chip on" type="button" data-who="visitor">Visiting</button>
           <button class="rc-chip" type="button" data-who="member">Living here</button>
+          <button class="rc-chip" type="button" data-who="pt">With a coach</button>
         </div>
       </fieldset>
       <fieldset class="rc-set" id="rc-set-stay">
@@ -759,9 +760,9 @@ body.show-grid .grid-overlay{display:block}
           <button class="rc-chip" type="button" data-pay="desk">At the desk</button>
         </div>
       </fieldset>
-      <fieldset class="rc-set">
-        <legend class="rc-leg">Add a coach</legend>
-        <div class="rc-chips" id="rc-pt"></div>
+      <fieldset class="rc-set" id="rc-set-pack" hidden>
+        <legend class="rc-leg">Which pack</legend>
+        <div class="rc-chips" id="rc-pack"></div>
       </fieldset>
     </div>
     <aside class="rc-receipt" aria-live="polite">
@@ -771,11 +772,6 @@ body.show-grid .grid-overlay{display:block}
       <p class="rc-note" id="rc-note"></p>
       <button class="btn" type="button" id="rc-go">Get this plan</button>
     </aside>
-  </div>
-  <div class="pr-inc">
-    <div><p><b>Included</b>The gym floor, every group class and the outdoor deck. Your first visit comes with a fitness assessment.</p></div>
-    <div><p><b>Paying</b>No booking. Pay at the desk, or set up direct debit for a member plan and save €130 a year.</p></div>
-    <div><p><b>Bring</b>Your own towel, water and trainers. Towels and locks are for sale at reception.</p></div>
   </div>
   <p class="pr-legal">All prices include VAT. Member plans are paid every 2 weeks by direct debit or at the desk. Visitor passes include the sports insurance; member plans add it once a year at €24.<span class="pr-todo" title="[PLACEHOLDER: confirm whether the direct debit price needs a minimum period, e.g. 'no minimum, cancel any time']">todo</span></p>
 </section>
@@ -1285,7 +1281,7 @@ body.show-grid .grid-overlay{display:block}
 (function(){
   var E=window.EWPricing; if(!E) return; var P=E.P;
   var wrap=document.querySelector('.rc'); if(!wrap) return;
-  var st={who:'visitor',stay:'s1',plan:'un',pay:'dd',pt:null};
+  var st={who:'visitor',stay:'s1',plan:'un',pay:'dd',pack:'p8'};
 
   document.getElementById('rc-stay').innerHTML = P.visitor.map(function(v){
     return '<button class="rc-chip'+(v.id===st.stay?' on':'')+'" type="button" data-stay="'+v.id+'">'+v.name+'<small>'+E.money(v.price)+'</small></button>';
@@ -1293,68 +1289,65 @@ body.show-grid .grid-overlay{display:block}
   document.getElementById('rc-plan').innerHTML = P.member.plans.map(function(p){
     return '<button class="rc-chip'+(p.id===st.plan?' on':'')+'" type="button" data-plan="'+p.id+'">'+p.name+'<small>'+E.money(p.dd)+' / 2 weeks</small></button>';
   }).join('');
-  document.getElementById('rc-pt').innerHTML =
-    '<button class="rc-chip on" type="button" data-pt="">No thanks</button>' +
-    P.pt.packs.map(function(k){
-      return '<button class="rc-chip" type="button" data-pt="'+k.id+'">'+k.name+'<small>'+E.money(k.total)+'</small></button>';
-    }).join('');
+  document.getElementById('rc-pack').innerHTML = P.pt.packs.map(function(k){
+    return '<button class="rc-chip'+(k.id===st.pack?' on':'')+'" type="button" data-pack="'+k.id+'">'+k.name+'<small>'+E.money(k.total)+'</small></button>';
+  }).join('');
 
   function pick(group, attr, val){
     [].forEach.call(document.getElementById(group).children,function(b){
       b.classList.toggle('on', b.dataset[attr]===val);
     });
   }
+  function sets(){
+    document.getElementById('rc-set-stay').hidden = st.who!=='visitor';
+    document.getElementById('rc-set-plan').hidden = st.who!=='member';
+    document.getElementById('rc-set-pay').hidden  = st.who!=='member';
+    document.getElementById('rc-set-pack').hidden = st.who!=='pt';
+  }
   wrap.addEventListener('click',function(e){
-    var b=e.target.closest('.rc-chip'); if(!b) return;
-    var d=b.dataset;
-    if(d.who!=null){ st.who=d.who; pick('rc-who','who',d.who);
-      document.getElementById('rc-set-stay').hidden = d.who!=='visitor';
-      document.getElementById('rc-set-plan').hidden = d.who!=='member';
-      document.getElementById('rc-set-pay').hidden  = d.who!=='member';
-    }
+    var b=e.target.closest('.rc-chip'); if(!b) return; var d=b.dataset;
+    if(d.who!=null){ st.who=d.who; pick('rc-who','who',d.who); sets(); E.track('pricing_who',{who:d.who}) }
     else if(d.stay!=null){ st.stay=d.stay; pick('rc-stay','stay',d.stay) }
     else if(d.plan!=null){ st.plan=d.plan; pick('rc-plan','plan',d.plan) }
     else if(d.pay!=null){ st.pay=d.pay; pick('rc-pay','pay',d.pay) }
-    else if(d.pt!=null){ st.pt=d.pt||null; pick('rc-pt','pt',d.pt) }
+    else if(d.pack!=null){ st.pack=d.pack; pick('rc-pack','pack',d.pack) }
     render();
   });
 
   var cur=null;
   function render(){
-    var lines=[], total=0, notes=[], title, id;
+    var lines=[], notes=[], total=0, title, id, label;
     if(st.who==='visitor'){
       var v=P.visitor.filter(function(x){return x.id===st.stay})[0];
-      lines.push([v.name+' visitor pass', E.money(v.price)]);
-      lines.push(['Sports insurance','Included',true]);
-      total+=v.price; title=v.name+' visitor pass'; id=v.id;
+      lines=[[v.name+' visitor pass',E.money(v.price)],['Sports insurance','Included',true]];
+      total=v.price; title=v.name+' visitor pass'; id=v.id; label='To pay at the desk';
+      if(v.days<4) notes.push('The day pass is paid each time you come. From four days on, the week pass costs less.');
       if(v.days>=28) notes.push('Four weeks as a member is '+E.money(E.fourWeeks().member)+' and it does not stop after four weeks.');
-    } else {
+    } else if(st.who==='member'){
       var p=E.memberPlan(st.plan), dd=st.pay==='dd', rate=dd?p.dd:p.desk;
-      lines.push([p.name+', first 2 weeks', E.money(rate)]);
-      lines.push(['Sports insurance, once a year', E.money(P.insurance.year)]);
-      lines.push(['Then '+E.money(rate)+' every 2 weeks','',true]);
-      total+=rate+P.insurance.year; title=p.name+' member plan'; id=p.id;
+      lines=[[p.name+', first 2 weeks',E.money(rate)],['Sports insurance, once a year',E.money(P.insurance.year)],
+             ['Then '+E.money(rate)+' every 2 weeks','',true]];
+      total=rate+P.insurance.year; title=p.name+' member plan'; id=p.id; label='To pay on your first visit';
       notes.push(dd ? 'Direct debit saves you '+E.money(P.member.ddSavingYear)+' a year against paying at the desk.'
                     : 'Switching to direct debit would save you '+E.money(P.member.ddSavingYear)+' a year.');
-    }
-    if(st.pt){
-      var k=P.pt.packs.filter(function(x){return x.id===st.pt})[0];
-      lines.push(['Personal training, '+k.name, E.money(k.total)]);
+    } else {
+      var k=P.pt.packs.filter(function(x){return x.id===st.pack})[0];
+      lines=[[k.name+' with a coach',E.money(k.total)]];
       if(k.sessions>1) lines.push([E.money(k.each)+' a session, valid '+k.months+' months','',true]);
-      total+=k.total; title=title+' and '+k.name+' with a coach'; id=id+'+'+k.id;
+      total=k.total; title=k.name+' with a coach'; id=k.id; label='To pay at the desk';
+      notes.push('Bring someone with you and the second person is '+E.money(P.pt.second)+' a session.');
       if(k.sessions>1) notes.push(P.pt.note);
     }
     document.getElementById('rc-lines').innerHTML = lines.map(function(l){
       return '<div class="rc-line'+(l[2]?' sub':'')+'"><span>'+l[0]+'</span><b>'+(l[1]||'')+'</b></div>';
     }).join('');
     document.getElementById('rc-total').textContent = E.money(total);
-    document.getElementById('rc-total-l').textContent = st.who==='member' ? 'To pay on your first visit' : 'To pay at the desk';
+    document.getElementById('rc-total-l').textContent = label;
     document.getElementById('rc-note').textContent = notes.join(' ');
-    cur={id:id,title:title,price:total,totalLabel:st.who==='member'?'To pay on your first visit':'To pay at the desk',
-         lines:lines.filter(function(l){return !l[2]}),notes:notes};
+    cur={id:id,title:title,price:total,totalLabel:label,lines:lines.filter(function(l){return !l[2]}),notes:notes};
   }
   document.getElementById('rc-go').addEventListener('click',function(){ if(cur) E.review(cur) });
-  render();
+  sets(); render();
 })();
 </script>
 </body>

@@ -769,11 +769,6 @@ body.show-grid .grid-overlay{display:block}
       </table>
     </div>
   </div>
-  <div class="pr-inc">
-    <div><p><b>Included</b>The gym floor, every group class and the outdoor deck. Your first visit comes with a fitness assessment.</p></div>
-    <div><p><b>Paying</b>No booking. Pay at the desk, or set up direct debit for a member plan and save €130 a year.</p></div>
-    <div><p><b>Bring</b>Your own towel, water and trainers. Towels and locks are for sale at reception.</p></div>
-  </div>
   <p class="pr-legal">All prices include VAT. Member plans are paid every 2 weeks by direct debit or at the desk. Visitor passes include the sports insurance; member plans add it once a year at €24.<span class="pr-todo" title="[PLACEHOLDER: confirm whether the direct debit price needs a minimum period, e.g. 'no minimum, cancel any time']">todo</span></p>
 </section>
 
@@ -1295,26 +1290,26 @@ body.show-grid .grid-overlay{display:block}
   function render(){
     var days=+d.value;
     lab.textContent = days===1 ? '1 day' : days+' days';
-    var f=E.fourWeeks(), member = days>=25, choice, html;
+    /* a member plan only once no visitor pass covers the stay: today the four
+       week pass at 61.90 is still cheaper than four weeks as a member */
+    var f=E.fourWeeks(), longest=P.visitor[P.visitor.length-1].days, member = days>longest, choice, html;
     if(member){
       var m=E.memberPlan('un');
       choice={id:'un',title:'Unlimited member plan',price:m.dd+P.insurance.year,totalLabel:'To pay on your first visit',
         lines:[['First 2 weeks',E.money(m.dd)],['Sports insurance, once a year',E.money(P.insurance.year)]],
         notes:['Then '+E.money(m.dd)+' every 2 weeks by direct debit.']};
-      html='<p class="dial-switch">Cheaper as a member from here</p>'+
+      html='<p class="dial-switch">Past four weeks, join instead</p>'+
         '<p class="dial-k">Living here</p><p class="dial-name">Unlimited</p>'+
         '<p class="dial-price">'+E.money(m.dd)+'</p>'+
         '<p class="dial-note">Every 2 weeks, train any day. Four weeks costs '+E.money(f.member)+' with the insurance, against '+E.money(f.visitor)+' as a visitor, and it does not stop after four weeks.</p>';
     } else {
-      var b=E.visitorFor(days);
-      var title=b.kind==='days' ? (b.count===1?'1 day pass':b.count+' day passes') : b.item.name+' pass';
-      choice={id:b.kind==='days'?'d'+b.count:b.item.id,title:title,price:b.total,totalLabel:'To pay at the desk',
-        lines: b.kind==='days' ? [['Day pass',E.money(P.visitor[0].price)],['How many',String(b.count)]]
-                               : [[b.item.name+' pass',E.money(b.item.price)],['Sports insurance','Included']]};
+      var b=E.visitorFor(days), title=b.item.name+' pass';
+      choice={id:b.item.id,title:title,price:b.total,totalLabel:'To pay at the desk',
+        lines:[[b.item.name+' pass',E.money(b.item.price)],['Sports insurance','Included']]};
       html='<p class="dial-k">Visiting</p><p class="dial-name">'+title+'</p>'+
         '<p class="dial-price">'+E.money(b.total)+'</p>'+
-        '<p class="dial-note">'+(b.kind==='days'
-          ? 'Under four days, paying per day is cheaper than the week pass.'
+        '<p class="dial-note">'+(b.perVisit
+          ? 'Pay it each time you come. From four days on, the week pass costs less.'
           : 'One payment for the whole stay. Insurance, the gym and every class included.')+'</p>';
     }
     out.innerHTML = html + '<button class="btn" type="button" id="dial-go">Get this plan</button>';

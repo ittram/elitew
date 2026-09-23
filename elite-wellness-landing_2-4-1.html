@@ -783,11 +783,6 @@ body.show-grid .grid-overlay{display:block}
       </table>
     </div>
   </div>
-  <div class="pr-inc">
-    <div><p><b>Included</b>The gym floor, every group class and the outdoor deck. Your first visit comes with a fitness assessment.</p></div>
-    <div><p><b>Paying</b>No booking. Pay at the desk, or set up direct debit for a member plan and save €130 a year.</p></div>
-    <div><p><b>Bring</b>Your own towel, water and trainers. Towels and locks are for sale at reception.</p></div>
-  </div>
   <p class="pr-legal">All prices include VAT. Member plans are paid every 2 weeks by direct debit or at the desk. Visitor passes include the sports insurance; member plans add it once a year at €24.<span class="pr-todo" title="[PLACEHOLDER: confirm whether the direct debit price needs a minimum period, e.g. 'no minimum, cancel any time']">todo</span></p>
 </section>
 
@@ -1315,9 +1310,9 @@ body.show-grid .grid-overlay{display:block}
   function askVisitor(){
     E.track('pricing_who',{who:'visitor'});
     document.getElementById('q-ask2').textContent='How long are you here?';
-    opts([[2,'A couple of days'],[5,'Most of the week'],[10,'About two weeks'],[17,'Three weeks or so'],[26,'Four weeks'],[60,'Longer than that']].map(function(o){
-      return '<button class="q-opt" type="button" data-days="'+o[0]+'"><b>'+o[1]+'</b></button>';
-    }).join(''));
+    opts(P.visitor.map(function(v){
+      return '<button class="q-opt" type="button" data-days="'+(v.days<4?1:v.days)+'"><b>'+v.name+'</b><span>'+E.money(v.price)+'</span></button>';
+    }).join('') + '<button class="q-opt" type="button" data-days="60"><b>Longer than that</b><span>A member plan costs less</span></button>');
     document.getElementById('q-opts2').className='q-opts many';
     step(2);
     [].forEach.call(document.querySelectorAll('[data-days]'),function(b){
@@ -1354,15 +1349,13 @@ body.show-grid .grid-overlay{display:block}
          notes:['Then '+E.money(m.dd)+' every 2 weeks by direct debit. Paying at the desk instead is '+E.money(m.desk)+'.']},
         'Four weeks as a visitor is '+E.money(f.visitor)+'. Four weeks as a member is '+E.money(f.member)+', and it keeps going.');
     }
-    var b=E.visitorFor(days);
-    var title = b.kind==='days' ? b.count+' day passes' : b.item.name+' pass';
+    var b=E.visitorFor(days), title=b.item.name+' pass';
     show('Visiting',title,E.money(b.total),
-      b.kind==='days' ? 'Day passes are cheaper than a week until the fourth day. Pay each time you come.' :
-                        'One payment covers the whole stay. Insurance, the gym and every class included.',
-      {id:b.kind==='days'?'d'+b.count:b.item.id,title:title,price:b.total,totalLabel:'To pay at the desk',
-       lines: b.kind==='days' ? [['Day pass',E.money(P.visitor[0].price)],['How many',String(b.count)]]
-                              : [[b.item.name+' pass',E.money(b.item.price)],['Sports insurance','Included']]},
-      days>=26 ? 'Staying longer? A member plan is '+E.money(f.member)+' for the same four weeks and does not stop.' : '');
+      b.perVisit ? 'Pay it each time you come. From four days on, the week pass costs less.'
+                 : 'One payment covers the whole stay. Insurance, the gym and every class included.',
+      {id:b.item.id,title:title,price:b.total,totalLabel:'To pay at the desk',
+       lines:[[b.item.name+' pass',E.money(b.item.price)],['Sports insurance','Included']]},
+      b.item.days>=28 ? 'Four weeks as a member is '+E.money(f.member)+' with the insurance, and it does not stop after four weeks.' : '');
   }
   function memberAnswer(id){
     var p=E.memberPlan(id), first=E.memberFirst(p,true);

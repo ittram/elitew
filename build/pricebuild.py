@@ -140,7 +140,7 @@ V1_SEC = (KICKER % 'two questions, one answer') + '''  <div class="q" id="q">
     </div>
   </div>
   <button class="pr-toggle" type="button" id="pr-toggle" aria-expanded="false" aria-controls="pr-all">See every price</button>
-''' + ALLPRICES + INCLUDED + LEGAL
+''' + ALLPRICES + LEGAL
 
 V1_CSS = ALLCSS + '''
 .q{max-width:720px;margin:0 auto}
@@ -185,9 +185,9 @@ V1_JS = '''
   function askVisitor(){
     E.track('pricing_who',{who:'visitor'});
     document.getElementById('q-ask2').textContent='How long are you here?';
-    opts([[2,'A couple of days'],[5,'Most of the week'],[10,'About two weeks'],[17,'Three weeks or so'],[26,'Four weeks'],[60,'Longer than that']].map(function(o){
-      return '<button class="q-opt" type="button" data-days="'+o[0]+'"><b>'+o[1]+'</b></button>';
-    }).join(''));
+    opts(P.visitor.map(function(v){
+      return '<button class="q-opt" type="button" data-days="'+(v.days<4?1:v.days)+'"><b>'+v.name+'</b><span>'+E.money(v.price)+'</span></button>';
+    }).join('') + '<button class="q-opt" type="button" data-days="60"><b>Longer than that</b><span>A member plan costs less</span></button>');
     document.getElementById('q-opts2').className='q-opts many';
     step(2);
     [].forEach.call(document.querySelectorAll('[data-days]'),function(b){
@@ -224,15 +224,13 @@ V1_JS = '''
          notes:['Then '+E.money(m.dd)+' every 2 weeks by direct debit. Paying at the desk instead is '+E.money(m.desk)+'.']},
         'Four weeks as a visitor is '+E.money(f.visitor)+'. Four weeks as a member is '+E.money(f.member)+', and it keeps going.');
     }
-    var b=E.visitorFor(days);
-    var title = b.kind==='days' ? b.count+' day passes' : b.item.name+' pass';
+    var b=E.visitorFor(days), title=b.item.name+' pass';
     show('Visiting',title,E.money(b.total),
-      b.kind==='days' ? 'Day passes are cheaper than a week until the fourth day. Pay each time you come.' :
-                        'One payment covers the whole stay. Insurance, the gym and every class included.',
-      {id:b.kind==='days'?'d'+b.count:b.item.id,title:title,price:b.total,totalLabel:'To pay at the desk',
-       lines: b.kind==='days' ? [['Day pass',E.money(P.visitor[0].price)],['How many',String(b.count)]]
-                              : [[b.item.name+' pass',E.money(b.item.price)],['Sports insurance','Included']]},
-      days>=26 ? 'Staying longer? A member plan is '+E.money(f.member)+' for the same four weeks and does not stop.' : '');
+      b.perVisit ? 'Pay it each time you come. From four days on, the week pass costs less.'
+                 : 'One payment covers the whole stay. Insurance, the gym and every class included.',
+      {id:b.item.id,title:title,price:b.total,totalLabel:'To pay at the desk',
+       lines:[[b.item.name+' pass',E.money(b.item.price)],['Sports insurance','Included']]},
+      b.item.days>=28 ? 'Four weeks as a member is '+E.money(f.member)+' with the insurance, and it does not stop after four weeks.' : '');
   }
   function memberAnswer(id){
     var p=E.memberPlan(id), first=E.memberFirst(p,true);
@@ -254,7 +252,7 @@ V2_SEC = (KICKER % 'move the dial') + '''  <div class="dial">
     <div class="dial-out" id="dial-out"></div>
   </div>
   <button class="pr-toggle" type="button" id="pr-toggle" aria-expanded="false" aria-controls="pr-all">See every price</button>
-''' + ALLPRICES + INCLUDED + LEGAL
+''' + ALLPRICES + LEGAL
 
 V2_CSS = ALLCSS + '''
 .dial{max-width:720px;margin:0 auto}
@@ -291,26 +289,26 @@ V2_JS = '''
   function render(){
     var days=+d.value;
     lab.textContent = days===1 ? '1 day' : days+' days';
-    var f=E.fourWeeks(), member = days>=25, choice, html;
+    /* a member plan only once no visitor pass covers the stay: today the four
+       week pass at 61.90 is still cheaper than four weeks as a member */
+    var f=E.fourWeeks(), longest=P.visitor[P.visitor.length-1].days, member = days>longest, choice, html;
     if(member){
       var m=E.memberPlan('un');
       choice={id:'un',title:'Unlimited member plan',price:m.dd+P.insurance.year,totalLabel:'To pay on your first visit',
         lines:[['First 2 weeks',E.money(m.dd)],['Sports insurance, once a year',E.money(P.insurance.year)]],
         notes:['Then '+E.money(m.dd)+' every 2 weeks by direct debit.']};
-      html='<p class="dial-switch">Cheaper as a member from here</p>'+
+      html='<p class="dial-switch">Past four weeks, join instead</p>'+
         '<p class="dial-k">Living here</p><p class="dial-name">Unlimited</p>'+
         '<p class="dial-price">'+E.money(m.dd)+'</p>'+
         '<p class="dial-note">Every 2 weeks, train any day. Four weeks costs '+E.money(f.member)+' with the insurance, against '+E.money(f.visitor)+' as a visitor, and it does not stop after four weeks.</p>';
     } else {
-      var b=E.visitorFor(days);
-      var title=b.kind==='days' ? (b.count===1?'1 day pass':b.count+' day passes') : b.item.name+' pass';
-      choice={id:b.kind==='days'?'d'+b.count:b.item.id,title:title,price:b.total,totalLabel:'To pay at the desk',
-        lines: b.kind==='days' ? [['Day pass',E.money(P.visitor[0].price)],['How many',String(b.count)]]
-                               : [[b.item.name+' pass',E.money(b.item.price)],['Sports insurance','Included']]};
+      var b=E.visitorFor(days), title=b.item.name+' pass';
+      choice={id:b.item.id,title:title,price:b.total,totalLabel:'To pay at the desk',
+        lines:[[b.item.name+' pass',E.money(b.item.price)],['Sports insurance','Included']]};
       html='<p class="dial-k">Visiting</p><p class="dial-name">'+title+'</p>'+
         '<p class="dial-price">'+E.money(b.total)+'</p>'+
-        '<p class="dial-note">'+(b.kind==='days'
-          ? 'Under four days, paying per day is cheaper than the week pass.'
+        '<p class="dial-note">'+(b.perVisit
+          ? 'Pay it each time you come. From four days on, the week pass costs less.'
           : 'One payment for the whole stay. Insurance, the gym and every class included.')+'</p>';
     }
     out.innerHTML = html + '<button class="btn" type="button" id="dial-go">Get this plan</button>';
@@ -366,7 +364,7 @@ V3_SEC = (KICKER % 'pick your door') + '''  <div class="doors">
     </ul>
   </div>
   <p class="pr-legal pt-note">Packs of two sessions a week or fewer do not include the gym on the other days. To train on the other days, add a member plan.</p>
-''' + INCLUDED + LEGAL
+''' + LEGAL
 
 V3_CSS = ALLCSS + '''
 .doors{display:grid;grid-template-columns:repeat(2,1fr);gap:24px}
@@ -456,7 +454,7 @@ V4_SEC = (KICKER % 'the whole list, and the maths') + '''  <p class="ht-lede">Mo
     </tbody>
   </table>
   <p class="ht-read">Bring someone and the second person is €15 a session. Packs of two sessions a week or fewer do not include the gym on the other days, so add a member plan if you want to train around them.</p>
-''' + INCLUDED + LEGAL
+''' + LEGAL
 
 V4_CSS = ALLCSS + '''
 .ht-lede{font-size:clamp(16px,2vw,20px);line-height:1.5;max-width:44ch;margin:0 auto 64px;text-align:center;color:#3a3a3a}
@@ -520,6 +518,7 @@ V5_SEC = (KICKER % 'build it and see') + '''  <div class="rc">
         <div class="rc-chips" id="rc-who">
           <button class="rc-chip on" type="button" data-who="visitor">Visiting</button>
           <button class="rc-chip" type="button" data-who="member">Living here</button>
+          <button class="rc-chip" type="button" data-who="pt">With a coach</button>
         </div>
       </fieldset>
       <fieldset class="rc-set" id="rc-set-stay">
@@ -537,9 +536,9 @@ V5_SEC = (KICKER % 'build it and see') + '''  <div class="rc">
           <button class="rc-chip" type="button" data-pay="desk">At the desk</button>
         </div>
       </fieldset>
-      <fieldset class="rc-set">
-        <legend class="rc-leg">Add a coach</legend>
-        <div class="rc-chips" id="rc-pt"></div>
+      <fieldset class="rc-set" id="rc-set-pack" hidden>
+        <legend class="rc-leg">Which pack</legend>
+        <div class="rc-chips" id="rc-pack"></div>
       </fieldset>
     </div>
     <aside class="rc-receipt" aria-live="polite">
@@ -550,7 +549,7 @@ V5_SEC = (KICKER % 'build it and see') + '''  <div class="rc">
       <button class="btn" type="button" id="rc-go">Get this plan</button>
     </aside>
   </div>
-''' + INCLUDED + LEGAL
+''' + LEGAL
 
 V5_CSS = ALLCSS + '''
 .rc{display:grid;grid-template-columns:1fr 380px;gap:64px;align-items:start}
@@ -581,7 +580,7 @@ V5_JS = '''
 (function(){
   var E=window.EWPricing; if(!E) return; var P=E.P;
   var wrap=document.querySelector('.rc'); if(!wrap) return;
-  var st={who:'visitor',stay:'s1',plan:'un',pay:'dd',pt:null};
+  var st={who:'visitor',stay:'s1',plan:'un',pay:'dd',pack:'p8'};
 
   document.getElementById('rc-stay').innerHTML = P.visitor.map(function(v){
     return '<button class="rc-chip'+(v.id===st.stay?' on':'')+'" type="button" data-stay="'+v.id+'">'+v.name+'<small>'+E.money(v.price)+'</small></button>';
@@ -589,70 +588,68 @@ V5_JS = '''
   document.getElementById('rc-plan').innerHTML = P.member.plans.map(function(p){
     return '<button class="rc-chip'+(p.id===st.plan?' on':'')+'" type="button" data-plan="'+p.id+'">'+p.name+'<small>'+E.money(p.dd)+' / 2 weeks</small></button>';
   }).join('');
-  document.getElementById('rc-pt').innerHTML =
-    '<button class="rc-chip on" type="button" data-pt="">No thanks</button>' +
-    P.pt.packs.map(function(k){
-      return '<button class="rc-chip" type="button" data-pt="'+k.id+'">'+k.name+'<small>'+E.money(k.total)+'</small></button>';
-    }).join('');
+  document.getElementById('rc-pack').innerHTML = P.pt.packs.map(function(k){
+    return '<button class="rc-chip'+(k.id===st.pack?' on':'')+'" type="button" data-pack="'+k.id+'">'+k.name+'<small>'+E.money(k.total)+'</small></button>';
+  }).join('');
 
   function pick(group, attr, val){
     [].forEach.call(document.getElementById(group).children,function(b){
       b.classList.toggle('on', b.dataset[attr]===val);
     });
   }
+  function sets(){
+    document.getElementById('rc-set-stay').hidden = st.who!=='visitor';
+    document.getElementById('rc-set-plan').hidden = st.who!=='member';
+    document.getElementById('rc-set-pay').hidden  = st.who!=='member';
+    document.getElementById('rc-set-pack').hidden = st.who!=='pt';
+  }
   wrap.addEventListener('click',function(e){
-    var b=e.target.closest('.rc-chip'); if(!b) return;
-    var d=b.dataset;
-    if(d.who!=null){ st.who=d.who; pick('rc-who','who',d.who);
-      document.getElementById('rc-set-stay').hidden = d.who!=='visitor';
-      document.getElementById('rc-set-plan').hidden = d.who!=='member';
-      document.getElementById('rc-set-pay').hidden  = d.who!=='member';
-    }
+    var b=e.target.closest('.rc-chip'); if(!b) return; var d=b.dataset;
+    if(d.who!=null){ st.who=d.who; pick('rc-who','who',d.who); sets(); E.track('pricing_who',{who:d.who}) }
     else if(d.stay!=null){ st.stay=d.stay; pick('rc-stay','stay',d.stay) }
     else if(d.plan!=null){ st.plan=d.plan; pick('rc-plan','plan',d.plan) }
     else if(d.pay!=null){ st.pay=d.pay; pick('rc-pay','pay',d.pay) }
-    else if(d.pt!=null){ st.pt=d.pt||null; pick('rc-pt','pt',d.pt) }
+    else if(d.pack!=null){ st.pack=d.pack; pick('rc-pack','pack',d.pack) }
     render();
   });
 
   var cur=null;
   function render(){
-    var lines=[], total=0, notes=[], title, id;
+    var lines=[], notes=[], total=0, title, id, label;
     if(st.who==='visitor'){
       var v=P.visitor.filter(function(x){return x.id===st.stay})[0];
-      lines.push([v.name+' visitor pass', E.money(v.price)]);
-      lines.push(['Sports insurance','Included',true]);
-      total+=v.price; title=v.name+' visitor pass'; id=v.id;
+      lines=[[v.name+' visitor pass',E.money(v.price)],['Sports insurance','Included',true]];
+      total=v.price; title=v.name+' visitor pass'; id=v.id; label='To pay at the desk';
+      if(v.days<4) notes.push('The day pass is paid each time you come. From four days on, the week pass costs less.');
       if(v.days>=28) notes.push('Four weeks as a member is '+E.money(E.fourWeeks().member)+' and it does not stop after four weeks.');
-    } else {
+    } else if(st.who==='member'){
       var p=E.memberPlan(st.plan), dd=st.pay==='dd', rate=dd?p.dd:p.desk;
-      lines.push([p.name+', first 2 weeks', E.money(rate)]);
-      lines.push(['Sports insurance, once a year', E.money(P.insurance.year)]);
-      lines.push(['Then '+E.money(rate)+' every 2 weeks','',true]);
-      total+=rate+P.insurance.year; title=p.name+' member plan'; id=p.id;
+      lines=[[p.name+', first 2 weeks',E.money(rate)],['Sports insurance, once a year',E.money(P.insurance.year)],
+             ['Then '+E.money(rate)+' every 2 weeks','',true]];
+      total=rate+P.insurance.year; title=p.name+' member plan'; id=p.id; label='To pay on your first visit';
       notes.push(dd ? 'Direct debit saves you '+E.money(P.member.ddSavingYear)+' a year against paying at the desk.'
                     : 'Switching to direct debit would save you '+E.money(P.member.ddSavingYear)+' a year.');
-    }
-    if(st.pt){
-      var k=P.pt.packs.filter(function(x){return x.id===st.pt})[0];
-      lines.push(['Personal training, '+k.name, E.money(k.total)]);
+    } else {
+      var k=P.pt.packs.filter(function(x){return x.id===st.pack})[0];
+      lines=[[k.name+' with a coach',E.money(k.total)]];
       if(k.sessions>1) lines.push([E.money(k.each)+' a session, valid '+k.months+' months','',true]);
-      total+=k.total; title=title+' and '+k.name+' with a coach'; id=id+'+'+k.id;
+      total=k.total; title=k.name+' with a coach'; id=k.id; label='To pay at the desk';
+      notes.push('Bring someone with you and the second person is '+E.money(P.pt.second)+' a session.');
       if(k.sessions>1) notes.push(P.pt.note);
     }
     document.getElementById('rc-lines').innerHTML = lines.map(function(l){
       return '<div class="rc-line'+(l[2]?' sub':'')+'"><span>'+l[0]+'</span><b>'+(l[1]||'')+'</b></div>';
     }).join('');
     document.getElementById('rc-total').textContent = E.money(total);
-    document.getElementById('rc-total-l').textContent = st.who==='member' ? 'To pay on your first visit' : 'To pay at the desk';
+    document.getElementById('rc-total-l').textContent = label;
     document.getElementById('rc-note').textContent = notes.join(' ');
-    cur={id:id,title:title,price:total,totalLabel:st.who==='member'?'To pay on your first visit':'To pay at the desk',
-         lines:lines.filter(function(l){return !l[2]}),notes:notes};
+    cur={id:id,title:title,price:total,totalLabel:label,lines:lines.filter(function(l){return !l[2]}),notes:notes};
   }
   document.getElementById('rc-go').addEventListener('click',function(){ if(cur) E.review(cur) });
-  render();
+  sets(); render();
 })();
 '''
+
 
 # ------------------------------------------------------------------------ build
 VARIANTS = [

@@ -24,19 +24,20 @@
     return '€' + (s.slice(-3) === '.00' ? s.slice(0,-3) : s);
   }
 
-  /* ---------- what a visitor actually pays for a stay of n days ----------
-     Day passes are cheaper than a week until the fourth day, so the honest
-     answer is whichever is less, not whichever bundle is nearest. */
+  /* ---------- the one pass that covers a stay of n days ----------
+     Always one row of the price list, never a multiple of one. Under four days
+     there is no bundle worth buying, so the answer is the day pass and a line
+     saying you pay it each time you come. */
   function visitorFor(days){
     days = Math.max(1, Math.round(days));
-    var best = null;
+    var one = P.visitor[0];
+    if(days < 4) return { item:one, total:one.price, perVisit:true };
+    var fit = null;
     P.visitor.forEach(function(v){
-      if(v.days < days) return;
-      if(!best || v.price < best.price) best = { kind:'pass', item:v, total:v.price, label:v.name };
+      if(v.days >= days && (!fit || v.days < fit.days)) fit = v;
     });
-    var daily = { kind:'days', item:P.visitor[0], total:P.visitor[0].price*days, label:days + (days===1?' day':' days'), count:days };
-    if(!best || daily.total < best.total) return daily;
-    return best;
+    if(!fit) return null;                       /* longer than four weeks: a member plan */
+    return { item:fit, total:fit.price, perVisit:false };
   }
 
   /* ---------- what a member pays ---------- */
