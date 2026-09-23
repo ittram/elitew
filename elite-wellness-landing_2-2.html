@@ -274,10 +274,10 @@ body.show-grid .grid-overlay{display:block}
 .ft-body:last-child{margin-bottom:0}
 .ft-langs{margin-top:16px}
 .ft-body a{color:rgba(255,255,255,.85);text-decoration:none;border-bottom:1px solid rgba(255,255,255,.25)}
-.ft-body a:hover,.ft-body a:focus-visible{color:var(--accent);border-color:var(--accent)}
+.ft-body a:hover,.ft-body a:focus-visible{color:var(--white);border-color:var(--white)}
 .ft-list{list-style:none;display:grid;gap:8px;max-width:260px}
 .ft-list a{color:rgba(255,255,255,.85);font-size:.85rem;line-height:24px;text-decoration:none}
-.ft-list a:hover,.ft-list a:focus-visible{color:var(--accent)}
+.ft-list a:hover,.ft-list a:focus-visible{color:var(--white)}
 .ft-social a{display:inline-flex;align-items:center;gap:8px}
 .ft-social svg{width:14px;height:14px;flex:0 0 14px;fill:currentColor;opacity:.8}
 .ft-social a:hover svg{color:var(--accent)}
@@ -297,6 +297,7 @@ body.show-grid .grid-overlay{display:block}
 .bar-status.closed .dot{background:rgba(255,255,255,.45)}
 .action-bar .btn{flex:0 0 auto;padding:12px 16px;font-size:.9rem}
 .action-bar .btn:not(.ghost){border:0;padding:14px 24px;clip-path:polygon(5% 0%,100% 0%,95% 100%,0% 100%)}
+.action-bar .btn:not(.ghost):hover,.action-bar .btn:not(.ghost):focus-visible{background:var(--royal-blue);color:var(--white)}
 @media (min-width:769px){.action-bar{gap:16px;padding:12px 4rem}.bar-status{font-size:12px;letter-spacing:.12em}.bar-status .bs-txt{flex-direction:row;gap:8px;align-items:baseline}}
 @media (prefers-reduced-motion:reduce){.action-bar{transition:none}}
 /* the map fades in when it is ready, with our own pin over the middle */
