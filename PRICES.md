@@ -3,6 +3,12 @@
 `prices.js` is the only file to change when a price changes. Every 2.4.x draft
 reads from it, so one edit updates the picker, the flow and the arithmetic.
 
+The full price list folded under the calculator is plain HTML, so it can be read
+without JavaScript and by search engines. It is written from `prices.js`, so after
+changing a price, refresh it with:
+
+    python3 build/pricelist.py 2-4-5 2-4-5-1 2-4-5-4-1
+
 ## Where the numbers come from
 
 The printed preçário, as corrected in the price list review of 23 September 2026.
@@ -45,6 +51,9 @@ they left from), plus `pricing_see_all` and `pricing_restart`.
 The folding steps (2.4.5.4.1 on) add `pricing_kind` (Passes, Membership or
 Personal training was chosen) and `pricing_insured` (a member said their
 insurance is already paid, which takes the 24 euro off the first payment).
+
+`pricing_list_open` and `pricing_list_close` count the people who prefer the
+full table to the calculator.
 
 The drop from `pricing_review` to `pricing_confirm` is the number that says
 whether paying online is worth building.
