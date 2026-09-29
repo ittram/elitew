@@ -60,8 +60,9 @@ CSS = '''
   .pk{gap:4px}
   .pk-i{padding:12px 8px;gap:8px}
   .pk-i b{font-size:18px;line-height:18px}
-  .pk-i span{font-size:12px;line-height:16px}
-  .pk-i i{font-size:10px;letter-spacing:.06em;padding-top:4px}
+  .pk-i span{display:none}   /* on a phone the box is the name and the from price; the next question explains */
+  .pk-i{min-height:96px}
+  .pk-i i{font-size:11px;letter-spacing:.06em;padding-top:4px}
   .pc-row.c3{grid-template-columns:repeat(3,1fr)}
   .pc-row.c4{grid-template-columns:repeat(2,1fr)}
   .pc-row.c5{grid-template-columns:repeat(6,1fr)}
@@ -76,7 +77,6 @@ CSS = '''
 }
 @media (max-width:374px){
   .pk-i b{font-size:16px;line-height:16px}
-  .pk-i span{font-size:11px;line-height:15px}
   .pc-row.c3 .pc-tile b{font-size:13px}
 }
 '''
@@ -84,8 +84,8 @@ CSS = '''
 JS = '''
   /* the three products, in the words of 29 September */
   KINDS[0].name='Day / week passes'; KINDS[0].desc='No commitment. From 1 day to 4 weeks.';
-  KINDS[1].desc='Paid every 2 weeks. Best value if you train regularly.'; KINDS[1].from='From '+money(P.member.plans[0].dd)+', every 2 weeks';
-  KINDS[2].desc='One to one with a certified coach.%(todo)s'; KINDS[2].from='From '+money(P.pt.packs[P.pt.packs.length-1].each)+' a session';
+  KINDS[1].desc='Paid every 2 weeks. Best value if you train regularly.'; KINDS[1].from='From '+money(P.member.plans[0].dd);
+  KINDS[2].desc='One to one with a certified coach.%(todo)s'; KINDS[2].from='From '+money(P.pt.packs[P.pt.packs.length-1].each);
   keepChoices=true;
 
   function cards(){
