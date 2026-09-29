@@ -74,7 +74,7 @@ CSS = '''<style>
 .pc-row.c5{grid-template-columns:repeat(5,1fr)}
 
 /* each choice is a real radio button, drawn as a tile */
-.pc-tile{position:relative;display:flex;flex-direction:column;justify-content:center;gap:4px;min-height:64px;padding:12px 16px;border:2px solid var(--light-grey);background:var(--white);cursor:pointer;transition:border-color .15s,background .15s,color .15s}
+.pc-tile{position:relative;display:flex;flex-direction:column;justify-content:flex-start;gap:4px;min-height:64px;padding:12px 16px;border:2px solid var(--light-grey);background:var(--white);cursor:pointer;transition:border-color .15s,background .15s,color .15s}
 .pc-tile:hover{border-color:var(--black)}
 .pc-tile input{position:absolute;opacity:0;pointer-events:none}
 .pc-tile b{font-size:15px;line-height:20px;font-weight:700}
@@ -119,14 +119,26 @@ CSS = '''<style>
   .pc{display:block}
   .pc-plan{position:static;margin-top:32px}
   .pc-set{margin-bottom:32px}
-  .pc-row.c3,.pc-row.c4,.pc-row.c5{grid-template-columns:repeat(2,1fr)}
-  .pc-row .pc-tile.span{grid-column:1 / -1}
-  .pc-tile{min-height:56px;padding:8px 12px}
-  .pc-tile b{font-size:14px}
-  .pc-kind.pc-row{grid-template-columns:1fr}
-  .pc-kind .pc-tile{min-height:64px;flex-direction:row;align-items:center;justify-content:space-between;gap:16px;padding:12px 16px}
-  .pc-kind .pc-tile b{font-size:20px}
-  .pc-kind .pc-tile small{text-align:right}
+  /* three options stay side by side; five split 3 and 2 on a six column row; four go 2 by 2 */
+  .pc-row.c3{grid-template-columns:repeat(3,1fr)}
+  .pc-row.c4{grid-template-columns:repeat(2,1fr)}
+  .pc-row.c5{grid-template-columns:repeat(6,1fr)}
+  .pc-row.c5 .pc-tile{grid-column:span 2}
+  .pc-row.c5 .pc-tile:nth-child(n+4){grid-column:span 3}
+  .pc-tile{min-height:64px;padding:12px}
+  .pc-tile b{font-size:14px;line-height:16px}
+  .pc-tile small{font-size:12px;line-height:16px}
+  .pc-tile .tag{font-size:8px;letter-spacing:.06em;padding:0 4px}
+  /* the product tiles: the name only, in the same type as every other tile.
+     The real prices are in the next row, so the from line would only repeat them */
+  .pc-kind .pc-tile{padding:12px 8px}
+  .pc-kind .pc-tile b{font-family:var(--font-body);font-weight:700;font-size:14px;line-height:16px;text-transform:none}
+  .pc-kind .pc-tile small{display:none}
+  /* rows of three read as one segmented control: centred, with balanced line breaks */
+  .pc-row.c3 .pc-tile{justify-content:center;align-items:center;text-align:center}
+  .pc-row.c3 .pc-tile b,.pc-row.c3 .pc-tile small{text-wrap:balance}
+  .pc-row.c3 .pc-tile .tag{align-self:center}
+  .pc-row.c3 .pc-tile{padding:12px 8px}
   .pc-card{padding:24px}
   .pc-total b{font-size:40px;line-height:40px}
   /* inside Prices the page bar carries the plan, until the plan's own button is on screen */
@@ -139,6 +151,11 @@ CSS = '''<style>
   .bp-txt small{display:block;font-weight:800;font-size:10px;line-height:16px;letter-spacing:.08em;text-transform:uppercase;color:rgba(255,255,255,.55)}
   .bar-price b{font-family:var(--font-display);font-size:24px;line-height:24px;color:var(--accent);white-space:nowrap}
   .bar-price .btn{flex:0 0 auto;padding:16px;font-size:.85rem}
+}
+/* the narrowest phones: one step down in the rows of three, so labels keep to their lines */
+@media (max-width:374px){
+  .pc-row.c3 .pc-tile b{font-size:13px}
+  .pc-row.c3 .pc-tile small{font-size:11px}
 }
 </style>
 '''
@@ -178,7 +195,7 @@ JS = '''<script>
       var n=P.visitor.length;
       h+=set('Choose a pass', row(5, P.visitor.map(function(v,i){ return tile('stay',v.id,v.days===1?'Day pass':v.name,money(v.price),st.stay===v.id,(n%2&&i===n-1)?'span':'') }).join('')));
     } else if(st.kind==='mem'){
-      h+=set('How often will you train?', row(3, P.member.plans.map(function(p,i){ return tile('plan',p.id,p.name,money(p.desk)+' every 2 weeks',st.plan===p.id,i===P.member.plans.length-1?'span':'',p.best?'Recommended':'') }).join('')),
+      h+=set('How often will you train?', row(3, P.member.plans.map(function(p,i){ return tile('plan',p.id,p.name,money(p.desk)+'<br>every 2 weeks',st.plan===p.id,i===P.member.plans.length-1?'span':'',p.best?'Recommended':'') }).join('')),
              'Prices every 2 weeks at reception. Direct debit takes '+money(off)+' off each payment.');
       h+='<fieldset class="pc-set" id="pc-pay"><legend class="pc-leg">How will you pay?</legend>'+payGroup()+'</fieldset>';
     } else {
