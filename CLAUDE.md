@@ -18,7 +18,7 @@
 - Google Maps link: https://maps.app.goo.gl/ks6o4URGCYT7rzHJ8
 - Prices live in `prices.js` and nowhere else. See PRICES.md. Two things to never get wrong: **membership is priced per 2 weeks, not per month**, and the €24 sports insurance is **included** in day and week passes but **added once a year** to membership.
 - **Direct debit is a discount, never the other way round.** The price at reception is the normal price (€18 / €24.50 / €26 every 2 weeks) and direct debit takes €5 off (€13 / €19.50 / €21). Never write that reception costs more: EU law (PSD2 art. 62, in Portugal Decreto-Lei 91/2018 art. 101) bans charging extra for a payment method but allows a discount for one. A "from" price must say its condition, e.g. "From €13 every 2 weeks with direct debit".
-- Names, as people already say them: **Day and week passes** (Day pass, 1 week pass...), **Membership** (1x per week, 3x per week, Unlimited, as on the printed list), **Personal training**. The place to pay is **reception**, not "the desk".
+- Names, as people already say them: **Day and week passes** (Day pass, 1 week pass...), **Membership** (Once a week, Three times a week, Unlimited; "3x per week" reads as shorthand, not English), **Personal training**. The place to pay is **reception**, not "the desk".
 - Day and week passes: 1 day €10, 1 week €35.90, 2 weeks €45.90, 3 weeks €51.90, 4 weeks €61.90. Personal training: €50 a session, or packs of 8, 12 and 20 at €360, €480 and €600, second person €15 a session.
 - Never write "monthly", "3 month minimum" or "cash only" on the page. None of them is in the price list.
 - Closed on all Portuguese public holidays and on Lagos's municipal holiday.

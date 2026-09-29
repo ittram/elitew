@@ -4,7 +4,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Draft 2.2 (footer: full width, text only) | Gym in Lagos, Algarve | Elite Wellness by Santos | Day Passes &amp; Memberships</title>
-<meta name="description" content="Family run gym in Lagos, Portugal. Weights, machines, classes and an outdoor training deck. Day pass €10, week pass €35.90, member plans from €13 a fortnight. Open Mon to Fri 7:00 to 21:00, Sat 9:00 to 13:00.">
+<meta name="description" content="Family run gym in Lagos, Portugal. Weights, machines, classes and an outdoor training deck. Day pass €10, week pass €35.90, membership from €13 every 2 weeks with direct debit. Open Mon to Fri 7:00 to 21:00, Sat 9:00 to 13:00.">
 <link rel="alternate" hreflang="en" href="https://example.com/">
 <link rel="alternate" hreflang="pt-PT" href="https://example.com/pt">
 <link rel="icon" href="assets/favicon.svg" type="image/svg+xml">
@@ -533,7 +533,7 @@ body.show-grid .grid-overlay{display:block}
   "image":"https://example.com/elite-wellness-lagos-outdoor-training-deck.jpg",
   "url":"https://example.com/",
   "telephone":"+351926565836",
-  "priceRange":"€10 to €69",
+  "priceRange":"€10 to €600",
   "address":{"@type":"PostalAddress","streetAddress":"Rua Capitão Salgueiro Maia, Lote 13, Cave","addressLocality":"Lagos","addressRegion":"Algarve","postalCode":"8600-530","addressCountry":"PT"},
   "geo":{"@type":"GeoCoordinates","latitude":37.0947,"longitude":-8.6727},
   "aggregateRating":{"@type":"AggregateRating","ratingValue":"4.8","reviewCount":"153"},
@@ -546,126 +546,139 @@ body.show-grid .grid-overlay{display:block}
 </script>
 <link rel="stylesheet" href="pricing.css">
 <style>
-.pr-all{display:grid;grid-template-columns:repeat(3,1fr);gap:64px;margin-top:64px}
-.pr-h{font-family:var(--font-display);font-size:24px;line-height:1;text-transform:uppercase;margin-bottom:4px}
-.pr-sub{font-size:13px;line-height:20px;color:var(--silver-grey);margin-bottom:16px}
-.pr-table{width:100%;border-collapse:collapse;font-size:15px;line-height:24px}
-.pr-table th,.pr-table td{padding:8px 0;text-align:right;box-shadow:inset 0 -1px 0 var(--light-grey);font-weight:700}
-.pr-table th[scope=row]{text-align:left;font-weight:400}
-.pr-table th[scope=col]{font-weight:800;font-size:10px;letter-spacing:.12em;text-transform:uppercase;color:var(--silver-grey)}
-.pr-table .dim{color:var(--silver-grey);font-weight:400}
-.pr-toggle{appearance:none;border:0;background:transparent;font-family:var(--font-body);font-weight:800;font-size:11px;letter-spacing:.12em;text-transform:uppercase;color:var(--black);cursor:pointer;padding:16px 0;margin-top:32px;box-shadow:inset 0 1px 0 var(--light-grey);width:100%;text-align:left}
-.pr-toggle::after{content:" +";color:var(--royal-blue)}
-.pr-toggle[aria-expanded=true]::after{content:" \2212";color:var(--royal-blue)}
-.js .pr-all[hidden]{display:none}
-@media (max-width:768px){ .pr-all{grid-template-columns:1fr;gap:48px;margin-top:48px} }
+/* ---------- 2.4.6.x shared: layout, calm selection, the plan ---------- */
+:root{--sel-bd:var(--royal-blue);--sel-bg:rgba(43,62,170,.06);--line:#E5E5E5}
+.pc{display:grid;grid-template-columns:repeat(12,1fr);column-gap:24px;align-items:start}
+.pc-opts{grid-column:1 / span 7;min-width:0}
+.pc-plan{grid-column:9 / span 4;position:sticky;top:96px;min-width:0}
+.pc-sr{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap}
+.pc-set{border:0;padding:0;margin:0 0 40px;min-width:0}
+.pc-set:last-child{margin-bottom:0}
+.pc-leg{font-weight:800;font-size:11px;line-height:16px;letter-spacing:.14em;text-transform:uppercase;color:var(--silver-grey);padding:0;margin-bottom:16px}
+.pc-hint{font-size:13px;line-height:20px;color:var(--silver-grey);margin:-8px 0 16px}
+.pc-set.next>.pc-leg{color:var(--black)}
+.pc-leg{transition:color .2s}
+.pc-opts input[type=radio]{position:absolute;opacity:0;pointer-events:none}
+.tag{display:inline-block;background:var(--accent);color:var(--black);font-weight:800;font-size:9px;line-height:16px;letter-spacing:.08em;text-transform:uppercase;padding:0 4px;vertical-align:1px}
 
-.rc{display:grid;grid-template-columns:1fr 380px;gap:64px;align-items:start}
-.rc-set{border:0;padding:0;margin:0 0 32px;min-width:0}
-.rc-leg{font-weight:800;font-size:11px;letter-spacing:.14em;text-transform:uppercase;color:var(--silver-grey);padding:0;margin-bottom:12px}
-.rc-chips{display:flex;flex-wrap:wrap;gap:8px}
-.rc-chip{appearance:none;border:2px solid var(--light-grey);background:var(--white);font-family:var(--font-body);font-weight:700;font-size:14px;line-height:20px;padding:10px 16px;cursor:pointer;transition:border-color .15s,background .15s,color .15s}
-.rc-chip:hover{border-color:var(--black)}
-.rc-chip.on{background:var(--royal-blue);border-color:var(--royal-blue);color:var(--white)}
-.rc-chip small{display:block;font-weight:400;font-size:11px;opacity:.75}
-.rc-receipt{background:var(--black);color:var(--white);padding:32px 24px;position:sticky;top:96px}
-.rc-k{font-weight:800;font-size:11px;letter-spacing:.14em;text-transform:uppercase;color:rgba(255,255,255,.55);margin-bottom:16px}
-.rc-lines{min-height:96px}
-.rc-line{display:flex;justify-content:space-between;gap:16px;align-items:baseline;padding:10px 0;box-shadow:inset 0 -1px 0 rgba(255,255,255,.18);font-size:14px;line-height:20px}
-.rc-line b{white-space:nowrap}
-.rc-line.sub{color:rgba(255,255,255,.6);font-size:12px;box-shadow:none;padding-top:0}
-.rc-total{display:flex;justify-content:space-between;gap:16px;align-items:baseline;padding-top:24px;font-size:13px;color:rgba(255,255,255,.7)}
-.rc-total b{font-family:var(--font-display);font-size:44px;line-height:1;color:var(--accent)}
-.rc-note{font-size:12px;line-height:18px;color:rgba(255,255,255,.6);margin-top:16px}
-.rc-receipt .btn{width:100%;justify-content:center;margin-top:24px}
-.rc-sticky{display:none}
+/* list rows: a radio, the name, the price on the right */
+.lr{box-shadow:inset 0 1px 0 var(--line)}
+.lr-i{position:relative;display:grid;grid-template-columns:20px 1fr auto;align-items:center;column-gap:16px;min-height:56px;padding:12px 16px;box-shadow:inset 0 -1px 0 var(--line);cursor:pointer;transition:background .15s}
+@media (hover:hover){ .lr-i:hover{background:#FAFAF8} }
+.lr-dot{width:20px;height:20px;border-radius:50%;box-shadow:inset 0 0 0 2px #BDBDBD;transition:box-shadow .15s}
+.lr-n{font-size:15px;line-height:20px;font-weight:600}
+.lr-n small{display:block;font-weight:400;font-size:12px;line-height:16px;color:var(--silver-grey);margin-top:2px}
+.lr-p{font-size:15px;line-height:20px;font-weight:700;white-space:nowrap;text-align:right}
+.lr-p small{display:block;font-weight:400;font-size:11px;line-height:16px;color:var(--silver-grey)}
+.lr-i:has(input:checked){background:var(--sel-bg)}
+.lr-i:has(input:checked) .lr-dot{box-shadow:inset 0 0 0 6px var(--sel-bd)}
+.lr-i:has(input:focus-visible){outline:2px solid var(--sel-bd);outline-offset:-2px}
+
+/* segmented control: one track, the chosen segment lifts to white */
+.seg{display:grid;grid-template-columns:repeat(3,1fr);gap:4px;padding:4px;background:#F0F0EE;border-radius:12px}
+.seg-i{position:relative;display:flex;align-items:center;justify-content:center;text-align:center;min-height:48px;padding:8px;border-radius:8px;cursor:pointer;font-size:14px;line-height:18px;font-weight:600;color:#5a5a5a;text-wrap:balance;transition:background .15s,color .15s,box-shadow .15s}
+@media (hover:hover){ .seg-i:hover{color:var(--black)} }
+.seg-i:has(input:checked){background:var(--white);color:var(--black);box-shadow:0 1px 3px rgba(0,0,0,.12)}
+.seg-i:has(input:focus-visible){outline:2px solid var(--sel-bd);outline-offset:2px}
+
+/* the plan: quiet until a choice is complete */
+.pc-empty{background:#F6F6F4;padding:32px;min-height:160px}
+.pc-empty p{font-size:15px;line-height:24px;color:#6a6a6a}
+.pc-empty .pc-k{font-size:11px;line-height:16px;color:var(--silver-grey)}
+.pc-card{background:var(--black);color:var(--white);padding:32px;animation:pcIn .2s ease both}
+@keyframes pcIn{from{opacity:0}to{opacity:1}}
+.pc-k{font-weight:800;font-size:11px;line-height:16px;letter-spacing:.14em;text-transform:uppercase;color:rgba(255,255,255,.55);margin-bottom:16px}
+.pc-n{font-size:18px;line-height:24px;font-weight:700}
+.pc-lines{margin-top:16px}
+.pc-line{display:flex;justify-content:space-between;gap:16px;padding:8px 0;box-shadow:inset 0 -1px 0 rgba(255,255,255,.18);font-size:14px;line-height:24px}
+.pc-line b{font-weight:700;white-space:nowrap}
+.pc-ins{display:flex;align-items:center;gap:16px;margin-top:16px;cursor:pointer;font-size:13px;line-height:20px;color:rgba(255,255,255,.85)}
+.pc-ins input{appearance:none;flex:0 0 40px;width:40px;height:24px;border-radius:12px;background:rgba(255,255,255,.25);position:relative;cursor:pointer;margin:0;transition:background .15s}
+.pc-ins input::after{content:"";position:absolute;top:4px;left:4px;width:16px;height:16px;border-radius:50%;background:var(--white);transition:transform .15s}
+.pc-ins input:checked{background:var(--royal-blue)}
+.pc-ins input:checked::after{transform:translateX(16px)}
+.pc-ins input:focus-visible{outline:2px solid var(--white);outline-offset:2px}
+.pc-total{display:flex;justify-content:space-between;align-items:baseline;gap:16px;margin-top:24px}
+.pc-total span{font-size:13px;line-height:16px;color:rgba(255,255,255,.6)}
+.pc-total b{font-family:var(--font-display);font-size:48px;line-height:48px;color:var(--accent);white-space:nowrap}
+.pc-note{font-size:12px;line-height:16px;color:rgba(255,255,255,.6);margin-top:16px}
+.pc-card .btn{width:100%;justify-content:center;margin-top:24px}
+@media (prefers-reduced-motion:reduce){ .pc-card{animation:none} }
+
+.bar-price{display:none}
+@media (max-width:1100px){ .pc-opts{grid-column:1 / span 7} .pc-plan{grid-column:8 / span 5} }
 @media (max-width:768px){
-  .rc{grid-template-columns:1fr;gap:32px}
-  .rc-receipt{position:static}
-  /* the total follows you down the options, so two choices can be compared */
-  .rc-sticky{display:flex;position:sticky;top:50px;z-index:40;width:calc(100% + 3rem);margin:0 -1.5rem 8px;
-    align-items:center;justify-content:space-between;gap:16px;appearance:none;border:0;cursor:pointer;
-    background:var(--black);color:var(--white);padding:12px 1.5rem;text-align:left;font-family:var(--font-body)}
-  .rc-sticky span{font-size:13px;line-height:18px;color:rgba(255,255,255,.7);min-width:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
-  .rc-sticky b{font-family:var(--font-display);font-size:26px;line-height:1;color:var(--accent);white-space:nowrap}
-  /* an even grid instead of ragged wrapping */
-  .rc-set{margin-bottom:24px}
-  .rc-chips{display:grid;grid-template-columns:repeat(2,1fr);gap:8px}
-  #rc-who{grid-template-columns:repeat(3,1fr)}
-  #rc-stay .rc-chip:last-child{grid-column:1 / -1}
-  .rc-chip{text-align:center;padding:12px 8px;font-size:13px;line-height:18px;display:flex;flex-direction:column;justify-content:center;min-height:56px}
-  .rc-chip small{font-size:11px;margin-top:2px}
-  .rc-build .rc-set:last-child{margin-bottom:0}
-  .rc-lines{min-height:0}
+  .pc{display:block}
+  .pc-plan{position:static;margin-top:32px}
+  .pc-set{margin-bottom:32px}
+  .lr-i{padding:12px 8px;column-gap:12px}
+  .pc-empty{padding:24px;min-height:0}
+  .pc-card{padding:24px}
+  .pc-total b{font-size:40px;line-height:40px}
+  /* the page bar carries the plan only once there is one, and steps aside for the plan's own button */
+  html.in-prices.has-plan .action-bar>.bar-status,html.in-prices.has-plan .action-bar>.btn{display:none}
+  html.in-prices.has-plan .action-bar .bar-price{display:flex}
+  html.in-prices.card-visible .action-bar{transform:translateY(110%)}
+  .bar-price{flex:1 1 auto;align-items:center;gap:16px;min-width:0}
+  .bp-txt{flex:1 1 auto;min-width:0}
+  .bp-txt>span{display:block;font-size:13px;line-height:16px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+  .bp-txt small{display:block;font-weight:800;font-size:10px;line-height:16px;letter-spacing:.08em;text-transform:uppercase;color:rgba(255,255,255,.55)}
+  .bar-price b{font-family:var(--font-display);font-size:24px;line-height:24px;color:var(--accent);white-space:nowrap}
+  .bar-price .btn{flex:0 0 auto;padding:16px;font-size:.85rem}
 }
-</style>
-<style>
-/* 2.4.5.4.2: one inline builder for every width; the 2.4.5 receipt stands down */
-#prices .rc{display:none}
-#mp{max-width:760px;margin:0 auto}
-.acc{list-style:none;margin:0;padding:0;box-shadow:inset 0 1px 0 var(--black)}
-.acc-step{box-shadow:inset 0 -1px 0 var(--light-grey)}
-.acc-head{appearance:none;border:0;background:transparent;width:100%;display:flex;align-items:center;gap:16px;padding:20px 0;cursor:pointer;font-family:var(--font-body);text-align:left;color:var(--black)}
-.acc-i{flex:0 0 28px;height:28px;border-radius:50%;box-shadow:inset 0 0 0 2px var(--light-grey);font-weight:800;font-size:12px;display:flex;align-items:center;justify-content:center;color:var(--silver-grey)}
-.acc-step.open .acc-i{background:var(--royal-blue);box-shadow:none;color:var(--white)}
-.acc-step.done .acc-i{background:var(--black);box-shadow:none;color:var(--white)}
-.acc-t{flex:1 1 auto;min-width:0}
-.acc-t small{display:block;font-weight:800;font-size:10px;line-height:14px;letter-spacing:.12em;text-transform:uppercase;color:var(--silver-grey)}
-.acc-t b{display:block;font-size:17px;line-height:24px}
-.acc-step.open .acc-t b{font-family:var(--font-display);font-weight:400;font-size:28px;line-height:1.1;text-transform:uppercase}
-.acc-c{font-size:13px;color:var(--royal-blue);text-decoration:underline}
-.acc-body{padding:0 0 24px 44px}
-.acc-head:focus-visible,.st-opt:focus-visible{outline:2px solid var(--royal-blue);outline-offset:2px}
 
-.st-grid{display:grid;gap:8px}
-.st-grid.kind{grid-template-columns:repeat(3,1fr)}
-.st-grid.stay{grid-template-columns:repeat(5,1fr)}
-.st-grid.plan{grid-template-columns:repeat(3,1fr)}
-.st-grid.pay{grid-template-columns:repeat(2,1fr)}
-.st-grid.pack{grid-template-columns:repeat(4,1fr)}
-.st-grid .rc-chip{min-height:64px}
-.st-opt{appearance:none;border:2px solid var(--light-grey);background:var(--white);text-align:left;padding:20px;cursor:pointer;font-family:var(--font-body);color:var(--black);display:flex;flex-direction:column;gap:6px;transition:border-color .15s}
-.st-opt:hover{border-color:var(--black)}
-.st-opt b{font-family:var(--font-display);font-weight:400;font-size:24px;line-height:1;text-transform:uppercase}
-.st-opt span{font-size:13px;line-height:19px;color:#4a4a4a}
-.st-opt i{font-style:normal;font-weight:800;font-size:11px;letter-spacing:.1em;text-transform:uppercase;color:var(--royal-blue);margin-top:auto;padding-top:6px}
-.st-hint{font-size:13px;line-height:20px;color:var(--silver-grey);margin:0 0 12px}
-.rc-chip .tag{display:inline-block;background:var(--accent);color:var(--black);font-weight:800;font-size:9px;letter-spacing:.1em;text-transform:uppercase;padding:2px 5px;margin-top:4px;opacity:1}
-.rc-chip.on .tag{background:var(--white)}
+/* ---------- 2.4.7: the product boxes ---------- */
+.pk{display:grid;grid-template-columns:repeat(3,1fr);gap:8px}
+.pk-i{position:relative;display:flex;flex-direction:column;gap:8px;padding:24px;background:var(--white);border:2px solid var(--light-grey);cursor:pointer;transition:border-color .15s,background .15s}
+@media (hover:hover){ .pk-i:hover{border-color:var(--black)} }
+.pk-i b{font-family:var(--font-display);font-weight:400;font-size:28px;line-height:28px;text-transform:uppercase;color:var(--black)}
+.pk-i span{font-size:14px;line-height:20px;color:#4A4A4A}
+.pk-i i{font-style:normal;font-weight:800;font-size:11px;line-height:16px;letter-spacing:.1em;text-transform:uppercase;color:var(--royal-blue);margin-top:auto;padding-top:8px}
+.pk-i:has(input:checked){border-color:var(--sel-bd);background:var(--sel-bg)}
+.pk-i:has(input:focus-visible){outline:2px solid var(--sel-bd);outline-offset:2px}
 
-.dc-card{background:var(--black);color:var(--white);padding:28px 28px 24px;margin-top:32px;scroll-margin-top:90px;scroll-margin-bottom:96px;animation:dcIn .22s ease both}
-.dc-head{display:flex;justify-content:space-between;align-items:baseline;gap:16px}
-.dc-n{font-size:18px;line-height:24px;font-weight:700;min-width:0}
-.dc-p{font-family:var(--font-display);font-size:48px;line-height:1;color:var(--accent);white-space:nowrap}
-.dc-l{font-size:12px;line-height:16px;color:rgba(255,255,255,.55);margin-top:4px}
-.dc-lines{margin-top:16px}
-.dc-line{display:flex;justify-content:space-between;gap:16px;padding:10px 0;box-shadow:inset 0 -1px 0 rgba(255,255,255,.18);font-size:14px;line-height:20px}
-.dc-line b{font-weight:700;white-space:nowrap}
-.dc-note{font-size:12px;line-height:18px;color:rgba(255,255,255,.6);margin-top:12px}
-.ins{display:flex;align-items:center;gap:12px;margin-top:16px;cursor:pointer;font-size:13px;line-height:18px;color:rgba(255,255,255,.85)}
-.ins input{appearance:none;flex:0 0 40px;width:40px;height:24px;border-radius:12px;background:rgba(255,255,255,.25);position:relative;cursor:pointer;margin:0;transition:background .15s}
-.ins input::after{content:"";position:absolute;top:3px;left:3px;width:18px;height:18px;border-radius:50%;background:var(--white);transition:transform .15s}
-.ins input:checked{background:var(--royal-blue)}
-.ins input:checked::after{transform:translateX(16px)}
-.ins input:focus-visible{outline:2px solid var(--white);outline-offset:2px}
-.dc-card .btn.dc-go{width:100%;justify-content:center;margin-top:20px}
-@keyframes dcIn{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:none}}
-@media (prefers-reduced-motion:reduce){ .dc-card{animation:none} }
+/* ---------- the options: boxes side by side ---------- */
+.pc-row{display:grid;gap:8px}
+.pc-row.c2{grid-template-columns:repeat(2,1fr)}
+.pc-row.c3{grid-template-columns:repeat(3,1fr)}
+.pc-row.c4{grid-template-columns:repeat(4,1fr)}
+.pc-row.c5{grid-template-columns:repeat(5,1fr)}
+.pc-tile{position:relative;display:flex;flex-direction:column;gap:4px;min-height:72px;padding:12px 16px;background:var(--white);border:2px solid var(--light-grey);cursor:pointer;transition:border-color .15s,background .15s}
+@media (hover:hover){ .pc-tile:hover{border-color:var(--black)} }
+.pc-tile b{font-size:15px;line-height:20px;font-weight:700}
+.pc-tile small{font-size:12px;line-height:16px;color:#5A5A5A}
+.pc-tile .tag{align-self:flex-start;margin-top:4px}
+.pc-tile:has(input:checked){border-color:var(--sel-bd);background:var(--sel-bg)}
+.pc-tile:has(input:focus-visible){outline:2px solid var(--sel-bd);outline-offset:2px}
 
+@media (max-width:1100px){
+  .pk-i{padding:16px}
+  .pk-i b{font-size:22px;line-height:24px}
+  .pc-row.c5{grid-template-columns:repeat(3,1fr)}
+}
 @media (max-width:768px){
-  .acc-head{padding:16px 0;gap:12px}
-  .acc-i{flex-basis:24px;height:24px;font-size:11px}
-  .acc-t b{font-size:16px;line-height:22px}
-  .acc-step.open .acc-t b{font-size:22px}
-  .acc-body{padding:0 0 20px}
-  .st-grid.kind{grid-template-columns:1fr}
-  .st-grid.stay,.st-grid.plan,.st-grid.pack{grid-template-columns:repeat(2,1fr)}
-  .st-grid .rc-chip.span{grid-column:1 / -1}
-  .st-grid .rc-chip{min-height:56px}
-  .st-opt{padding:16px}
-  .st-opt b{font-size:20px}
-  .dc-card{padding:24px 20px;margin-top:24px;scroll-margin-top:64px}
-  .dc-p{font-size:40px}
+  /* three product boxes stay side by side on a phone */
+  .pk{gap:4px}
+  .pk-i{padding:12px 8px;gap:8px}
+  .pk-i b{font-size:18px;line-height:18px}
+  .pk-i span{font-size:12px;line-height:16px}
+  .pk-i i{font-size:10px;letter-spacing:.06em;padding-top:4px}
+  .pc-row.c3{grid-template-columns:repeat(3,1fr)}
+  .pc-row.c4{grid-template-columns:repeat(2,1fr)}
+  .pc-row.c5{grid-template-columns:repeat(6,1fr)}
+  .pc-row.c5 .pc-tile{grid-column:span 2}
+  .pc-row.c5 .pc-tile:nth-child(n+4){grid-column:span 3}
+  .pc-tile{min-height:64px;padding:12px}
+  .pc-tile b{font-size:14px;line-height:18px}
+  .pc-row.c3 .pc-tile{padding:12px 8px;justify-content:center;align-items:center;text-align:center}
+  .pc-row.c3 .pc-tile b,.pc-row.c3 .pc-tile small{text-wrap:balance}
+  .pc-row.c3 .pc-tile .tag{align-self:center}
+  .pc-row .tag{font-size:8px;letter-spacing:.06em}
+}
+@media (max-width:374px){
+  .pk-i b{font-size:16px;line-height:16px}
+  .pk-i span{font-size:11px;line-height:15px}
+  .pc-row.c3 .pc-tile b{font-size:13px}
 }
 </style>
 <style id="price-list-css">
@@ -694,7 +707,6 @@ body.show-grid .grid-overlay{display:block}
 .pl-tag{display:inline-block;background:var(--accent);color:var(--black);font-weight:800;font-size:9px;line-height:14px;letter-spacing:.1em;text-transform:uppercase;padding:1px 5px;margin-left:6px;vertical-align:1px}
 .pl-n{font-size:12px;line-height:18px;color:var(--silver-grey);margin-top:10px}
 @media (max-width:768px){ .pl{margin-top:40px} .pl-t{font-size:14px} .pl-t td+td,.pl-t th+th{padding-left:16px} .pl-grp{margin-top:28px} }
-#prices .pl{max-width:760px;margin:48px auto 0}
 </style>
 </head>
 <body>
@@ -724,7 +736,7 @@ body.show-grid .grid-overlay{display:block}
     <p class="menu-status" data-status="menu-status" id="menu-status"></p>
     <ol class="menu-links">
       <li><a href="#classes"><span class="mn">01</span><span class="ml">Classes</span><span class="ms">What we run, and when</span></a></li>
-      <li><a href="#prices"><span class="mn">02</span><span class="ml">Prices</span><span class="ms">Day pass €10 · Members from €13</span></a></li>
+      <li><a href="#prices"><span class="mn">02</span><span class="ml">Prices</span><span class="ms">Day pass €10 · Membership from €13</span></a></li>
       <li><a href="#find-us"><span class="mn">03</span><span class="ml">Hours &amp; location</span><span class="ms">Rua Capitão Salgueiro Maia, Lagos</span></a></li>
       <li><a href="#reviews"><span class="mn">04</span><span class="ml">Reviews</span><span class="ms">4.8 from 153 on Google</span></a></li>
       <li><a href="#faq"><span class="mn">05</span><span class="ml">Good to know</span><span class="ms">Showers, towels, payment</span></a></li>
@@ -848,48 +860,11 @@ body.show-grid .grid-overlay{display:block}
     <h2 class="section-header">Prices</h2>
     <span class="section-script">a few taps, one price</span>
   </div>
-  <div class="rc">
-    <button class="rc-sticky" type="button" id="rc-sticky" aria-hidden="true" tabindex="-1">
-      <span id="rc-sticky-n"></span><b id="rc-sticky-p"></b>
-    </button>
-    <div class="rc-build">
-      <fieldset class="rc-set">
-        <legend class="rc-leg">Who are you</legend>
-        <div class="rc-chips" id="rc-who">
-          <button class="rc-chip on" type="button" data-who="visitor">Visiting</button>
-          <button class="rc-chip" type="button" data-who="member">Living here</button>
-          <button class="rc-chip" type="button" data-who="pt">With a coach</button>
-        </div>
-      </fieldset>
-      <fieldset class="rc-set" id="rc-set-stay">
-        <legend class="rc-leg">How long</legend>
-        <div class="rc-chips" id="rc-stay"></div>
-      </fieldset>
-      <fieldset class="rc-set" id="rc-set-plan" hidden>
-        <legend class="rc-leg">How often</legend>
-        <div class="rc-chips" id="rc-plan"></div>
-      </fieldset>
-      <fieldset class="rc-set" id="rc-set-pay" hidden>
-        <legend class="rc-leg">How you pay</legend>
-        <div class="rc-chips" id="rc-pay">
-          <button class="rc-chip on" type="button" data-pay="dd">Direct debit</button>
-          <button class="rc-chip" type="button" data-pay="desk">At the desk</button>
-        </div>
-      </fieldset>
-      <fieldset class="rc-set" id="rc-set-pack" hidden>
-        <legend class="rc-leg">Which pack</legend>
-        <div class="rc-chips" id="rc-pack"></div>
-      </fieldset>
-    </div>
-    <aside class="rc-receipt" aria-live="polite">
-      <p class="rc-k">Your plan</p>
-      <div class="rc-lines" id="rc-lines"></div>
-      <div class="rc-total"><span id="rc-total-l">To pay on your first visit</span><b id="rc-total">€0</b></div>
-      <p class="rc-note" id="rc-note"></p>
-      <button class="btn" type="button" id="rc-go">Get this plan</button>
-    </aside>
+  <div class="pc" id="pc">
+    <form class="pc-opts" id="pc-opts" onsubmit="return false"></form>
+    <aside class="pc-plan" id="pc-plan" aria-label="Your plan"></aside>
   </div>
-  <div id="mp"></div>
+  <p class="pc-sr" id="pc-live" aria-live="polite"></p>
   <!-- price-list:start (generated by build/pricelist.py from prices.js) -->
   <details class="pl" id="price-list">
     <summary class="pl-sum"><span class="pl-show">See the full price list</span><span class="pl-hide">Hide the full price list</span></summary>
@@ -914,7 +889,7 @@ body.show-grid .grid-overlay{display:block}
     </div>
   </details>
 <!-- price-list:end -->
-  <p class="pr-legal">All prices include VAT. Day and week passes include the sports insurance. Membership is paid every 2 weeks, by direct debit or at reception, and adds the €24 insurance once a year.<span class="pr-todo" title="[PLACEHOLDER: confirm whether the direct debit price needs a minimum period, e.g. 'no minimum, cancel any time']">todo</span></p>
+  <p class="pr-legal">All prices include VAT. Day and week passes include the sports insurance. Membership is paid every 2 weeks, by direct debit or at reception, and adds the €24 insurance once a year.<span class="pr-todo" title="[PLACEHOLDER: confirm whether the direct debit price needs a minimum period, e.g. no minimum, cancel any time]">todo</span></p>
 </section>
 
 <!-- ============ REVIEWS: rendered from reviews.js (see the note at the top of that file) ============ -->
@@ -985,11 +960,11 @@ body.show-grid .grid-overlay{display:block}
   <div class="faq-grid" itemscope itemtype="https://schema.org/FAQPage">
     <details class="faq-item">
       <summary>Can I train without a membership?</summary>
-      <p>Yes. A day pass is €10 and a week pass is €35.90, insurance included. Walk in and pay at reception.</p>
+      <p>Yes. A day pass is €10 and a week pass is €35.90, sports insurance included. Walk in and pay at reception.</p>
     </details>
     <details class="faq-item">
       <summary>Is there a minimum commitment?</summary>
-      <p>Not for visitor passes. Member plans are paid every 2 weeks, from €13, plus the €24 sports insurance once a year. <sup class="pr-todo" title="[PLACEHOLDER: confirm whether the direct debit price needs a minimum period, e.g. 'no minimum, cancel any time']">todo</sup> <a href="https://wa.me/351926565836?text=Hi!%20I%27d%20like%20to%20ask%20about%20a%20member%20plan." target="_blank" rel="noopener">Ask us on WhatsApp</a>.</p>
+      <p>Not for day or week passes. Membership is paid every 2 weeks, from €13 with direct debit, plus the €24 sports insurance once a year. <sup class="pr-todo" title="[PLACEHOLDER: confirm whether the direct debit price needs a minimum period, e.g. no minimum, cancel any time]">todo</sup> <a href="https://wa.me/351926565836?text=Hi!%20I%27d%20like%20to%20ask%20about%20membership." target="_blank" rel="noopener">Ask us on WhatsApp</a>.</p>
     </details>
     <details class="faq-item">
       <summary>Do I need to book?</summary>
@@ -1076,6 +1051,11 @@ body.show-grid .grid-overlay{display:block}
   <span class="bar-status" data-status="bar-status"></span>
   <a class="btn on-dark" href="https://wa.me/351926565836?text=Hi!%20I%20have%20a%20question%20about%20the%20gym." target="_blank" rel="noopener">WhatsApp</a>
   <a class="btn on-dark ghost" href="https://maps.app.goo.gl/ks6o4URGCYT7rzHJ8" target="_blank" rel="noopener">Directions</a>
+  <div class="bar-price">
+    <span class="bp-txt"><span id="bp-n"></span><small id="bp-l"></small></span>
+    <b id="bp-p"></b>
+    <button class="btn on-dark" type="button" id="bp-go">Get this</button>
+  </div>
 </div>
 <script>
 /* the action bar follows you, and the map fades in instead of flashing white */
@@ -1420,134 +1400,107 @@ body.show-grid .grid-overlay{display:block}
 </script>
 <script>
 (function(){
-  var E=window.EWPricing; if(!E) return; var P=E.P;
-  var wrap=document.querySelector('.rc'); if(!wrap) return;
-  var st={who:'visitor',stay:'s1',plan:'un',pay:'dd',pack:'p8'};
+  var E=window.EWPricing, opts=document.getElementById('pc-opts'), box=document.getElementById('pc-plan');
+  if(!E||!opts||!box) return;
+  var P=E.P, money=E.money, off=P.member.plans[0].desk-P.member.plans[0].dd;
+  function find(list,id){ return list.filter(function(x){return x.id===id})[0] }
+  var KINDS=[
+    {id:'pass', name:'Day and week passes', from:'From '+money(P.visitor[0].price), fromSub:''},
+    {id:'mem',  name:'Membership',          from:'From '+money(P.member.plans[0].dd), fromSub:'every 2 weeks, direct debit'},
+    {id:'pt',   name:'Personal training',   from:'From '+money(P.pt.packs[P.pt.packs.length-1].each), fromSub:'a session'}
+  ];
+  /* nothing is chosen until the visitor chooses */
+  var st={kind:null,stay:null,plan:null,pay:null,pack:null,insured:false}, cur=null, keepChoices=false;
 
-  document.getElementById('rc-stay').innerHTML = P.visitor.map(function(v){
-    return '<button class="rc-chip'+(v.id===st.stay?' on':'')+'" type="button" data-stay="'+v.id+'">'+v.name+'<small>'+E.money(v.price)+'</small></button>';
-  }).join('');
-  document.getElementById('rc-plan').innerHTML = P.member.plans.map(function(p){
-    return '<button class="rc-chip'+(p.id===st.plan?' on':'')+'" type="button" data-plan="'+p.id+'">'+p.name+'<small>'+E.money(p.dd)+' / 2 weeks</small></button>';
-  }).join('');
-  document.getElementById('rc-pack').innerHTML = P.pt.packs.map(function(k){
-    return '<button class="rc-chip'+(k.id===st.pack?' on':'')+'" type="button" data-pack="'+k.id+'">'+k.name+'<small>'+E.money(k.total)+'</small></button>';
-  }).join('');
-
-  function pick(group, attr, val){
-    [].forEach.call(document.getElementById(group).children,function(b){
-      b.classList.toggle('on', b.dataset[attr]===val);
+  function radio(name,value,checked){ return '<input type="radio" name="'+name+'" value="'+value+'"'+(checked?' checked':'')+'>' }
+  function set(legend,body,hint,id){ return '<fieldset class="pc-set"'+(id?' id="'+id+'"':'')+'><legend class="pc-leg">'+legend+'</legend>'+(hint?'<p class="pc-hint">'+hint+'</p>':'')+body+'</fieldset>' }
+  function rows(name,items){
+    return '<div class="lr">'+items.map(function(i){
+      return '<label class="lr-i">'+radio(name,i.id,st[name]===i.id)+'<span class="lr-dot" aria-hidden="true"></span>'+
+        '<span class="lr-n">'+i.name+(i.tag?' <span class="tag">'+i.tag+'</span>':'')+(i.sub?'<small>'+i.sub+'</small>':'')+'</span>'+
+        '<b class="lr-p">'+(i.price||'')+(i.psub?'<small>'+i.psub+'</small>':'')+'</b></label>';
+    }).join('')+'</div>';
+  }
+  function seg(){ return '<div class="seg">'+KINDS.map(function(k){ return '<label class="seg-i">'+radio('kind',k.id,st.kind===k.id)+'<span>'+k.name+'</span></label>' }).join('')+'</div>' }
+  var ITEMS={
+    stay:function(){ return P.visitor.map(function(v){ return {id:v.id,name:v.name,price:money(v.price)} }) },
+    plan:function(){ return P.member.plans.map(function(p){ return {id:p.id,name:p.name,price:money(p.desk),psub:'every 2 weeks',tag:p.best?'Recommended':''} }) },
+    pay:function(){ var p=st.plan?E.memberPlan(st.plan):null;
+      return [{id:'dd',name:'Direct debit',sub:money(off)+' off each payment',price:p?money(p.dd):'',psub:p?'every 2 weeks':''},
+              {id:'desk',name:'At reception',sub:'Standard price',price:p?money(p.desk):'',psub:p?'every 2 weeks':''}] },
+    pack:function(){ return P.pt.packs.map(function(k){ return {id:k.id,name:k.sessions>1?k.name:'Single session',sub:k.sessions>1?money(k.each)+' a session, valid '+k.months+' months':'',price:money(k.total)} }) }
+  };
+  var HINT='Prices every 2 weeks at reception. Direct debit takes '+money(off)+' off each payment.';
+  function subSets(list){
+    if(st.kind==='pass') return set('Choose a pass',list('stay',ITEMS.stay()));
+    if(st.kind==='mem') return set('How often will you train?',list('plan',ITEMS.plan()),HINT)+set('How will you pay?',list('pay',ITEMS.pay()),'','pc-pay');
+    if(st.kind==='pt') return set('How many sessions?',list('pack',ITEMS.pack()));
+    return '';
+  }
+  function stdOpts(kindHtml,list){ return set('Choose a pass or membership',kindHtml)+subSets(list) }
+  function payRefresh(list){ var f=document.getElementById('pc-pay'); if(f) f.outerHTML=set('How will you pay?',list('pay',ITEMS.pay()),'','pc-pay') }
+  /* a subtle guide: the question still waiting for an answer has the darker heading */
+  function guide(){
+    var done=false;
+    [].forEach.call(opts.querySelectorAll('fieldset'),function(f){
+      var next=!done&&!f.querySelector('input:checked'); f.classList.toggle('next',next); if(next) done=true;
     });
   }
-  function sets(){
-    document.getElementById('rc-set-stay').hidden = st.who!=='visitor';
-    document.getElementById('rc-set-plan').hidden = st.who!=='member';
-    document.getElementById('rc-set-pay').hidden  = st.who!=='member';
-    document.getElementById('rc-set-pack').hidden = st.who!=='pt';
-  }
-  wrap.addEventListener('click',function(e){
-    var b=e.target.closest('.rc-chip'); if(!b) return; var d=b.dataset;
-    if(d.who!=null){ st.who=d.who; pick('rc-who','who',d.who); sets(); E.track('pricing_who',{who:d.who}) }
-    else if(d.stay!=null){ st.stay=d.stay; pick('rc-stay','stay',d.stay) }
-    else if(d.plan!=null){ st.plan=d.plan; pick('rc-plan','plan',d.plan) }
-    else if(d.pay!=null){ st.pay=d.pay; pick('rc-pay','pay',d.pay) }
-    else if(d.pack!=null){ st.pack=d.pack; pick('rc-pack','pack',d.pack) }
-    render();
-  });
 
-  var cur=null;
-  function render(){
-    var lines=[], notes=[], total=0, title, id, label;
-    if(st.who==='visitor'){
-      var v=P.visitor.filter(function(x){return x.id===st.stay})[0];
-      lines=[[v.name+' visitor pass',E.money(v.price)],['Sports insurance','Included',true]];
-      total=v.price; title=v.name+' visitor pass'; id=v.id; label='To pay at the desk';
-      if(v.days<4) notes.push('The day pass is paid each time you come. From four days on, the week pass costs less.');
-      if(v.days>=28) notes.push('Four weeks as a member is '+E.money(E.fourWeeks().member)+' and it does not stop after four weeks.');
-    } else if(st.who==='member'){
-      var p=E.memberPlan(st.plan), dd=st.pay==='dd', rate=dd?p.dd:p.desk;
-      lines=[[p.name+', first 2 weeks',E.money(rate)],['Sports insurance, once a year',E.money(P.insurance.year)],
-             ['Then '+E.money(rate)+' every 2 weeks','',true]];
-      total=rate+P.insurance.year; title=p.name+' member plan'; id=p.id; label='To pay on your first visit';
-      notes.push(dd ? 'Direct debit saves you '+E.money(P.member.ddSavingYear)+' a year against paying at the desk.'
-                    : 'Switching to direct debit would save you '+E.money(P.member.ddSavingYear)+' a year.');
-    } else {
-      var k=P.pt.packs.filter(function(x){return x.id===st.pack})[0];
-      lines=[[k.name+' with a coach',E.money(k.total)]];
-      if(k.sessions>1) lines.push([E.money(k.each)+' a session, valid '+k.months+' months','',true]);
-      total=k.total; title=k.name+' with a coach'; id=k.id; label='To pay at the desk';
-      notes.push('Bring someone with you and the second person is '+E.money(P.pt.second)+' a session.');
-      if(k.sessions>1) notes.push(P.pt.note);
-    }
-    document.getElementById('rc-lines').innerHTML = lines.map(function(l){
-      return '<div class="rc-line'+(l[2]?' sub':'')+'"><span>'+l[0]+'</span><b>'+(l[1]||'')+'</b></div>';
-    }).join('');
-    document.getElementById('rc-total').textContent = E.money(total);
-    document.getElementById('rc-total-l').textContent = label;
-    document.getElementById('rc-note').textContent = notes.join(' ');
-    document.getElementById('rc-sticky-n').textContent = title;
-    document.getElementById('rc-sticky-p').textContent = E.money(total);
-    cur={id:id,title:title,price:total,totalLabel:label,lines:lines.filter(function(l){return !l[2]}),notes:notes};
-  }
-  document.getElementById('rc-go').addEventListener('click',function(){ if(cur) E.review(cur) });
-  document.getElementById('rc-sticky').addEventListener('click',function(){
-    document.querySelector('.rc-receipt').scrollIntoView({behavior:'smooth',block:'center'});
-  });
-  sets(); render();
-})();
-</script>
-<script>
-(function(){
-  var E=window.EWPricing, root=document.getElementById('mp'); if(!E||!root) return;
-  var P=E.P, money=E.money, reduce=window.matchMedia('(prefers-reduced-motion:reduce)');
-  function find(list,id){ return list.filter(function(x){return x.id===id})[0] }
-
-  /* the three products, named as the gym sells them */
-  var KINDS=[
-    {id:'pass', name:'Day and week passes', desc:'No commitment. From one day to four weeks.',            from:'From '+money(P.visitor[0].price)},
-    {id:'mem',  name:'Membership',        desc:'Paid every 2 weeks. The best value if you train here often.', from:'From '+money(P.member.plans[0].dd)+' every 2 weeks with direct debit'},
-    {id:'pt',   name:'Personal training', desc:'One to one with a coach.',                                 from:'From '+money(P.pt.packs[P.pt.packs.length-1].each)+' a session'}
-  ];
-  var ASK={kind:'Choose a pass or membership',stay:'Choose a pass',plan:'How often will you train?',pay:'How will you pay?',pack:'How many sessions?'};
-  var SHORT={kind:'Option',stay:'Pass',plan:'Training',pay:'Payment',pack:'Sessions'};
-
-  var st={kind:null,stay:null,plan:null,pay:null,pack:null,insured:false}, open='kind', cur=null;
-
-  function seq(){ var a=['kind']; if(st.kind==='pass') a.push('stay'); if(st.kind==='mem') a.push('plan','pay'); if(st.kind==='pt') a.push('pack'); return a }
-  function val(id){
-    if(id==='kind') return st.kind?find(KINDS,st.kind).name:null;
-    if(id==='stay') return st.stay?find(P.visitor,st.stay).name:null;
-    if(id==='plan') return st.plan?E.memberPlan(st.plan).name:null;
-    if(id==='pay')  return st.pay?(st.pay==='dd'?'Direct debit':'At reception'):null;
-    if(id==='pack') return st.pack?find(P.pt.packs,st.pack).name:null;
+  function missing(){
+    if(!st.kind) return 'Choose a pass or membership to see your price.';
+    if(st.kind==='pass'&&!st.stay) return 'Choose a pass to see your price.';
+    if(st.kind==='mem'&&!st.plan) return 'Choose how often you will train.';
+    if(st.kind==='mem'&&!st.pay) return 'Choose how you will pay.';
+    if(st.kind==='pt'&&!st.pack) return 'Choose how many sessions.';
+    return null;
   }
 
-  function chip(k,v,name,small,on,span,tag){
-    return '<button class="rc-chip'+(on?' on':'')+(span?' span':'')+'" type="button" data-k="'+k+'" data-v="'+v+'" aria-pressed="'+on+'">'+
-      name+(small?'<small>'+small+'</small>':'')+(tag?'<span class="tag">'+tag+'</span>':'')+'</button>';
-  }
-  function options(id){
-    if(id==='kind') return '<div class="st-grid kind">'+KINDS.map(function(k){
-      return '<button class="st-opt" type="button" data-k="kind" data-v="'+k.id+'" aria-pressed="'+(st.kind===k.id)+'"><b>'+k.name+'</b><span>'+k.desc+'</span><i>'+k.from+'</i></button>';
+  /* the three products, in the words of 29 September */
+  KINDS[0].name='Day / week passes'; KINDS[0].desc='No commitment. From 1 day to 4 weeks.';
+  KINDS[1].desc='Paid every 2 weeks. Best value if you train regularly.'; KINDS[1].from='From '+money(P.member.plans[0].dd)+', every 2 weeks';
+  KINDS[2].desc='One to one with a certified coach.<span class="pr-todo" title="[PLACEHOLDER: confirm every coach who gives personal training is certified, and by whom]">todo</span>'; KINDS[2].from='From '+money(P.pt.packs[P.pt.packs.length-1].each)+' a session';
+  keepChoices=true;
+
+  function cards(){
+    return '<div class="pk">'+KINDS.map(function(k){
+      return '<label class="pk-i">'+radio('kind',k.id,st.kind===k.id)+'<b>'+k.name+'</b><span>'+k.desc+'</span><i>'+k.from+'</i></label>';
     }).join('')+'</div>';
-    if(id==='stay') return '<div class="st-grid stay">'+P.visitor.map(function(v,i){ return chip('stay',v.id,v.name,money(v.price),st.stay===v.id,i===P.visitor.length-1) }).join('')+'</div>';
-    if(id==='plan') return '<p class="st-hint">Prices every 2 weeks. Direct debit takes '+money(P.member.plans[0].desk-P.member.plans[0].dd)+' off each payment.</p>'+
-      '<div class="st-grid plan">'+P.member.plans.map(function(p,i){ return chip('plan',p.id,p.name,money(p.desk)+' / 2 wks',st.plan===p.id,i===P.member.plans.length-1,p.best?'Recommended':'') }).join('')+'</div>';
-    if(id==='pay'){ var p=E.memberPlan(st.plan||'un'), off=money(p.desk-p.dd);
-      return '<div class="st-grid pay">'+chip('pay','dd','Direct debit',money(p.dd)+' every 2 weeks, '+off+' off',st.pay==='dd')+chip('pay','desk','At reception',money(p.desk)+' every 2 weeks',st.pay==='desk')+'</div>' }
-    if(id==='pack') return '<div class="st-grid pack">'+P.pt.packs.map(function(k){ return chip('pack',k.id,k.name,money(k.total)+(k.sessions>1?', '+money(k.each)+' each':''),st.pack===k.id) }).join('')+'</div>';
   }
+  function tile(name,i){
+    return '<label class="pc-tile">'+radio(name,i.id,st[name]===i.id)+'<b>'+i.name+'</b>'+(i.small?'<small>'+i.small+'</small>':'')+(i.tag?'<span class="tag">'+i.tag+'</span>':'')+'</label>';
+  }
+  function row(items,name){ return '<div class="pc-row c'+items.length+'">'+items.map(function(i){ return tile(name,i) }).join('')+'</div>' }
+  function payRow(){
+    var p=st.plan?E.memberPlan(st.plan):null;
+    return row([
+      {id:'dd',  name:'Direct debit', small:(p?money(p.dd)+' every 2 weeks<br>':'')+'Paid automatically', tag:money(off)+' off'},
+      {id:'desk',name:'At reception', small:(p?money(p.desk)+' every 2 weeks<br>':'')+'Standard price'}
+    ],'pay');
+  }
+  function renderOpts(){
+    var h=set('Choose a pass or membership',cards());
+    if(st.kind==='pass')
+      h+=set('Choose a pass',row(P.visitor.map(function(v){ return {id:v.id,name:v.name,small:money(v.price)} }),'stay'));
+    else if(st.kind==='mem')
+      h+=set('How often will you train?',row(P.member.plans.map(function(p){ return {id:p.id,name:p.name,small:money(p.desk)+'<br>every 2 weeks',tag:p.best?'Recommended':''} }),'plan'),HINT)+
+         set('How will you pay?',payRow(),'','pc-pay');
+    else if(st.kind==='pt')
+      h+=set('How many sessions?',row(P.pt.packs.map(function(k){ return {id:k.id,name:k.sessions>1?k.name:'1 session',small:money(k.total)+(k.sessions>1?'<br>'+money(k.each)+' a session':'')} }),'pack'));
+    opts.innerHTML=h;
+  }
+  function onPlan(){ var f=document.getElementById('pc-pay'); if(f) f.outerHTML=set('How will you pay?',payRow(),'','pc-pay') }
 
   function plan(){
     var lines=[], notes=[], total, title, id, label;
     if(st.kind==='pass'){
       var v=find(P.visitor,st.stay);
-      title=(v.days===1?'Day pass':v.name+' pass'); id=v.id; total=v.price; label='To pay at reception';
+      title=v.days===1?'Day pass':v.name+' pass'; id=v.id; total=v.price; label='To pay at reception';
       lines=[[title,money(v.price)],['Sports insurance','Included']];
       if(v.days<4) notes.push('Paid each time you come. From four days on, the week pass costs less.');
       if(v.days>=28) notes.push('Four weeks of membership is '+money(E.fourWeeks().member)+' with the insurance, and it keeps going after four weeks.');
     } else if(st.kind==='mem'){
-      var p=E.memberPlan(st.plan), dd=st.pay!=='desk', rate=dd?p.dd:p.desk;
+      var p=E.memberPlan(st.plan), dd=st.pay==='dd', rate=dd?p.dd:p.desk;
       title=p.name+' membership'; id=p.id; label='To pay on your first visit';
       lines=[[p.name+', first 2 weeks',money(p.desk)]];
       if(dd) lines.push(['Direct debit discount',money(p.desk-p.dd)+' off']);
@@ -1559,63 +1512,65 @@ body.show-grid .grid-overlay{display:block}
       var k=find(P.pt.packs,st.pack);
       title=k.sessions>1?'Personal training, '+k.sessions+' sessions':'Personal training, one session'; id=k.id; total=k.total; label='To pay at reception';
       lines=[[title,money(k.total)]];
-      if(k.sessions>1) lines.push([money(k.each)+' a session, valid '+k.months+' months','']);
+      if(k.sessions>1) lines.push([money(k.each)+' a session','valid '+k.months+' months']);
       notes.push('Bring someone with you and the second person is '+money(P.pt.second)+' a session.');
       if(k.sessions>1) notes.push(P.pt.note);
     }
-    return {id:id,title:title,price:total,totalLabel:label,lines:lines.filter(function(l){return l[1]!==''}),detail:lines,notes:notes};
+    return {id:id,title:title,price:total,totalLabel:label,lines:lines,notes:notes};
   }
 
-  function card(p){
-    return '<div class="dc-card">'+
-      '<div class="dc-head"><span class="dc-n">'+p.title+'</span><b class="dc-p">'+money(p.price)+'</b></div>'+
-      '<p class="dc-l">'+p.totalLabel+'</p>'+
-      '<div class="dc-lines">'+p.detail.map(function(l){ return '<div class="dc-line"><span>'+l[0]+'</span><b>'+l[1]+'</b></div>' }).join('')+'</div>'+
-      (st.kind==='mem'?'<label class="ins"><input type="checkbox" data-ins'+(st.insured?' checked':'')+'><span>My sports insurance is already paid this year</span></label>':'')+
-      (p.notes.length?'<p class="dc-note">'+p.notes.join(' ')+'</p>':'')+
-      '<button class="btn dc-go" type="button">Get this plan</button></div>';
+  var root=document.documentElement;
+  function renderPlan(){
+    var m=missing();
+    if(m){
+      cur=null; root.classList.remove('has-plan','card-visible');
+      box.innerHTML='<div class="pc-empty"><p class="pc-k">Your plan</p><p>'+m+'</p></div>';
+      document.getElementById('pc-live').textContent='';
+      if(co) co.disconnect();
+      return;
+    }
+    cur=plan();
+    box.innerHTML='<div class="pc-card">'+
+      '<p class="pc-k">Your plan</p><p class="pc-n">'+cur.title+'</p>'+
+      '<div class="pc-lines">'+cur.lines.map(function(l){ return '<div class="pc-line"><span>'+l[0]+'</span><b>'+l[1]+'</b></div>' }).join('')+'</div>'+
+      (st.kind==='mem'?'<label class="pc-ins"><input type="checkbox" id="pc-ins"'+(st.insured?' checked':'')+'><span>My sports insurance is already paid this year</span></label>':'')+
+      '<div class="pc-total"><span>'+cur.totalLabel+'</span><b>'+money(cur.price)+'</b></div>'+
+      (cur.notes.length?'<p class="pc-note">'+cur.notes.join(' ')+'</p>':'')+
+      '<button class="btn" type="button" id="pc-go">Get this plan</button></div>';
+    document.getElementById('pc-live').textContent=cur.title+', '+money(cur.price)+'.';
+    document.getElementById('bp-n').textContent=cur.title;
+    document.getElementById('bp-l').textContent=cur.totalLabel;
+    document.getElementById('bp-p').textContent=money(cur.price);
+    root.classList.add('has-plan');
+    if(co){ co.disconnect(); co.observe(document.getElementById('pc-go')) }
   }
 
-  function reveal(el){
-    if(!el) return;
-    var r=el.getBoundingClientRect(), top=window.innerWidth>768?80:56;
-    if(r.top<top||r.bottom>window.innerHeight-88) el.scrollIntoView({block:'nearest',behavior:reduce.matches?'auto':'smooth'});
-  }
-
-  function render(focus){
-    var html='<ol class="acc">';
-    seq().forEach(function(id,i){
-      var v=val(id), on=open===id;
-      html+='<li class="acc-step'+(on?' open':'')+(v&&!on?' done':'')+'">'+
-        '<button class="acc-head" type="button" data-open="'+id+'" aria-expanded="'+on+'"><span class="acc-i">'+(i+1)+'</span>'+
-        '<span class="acc-t">'+(on||!v?'<b>'+ASK[id]+'</b>':'<small>'+SHORT[id]+'</small><b>'+v+'</b>')+'</span>'+
-        (v&&!on?'<span class="acc-c">Change</span>':'')+'</button>'+
-        (on?'<div class="acc-body">'+options(id)+'</div>':'')+'</li>';
-    });
-    html+='</ol>';
-    cur=null;
-    if(open===null&&seq().every(val)){ cur=plan(); html+=card(cur) }
-    root.innerHTML=html;
-    if(focus!==false) reveal(root.querySelector(open===null?'.dc-card':'.acc-step.open'));
-  }
-
-  root.addEventListener('click',function(e){
-    if(e.target.closest('.dc-go')){ if(cur) E.review(cur); return }
-    var h=e.target.closest('[data-open]'); if(h){ open=h.dataset.open===open?null:h.dataset.open; render(); return }
-    var c=e.target.closest('[data-k]'); if(!c) return;
-    var k=c.dataset.k, v=c.dataset.v;
-    if(k==='kind'){ if(st.kind!==v){ st.stay=st.plan=st.pay=st.pack=null; E.track('pricing_kind',{kind:v}) } st.kind=v }
-    else st[k]=v;
-    open=null; seq().some(function(id){ if(!val(id)){ open=id; return true } });
-    render();
+  opts.addEventListener('change',function(e){
+    var t=e.target; if(t.type!=='radio') return;
+    if(t.name==='kind'){
+      if(st.kind!==t.value){ if(!keepChoices) st.stay=st.plan=st.pay=st.pack=null; E.track('pricing_kind',{kind:t.value}) }
+      st.kind=t.value; renderOpts();
+      var back=opts.querySelector('input[name=kind]:checked'); if(back) back.focus();
+    } else if(t.name==='cell'){ var v=t.value.split('|'); st.plan=v[0]; st.pay=v[1] }
+    else { st[t.name]=t.value; if(t.name==='plan'&&typeof onPlan==='function') onPlan() }
+    renderPlan(); guide();
   });
-  root.addEventListener('change',function(e){
-    if(!e.target.matches('[data-ins]')) return;
+  box.addEventListener('change',function(e){
+    if(e.target.id!=='pc-ins') return;
     st.insured=e.target.checked; E.track('pricing_insured',{insured:st.insured});
-    render(false);
-    var box=root.querySelector('[data-ins]'); if(box) box.focus();
+    renderPlan(); document.getElementById('pc-ins').focus();
   });
-  render(false);
+  box.addEventListener('click',function(e){ if(e.target.closest('#pc-go')) E.review(cur) });
+  document.getElementById('bp-go').addEventListener('click',function(){ if(cur) E.review(cur) });
+
+  var mq=window.matchMedia('(max-width:768px)'), sec=document.getElementById('prices'), inView=false, co=null;
+  function mark(){ root.classList.toggle('in-prices', inView&&mq.matches) }
+  if('IntersectionObserver' in window){
+    new IntersectionObserver(function(es){ inView=es[0].isIntersecting; mark() },{rootMargin:'-45% 0px -45% 0px'}).observe(sec);
+    co=new IntersectionObserver(function(es){ root.classList.toggle('card-visible', es[0].isIntersecting) },{threshold:0.5});
+  }
+  if(mq.addEventListener) mq.addEventListener('change',mark); else mq.addListener(mark);
+  renderOpts(); renderPlan(); guide();
 })();
 </script>
 <script id="price-list-js">
