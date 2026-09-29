@@ -116,10 +116,10 @@
     b.innerHTML =
       '<p class="ewf-kicker">Almost there</p>'+
       '<h3 class="ewf-title">Come by and we will set it up</h3>'+
-      '<p class="ewf-lede">We cannot take payment online yet, so the last step happens at the desk. It takes about five minutes.</p>'+
+      '<p class="ewf-lede">We cannot take payment online yet, so the last step happens at reception. It takes about five minutes.</p>'+
       '<div class="ewf-lines">'+
         '<div class="ewf-line"><span>What you chose</span><b>'+choice.title+'</b></div>'+
-        '<div class="ewf-line"><span>To pay at the desk</span><b>'+money(choice.price)+'</b></div>'+
+        '<div class="ewf-line"><span>To pay at reception</span><b>'+money(choice.price)+'</b></div>'+
       '</div>'+
       '<p class="ewf-inc-h">Bring</p>'+
       '<ul class="ewf-bring"><li>Something to pay with</li><li>A towel and a water bottle</li><li>Photo ID if you are joining as a member</li></ul>'+

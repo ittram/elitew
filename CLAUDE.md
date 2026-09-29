@@ -16,8 +16,10 @@
 - No dashes in the copy: no "—", "–" or "-", except where unavoidable, such as the postcode 8600-530.
 - Every "ask us" and contact button goes to WhatsApp on +351926565836 as a `wa.me` link. The one exception is the phone number printed in the footer, which is a `tel:` link so it dials.
 - Google Maps link: https://maps.app.goo.gl/ks6o4URGCYT7rzHJ8
-- Prices live in `prices.js` and nowhere else. See PRICES.md. Two things to never get wrong: **member plans are priced per 2 weeks, not per month** (€13 / €19.50 / €21 by direct debit, €5 more at the desk), and the €24 sports insurance is **included** in visitor passes but **added once a year** to member plans.
-- Visitor passes: 1 day €10, 1 week €35.90, 2 weeks €45.90, 3 weeks €51.90, 4 weeks €61.90. Personal training: €50 a session, or packs of 8, 12 and 20 at €360, €480 and €600, second person €15 a session.
+- Prices live in `prices.js` and nowhere else. See PRICES.md. Two things to never get wrong: **membership is priced per 2 weeks, not per month**, and the €24 sports insurance is **included** in day and week passes but **added once a year** to membership.
+- **Direct debit is a discount, never the other way round.** The price at reception is the normal price (€18 / €24.50 / €26 every 2 weeks) and direct debit takes €5 off (€13 / €19.50 / €21). Never write that reception costs more: EU law (PSD2 art. 62, in Portugal Decreto-Lei 91/2018 art. 101) bans charging extra for a payment method but allows a discount for one. A "from" price must say its condition, e.g. "From €13 every 2 weeks with direct debit".
+- Names, as people already say them: **Day and week passes** (Day pass, 1 week pass...), **Membership** (1x per week, 3x per week, Unlimited, as on the printed list), **Personal training**. The place to pay is **reception**, not "the desk".
+- Day and week passes: 1 day €10, 1 week €35.90, 2 weeks €45.90, 3 weeks €51.90, 4 weeks €61.90. Personal training: €50 a session, or packs of 8, 12 and 20 at €360, €480 and €600, second person €15 a session.
 - Never write "monthly", "3 month minimum" or "cash only" on the page. None of them is in the price list.
 - Closed on all Portuguese public holidays and on Lagos's municipal holiday.
 - Placeholders always carry an example of what goes there.

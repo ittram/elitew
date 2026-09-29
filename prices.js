@@ -17,8 +17,8 @@ window.ELITE_PRICES = {
   member: {
     every: 14,                // days per payment
     plans: [
-      { id:"w1", name:"Once a week",   pt:"1x por semana",   visits:1, dd:13.00, desk:18.00 },
-      { id:"w3", name:"Three a week",  pt:"3x por semana",   visits:3, dd:19.50, desk:24.50 },
+      { id:"w1", name:"1x per week",   pt:"1x por semana",   visits:1, dd:13.00, desk:18.00 },
+      { id:"w3", name:"3x per week",  pt:"3x por semana",   visits:3, dd:19.50, desk:24.50 },
       { id:"un", name:"Unlimited",     pt:"Livre trânsito",  visits:0, dd:21.00, desk:26.00, best:true }
     ],
     ddSavingYear: 130.00      // 5.00 every 2 weeks, 26 times a year

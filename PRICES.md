@@ -7,7 +7,7 @@ The full price list folded under the calculator is plain HTML, so it can be read
 without JavaScript and by search engines. It is written from `prices.js`, so after
 changing a price, refresh it with:
 
-    python3 build/pricelist.py 2-4-5 2-4-5-1 2-4-5-4-1
+    python3 build/pricelist.py 2-4-5 2-4-5-1 2-4-5-4-1 2-4-5-4-2
 
 ## Where the numbers come from
 
