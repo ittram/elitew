@@ -652,6 +652,7 @@ body.show-grid .grid-overlay{display:block}
 .pc-tile b{font-size:15px;line-height:20px;font-weight:700}
 .pc-tile small{font-size:12px;line-height:16px;color:#5A5A5A}
 .pc-tile .tag{align-self:flex-start;margin-top:4px}
+.pc-tile b .tag{margin:0 0 0 4px;vertical-align:2px}
 .pc-tile:has(input:checked){border-color:var(--royal-blue);background:var(--royal-blue);color:var(--white)}
 .pc-tile:has(input:checked) small{color:rgba(255,255,255,.8)}
 .pc-tile:has(input:focus-visible){outline:2px solid var(--sel-bd);outline-offset:2px}
@@ -1473,13 +1474,13 @@ body.show-grid .grid-overlay{display:block}
     }).join('')+'</div>';
   }
   function tile(name,i){
-    return '<label class="pc-tile">'+radio(name,i.id,st[name]===i.id)+'<b>'+i.name+'</b>'+(i.small?'<small>'+i.small+'</small>':'')+(i.tag?'<span class="tag">'+i.tag+'</span>':'')+'</label>';
+    return '<label class="pc-tile">'+radio(name,i.id,st[name]===i.id)+'<b>'+i.name+(i.chip?' <span class="tag">'+i.chip+'</span>':'')+'</b>'+(i.small?'<small>'+i.small+'</small>':'')+(i.tag?'<span class="tag">'+i.tag+'</span>':'')+'</label>';
   }
   function row(items,name){ return '<div class="pc-row c'+items.length+'">'+items.map(function(i){ return tile(name,i) }).join('')+'</div>' }
   function payRow(){
     var p=st.plan?E.memberPlan(st.plan):null;
     return row([
-      {id:'dd',  name:'Direct debit', small:(p?money(p.dd)+' every 2 weeks<br>':'')+'Paid automatically', tag:money(off)+' off'},
+      {id:'dd',  name:'Direct debit', small:(p?money(p.dd)+' every 2 weeks<br>':'')+'Paid automatically', chip:money(off)+' off'},
       {id:'desk',name:'At reception', small:(p?money(p.desk)+' every 2 weeks<br>':'')+'Standard price'}
     ],'pay');
   }
@@ -1488,7 +1489,7 @@ body.show-grid .grid-overlay{display:block}
     if(st.kind==='pass')
       h+=set('Choose a pass',row(P.visitor.map(function(v){ return {id:v.id,name:v.name,small:money(v.price)} }),'stay'));
     else if(st.kind==='mem')
-      h+=set('How often will you train?',row(P.member.plans.map(function(p){ return {id:p.id,name:p.name,small:money(p.desk)+'<br>every 2 weeks',tag:p.best?'Recommended':''} }),'plan'),HINT)+
+      h+=set('How often will you train?',row(P.member.plans.map(function(p){ return {id:p.id,name:p.name,small:money(p.desk)+'<br>every 2 weeks',tag:p.best?'Recommended':''} }),'plan'))+
          set('How will you pay?',payRow(),'','pc-pay');
     else if(st.kind==='pt')
       h+=set('How many sessions?',row(P.pt.packs.map(function(k){ return {id:k.id,name:k.sessions>1?k.name:'1 session',small:money(k.total)+(k.sessions>1?'<br>'+money(k.each)+' a session':'')} }),'pack'));
