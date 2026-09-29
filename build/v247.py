@@ -2,8 +2,7 @@
 """Draft 2.4.7: 2.4.6 with the product boxes of 2.4.5.4.2 and the lessons of
 2.4.6.x. Three product boxes (name in the display face, one line on what it
 is, the from price), then the options as boxes side by side. Nothing chosen
-when the page opens; a chosen box is a faint tint with a blue edge, never a
-blue fill; the plan is a quiet grey box until the choice is complete. Direct
+when the page opens; a chosen box fills with the brand blue, as in 2.4.6; the plan is a quiet grey box until the choice is complete. Direct
 debit carries the discount tag, reception is the standard price."""
 import io, re
 
@@ -33,7 +32,11 @@ CSS = '''
 .pk-i b{font-family:var(--font-display);font-weight:400;font-size:28px;line-height:28px;text-transform:uppercase;color:var(--black)}
 .pk-i span{font-size:14px;line-height:20px;color:#4A4A4A}
 .pk-i i{font-style:normal;font-weight:800;font-size:11px;line-height:16px;letter-spacing:.1em;text-transform:uppercase;color:var(--royal-blue);margin-top:auto;padding-top:8px}
-.pk-i:has(input:checked){border-color:var(--sel-bd);background:var(--sel-bg)}
+/* a chosen box fills with the brand blue, as in 2.4.6 */
+.pk-i:has(input:checked){border-color:var(--royal-blue);background:var(--royal-blue)}
+.pk-i:has(input:checked) b{color:var(--white)}
+.pk-i:has(input:checked) span{color:rgba(255,255,255,.8)}
+.pk-i:has(input:checked) i{color:rgba(255,255,255,.85)}
 .pk-i:has(input:focus-visible){outline:2px solid var(--sel-bd);outline-offset:2px}
 
 /* ---------- the options: boxes side by side ---------- */
@@ -47,7 +50,8 @@ CSS = '''
 .pc-tile b{font-size:15px;line-height:20px;font-weight:700}
 .pc-tile small{font-size:12px;line-height:16px;color:#5A5A5A}
 .pc-tile .tag{align-self:flex-start;margin-top:4px}
-.pc-tile:has(input:checked){border-color:var(--sel-bd);background:var(--sel-bg)}
+.pc-tile:has(input:checked){border-color:var(--royal-blue);background:var(--royal-blue);color:var(--white)}
+.pc-tile:has(input:checked) small{color:rgba(255,255,255,.8)}
 .pc-tile:has(input:focus-visible){outline:2px solid var(--sel-bd);outline-offset:2px}
 
 @media (max-width:1100px){
