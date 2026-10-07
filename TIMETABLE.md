@@ -30,5 +30,7 @@ The site shows the new timetable within a minute or two. Nothing else in the pag
 
 ## Quick checks before pushing
 
+- **Check the poster against itself first.** The grid, the "Novidade" note at the bottom and the times legend must agree. In October 2026 the note said Pilates was on Wednesday while the grid had it on Thursday; fix the poster before it goes out.
+- Run `python3 build/check_schedule.py`. It prints the timetable as a grid to compare with the poster, lists what changed, and stops if a class is unknown, two classes clash or a time is written wrong.
 - Every `class` value in `sessions` must exist in `classes`, otherwise the site shows the raw key.
 - Open `index.html` locally (or `python3 -m http.server 8000`) and look at the Classes section.

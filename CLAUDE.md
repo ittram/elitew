@@ -46,6 +46,19 @@ When the user sends training photos, give them the house look without being aske
 6. **Names say what the photo shows**: `class-trx`, `class-hyrox`, `hero-free-weights`.
 7. Swapping a photo is a small change and goes into the current draft. A first real photo for a section, or a new set, is a new draft, opened at that section (`at:'#classes'`).
 
+## Timetable
+The page's timetable is built from `schedule.js` alone; every draft reads it, so a change shows everywhere at once. When the user sends a new poster (the digital file or a photo of the print), update it like this, without being asked for each step:
+
+1. **Read the grid** cell by cell: the day columns, the three time rows (the time and length in each row header), the class in each cell, and every "Novidade" mark.
+2. **Check the poster against itself before publishing anything.** Compare the grid with every other line on it: the "Novidade" footnote (the day and time it gives for each new class), the legend at the bottom (morning, afternoon and evening times and lengths), the row headers, the order of the day headers. Look for a class twice in one day, an empty cell, a class that disappeared. Then compare with the current `schedule.js` and ask whether each change looks intended. **The grid wins** as the working assumption, but every conflict goes to the user in plain words, with the fix for the poster, before the work is called done. Never correct a conflict silently. Example, October 2026: the footnote said Pilates "quarta-feira às 19h20" while the grid had it on Thursday; the grid was right and the footnote was a leftover on the poster, worth fixing before it goes on social media.
+3. **Edit `schedule.js` only**: the `sessions`, `updated` set to today, `isNew: true` for each "Novidade". A new class gets a key in `classes` with `name`, `en` (a short English line in the style of the others, it becomes the tag under the name) and `pt`; ask whether it should also get a class card (see Photos).
+4. **Run `python3 build/check_schedule.py`.** It prints the timetable as the same grid as the poster and lists what changed since the last commit; read that grid against the poster once more, row by row. It stops on anything that would show wrong (an unknown class, a clash, a bad time) and warns about things worth a look (outside opening hours, rows of mixed length, a class on no day). Fix errors; explain warnings to the user.
+5. **Look at the page** at 1440 (the week table, today and next highlighted) and at 390 (the day tabs, open the changed days).
+6. **The poster image**, `assets/timetable.webp`, is only the fallback link for browsers without JavaScript. Use the digital file when there is one; for a photo of the print run `python3 build/poster.py PHOTO` in the sandbox (squares the sheet up, trims the border, whitens the paper, colour webp), then `build/strip_c2pa.py` on the Mac.
+7. **Commit** as "Timetable from the <month> poster", with each changed slot in the message (the check script's "Changed since" list). The user pushes.
+
+TIMETABLE.md is the same process for the family, using ChatGPT instead of Claude.
+
 ## Working habits
 - Verify with a screenshot at 1440 and at 390 wide before saying it is done, and check the page never scrolls sideways.
 - Commit each step with a plain description. **The user pushes**, so end with the push command rather than pushing.
