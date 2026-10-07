@@ -14,7 +14,8 @@
 
 ## Copy
 - No dashes in the copy: no "—", "–" or "-", except where unavoidable, such as the postcode 8600-530.
-- Every "ask us" and contact button goes to WhatsApp on +351926565836 as a `wa.me` link. The one exception is the phone number printed in the footer, which is a `tel:` link so it dials.
+- Contact details, as on the gym's business card (checked 7 October 2026): phone and WhatsApp **+351 926 565 836** (`tel:+351926565836`, `wa.me/351926565836`), email **elitewellness.geral@gmail.com**. Never type them any other way.
+- Every "ask us" and contact button goes to WhatsApp as a `wa.me` link. The exceptions are the phone number printed in the footer and the "Prefer to talk? Call" line under the personal training button, which are `tel:` links so they dial.
 - Google Maps link: https://maps.app.goo.gl/ks6o4URGCYT7rzHJ8
 - Prices live in `prices.js` and nowhere else. See PRICES.md. Two things to never get wrong: **membership is priced per 2 weeks, not per month**, and the €24 sports insurance is **included** in day and week passes but **added once a year** to membership.
 - **Direct debit is a discount, never the other way round.** The price at reception is the normal price (€18 / €24.50 / €26 every 2 weeks) and direct debit takes €5 off (€13 / €19.50 / €21). Never write that reception costs more: EU law (PSD2 art. 62, in Portugal Decreto-Lei 91/2018 art. 101) bans charging extra for a payment method but allows a discount for one. A "from" price must say its condition, e.g. "From €13 every 2 weeks with direct debit".
