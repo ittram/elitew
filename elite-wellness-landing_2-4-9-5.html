@@ -679,6 +679,35 @@ body.show-grid .grid-overlay{display:block}
   .pk-f{font-size:10px;letter-spacing:.02em}
   .op-n{font-size:13px}
 }
+
+/* ---------- 2.4.9.x personal training: shared pieces ---------- */
+.pt-lead{clear:both;font-size:20px;line-height:28px;font-weight:600;max-width:40ch}
+.pt-p{margin-top:16px;font-size:16px;line-height:24px;color:#3A3A3A;max-width:56ch}
+.pt-face{position:relative;display:inline-grid;place-items:center;width:48px;height:48px;border-radius:50%;background:var(--royal-blue);color:var(--white);font-family:var(--font-display);font-size:20px;line-height:1;overflow:hidden;box-shadow:0 0 0 2px var(--white)}
+.pt-face img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;filter:grayscale(1)}
+.pt-faces{display:inline-flex}
+.pt-faces .pt-face+.pt-face{margin-left:-8px}
+.pt-note{margin-top:12px;font-size:12px;line-height:16px;color:#6A6A6A}
+@media (max-width:768px){ .pt-lead{font-size:18px;line-height:24px} .pt-p{font-size:15px;line-height:24px} }
+
+.pt-band{margin-top:48px}
+.v5{display:grid;grid-template-columns:repeat(12,minmax(0,1fr));column-gap:24px;background:#F4F4F2}
+.v5-img{grid-column:1 / span 5;width:100%;height:100%;min-height:480px;object-fit:cover;object-position:50% 30%;display:block}
+.v5-t{grid-column:6 / span 7;padding:48px 48px 48px 24px;align-self:center}
+.v5-h{font-family:var(--font-display);font-size:56px;line-height:56px;text-transform:uppercase;margin-top:8px}
+.v5-facts{list-style:none;margin:24px 0 0;padding:0}
+.v5-facts li{position:relative;padding:8px 0 8px 32px;font-size:16px;line-height:24px}
+.v5-facts li::before{content:"";position:absolute;left:4px;top:15px;width:12px;height:6px;border-left:2px solid var(--royal-blue);border-bottom:2px solid var(--royal-blue);transform:rotate(-45deg)}
+.v5-go{display:flex;align-items:center;flex-wrap:wrap;gap:16px;margin-top:32px}
+.v5-go .pt-note{margin:0}
+@media (max-width:1100px){ .v5-img{grid-column:1 / span 5} .v5-t{padding:32px 32px 32px 0} .v5-h{font-size:44px;line-height:48px} }
+@media (max-width:768px){
+  .pt-band{margin-top:32px}
+  .v5{display:block}
+  .v5-img{height:240px;min-height:0}
+  .v5-t{padding:24px}
+  .v5-h{font-size:40px;line-height:40px}
+}
 </style>
 <style>
 @media (min-width:1101px){ .classes-grid{grid-template-columns:repeat(5,1fr)} .classes-grid .class-card{grid-column:auto} }
@@ -1424,33 +1453,26 @@ body.show-grid .grid-overlay{display:block}
     {id:'mem',  name:'Membership',        desc:'Paid every 2 weeks. Best value if you train regularly.', from:'From '+money(memFrom)},
     {id:'pt',   name:'Personal training', desc:'One to one with a certified coach.',          from:'From '+money(ptFrom)}
   ];
-  /* PT:start  personal training. The 2.4.9.x drafts replace this block: ptLeft() goes under the
-     product boxes, ptRight() into the plan column, ptBand() into a full width band under both
-     (an empty string leaves the place out; no ptRight() hides the plan column). */
-  var PT_MSG='Hi! I would like to meet a personal trainer and talk about what I need.';
-  var STEPS=[
-    ['Message us on WhatsApp','Tell us what you want to work on: general fitness, rehab after an injury, nutrition, or a mix.'],
-    ['Agree a time','We find a time for you to meet your coach at the gym.'],
-    ['Talk it through','Your coach listens to what you need, then proposes a plan and its price.'],
-    ['Start training','One to one sessions, from '+money(ptFrom)+' a session.']
-  ];
-  function ptLeft(){
-    return '<div class="pc-set"><p class="pc-leg">How it works</p><ol class="pt-steps">'+STEPS.map(function(x,i){
-      return '<li><span class="pt-k" aria-hidden="true">'+(i+1)+'</span><span class="pt-t"><b>'+x[0]+'</b><span>'+x[1]+'</span></span></li>';
-    }).join('')+'</ol></div>';
+  /* PT:start (2.4.9.5: Personal training, the photo) */
+
+  var PT_MSG='Hi! I would like to start personal training and talk to a coach about what I need.';
+  var COACHES=[['André','andre'],['Joana','joana'],['Ricardo','ricardo']];
+  function face(c){ return '<span class="pt-face"><b aria-hidden="true">'+c[0].charAt(0)+'</b><img src="assets/team/'+c[1]+'.jpg" alt="" onerror="this.remove()"></span>' }
+  function faces(){ return '<span class="pt-faces" aria-hidden="true">'+COACHES.map(face).join('')+'</span>' }
+  var WORK='getting fitter and stronger, coming back from an injury, eating better, or a mix of these';
+  var FROM='One to one, from '+money(ptFrom)+' a session';
+
+  function ptLeft(){ return '' }
+  function ptRight(){ return '' }
+  function ptBand(href){
+    return '<div class="v5"><img class="v5-img" src="assets/class-trx.webp" srcset="assets/class-trx-600.webp 600w, assets/class-trx.webp 900w" sizes="(max-width:768px) 100vw, 40vw" width="900" height="1200" alt="A member training on the TRX straps at Elite Wellness">'+
+      '<div class="v5-t"><p class="pc-leg">Personal training</p>'+
+      '<p class="v5-h">Made around you</p>'+
+      '<p class="pt-p">One to one training with André, Joana or Ricardo, all qualified in physical education. Getting fitter, coming back from an injury, eating better: you say what you want, your coach plans it with you.</p>'+
+      '<ul class="v5-facts">'+['A first talk with your coach at the gym','A plan and a price agreed together','One to one sessions from '+money(ptFrom)].map(function(x){ return '<li>'+x+'</li>' }).join('')+'</ul>'+
+      '<div class="v5-go"><a class="btn" id="pt-wa" href="'+href+'" target="_blank" rel="noopener">Message us on WhatsApp</a>'+
+      '<span class="pt-note">We reply and agree a time with you.</span></div></div></div>';
   }
-  function ptRight(href){
-    return '<p class="pc-leg">Talk to a coach</p>'+
-      '<div class="pt-c">'+
-        '<p class="pt-c-h">Agree a time with a coach</p>'+
-        '<p class="pt-c-p">Message us on WhatsApp. We set a time for you to meet a coach at the gym and talk through what you need.</p>'+
-        '<p class="pt-c-l">Your message</p>'+
-        '<p class="pt-c-b">'+PT_MSG+'</p>'+
-        '<a class="btn" id="pt-wa" href="'+href+'" target="_blank" rel="noopener">Message us on WhatsApp</a>'+
-        '<p class="pt-c-f">One to one · From '+money(ptFrom)+' a session</p>'+
-      '</div>';
-  }
-  function ptBand(href){ return '' }
   /* PT:end */
   /* nothing is chosen until the visitor chooses; each product keeps its own choice */
   var st={kind:null,stay:null,plan:null,pay:null,insured:false}, cur=null;

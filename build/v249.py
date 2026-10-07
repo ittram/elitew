@@ -87,8 +87,10 @@ CSS = r'''<style>
 .pc-total .pc-dash{width:48px;height:4px;margin-bottom:20px}
 .pc-note{font-size:12px;line-height:16px;color:rgba(255,255,255,.6);margin-top:16px}
 .pc-card .btn{width:100%;justify-content:center;margin-top:24px}
-.pc-card .btn[aria-disabled=true]{background:rgba(255,255,255,.12);border-color:transparent;color:rgba(255,255,255,.48);cursor:not-allowed;box-shadow:none;transform:none}
 @media (prefers-reduced-motion:reduce){ .pk-i,.op,.pc-leg{transition:none} }
+/* personal training variants that use the full width band leave the plan column out */
+.pc.pt-full .pc-plan{display:none}
+.pt-band:empty{display:none}
 
 /* personal training: how it works, four plain steps */
 .pt-steps{clear:both;list-style:none;margin:0;padding:0;box-shadow:inset 0 1px 0 var(--light-grey)}
@@ -103,7 +105,7 @@ CSS = r'''<style>
 .pt-c-p{margin-top:16px;font-size:14px;line-height:20px;color:#3A3A3A}
 .pt-c-l{margin-top:24px;font-weight:800;font-size:11px;line-height:16px;letter-spacing:.14em;text-transform:uppercase;color:var(--silver-grey)}
 .pt-c-b{position:relative;margin-top:8px;background:var(--white);border-radius:12px 12px 12px 4px;padding:12px 16px;font-size:14px;line-height:20px;box-shadow:0 1px 2px rgba(0,0,0,.08)}
-.pt-c .btn{width:100%;justify-content:center;margin-top:24px}
+.pt-c .btn{margin-top:24px}
 .pt-c-f{margin-top:16px;font-size:12px;line-height:16px;color:#6A6A6A;text-align:center}
 
 .bar-price{display:none}
@@ -158,7 +160,7 @@ CSS = r'''<style>
 JS = r'''<script>
 /* 2.4.9: the price builder. Passes and membership are priced here; personal training is agreed with a coach on WhatsApp. */
 (function(){
-  var E=window.EWPricing, opts=document.getElementById('pc-opts'), box=document.getElementById('pc-plan');
+  var E=window.EWPricing, opts=document.getElementById('pc-opts'), box=document.getElementById('pc-plan'), pc=document.getElementById('pc'), band=document.getElementById('pt-band');
   if(!E||!opts||!box) return;
   var P=E.P, money=E.money, off=P.member.plans[0].desk-P.member.plans[0].dd;
   var WA='https://wa.me/351926565836?text=';
@@ -170,14 +172,34 @@ JS = r'''<script>
     {id:'mem',  name:'Membership',        desc:'Paid every 2 weeks. Best value if you train regularly.', from:'From '+money(memFrom)},
     {id:'pt',   name:'Personal training', desc:'One to one with a certified coach.',          from:'From '+money(ptFrom)}
   ];
-  /* personal training is agreed with the coach, so the page says how it works instead of pricing it */
+  /* PT:start  personal training. The 2.4.9.x drafts replace this block: ptLeft() goes under the
+     product boxes, ptRight() into the plan column, ptBand() into a full width band under both
+     (an empty string leaves the place out; no ptRight() hides the plan column). */
+  var PT_MSG='Hi! I would like to meet a personal trainer and talk about what I need.';
   var STEPS=[
     ['Message us on WhatsApp','Tell us what you want to work on: general fitness, rehab after an injury, nutrition, or a mix.'],
     ['Agree a time','We find a time for you to meet your coach at the gym.'],
     ['Talk it through','Your coach listens to what you need, then proposes a plan and its price.'],
     ['Start training','One to one sessions, from '+money(ptFrom)+' a session.']
   ];
-  var PT_MSG='Hi! I would like to meet a personal trainer and talk about what I need.';
+  function ptLeft(){
+    return '<div class="pc-set"><p class="pc-leg">How it works</p><ol class="pt-steps">'+STEPS.map(function(x,i){
+      return '<li><span class="pt-k" aria-hidden="true">'+(i+1)+'</span><span class="pt-t"><b>'+x[0]+'</b><span>'+x[1]+'</span></span></li>';
+    }).join('')+'</ol></div>';
+  }
+  function ptRight(href){
+    return '<p class="pc-leg">Talk to a coach</p>'+
+      '<div class="pt-c">'+
+        '<p class="pt-c-h">Agree a time with a coach</p>'+
+        '<p class="pt-c-p">Message us on WhatsApp. We set a time for you to meet a coach at the gym and talk through what you need.</p>'+
+        '<p class="pt-c-l">Your message</p>'+
+        '<p class="pt-c-b">'+PT_MSG+'</p>'+
+        '<a class="btn" id="pt-wa" href="'+href+'" target="_blank" rel="noopener">Message us on WhatsApp</a>'+
+        '<p class="pt-c-f">One to one · From '+money(ptFrom)+' a session</p>'+
+      '</div>';
+  }
+  function ptBand(href){ return '' }
+  /* PT:end */
   /* nothing is chosen until the visitor chooses; each product keeps its own choice */
   var st={kind:null,stay:null,plan:null,pay:null,insured:false}, cur=null;
 
@@ -212,9 +234,7 @@ JS = r'''<script>
       h+=set('How often will you train?',row(P.member.plans.map(function(p){ return {id:p.id,name:p.name,p:money(p.desk),s:'every 2 weeks',tag:p.best?'Recommended':''} }),'plan'))+
          set('How will you pay?',payRow(),'','pc-pay');
     else if(st.kind==='pt')
-      h+='<div class="pc-set"><p class="pc-leg">How it works</p><ol class="pt-steps">'+STEPS.map(function(x,i){
-           return '<li><span class="pt-k" aria-hidden="true">'+(i+1)+'</span><span class="pt-t"><b>'+x[0]+'</b><span>'+x[1]+'</span></span></li>';
-         }).join('')+'</ol></div>';
+      h+=ptLeft();
     opts.innerHTML=h;
   }
 
@@ -255,16 +275,9 @@ JS = r'''<script>
   /* personal training: a different flow, so a different block. No receipt, no price total:
      get in touch, agree a time, talk it through with the coach */
   function renderContact(){
-    var href=WA+encodeURIComponent(PT_MSG);
-    box.innerHTML='<p class="pc-leg">Talk to a coach</p>'+
-      '<div class="pt-c">'+
-        '<p class="pt-c-h">Agree a time with a coach</p>'+
-        '<p class="pt-c-p">Message us on WhatsApp. We set a time for you to meet a coach at the gym and talk through what you need.</p>'+
-        '<p class="pt-c-l">Your message</p>'+
-        '<p class="pt-c-b">'+PT_MSG+'</p>'+
-        '<a class="btn" id="pt-wa" href="'+href+'" target="_blank" rel="noopener">Message us on WhatsApp</a>'+
-        '<p class="pt-c-f">One to one · From '+money(ptFrom)+' a session</p>'+
-      '</div>';
+    var href=WA+encodeURIComponent(PT_MSG), right=ptRight(href);
+    box.innerHTML=right; band.innerHTML=ptBand(href);
+    pc.classList.toggle('pt-full',!right);
     cur=null;
     document.getElementById('pc-live').textContent='Personal training: message us on WhatsApp to agree a time with a coach.';
     root.classList.remove('has-plan','card-visible');
@@ -272,11 +285,12 @@ JS = r'''<script>
   }
   function renderPlan(){
     if(st.kind==='pt') return renderContact();
+    band.innerHTML=''; pc.classList.remove('pt-full');
     var s=summary();
     var lines=s.lines.map(function(l){
       return '<div class="pc-line'+(l[1]==null?' todo':'')+'"><span>'+l[0]+'</span>'+(l[1]==null?'<b class="pc-dash" aria-label="not chosen yet"></b>':'<b>'+l[1]+'</b>')+'</div>';
     }).join('');
-    var btn='<button class="btn" type="button" id="pc-go"'+(s.ready?'':' aria-disabled="true"')+'>Get this plan</button>';
+    var btn=s.ready?'<button class="btn" type="button" id="pc-go">Get this plan</button>':'';
     var showTotal=s.ready;
     box.innerHTML='<p class="pc-leg">Your plan</p>'+
       '<div class="pc-card'+(s.ready?'':' is-todo')+'">'+
@@ -322,8 +336,8 @@ JS = r'''<script>
     st.insured=e.target.checked; E.track('pricing_insured',{insured:st.insured});
     renderPlan(); document.getElementById('pc-ins').focus();
   });
+  document.addEventListener('click',function(e){ if(e.target.closest('#pt-wa')) E.track('pricing_pt_whatsapp',{}) });
   box.addEventListener('click',function(e){
-    if(e.target.closest('#pt-wa')){ E.track('pricing_pt_whatsapp',{}); return }
     var go=e.target.closest('#pc-go'); if(!go) return;
     if(go.getAttribute('aria-disabled')==='true'){ e.preventDefault(); return }
     if(cur) E.review(cur);
@@ -344,11 +358,21 @@ JS = r'''<script>
 })();
 </script>'''
 
-i = s.find('2.4.6.x shared: layout'); a = s.rfind('<style>', 0, i); b = s.find('</style>', i) + len('</style>')
-assert a > 0 and b > i
-s = s[:a] + CSS + s[b:]
-j = s.find("var E=window.EWPricing, opts=document.getElementById('pc-opts')"); c = s.rfind('<script>', 0, j); d = s.find('</script>', j) + len('</script>')
-assert c > 0 and d > j
-s = s[:c] + JS + s[d:]
-io.open('elite-wellness-landing_2-4-9.html', 'w', encoding='utf-8').write(s)
-print('2.4.9', len(s))
+def make(base, css, js):
+    """2.4.8's page with this price section: the style and script swapped, and the band added."""
+    s = base
+    i = s.find('2.4.6.x shared: layout'); a = s.rfind('<style>', 0, i); b = s.find('</style>', i) + len('</style>')
+    assert a > 0 and b > i
+    s = s[:a] + css + s[b:]
+    j = s.find("var E=window.EWPricing, opts=document.getElementById('pc-opts')"); c = s.rfind('<script>', 0, j); d = s.find('</script>', j) + len('</script>')
+    assert c > 0 and d > j
+    s = s[:c] + js + s[d:]
+    anchor = '<p class="pc-sr" id="pc-live"'
+    assert s.count(anchor) == 1
+    return s.replace(anchor, '<div class="pt-band" id="pt-band"></div>\n  ' + anchor, 1)
+
+
+if __name__ == '__main__':
+    out = make(s, CSS, JS)
+    io.open('elite-wellness-landing_2-4-9.html', 'w', encoding='utf-8').write(out)
+    print('2.4.9', len(out))
