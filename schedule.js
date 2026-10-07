@@ -10,7 +10,7 @@
   - isNew: true shows a "new" tag next to the class
 */
 window.ELITE_SCHEDULE = {
-  updated: "2026-09-21",
+  updated: "2026-10-07",
   poster: "assets/timetable.webp",
 
   classes: {
@@ -30,16 +30,16 @@ window.ELITE_SCHEDULE = {
     { day: "mon", time: "19:20", minutes: 40, class: "hyrox" },
 
     { day: "tue", time: "09:30", minutes: 30, class: "mobility", isNew: true },
-    { day: "tue", time: "18:30", minutes: 40, class: "trx" },
+    { day: "tue", time: "18:30", minutes: 40, class: "abs" },
     { day: "tue", time: "19:20", minutes: 40, class: "bike" },
 
     { day: "wed", time: "09:30", minutes: 30, class: "trx" },
     { day: "wed", time: "18:30", minutes: 40, class: "gap" },
-    { day: "wed", time: "19:20", minutes: 40, class: "pilates", isNew: true },
+    { day: "wed", time: "19:20", minutes: 40, class: "trx" },
 
     { day: "thu", time: "09:30", minutes: 30, class: "gap" },
-    { day: "thu", time: "18:30", minutes: 40, class: "abs" },
-    { day: "thu", time: "19:20", minutes: 40, class: "bike" },
+    { day: "thu", time: "18:30", minutes: 40, class: "bike" },
+    { day: "thu", time: "19:20", minutes: 40, class: "pilates", isNew: true },
 
     { day: "fri", time: "09:30", minutes: 30, class: "abs" },
     { day: "fri", time: "18:30", minutes: 40, class: "trx" },
