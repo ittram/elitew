@@ -4,7 +4,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Draft 2.2 (footer: full width, text only) | Gym in Lagos, Algarve | Elite Wellness by Santos | Day Passes &amp; Memberships</title>
-<meta name="description" content="Family run gym in Lagos, Portugal. Weights, machines, classes and an outdoor training deck. Day pass €10, week pass €35.90, membership from €13 every 2 weeks with direct debit. Open Mon to Fri 7:00 to 21:00, Sat 9:00 to 13:00.">
+<meta name="description" content="Family run gym in Lagos, Portugal. Weights, machines, classes and an outdoor training deck. Day pass €12, week pass €40.90, membership from €13 every 2 weeks with direct debit. Open Mon to Fri 7:00 to 21:00, Sat 9:00 to 13:00.">
 <link rel="alternate" hreflang="en" href="https://example.com/">
 <link rel="alternate" hreflang="pt-PT" href="https://example.com/pt">
 <link rel="icon" href="assets/favicon.svg" type="image/svg+xml">
@@ -533,7 +533,7 @@ body.show-grid .grid-overlay{display:block}
   "image":"https://example.com/elite-wellness-lagos-outdoor-training-deck.jpg",
   "url":"https://example.com/",
   "telephone":"+351926565836",
-  "priceRange":"€10 to €600",
+  "priceRange":"€12 to €650",
   "address":{"@type":"PostalAddress","streetAddress":"Rua Capitão Salgueiro Maia, Lote 13, Cave","addressLocality":"Lagos","addressRegion":"Algarve","postalCode":"8600-530","addressCountry":"PT"},
   "geo":{"@type":"GeoCoordinates","latitude":37.0947,"longitude":-8.6727},
   "aggregateRating":{"@type":"AggregateRating","ratingValue":"4.8","reviewCount":"153"},
@@ -628,10 +628,10 @@ body.show-grid .grid-overlay{display:block}
 }
 
 /* ---------- 2.4.7: the product boxes ---------- */
-.pk{display:grid;grid-template-columns:repeat(3,1fr);gap:8px}
+.pk{display:grid;grid-template-columns:repeat(4,1fr);gap:8px}
 .pk-i{position:relative;display:flex;flex-direction:column;gap:8px;padding:24px;background:var(--white);border:2px solid var(--light-grey);cursor:pointer;transition:border-color .15s,background .15s}
 @media (hover:hover){ .pk-i:hover{border-color:var(--black)} }
-.pk-i b{font-family:var(--font-display);font-weight:400;font-size:28px;line-height:28px;text-transform:uppercase;color:var(--black)}
+.pk-i b{font-family:var(--font-display);font-weight:400;font-size:24px;line-height:24px;text-transform:uppercase;color:var(--black)}
 .pk-i span{font-size:14px;line-height:20px;color:#4A4A4A}
 .pk-i i{font-style:normal;font-weight:800;font-size:11px;line-height:16px;letter-spacing:.1em;text-transform:uppercase;color:var(--royal-blue);margin-top:auto;padding-top:8px}
 /* a chosen box fills with the brand blue, as in 2.4.6 */
@@ -658,6 +658,7 @@ body.show-grid .grid-overlay{display:block}
 .pc-tile:has(input:focus-visible){outline:2px solid var(--sel-bd);outline-offset:2px}
 
 @media (max-width:1100px){
+  .pk{grid-template-columns:repeat(2,1fr)}
   .pk-i{padding:16px}
   .pk-i b{font-size:22px;line-height:24px}
   .pc-row.c5{grid-template-columns:repeat(3,1fr)}
@@ -742,7 +743,7 @@ body.show-grid .grid-overlay{display:block}
     <p class="menu-status" data-status="menu-status" id="menu-status"></p>
     <ol class="menu-links">
       <li><a href="#classes"><span class="mn">01</span><span class="ml">Classes</span><span class="ms">What we run, and when</span></a></li>
-      <li><a href="#prices"><span class="mn">02</span><span class="ml">Prices</span><span class="ms">Day pass €10 · Membership from €13</span></a></li>
+      <li><a href="#prices"><span class="mn">02</span><span class="ml">Prices</span><span class="ms">Day pass €12 · Membership from €13</span></a></li>
       <li><a href="#find-us"><span class="mn">03</span><span class="ml">Hours &amp; location</span><span class="ms">Rua Capitão Salgueiro Maia, Lagos</span></a></li>
       <li><a href="#reviews"><span class="mn">04</span><span class="ml">Reviews</span><span class="ms">4.8 from 153 on Google</span></a></li>
       <li><a href="#faq"><span class="mn">05</span><span class="ml">Good to know</span><span class="ms">Showers, towels, payment</span></a></li>
@@ -878,7 +879,7 @@ body.show-grid .grid-overlay{display:block}
       <section class="pl-grp" aria-label="Day and week passes">
         <h3 class="pl-h">Day and week passes</h3>
         <p class="pl-s">No commitment. Insurance, the gym and every class included.</p>
-        <table class="pl-t"><tbody><tr><th scope="row">1 day</th><td>€10</td></tr><tr><th scope="row">1 week</th><td>€35.90</td></tr><tr><th scope="row">2 weeks</th><td>€45.90</td></tr><tr><th scope="row">3 weeks</th><td>€51.90</td></tr><tr><th scope="row">4 weeks</th><td>€61.90<span class="pr-todo" title="[PLACEHOLDER: the corrections document proposes 69.90 so that four weeks as a member is the cheaper choice. Until the family decides, this stays at the current 61.90]">todo</span></td></tr></tbody></table>
+        <table class="pl-t"><tbody><tr><th scope="row">1 day</th><td>€12</td></tr><tr><th scope="row">1 week</th><td>€40.90</td></tr><tr><th scope="row">2 weeks</th><td>€51.90</td></tr><tr><th scope="row">3 weeks</th><td>€61.90</td></tr><tr><th scope="row">4 weeks</th><td>€69.90</td></tr></tbody></table>
       </section>
       <section class="pl-grp" aria-label="Membership">
         <h3 class="pl-h">Membership</h3>
@@ -889,8 +890,13 @@ body.show-grid .grid-overlay{display:block}
       <section class="pl-grp" aria-label="Personal training">
         <h3 class="pl-h">Personal training</h3>
         <p class="pl-s">One to one with a coach.</p>
-        <table class="pl-t"><thead><tr><td></td><th scope="col">A session</th><th scope="col">Total</th></tr></thead><tbody><tr><th scope="row">Single session</th><td class="dim">€50</td><td>€50</td></tr><tr><th scope="row">8 sessions, valid 2 months</th><td class="dim">€45</td><td>€360</td></tr><tr><th scope="row">12 sessions, valid 2 months</th><td class="dim">€40</td><td>€480</td></tr><tr><th scope="row">20 sessions, valid 3 months</th><td class="dim">€30</td><td>€600</td></tr></tbody></table>
-        <p class="pl-n">Bring someone with you and the second person is €15 a session. Packs of two sessions a week or fewer do not include the gym on the other days. To train on the other days, add a member plan.</p>
+        <table class="pl-t"><thead><tr><td></td><th scope="col">A session</th><th scope="col">Total</th></tr></thead><tbody><tr><th scope="row">Single session</th><td class="dim">€55</td><td>€55</td></tr><tr><th scope="row">8 sessions, valid 2 months</th><td class="dim">€47.50</td><td>€380</td></tr><tr><th scope="row">12 sessions, valid 2 months</th><td class="dim">€42.50</td><td>€510</td></tr><tr><th scope="row">20 sessions, valid 3 months</th><td class="dim">€32.50</td><td>€650</td></tr></tbody></table>
+        <p class="pl-n">Bring someone with you and the second person is €17.50 a session. Packs of two sessions a week or fewer do not include the gym on the other days. To train on the other days, add a member plan.</p>
+      </section>
+      <section class="pl-grp" aria-label="Assessments">
+        <h3 class="pl-h">Assessments</h3>
+        <p class="pl-s">Packs for training or nutrition.<span class="pr-todo" title="[PLACEHOLDER: what each pack includes, e.g. an assessment with a coach and a new programme each month for three months]">todo</span></p>
+        <table class="pl-t"><tbody><tr><th scope="row">Training, 3 months</th><td>€55</td></tr><tr><th scope="row">Nutrition, 3 months</th><td>€70</td></tr></tbody></table>
       </section>
     </div>
   </details>
@@ -966,7 +972,7 @@ body.show-grid .grid-overlay{display:block}
   <div class="faq-grid" itemscope itemtype="https://schema.org/FAQPage">
     <details class="faq-item">
       <summary>Can I train without a membership?</summary>
-      <p>Yes. A day pass is €10 and a week pass is €35.90, sports insurance included. Walk in and pay at reception.</p>
+      <p>Yes. A day pass is €12 and a week pass is €40.90, sports insurance included. Walk in and pay at reception.</p>
     </details>
     <details class="faq-item">
       <summary>Is there a minimum commitment?</summary>
@@ -1459,6 +1465,7 @@ body.show-grid .grid-overlay{display:block}
     if(st.kind==='mem'&&!st.plan) return 'Choose how often you will train.';
     if(st.kind==='mem'&&!st.pay) return 'Choose how you will pay.';
     if(st.kind==='pt'&&!st.pack) return 'Choose how many sessions.';
+    if(st.kind==='as'&&!st.asmt) return 'Choose a pack.';
     return null;
   }
 
@@ -1467,6 +1474,11 @@ body.show-grid .grid-overlay{display:block}
   KINDS[1].desc='Paid every 2 weeks. Best value if you train regularly.'; KINDS[1].from='From '+money(P.member.plans[0].dd);
   KINDS[2].desc='One to one with a certified coach.<span class="pr-todo" title="[PLACEHOLDER: confirm every coach who gives personal training is certified, and by whom]">todo</span>'; KINDS[2].from='From '+money(P.pt.packs[P.pt.packs.length-1].each);
   keepChoices=true;
+  /* the fourth product, from the 1/10/2026 sheet: assessment packs */
+  var TODO_AS='<span class="pr-todo" title="'+P.assessments.todo.replace(/"/g,'&quot;')+'">todo</span>';
+  KINDS.push({id:'as', name:'Assessments', desc:'Training or nutrition, for three months.'+TODO_AS,
+              from:'From '+money(Math.min.apply(null,P.assessments.packs.map(function(a){return a.price})))});
+  st.asmt=null;
 
   function cards(){
     return '<div class="pk">'+KINDS.map(function(k){
@@ -1493,6 +1505,8 @@ body.show-grid .grid-overlay{display:block}
          set('How will you pay?',payRow(),'','pc-pay');
     else if(st.kind==='pt')
       h+=set('How many sessions?',row(P.pt.packs.map(function(k){ return {id:k.id,name:k.sessions>1?k.name:'1 session',small:money(k.total)+(k.sessions>1?'<br>'+money(k.each)+' a session':'')} }),'pack'));
+    else if(st.kind==='as')
+      h+=set('Which pack?',row(P.assessments.packs.map(function(a){ return {id:a.id,name:a.name,small:money(a.price)+'<br>'+a.months+' months'} }),'asmt'));
     opts.innerHTML=h;
   }
   function onPlan(){ var f=document.getElementById('pc-pay'); if(f) f.outerHTML=set('How will you pay?',payRow(),'','pc-pay') }
@@ -1503,7 +1517,7 @@ body.show-grid .grid-overlay{display:block}
       var v=find(P.visitor,st.stay);
       title=v.days===1?'Day pass':v.name+' pass'; id=v.id; total=v.price; label='To pay at reception';
       lines=[[title,money(v.price)],['Sports insurance','Included']];
-      if(v.days<4) notes.push('Paid each time you come. From four days on, the week pass costs less.');
+      if(v.days<4) notes.push('Paid each time you come. From '+['','one','two','three','four','five','six','seven'][Math.ceil(P.visitor[1].price/P.visitor[0].price)]+' days on, the week pass costs less.');
       if(v.days>=28) notes.push('Four weeks of membership is '+money(E.fourWeeks().member)+' with the insurance, and it keeps going after four weeks.');
     } else if(st.kind==='mem'){
       var p=E.memberPlan(st.plan), dd=st.pay==='dd', rate=dd?p.dd:p.desk;
@@ -1515,6 +1529,8 @@ body.show-grid .grid-overlay{display:block}
       notes.push(dd ? 'Then '+money(p.dd)+' every 2 weeks by direct debit. That saves you '+money(P.member.ddSavingYear)+' a year.'
                     : 'Then '+money(p.desk)+' every 2 weeks. With direct debit it is '+money(p.dd)+', a saving of '+money(P.member.ddSavingYear)+' a year.');
     } else {
+      if(st.kind==='as'){ var a=find(P.assessments.packs,st.asmt); title=a.name+' assessment pack'; id=a.id; total=a.price; label='To pay at reception';
+        return {id:id,title:title,price:total,totalLabel:label,lines:[[a.name+' pack, '+a.months+' months',money(a.price)]],notes:['For '+a.months+' months.']}; }
       var k=find(P.pt.packs,st.pack);
       title=k.sessions>1?'Personal training, '+k.sessions+' sessions':'Personal training, one session'; id=k.id; total=k.total; label='To pay at reception';
       lines=[[title,money(k.total)]];

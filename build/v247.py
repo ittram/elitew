@@ -16,6 +16,14 @@ core = ns['CORE_JS']
 for old, new in [
     ("var st={kind:null,stay:null,plan:null,pay:null,pack:null,insured:false}, cur=null;",
      "var st={kind:null,stay:null,plan:null,pay:null,pack:null,insured:false}, cur=null, keepChoices=false;"),
+    ("if(st.kind==='pt'&&!st.pack) return 'Choose how many sessions.';",
+     "if(st.kind==='pt'&&!st.pack) return 'Choose how many sessions.';\n    if(st.kind==='as'&&!st.asmt) return 'Choose a pack.';"),
+    ("      var k=find(P.pt.packs,st.pack);",
+     "      if(st.kind==='as'){ var a=find(P.assessments.packs,st.asmt); title=a.name+' assessment pack'; id=a.id; total=a.price; label='To pay at reception';\n"
+     "        return {id:id,title:title,price:total,totalLabel:label,lines:[[a.name+' pack, '+a.months+' months',money(a.price)]],notes:['For '+a.months+' months.']}; }\n"
+     "      var k=find(P.pt.packs,st.pack);"),
+    ("From four days on, the week pass costs less.",
+     "From '+['','one','two','three','four','five','six','seven'][Math.ceil(P.visitor[1].price/P.visitor[0].price)]+' days on, the week pass costs less."),
     ("if(st.kind!==t.value){ st.stay=st.plan=st.pay=st.pack=null; E.track('pricing_kind',{kind:t.value}) }",
      "if(st.kind!==t.value){ if(!keepChoices) st.stay=st.plan=st.pay=st.pack=null; E.track('pricing_kind',{kind:t.value}) }")]:
     assert core.count(old) == 1, old[:50]
@@ -26,10 +34,10 @@ TODO_COACH = '<span class="pr-todo" title="[PLACEHOLDER: confirm every coach who
 
 CSS = '''
 /* ---------- 2.4.7: the product boxes ---------- */
-.pk{display:grid;grid-template-columns:repeat(3,1fr);gap:8px}
+.pk{display:grid;grid-template-columns:repeat(4,1fr);gap:8px}
 .pk-i{position:relative;display:flex;flex-direction:column;gap:8px;padding:24px;background:var(--white);border:2px solid var(--light-grey);cursor:pointer;transition:border-color .15s,background .15s}
 .pk-i:hover{border-color:var(--black)}
-.pk-i b{font-family:var(--font-display);font-weight:400;font-size:28px;line-height:28px;text-transform:uppercase;color:var(--black)}
+.pk-i b{font-family:var(--font-display);font-weight:400;font-size:24px;line-height:24px;text-transform:uppercase;color:var(--black)}
 .pk-i span{font-size:14px;line-height:20px;color:#4A4A4A}
 .pk-i i{font-style:normal;font-weight:800;font-size:11px;line-height:16px;letter-spacing:.1em;text-transform:uppercase;color:var(--royal-blue);margin-top:auto;padding-top:8px}
 /* a chosen box fills with the brand blue, as in 2.4.6 */
@@ -56,6 +64,7 @@ CSS = '''
 .pc-tile:has(input:focus-visible){outline:2px solid var(--sel-bd);outline-offset:2px}
 
 @media (max-width:1100px){
+  .pk{grid-template-columns:repeat(2,1fr)}
   .pk-i{padding:16px}
   .pk-i b{font-size:22px;line-height:24px}
   .pc-row.c5{grid-template-columns:repeat(3,1fr)}
@@ -92,6 +101,11 @@ JS = '''
   KINDS[1].desc='Paid every 2 weeks. Best value if you train regularly.'; KINDS[1].from='From '+money(P.member.plans[0].dd);
   KINDS[2].desc='One to one with a certified coach.%(todo)s'; KINDS[2].from='From '+money(P.pt.packs[P.pt.packs.length-1].each);
   keepChoices=true;
+  /* the fourth product, from the 1/10/2026 sheet: assessment packs */
+  var TODO_AS='<span class="pr-todo" title="'+P.assessments.todo.replace(/"/g,'&quot;')+'">todo</span>';
+  KINDS.push({id:'as', name:'Assessments', desc:'Training or nutrition, for three months.'+TODO_AS,
+              from:'From '+money(Math.min.apply(null,P.assessments.packs.map(function(a){return a.price})))});
+  st.asmt=null;
 
   function cards(){
     return '<div class="pk">'+KINDS.map(function(k){
@@ -118,6 +132,8 @@ JS = '''
          set('How will you pay?',payRow(),'','pc-pay');
     else if(st.kind==='pt')
       h+=set('How many sessions?',row(P.pt.packs.map(function(k){ return {id:k.id,name:k.sessions>1?k.name:'1 session',small:money(k.total)+(k.sessions>1?'<br>'+money(k.each)+' a session':'')} }),'pack'));
+    else if(st.kind==='as')
+      h+=set('Which pack?',row(P.assessments.packs.map(function(a){ return {id:a.id,name:a.name,small:money(a.price)+'<br>'+a.months+' months'} }),'asmt'));
     opts.innerHTML=h;
   }
   function onPlan(){ var f=document.getElementById('pc-pay'); if(f) f.outerHTML=set('How will you pay?',payRow(),'','pc-pay') }

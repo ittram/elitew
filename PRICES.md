@@ -4,15 +4,19 @@
 reads from it, so one edit updates the picker, the flow and the arithmetic.
 
 The full price list folded under the calculator is plain HTML, so it can be read
-without JavaScript and by search engines. It is written from `prices.js`, so after
-changing a price, refresh it with:
+without JavaScript and by search engines, and the copy quotes a few prices (the
+meta description, the menu line, the FAQ, the price range for search engines).
+All of it is written from `prices.js`. After changing a price:
 
-    python3 build/pricelist.py 2-4-5 2-4-5-1 2-4-5-4-1 2-4-5-4-2 2-4-6
+    python3 build/pricelist.py          # writes the list and the copy in every live draft
+    python3 build/check_prices.py       # the cross check: sheet order, changes, arithmetic, every page
+    python3 build/test_calculator.py    # in the sandbox: every total, clicked through in a browser
+
+The full process, with the reading of a new printed sheet, is in CLAUDE.md under Prices.
 
 ## Where the numbers come from
 
-The printed preçário, as corrected in the price list review of 23 September 2026.
-All prices include VAT.
+The printed preçário "em vigor desde 1/10/2026". All prices include VAT.
 
 ## The two things people get wrong
 
@@ -26,15 +30,16 @@ All prices include VAT.
 
 ## Still to confirm
 
-These are in `prices.js` under `unconfirmed`, and the page shows a `todo` chip
-rather than guessing:
+These are in `prices.js` under `unconfirmed` (and `assessments.todo`), and the
+page shows a `todo` chip rather than guessing. `check_prices.py` lists them.
 
 - Does the direct debit price need a minimum period?
 - Does "once a week" mean one visit each calendar week, or two in any two weeks?
-- Is the first fitness assessment free on every plan, including once a week?
-- The 4 week visitor pass: the review proposes €69.90 so that four weeks as a
-  member (€66) is the cheaper choice. The drafts show the current €61.90 until
-  the family decides.
+- Is the first fitness assessment still free on every plan, now that assessment packs are sold?
+- The 1/10/2026 sheet has a second, unlabelled personal training block (single
+  €40, packs €32.50 / €30 / €25 a session, extra person €12.50). The site uses
+  the labelled block until someone explains who the second one is for.
+- What the assessment packs (training €55, nutrition €70, three months) include.
 
 ## Tracking
 

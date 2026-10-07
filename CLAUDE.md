@@ -19,7 +19,7 @@
 - Prices live in `prices.js` and nowhere else. See PRICES.md. Two things to never get wrong: **membership is priced per 2 weeks, not per month**, and the €24 sports insurance is **included** in day and week passes but **added once a year** to membership.
 - **Direct debit is a discount, never the other way round.** The price at reception is the normal price (€18 / €24.50 / €26 every 2 weeks) and direct debit takes €5 off (€13 / €19.50 / €21). Never write that reception costs more: EU law (PSD2 art. 62, in Portugal Decreto-Lei 91/2018 art. 101) bans charging extra for a payment method but allows a discount for one. A "from" price must say its condition, e.g. "From €13 every 2 weeks with direct debit".
 - Names, as people already say them: **Day and week passes** (Day pass, 1 week pass...), **Membership** (Once a week, Three times a week, Unlimited; "3x per week" reads as shorthand, not English), **Personal training**. The place to pay is **reception**, not "the desk".
-- Day and week passes: 1 day €10, 1 week €35.90, 2 weeks €45.90, 3 weeks €51.90, 4 weeks €61.90. Personal training: €50 a session, or packs of 8, 12 and 20 at €360, €480 and €600, second person €15 a session.
+- The prices themselves live only in `prices.js` (from the sheet in force since 1/10/2026). Never write a price into this file, a build script or the page copy by hand: see Prices below.
 - Never write "monthly", "3 month minimum" or "cash only" on the page. None of them is in the price list.
 - Closed on all Portuguese public holidays and on Lagos's municipal holiday.
 - Placeholders always carry an example of what goes there.
@@ -32,6 +32,18 @@
 - **On a phone everything is one column.** No two column rows in the footer or anywhere else.
 - Motion is small and purposeful: the route draws itself once, the action bar slides up, nothing loops.
 - **Photos are black and white**, with a soft background. See Photos below.
+
+## Prices
+`prices.js` is the one source for every price on the site. The calculator reads it in the browser; `build/pricelist.py` writes everything else from it (the fold-open full price list, and the prices quoted in the meta description, the menu, the FAQ, the legal line and the search engines' price range). When the user sends a new price list (a photo of the printed preçário or a file), update it like this without being asked for each step:
+
+1. **Read the sheet** line by line: each section (Livre, Visitantes, packs, PT), both columns where there are two (débito direto and balcão), the validity of each pack, "por sessão" or total, the date it is in force from, and every footnote.
+2. **Check the sheet against itself and against `prices.js` before changing anything.** Look for a block without a heading, the same thing priced twice, a column that does not add up (pack totals, the discount being the same on every plan), a footnote that contradicts a line, something from the current list that disappeared (October 2026: the €24 insurance was not on the sheet; it still applies) and anything new. Report every finding to the user in plain words and ask about the ones that change what goes on the page; never resolve them silently. While a question is open, the line goes into `unconfirmed` (or a `todo`) so the page shows a chip instead of a guess.
+3. **Edit `prices.js` only.** Keep each item's `pt` as the line is printed on the sheet, so the check can print the list in the sheet's own words. Set `updated` to the date the sheet is in force from. A new kind of product (October 2026: assessment packs) is a design change: ask whether it goes into the calculator, the full list or both, then add it to `pricelist.py` (the list) and to the calculator draft (as `v247.py` did).
+4. **Write the pages: `python3 build/pricelist.py`.** It finds every live draft that loads `prices.js` on its own. Run it again after rebuilding any draft, because the build scripts start from older copy.
+5. **Cross check: `python3 build/check_prices.py`.** It prints the list in the order and words of the printed sheet (read it against the photo, line by line, once more), lists every price that changed since the last commit (each change must be one you meant), checks the arithmetic the page relies on, and checks every live draft: the list and the copy must match `prices.js`, and no other euro amount may appear anywhere on the page or be typed into a script. Errors block; explain warnings to the user.
+6. **Click through: `python3 build/test_calculator.py`** in the sandbox (the latest draft by default, or name drafts). It picks every pass, every plan with both ways to pay, the insurance switch, every personal training pack and every assessment pack, at 390 and 1440 wide, and compares each total with its own arithmetic from `prices.js`.
+7. **Look at the page** at 1440 and 390: the calculator, and the full price list opened.
+8. **Commit** as "Prices from the sheet of <date>", listing the changes (the check's "Changed since" list) and the open questions. Update `PRICES.md` (Still to confirm) and the pricing note in the project. The user pushes.
 
 ## Photos
 When the user sends training photos, give them the house look without being asked: **run `build/photo.py`, never edit by hand.** It is the look of the TRX card in 2.4.8, and it reproduces that file byte for byte.
