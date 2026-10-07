@@ -331,10 +331,11 @@ V['2.4.9.7'] = ('PT, session photo', r"""
     return '<div class="v7"><div class="v7-ph"><img class="v7-img" src="%(photo)s" alt="PLACEHOLDER: replace with a real photo of a personal training session at Elite Wellness, a coach working with one member"></div>'+
       '<div class="v7-t"><p class="pc-leg">Personal training</p>'+
       '<p class="v7-h">Made around you</p>'+
-      '<p class="pt-p">One to one training with André, Joana or Ricardo, all qualified in physical education. Getting fitter, coming back from an injury, eating better: you say what you want, your coach plans it with you.</p>'+
-      '<ul class="v7-facts">'+['A first talk with your coach at the gym','A plan and a price agreed together','One to one sessions from '+money(ptFrom)].map(function(x){ return '<li>'+x+'</li>' }).join('')+'</ul>'+
-      '<div class="v7-card"><p class="v7-ch">Book a first talk with a coach</p>'+
-        '<a class="btn" id="pt-wa" href="'+href+'" target="_blank" rel="noopener">Book a time on WhatsApp</a>'+
+      '<p class="pt-p">Everyone starts from a different place. An injury to come back from, pain that holds you back, a goal you keep missing, or simply not knowing where to begin. Your coach looks at where you are, sets the goal with you and builds every session around it, so you progress safely and spend no time on what does not work for you.</p>'+
+      '<p class="v7-lab">It helps with</p>'+
+      '<ul class="v7-facts">'+['Coming back from an injury','Getting stronger and fitter','Training for a goal or event','Starting out with confidence'].map(function(x){ return '<li>'+x+'</li>' }).join('')+'</ul>'+
+      '<p class="pt-p">That is also why there is no fixed price. You first talk it through with your coach, then agree a plan and its price. Sessions start at '+money(ptFrom)+'.</p>'+
+      '<div class="v7-go"><a class="btn" id="pt-wa" href="'+href+'" target="_blank" rel="noopener">Book a time on WhatsApp</a>'+
         '<p class="v7-alt">No WhatsApp? <a href="tel:+351926565836">Call +351 926 565 836</a> or <a href="#find-us">come by reception</a>.</p></div>'+
       '</div></div>';
   }
@@ -345,14 +346,16 @@ V['2.4.9.7'] = ('PT, session photo', r"""
 .v7-img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:50% 50%;filter:grayscale(100%) contrast(110%)}
 .v7-t{grid-column:7 / span 6;align-self:center;padding:48px 48px 48px 24px}
 .v7-h{margin-top:8px;font-family:var(--font-display);font-size:56px;line-height:56px;text-transform:uppercase}
-.v7-facts{list-style:none;margin:24px 0 0;padding:0}
-.v7-facts li{position:relative;padding:8px 0 8px 32px;font-size:16px;line-height:24px}
+.v7-lab{margin-top:24px;font-weight:800;font-size:11px;line-height:16px;letter-spacing:.14em;text-transform:uppercase;color:var(--silver-grey)}
+.v7-facts{list-style:none;margin:8px 0 0;padding:0;display:grid;grid-template-columns:repeat(2,minmax(0,1fr));column-gap:24px}
+.v7-facts li{position:relative;padding:8px 0 8px 32px;font-size:16px;line-height:24px;white-space:nowrap}
 .v7-facts li::before{content:"";position:absolute;left:4px;top:15px;width:12px;height:6px;border-left:2px solid var(--royal-blue);border-bottom:2px solid var(--royal-blue);transform:rotate(-45deg)}
-.v7-card{margin-top:32px;background:var(--white);padding:32px 24px;text-align:center}
-.v7-ch{font-size:18px;line-height:24px;font-weight:700;margin-bottom:16px}
+.v7-facts+.pt-p{margin-top:24px}
+.v7-go{margin-top:32px}
 .v7-alt{margin-top:16px;font-size:13px;line-height:20px;color:#4A4A4A}
 .v7-alt a{color:var(--royal-blue);font-weight:700;text-decoration:none;white-space:nowrap}
 @media (hover:hover){ .v7-alt a:hover{text-decoration:underline;text-underline-offset:4px} }
+@media (max-width:1360px){ .v7-facts{grid-template-columns:1fr} }
 @media (max-width:1100px){
   .v7-ph{grid-column:1 / span 5;min-height:0}
   .v7-t{grid-column:6 / span 7;padding:32px 32px 32px 0}
@@ -364,8 +367,10 @@ V['2.4.9.7'] = ('PT, session photo', r"""
   .v7-ph{height:240px}
   .v7-t{padding:24px}
   .v7-h{font-size:40px;line-height:40px}
-  .v7-card{padding:24px 16px}
+  .v7-facts{grid-template-columns:1fr}
+  .v7-facts li{font-size:15px}
 }
+@media (max-width:374px){ .v7-h{font-size:30px;line-height:32px} }
 """)
 
 
