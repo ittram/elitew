@@ -31,8 +31,20 @@
 - 12 column grid, 8px and 4px spacing, torn edges between bands.
 - **On a phone everything is one column.** No two column rows in the footer or anywhere else.
 - Motion is small and purposeful: the route draws itself once, the action bar slides up, nothing loops.
-- **Photos are black and white.** Bake the grey into the file rather than leaving it to the CSS filter, keep a 4:3 master so a frame can crop landscape or portrait, ship 800 and 1600 wide as webp with a `srcset`, and strip every byte of metadata (phone photos carry location). Named after what they show, e.g. `assets/hero-free-weights.webp`.
-- Files that come back from the sandbox pick up a C2PA chunk on the way. Strip it on the device before committing, or the file is bigger than the one that was made.
+- **Photos are black and white**, with a soft background. See Photos below.
+
+## Photos
+When the user sends training photos, give them the house look without being asked: **run `build/photo.py`, never edit by hand.** It is the look of the TRX card in 2.4.8, and it reproduces that file byte for byte.
+
+1. **Pick** when there are several shots of one thing. Choose the one that shows a whole movement with the equipment in the frame (anchor, straps, bar, bike), sharp, people from behind or turned away rather than faces, no big brand logos. Say in one line why it won and what was wrong with the others.
+2. **Run it in the sandbox** (it needs `pip install --break-system-packages "rembg[cpu]" opencv-python-headless pillow numpy`; the models download once):
+   `python3 build/photo.py SOURCE class-hyrox` for a class card, or `--kind hero` for a hero photo.
+   It does black and white (levels, slightly darker mids, a touch of contrast and sharpening), cuts out the people and what they hold, blurs everything behind them with a round lens kernel (most on the far wall, least on the floor in front), crops (card 3:4 portrait, hero 4:3, 14% of the frame above the person's head), adds a light vignette, and writes webp at quality 80 with no metadata: card `NAME.webp` 900 wide and `NAME-600.webp`, hero `NAME.webp` 1600 wide and `NAME-800.webp`.
+3. **Look at the result** before using it, at card size and up close at the edges (hands, hair, straps). If the crop cuts something that matters, rerun with `--top N` (the crop's top edge in source pixels); if the vignette sits wrong, `--focus X Y` (0 to 1, default 0.58 0.42). Do not change the defaults for one photo: change the flag.
+4. **Copy back and clean**: commit the two files to `assets/`, then on the Mac `python3 build/strip_c2pa.py assets/NAME.webp assets/NAME-600.webp`. Files from the sandbox pick up a C2PA chunk on the way; the strip also clears any EXIF or XMP (phone photos carry location).
+5. **Use it**: a class card image is `<img class="class-img" src="assets/NAME.webp" srcset="assets/NAME-600.webp 600w, assets/NAME.webp 900w" sizes="(max-width:768px) 86vw, (max-width:1100px) 50vw, 25vw" width="900" height="1200" loading="lazy" style="object-position:50% 30%" alt="...">`. The alt says what is happening, e.g. "A member rowing on the TRX straps in a class at Elite Wellness".
+6. **Names say what the photo shows**: `class-trx`, `class-hyrox`, `hero-free-weights`.
+7. Swapping a photo is a small change and goes into the current draft. A first real photo for a section, or a new set, is a new draft, opened at that section (`at:'#classes'`).
 
 ## Working habits
 - Verify with a screenshot at 1440 and at 390 wide before saying it is done, and check the page never scrolls sideways.
