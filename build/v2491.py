@@ -314,6 +314,61 @@ V['2.4.9.6'] = ('PT, photo and chat', r"""
 """)
 
 
+# =====================================================================
+# 2.4.9.7  The photo banner of 2.4.9.5, built around a picture of a
+#          personal training session (a coach working with one person),
+#          and a centred booking card with a call or a visit as backup.
+#          The photo is a stock stand-in until the gym's own one is taken
+#          (shot brief in the draft's notes); it goes through build/photo.py.
+# =====================================================================
+PT_PHOTO = 'https://images.unsplash.com/photo-1648542036561-e1d66a5ae2b1?q=80&w=1400&auto=format&fit=crop'
+V['2.4.9.7'] = ('PT, session photo', r"""
+  var BOOK_MSG='Hi! I would like to book a time to talk to a coach about personal training.';
+  function ptLeft(){ return '' }
+  function ptRight(){ return '' }
+  function ptBand(){
+    var href=WA+encodeURIComponent(BOOK_MSG);
+    return '<div class="v7"><div class="v7-ph"><img class="v7-img" src="%(photo)s" alt="PLACEHOLDER: replace with a real photo of a personal training session at Elite Wellness, a coach working with one member"></div>'+
+      '<div class="v7-t"><p class="pc-leg">Personal training</p>'+
+      '<p class="v7-h">Made around you</p>'+
+      '<p class="pt-p">One to one training with André, Joana or Ricardo, all qualified in physical education. Getting fitter, coming back from an injury, eating better: you say what you want, your coach plans it with you.</p>'+
+      '<ul class="v7-facts">'+['A first talk with your coach at the gym','A plan and a price agreed together','One to one sessions from '+money(ptFrom)].map(function(x){ return '<li>'+x+'</li>' }).join('')+'</ul>'+
+      '<div class="v7-card"><p class="v7-ch">Book a first talk with a coach</p>'+
+        '<a class="btn" id="pt-wa" href="'+href+'" target="_blank" rel="noopener">Book a time on WhatsApp</a>'+
+        '<p class="v7-alt">No WhatsApp? <a href="tel:+351926565836">Call +351 926 565 836</a> or <a href="#find-us">come by reception</a>.</p></div>'+
+      '</div></div>';
+  }
+""".replace('%(photo)s', PT_PHOTO), r"""
+.pt-band{margin-top:48px}
+.v7{display:grid;grid-template-columns:repeat(12,minmax(0,1fr));column-gap:24px;background:#F4F4F2}
+.v7-ph{grid-column:1 / span 6;position:relative;min-height:560px;background:#222}
+.v7-img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:50% 50%;filter:grayscale(100%) contrast(110%)}
+.v7-t{grid-column:7 / span 6;align-self:center;padding:48px 48px 48px 24px}
+.v7-h{margin-top:8px;font-family:var(--font-display);font-size:56px;line-height:56px;text-transform:uppercase}
+.v7-facts{list-style:none;margin:24px 0 0;padding:0}
+.v7-facts li{position:relative;padding:8px 0 8px 32px;font-size:16px;line-height:24px}
+.v7-facts li::before{content:"";position:absolute;left:4px;top:15px;width:12px;height:6px;border-left:2px solid var(--royal-blue);border-bottom:2px solid var(--royal-blue);transform:rotate(-45deg)}
+.v7-card{margin-top:32px;background:var(--white);padding:32px 24px;text-align:center}
+.v7-ch{font-size:18px;line-height:24px;font-weight:700;margin-bottom:16px}
+.v7-alt{margin-top:16px;font-size:13px;line-height:20px;color:#4A4A4A}
+.v7-alt a{color:var(--royal-blue);font-weight:700;text-decoration:none;white-space:nowrap}
+@media (hover:hover){ .v7-alt a:hover{text-decoration:underline;text-underline-offset:4px} }
+@media (max-width:1100px){
+  .v7-ph{grid-column:1 / span 5;min-height:0}
+  .v7-t{grid-column:6 / span 7;padding:32px 32px 32px 0}
+  .v7-h{font-size:44px;line-height:48px}
+}
+@media (max-width:768px){
+  .pt-band{margin-top:32px}
+  .v7{display:block}
+  .v7-ph{height:240px}
+  .v7-t{padding:24px}
+  .v7-h{font-size:40px;line-height:40px}
+  .v7-card{padding:24px 16px}
+}
+""")
+
+
 def variant_css(extra):
     k = CSS.rindex('</style>')
     return CSS[:k] + COMMON_CSS + extra + CSS[k:]
