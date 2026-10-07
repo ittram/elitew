@@ -50,14 +50,14 @@ def list_html(P):
       </section>''' % (todo(A['todo']) if A.get('todo') else '', rows_as))
     off = P['member']['plans'][0]['desk'] - P['member']['plans'][0]['dd']
     if P['pt'].get('quote'):
-        # personal training is quoted per customer: only where it starts, and how to ask
-        wa = 'https://wa.me/351926565836?text=' + 'Hi!%20I%27d%20like%20a%20personal%20training%20quote.'
+        # personal training is agreed with the coach: only where it starts, and how to get in touch
+        wa = 'https://wa.me/351926565836?text=' + 'Hi!%20I%20would%20like%20to%20meet%20a%20personal%20trainer%20and%20talk%20about%20what%20I%20need.'
         grp_pt = '''
       <section class="pl-grp" aria-label="Personal training">
         <h3 class="pl-h">Personal training</h3>
         <p class="pl-s">One to one with a coach, planned around what you need.</p>
         <table class="pl-t"><tbody><tr><th scope="row">A session</th><td>from %s</td></tr></tbody></table>
-        <p class="pl-n">Every plan is made for you, from general training to rehab or training with nutrition. <a href="%s" target="_blank" rel="noopener">Ask us on WhatsApp for a personal quote</a>.</p>
+        <p class="pl-n">The plan and its price are agreed with your coach, for general fitness, rehab after an injury, nutrition or a mix. <a href="%s" target="_blank" rel="noopener">Message us on WhatsApp to agree a time</a>.</p>
       </section>''' % (m(min(k['each'] for k in P['pt']['packs'])), wa)
     else:
         grp_pt = '''

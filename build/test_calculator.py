@@ -31,9 +31,8 @@ def cases():
     p = P['member']['plans'][-1]
     out.append(('%s, dd, insurance already paid' % p['name'], [('kind', 'mem'), ('plan', p['id']), ('pay', 'dd')], True, p['dd']))
     if P['pt'].get('quote'):
-        # quoted per person: every need shows the lowest price a session and a WhatsApp link
-        for need in ('gen', 'rehab', 'food'):
-            out.append(('pt quote ' + need, [('kind', 'pt'), ('need', need)], False, min(k['each'] for k in P['pt']['packs'])))
+        # agreed with the coach: no total, a WhatsApp link to agree a time instead (checked below)
+        out.append(('pt contact', [('kind', 'pt')], False, None))
     else:
         for k in P['pt']['packs']:
             out.append(('pt ' + k['name'], [('kind', 'pt'), ('pack', k['id'])], False, k['sessions'] * k['each']))
@@ -75,17 +74,20 @@ def main():
                             missing = c; break
                         r.locator('xpath=..').click(); pg.wait_for_timeout(120)
                     if missing:
-                        if missing == ('kind', 'as') or (missing[0] == 'need' and not P['pt'].get('quote')):
+                        if missing == ('kind', 'as'):
                             pg.close(); continue                 # this draft has no assessments product
                         fails.append('%s: no choice %s' % (tag, missing)); pg.close(); continue
                     if insured:
                         pg.click('.pc-ins'); pg.wait_for_timeout(120)
                     got = pg.evaluate("(document.querySelector('.pc-total b')||{}).textContent")
                     runs += 1
-                    if got != m(want): fails.append('%s: page says %s, prices.js says %s' % (tag, got, m(want)))
-                    if clicks[-1][0] == 'need':
-                        href = pg.evaluate("(document.getElementById('pc-go')||{}).href||''")
-                        if not href.startswith('https://wa.me/351926565836?text='): fails.append('%s: the quote button is not a WhatsApp link (%s)' % (tag, href))
+                    if want is None:
+                        href = pg.evaluate("(document.getElementById('pt-wa')||{}).href||''")
+                        if not href.startswith('https://wa.me/351926565836?text='): fails.append('%s: no WhatsApp link to agree a time (%s)' % (tag, href))
+                        if got: fails.append('%s: shows a total (%s) where it should not' % (tag, got))
+                        hidden = [x for x in (k['each'] for k in P['pt']['packs']) if m(x) in pg.evaluate("document.getElementById('prices').innerText") and x != min(k['each'] for k in P['pt']['packs'])]
+                        if hidden: fails.append('%s: a hidden personal training price is on the page %s' % (tag, hidden))
+                    elif got != m(want): fails.append('%s: page says %s, prices.js says %s' % (tag, got, m(want)))
                     if errs: fails.append('%s: script error %s' % (tag, errs))
                     pg.close()
         b.close()

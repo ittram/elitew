@@ -4,9 +4,9 @@ photos). Run build/v248.py first; this reads its output, then run
 build/pricelist.py.
 
 What changed, 7 October 2026:
-- Personal training is quoted per customer: the calculator shows where it
-  starts and asks what the person needs (general training, rehab, training
-  with nutrition), then the plan becomes a WhatsApp message for a quote.
+- Personal training is agreed in person: the calculator shows where it
+  starts and how it works in four plain steps, and instead of a price the plan
+  column asks people to message on WhatsApp to agree a time with a coach.
   Assessments are not sold on the site.
 - "Day / week passes" is "Passes".
 - Product boxes and option boxes on one structure: border and padding add up
@@ -90,12 +90,31 @@ CSS = r'''<style>
 .pc-card .btn[aria-disabled=true]{background:rgba(255,255,255,.12);border-color:transparent;color:rgba(255,255,255,.48);cursor:not-allowed;box-shadow:none;transform:none}
 @media (prefers-reduced-motion:reduce){ .pk-i,.op,.pc-leg{transition:none} }
 
+/* personal training: how it works, four plain steps */
+.pt-steps{clear:both;list-style:none;margin:0;padding:0;box-shadow:inset 0 1px 0 var(--light-grey)}
+.pt-steps li{display:grid;grid-template-columns:40px 1fr;column-gap:16px;padding:16px 0;box-shadow:inset 0 -1px 0 var(--light-grey)}
+.pt-k{font-family:var(--font-display);font-size:28px;line-height:28px;color:var(--royal-blue)}
+.pt-t b{display:block;font-size:16px;line-height:24px;font-weight:700}
+.pt-t span{display:block;font-size:14px;line-height:20px;color:#4A4A4A}
+
+/* personal training: the contact block in the plan column, its own shape (light, no receipt, no total) */
+.pt-c{background:#F4F4F2;padding:32px}
+.pt-c-h{font-family:var(--font-display);font-size:32px;line-height:32px;text-transform:uppercase}
+.pt-c-p{margin-top:16px;font-size:14px;line-height:20px;color:#3A3A3A}
+.pt-c-l{margin-top:24px;font-weight:800;font-size:11px;line-height:16px;letter-spacing:.14em;text-transform:uppercase;color:var(--silver-grey)}
+.pt-c-b{position:relative;margin-top:8px;background:var(--white);border-radius:12px 12px 12px 4px;padding:12px 16px;font-size:14px;line-height:20px;box-shadow:0 1px 2px rgba(0,0,0,.08)}
+.pt-c .btn{width:100%;justify-content:center;margin-top:24px}
+.pt-c-f{margin-top:16px;font-size:12px;line-height:16px;color:#6A6A6A;text-align:center}
+
 .bar-price{display:none}
 @media (max-width:1100px){
   .pc-plan{grid-column:8 / span 5}
   .pk-i{min-height:176px;padding:14px}
   .pk-n{min-height:48px;font-size:22px;line-height:24px}
   .pc-card{padding:24px}
+  .pt-c{padding:24px}
+  .pt-steps li{grid-template-columns:24px 1fr}
+  .pt-c-h{font-size:28px;line-height:32px}
   .op-row.c5{grid-template-columns:repeat(6,minmax(0,1fr))}
   .op-row.c5 .op{grid-column:span 2}
   .op-row.c5 .op:nth-child(n+4){grid-column:span 3}
@@ -137,7 +156,7 @@ CSS = r'''<style>
 </style>'''
 
 JS = r'''<script>
-/* 2.4.9: the price builder. Passes and membership are priced here; personal training is quoted per person. */
+/* 2.4.9: the price builder. Passes and membership are priced here; personal training is agreed with a coach on WhatsApp. */
 (function(){
   var E=window.EWPricing, opts=document.getElementById('pc-opts'), box=document.getElementById('pc-plan');
   if(!E||!opts||!box) return;
@@ -146,19 +165,21 @@ JS = r'''<script>
   function find(list,id){ return list.filter(function(x){return x.id===id})[0] }
   var ptFrom=Math.min.apply(null,P.pt.packs.map(function(k){return k.each}));
   var memFrom=Math.min.apply(null,P.member.plans.map(function(p){return p.dd}));
-  var TODO_COACH='<span class="pr-todo" title="[PLACEHOLDER: confirm every coach who gives personal training is certified, and by whom]">todo</span>';
   var KINDS=[
     {id:'pass', name:'Passes',            desc:'No commitment. From 1 day to 4 weeks.',                 from:'From '+money(P.visitor[0].price)},
     {id:'mem',  name:'Membership',        desc:'Paid every 2 weeks. Best value if you train regularly.', from:'From '+money(memFrom)},
-    {id:'pt',   name:'Personal training', desc:'One to one with a certified coach.'+TODO_COACH,          from:'From '+money(ptFrom)}
+    {id:'pt',   name:'Personal training', desc:'One to one with a certified coach.',          from:'From '+money(ptFrom)}
   ];
-  var NEEDS=[
-    {id:'gen',   name:'Training',  sub:'Strength and fitness',     msg:'general training'},
-    {id:'rehab', name:'Rehab',     sub:'After an injury',          msg:'rehab after an injury'},
-    {id:'food',  name:'Nutrition', sub:'Training and a food plan', msg:'training with a nutrition plan'}
+  /* personal training is agreed with the coach, so the page says how it works instead of pricing it */
+  var STEPS=[
+    ['Message us on WhatsApp','Tell us what you want to work on: general fitness, rehab after an injury, nutrition, or a mix.'],
+    ['Agree a time','We find a time for you to meet your coach at the gym.'],
+    ['Talk it through','Your coach listens to what you need, then proposes a plan and its price.'],
+    ['Start training','One to one sessions, from '+money(ptFrom)+' a session.']
   ];
+  var PT_MSG='Hi! I would like to meet a personal trainer and talk about what I need.';
   /* nothing is chosen until the visitor chooses; each product keeps its own choice */
-  var st={kind:null,stay:null,plan:null,pay:null,need:null,insured:false}, cur=null;
+  var st={kind:null,stay:null,plan:null,pay:null,insured:false}, cur=null;
 
   function radio(name,value,checked){ return '<input type="radio" name="'+name+'" value="'+value+'"'+(checked?' checked':'')+'>' }
   function set(legend,body,hint,id){ return '<fieldset class="pc-set"'+(id?' id="'+id+'"':'')+'><legend class="pc-leg">'+legend+'</legend>'+(hint?'<p class="pc-hint">'+hint+'</p>':'')+body+'</fieldset>' }
@@ -191,8 +212,9 @@ JS = r'''<script>
       h+=set('How often will you train?',row(P.member.plans.map(function(p){ return {id:p.id,name:p.name,p:money(p.desk),s:'every 2 weeks',tag:p.best?'Recommended':''} }),'plan'))+
          set('How will you pay?',payRow(),'','pc-pay');
     else if(st.kind==='pt')
-      h+=set('What do you need?',row(NEEDS.map(function(n){ return {id:n.id,name:n.name,s:n.sub} }),'need'),
-             'Every plan is made for you. Tell us what you need and a coach sends you a personal quote.');
+      h+='<div class="pc-set"><p class="pc-leg">How it works</p><ol class="pt-steps">'+STEPS.map(function(x,i){
+           return '<li><span class="pt-k" aria-hidden="true">'+(i+1)+'</span><span class="pt-t"><b>'+x[0]+'</b><span>'+x[1]+'</span></span></li>';
+         }).join('')+'</ol></div>';
     opts.innerHTML=h;
   }
 
@@ -225,29 +247,37 @@ JS = r'''<script>
         s.notes.push(dd?'Then '+money(p.dd)+' every 2 weeks by direct debit. That saves you '+money(P.member.ddSavingYear)+' a year.'
                        :'Then '+money(p.desk)+' every 2 weeks. With direct debit it is '+money(p.dd)+', a saving of '+money(P.member.ddSavingYear)+' a year.');
       }
-    } else if(st.kind==='pt'){
-      var nd=st.need?find(NEEDS,st.need):null;
-      s.title=nd?'Personal training, '+(nd.id==='gen'?'general':nd.name.toLowerCase()):'Personal training'; s.quote=true;
-      s.lines=[['What you need',nd?nd.name:null],['Your price','Personal quote']];
-      s.totalLabel='A session, from'; s.price=ptFrom; s.hint='Choose what you need.';
-      if(nd){ s.ready=true; s.id='pt-'+nd.id; s.msg='Hi! I would like a personal training quote for '+nd.msg+'.';
-              s.notes.push('Every plan is made for you. A coach replies on WhatsApp with a personal quote.'); }
     }
     return s;
   }
 
   var root=document.documentElement, co=null;
+  /* personal training: a different flow, so a different block. No receipt, no price total:
+     get in touch, agree a time, talk it through with the coach */
+  function renderContact(){
+    var href=WA+encodeURIComponent(PT_MSG);
+    box.innerHTML='<p class="pc-leg">Talk to a coach</p>'+
+      '<div class="pt-c">'+
+        '<p class="pt-c-h">Agree a time with a coach</p>'+
+        '<p class="pt-c-p">Message us on WhatsApp. We set a time for you to meet a coach at the gym and talk through what you need.</p>'+
+        '<p class="pt-c-l">Your message</p>'+
+        '<p class="pt-c-b">'+PT_MSG+'</p>'+
+        '<a class="btn" id="pt-wa" href="'+href+'" target="_blank" rel="noopener">Message us on WhatsApp</a>'+
+        '<p class="pt-c-f">One to one · From '+money(ptFrom)+' a session</p>'+
+      '</div>';
+    cur=null;
+    document.getElementById('pc-live').textContent='Personal training: message us on WhatsApp to agree a time with a coach.';
+    root.classList.remove('has-plan','card-visible');
+    if(co) co.disconnect();
+  }
   function renderPlan(){
+    if(st.kind==='pt') return renderContact();
     var s=summary();
     var lines=s.lines.map(function(l){
       return '<div class="pc-line'+(l[1]==null?' todo':'')+'"><span>'+l[0]+'</span>'+(l[1]==null?'<b class="pc-dash" aria-label="not chosen yet"></b>':'<b>'+l[1]+'</b>')+'</div>';
     }).join('');
-    var btn;
-    if(s.quote) btn = s.ready
-      ? '<a class="btn" id="pc-go" href="'+WA+encodeURIComponent(s.msg)+'" target="_blank" rel="noopener">Ask for a quote on WhatsApp</a>'
-      : '<button class="btn" type="button" id="pc-go" aria-disabled="true">Ask for a quote on WhatsApp</button>';
-    else btn='<button class="btn" type="button" id="pc-go"'+(s.ready?'':' aria-disabled="true"')+'>Get this plan</button>';
-    var showTotal=s.ready||s.quote;
+    var btn='<button class="btn" type="button" id="pc-go"'+(s.ready?'':' aria-disabled="true"')+'>Get this plan</button>';
+    var showTotal=s.ready;
     box.innerHTML='<p class="pc-leg">Your plan</p>'+
       '<div class="pc-card'+(s.ready?'':' is-todo')+'">'+
         '<p class="pc-n">'+s.title+'</p>'+
@@ -257,14 +287,14 @@ JS = r'''<script>
         '<p class="pc-note">'+(s.ready?s.notes.join(' '):s.hint)+'</p>'+
         btn+
       '</div>';
-    cur=s.ready&&!s.quote?{id:s.id,title:s.title,price:s.price,totalLabel:s.totalLabel,lines:s.lines,notes:s.notes}:null;
-    document.getElementById('pc-live').textContent=s.ready?s.title+', '+(s.quote?'from '+money(s.price)+' a session':money(s.price))+'.':'';
+    cur=s.ready?{id:s.id,title:s.title,price:s.price,totalLabel:s.totalLabel,lines:s.lines,notes:s.notes}:null;
+    document.getElementById('pc-live').textContent=s.ready?s.title+', '+money(s.price)+'.':'';
     root.classList.toggle('has-plan',s.ready);
     if(s.ready){
       document.getElementById('bp-n').textContent=s.title;
       document.getElementById('bp-l').textContent=s.totalLabel;
       document.getElementById('bp-p').textContent=money(s.price);
-      var bp=document.getElementById('bp-go'); bp.textContent=s.quote?'Ask':'Get this'; bp.dataset.wa=s.quote?WA+encodeURIComponent(s.msg):'';
+      document.getElementById('bp-go').textContent='Get this';
     } else root.classList.remove('card-visible');
     if(co){ co.disconnect(); if(s.ready) co.observe(document.getElementById('pc-go')) }
   }
@@ -293,14 +323,12 @@ JS = r'''<script>
     renderPlan(); document.getElementById('pc-ins').focus();
   });
   box.addEventListener('click',function(e){
+    if(e.target.closest('#pt-wa')){ E.track('pricing_pt_whatsapp',{}); return }
     var go=e.target.closest('#pc-go'); if(!go) return;
     if(go.getAttribute('aria-disabled')==='true'){ e.preventDefault(); return }
-    if(go.tagName==='A'){ E.track('pricing_quote',{need:st.need}); return }
     if(cur) E.review(cur);
   });
   document.getElementById('bp-go').addEventListener('click',function(){
-    var wa=this.dataset.wa;
-    if(wa){ E.track('pricing_quote',{need:st.need,from:'bar'}); window.open(wa,'_blank','noopener'); return }
     if(cur) E.review(cur);
   });
 

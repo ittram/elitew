@@ -18,7 +18,8 @@ The full process, with the reading of a new printed sheet, is in CLAUDE.md under
 
 Since 7 October 2026 personal training is quoted per customer: `pt.quote` is
 true, so the site shows only where it starts (the lowest price a session on the
-sheet) and a WhatsApp button for a personal quote. Assessments have
+sheet), how it works, and a WhatsApp button to agree a time with a coach; the
+plan and its price are agreed with the coach. Assessments have
 `onSite: false`. The sheet's prices stay in `prices.js` so the list is complete;
 `check_prices.py` fails if one of them appears on a page.
 
@@ -64,6 +65,9 @@ they left from), plus `pricing_see_all` and `pricing_restart`.
 The folding steps (2.4.5.4.1 on) add `pricing_kind` (Passes, Membership or
 Personal training was chosen) and `pricing_insured` (a member said their
 insurance is already paid, which takes the 24 euro off the first payment).
+
+`pricing_pt_whatsapp` counts the people who open WhatsApp to agree a time for
+personal training (2.4.9 on).
 
 `pricing_list_open` and `pricing_list_close` count the people who prefer the
 full table to the calculator.
