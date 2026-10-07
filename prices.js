@@ -39,7 +39,9 @@ window.ELITE_PRICES = {
     { id:"s4", name:"4 weeks", pt:"4 semanas (4 weeks)",     days:28, price:69.90 }
   ],
 
+  /* not on the site: the owner folds assessments into personal quotes (7 Oct 2026); kept as the sheet has them */
   assessments: {
+    onSite: false,
     packs: [
       { id:"at", name:"Training", pt:"Pack treino (trimestral)",   months:3, price:55.00 },
       { id:"an", name:"Nutrition", pt:"Pack nutrição (trimestral)", months:3, price:70.00 }
@@ -47,7 +49,11 @@ window.ELITE_PRICES = {
     todo: "[PLACEHOLDER: what each pack includes, e.g. an assessment with a coach and a new programme each month for three months]"
   },
 
+  /* on the site personal training shows only "from" the lowest price a session and asks for a
+     personal quote on WhatsApp: the price depends on what the customer needs (general training,
+     rehab, training with nutrition). The packs stay here as the sheet has them, for the cross check. */
   pt: {
+    quote: true,
     packs: [
       { id:"one", name:"Single session", pt:"Sessão avulso",                 sessions:1,  each:55.00, total:55.00 },
       { id:"p8",  name:"8 sessions",     pt:"Pack 8 sessões (válido 2 meses)",  sessions:8,  each:47.50, total:380.00, months:2 },

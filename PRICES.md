@@ -14,6 +14,14 @@ All of it is written from `prices.js`. After changing a price:
 
 The full process, with the reading of a new printed sheet, is in CLAUDE.md under Prices.
 
+## What the site shows
+
+Since 7 October 2026 personal training is quoted per customer: `pt.quote` is
+true, so the site shows only where it starts (the lowest price a session on the
+sheet) and a WhatsApp button for a personal quote. Assessments have
+`onSite: false`. The sheet's prices stay in `prices.js` so the list is complete;
+`check_prices.py` fails if one of them appears on a page.
+
 ## Where the numbers come from
 
 The printed preçário "em vigor desde 1/10/2026". All prices include VAT.

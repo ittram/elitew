@@ -12,7 +12,9 @@
    passes cost more, and so on).
 4. Checks every live draft: its full price list and the prices in its copy
    must be what build/pricelist.py writes now, and no other euro amount may
-   appear anywhere on the page.
+   appear anywhere on the page: no price outside prices.js, and none that
+   prices.js keeps off the site (personal training packs while `quote` is set,
+   assessments while `onSite` is false).
 Stops with errors for anything wrong on the page; warnings are worth a look.
 The calculator itself is tested in a browser by build/test_calculator.py."""
 import io, math, os, re, subprocess, sys
@@ -95,10 +97,27 @@ def arithmetic(P):
     if member4 >= V[-1]['price']: warn('four weeks of membership is not cheaper than the 4 week pass; the pass note on the page reads oddly then')
 
 
-def pages(P):
-    allowed = set(round(v, 2) for v in flat(P).values()) | {0.0}
+def shown(P):
+    """The prices the site may show. Personal training with `quote` shows only
+    where it starts; assessments with `onSite: false` show nothing."""
     off = P['member']['plans'][0]['desk'] - P['member']['plans'][0]['dd']
-    allowed.add(round(off, 2))
+    d = {P['insurance']['year'], off, P['member']['ddSavingYear'], 0.0}
+    for p in P['member']['plans']:
+        d |= {p['dd'], p['desk'], p['dd'] + P['insurance']['year'], p['desk'] + P['insurance']['year']}
+    d |= {v['price'] for v in P['visitor']}
+    if P['pt'].get('quote'):
+        d.add(min(k['each'] for k in P['pt']['packs']))
+    else:
+        d |= {k['each'] for k in P['pt']['packs']} | {k['total'] for k in P['pt']['packs']} | {P['pt']['second']}
+    A = P.get('assessments', {})
+    if A.get('onSite', True):
+        d |= {a['price'] for a in A.get('packs', [])}
+    return set(round(x, 2) for x in d)
+
+
+def pages(P):
+    allowed = shown(P)
+    hidden = set(round(v, 2) for v in flat(P).values()) - allowed
     for f in PL.live_drafts():
         name = PL.draft_name(f)
         s = io.open(os.path.join(ROOT, f), encoding='utf-8').read()
@@ -116,7 +135,8 @@ def pages(P):
             v = round(float(mo.group(1).replace(',', '.')), 2)
             if v not in allowed:
                 ctx = re.sub(r'\s+', ' ', re.sub(r'<[^>]+>', ' ', text[max(0, mo.start() - 60):mo.end() + 20])).strip()
-                err('%s: %s is not a price in prices.js: "%s"' % (name, m(v), ctx))
+                why = 'is on the sheet but must not be on the site (show only what prices.js allows)' if v in hidden else 'is not a price in prices.js'
+                err('%s: %s %s: "%s"' % (name, m(v), why, ctx))
         print('  %s checked' % name)
 
 
