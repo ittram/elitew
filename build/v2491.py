@@ -245,6 +245,75 @@ V['2.4.9.5'] = ('Personal training, the photo', r'''
 ''')
 
 
+# =====================================================================
+# 2.4.9.6  The photo banner of 2.4.9.5 with the chat of 2.4.9.3: photo,
+#          the plain facts, and a chat window that ends in a centred
+#          "book a time" button, with a phone call or a visit for people
+#          who do not use WhatsApp.
+# =====================================================================
+V['2.4.9.6'] = ('PT, photo and chat', r"""
+  var BOOK_MSG='Hi! I would like to book a time to talk to a coach about personal training.';
+  function ptLeft(){ return '' }
+  function ptRight(){ return '' }
+  function ptBand(){
+    var href=WA+encodeURIComponent(BOOK_MSG);
+    var chat=[['me','Hi! I would like to start personal training. I want to get stronger after a knee injury.'],
+              ['them','Happy to help! Can you come in to meet Joana and talk it through?'],
+              ['me','Thursday after work?'],
+              ['them','Thursday at 18:00 is booked. See you then!']];
+    return '<div class="v6"><img class="v6-img" src="assets/class-trx.webp" srcset="assets/class-trx-600.webp 600w, assets/class-trx.webp 900w" sizes="(max-width:768px) 100vw, 30vw" width="900" height="1200" alt="A member training on the TRX straps at Elite Wellness">'+
+      '<div class="v6-t"><p class="pc-leg">Personal training</p>'+
+      '<p class="v6-h">Made around you</p>'+
+      '<p class="pt-p">One to one training with André, Joana or Ricardo, all qualified in physical education. Getting fitter, coming back from an injury, eating better: you say what you want, your coach plans it with you.</p>'+
+      '<ul class="v6-facts">'+['A first talk with your coach at the gym','A plan and a price agreed together','One to one sessions from '+money(ptFrom)].map(function(x){ return '<li>'+x+'</li>' }).join('')+'</ul></div>'+
+      '<div class="v6-c"><div class="v6-top">'+face(COACHES[1])+'<span><b>Elite Wellness</b><small>WhatsApp</small></span></div>'+
+        '<div class="v6-chat">'+chat.map(function(m){ return '<p class="v6-m '+m[0]+'">'+m[1]+'</p>' }).join('')+
+        '<p class="v6-eg">How booking works, for example</p></div>'+
+        '<div class="v6-cta"><a class="btn" id="pt-wa" href="'+href+'" target="_blank" rel="noopener">Book a time on WhatsApp</a>'+
+        '<p class="v6-alt">No WhatsApp? <a href="tel:+351926565836">Call +351 926 565 836</a> or <a href="#find-us">come by reception</a>.</p></div>'+
+      '</div></div>';
+  }
+""", r"""
+.pt-band{margin-top:48px}
+.v6{display:grid;grid-template-columns:repeat(12,minmax(0,1fr));column-gap:24px;background:#F4F4F2}
+.v6-img{grid-column:1 / span 4;width:100%;height:100%;min-height:560px;object-fit:cover;object-position:50% 30%;display:block}
+.v6-t{grid-column:5 / span 4;align-self:center;padding:48px 0}
+.v6-h{margin-top:8px;font-family:var(--font-display);font-size:48px;line-height:48px;text-transform:uppercase}
+.v6-facts{list-style:none;margin:24px 0 0;padding:0}
+.v6-facts li{position:relative;padding:8px 0 8px 32px;font-size:16px;line-height:24px}
+.v6-facts li::before{content:"";position:absolute;left:4px;top:15px;width:12px;height:6px;border-left:2px solid var(--royal-blue);border-bottom:2px solid var(--royal-blue);transform:rotate(-45deg)}
+.v6-c{grid-column:9 / span 4;align-self:center;margin:48px 48px 48px 0;border-radius:16px;overflow:hidden;background:var(--white);box-shadow:0 8px 24px rgba(0,0,0,.08)}
+.v6-top{display:flex;align-items:center;gap:12px;padding:12px 16px;background:var(--black);color:var(--white)}
+.v6-top .pt-face{width:40px;height:40px;font-size:16px;box-shadow:none}
+.v6-top b{display:block;font-size:14px;line-height:20px}
+.v6-top small{display:block;font-size:12px;line-height:16px;color:rgba(255,255,255,.6)}
+.v6-chat{display:flex;flex-direction:column;gap:8px;padding:16px;background:#ECE9E4}
+.v6-m{max-width:85%;padding:8px 12px;font-size:14px;line-height:20px;border-radius:12px;box-shadow:0 1px 1px rgba(0,0,0,.08)}
+.v6-m.me{align-self:flex-end;background:#DCF2D4;border-bottom-right-radius:4px}
+.v6-m.them{align-self:flex-start;background:var(--white);border-bottom-left-radius:4px}
+.v6-eg{margin-top:4px;font-size:12px;line-height:16px;color:#6A6A6A;text-align:center}
+.v6-cta{padding:24px;text-align:center}
+.v6-alt{margin-top:16px;font-size:13px;line-height:20px;color:#4A4A4A}
+.v6-alt a{color:var(--royal-blue);font-weight:700;text-decoration:none;white-space:nowrap}
+@media (hover:hover){ .v6-alt a:hover{text-decoration:underline;text-underline-offset:4px} }
+@media (max-width:1100px){
+  .v6-img{grid-column:1 / span 5;min-height:0}
+  .v6-t{grid-column:6 / span 7;padding:32px 32px 32px 0}
+  .v6-h{font-size:40px;line-height:40px}
+  .v6-c{grid-column:1 / -1;margin:32px;justify-self:center;width:min(480px,100%)}
+}
+@media (max-width:768px){
+  .pt-band{margin-top:32px}
+  .v6{display:block}
+  .v6-img{height:220px;min-height:0}
+  .v6-t{padding:24px}
+  .v6-h{font-size:40px;line-height:40px}
+  .v6-c{width:auto;margin:0 16px 16px}
+  .v6-cta{padding:24px 16px}
+}
+""")
+
+
 def variant_css(extra):
     k = CSS.rindex('</style>')
     return CSS[:k] + COMMON_CSS + extra + CSS[k:]
