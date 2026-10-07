@@ -14,6 +14,9 @@ What it does, in order (this is the look of the TRX card in 2.4.8):
      masks combined) and blurs everything else with a round lens kernel:
      strongest on the far wall at the top of the frame, lighter on the floor
      near the bottom. The subject goes back on top with a soft edge.
+     Two flags for busy class photos: --main keeps only the biggest person
+     sharp (people behind blur like the wall), --near keeps the floor or
+     mat close to the person in focus so they do not float.
   3. Crops. card: 3:4 portrait, the class card on desktop and in the phone
      carousel. hero: 4:3 landscape. The crop leaves 14% of the frame above
      the top of the person; --top N sets the crop's top edge in source pixels
@@ -49,7 +52,26 @@ def subject_masks(rgb):
     return f(body), np.maximum(f(body), f(kit))
 
 
-def lens_blur(gray, mask):
+def main_subject(person, subject):
+    """Keeps the biggest person sharp and lets everyone behind them blur, with
+    whatever they hold (equipment touching them)."""
+    import cv2
+    n, lab, stats, _ = cv2.connectedComponentsWithStats((person > 0.5).astype(np.uint8), 8)
+    if n <= 2:
+        return person, subject
+    keep = (lab == 1 + int(np.argmax(stats[1:, cv2.CC_STAT_AREA]))).astype(np.float32)
+    near = cv2.dilate(keep, np.ones((25, 25), np.uint8))
+    n2, lab2 = cv2.connectedComponents((subject > 0.5).astype(np.uint8), 8)
+    kit = np.zeros_like(keep)
+    for i in range(1, n2):
+        part = (lab2 == i)
+        if (near[part] > 0).any():
+            kit[part] = 1
+    soft = lambda m: cv2.GaussianBlur(m, (0, 0), 2)
+    return np.minimum(person, soft(keep)), np.minimum(subject, soft(np.maximum(keep, kit)))
+
+
+def lens_blur(gray, mask, near=False):
     import cv2
     g = np.asarray(gray).astype(np.float32) / 255
     soft = cv2.GaussianBlur(mask, (0, 0), 1.5)
@@ -73,6 +95,16 @@ def lens_blur(gray, mask):
     bottom = np.clip((y - 0.75) / 0.15, 0, 1)        # floor in front: least
     mid = np.clip(1 - top - bottom, 0, 1)
     blur = layers[2] * top + layers[1] * mid + layers[0] * bottom
+    if near:
+        # the floor the person is lying or standing on stays in focus close to
+        # them and goes soft further away; everything above their middle is
+        # behind them and gets the full blur
+        hard = (soft > 0.5).astype(np.uint8)
+        d = cv2.distanceTransform(1 - hard, cv2.DIST_L2, 5)
+        cy = (np.arange(H)[:, None] * hard).sum() / max(hard.sum(), 1) / H
+        floor = np.clip((y - cy) / 0.05, 0, 1)
+        amount = 1 - floor * (1 - np.clip(d / (0.2 * W), 0, 1))
+        blur = blur * amount + g * (1 - amount)
     out = blur * (1 - soft) + g * soft
     return Image.fromarray((np.clip(out, 0, 1) * 255).astype(np.uint8))
 
@@ -106,13 +138,17 @@ def main():
     p.add_argument('--kind', choices=['card', 'hero'], default='card')
     p.add_argument('--top', type=int, help='crop top edge in source pixels (default: 14%% headroom above the person)')
     p.add_argument('--focus', type=float, nargs=2, default=(0.58, 0.42), metavar=('X', 'Y'))
+    p.add_argument('--main', action='store_true', help='keep only the biggest person sharp; people behind them blur')
+    p.add_argument('--near', action='store_true', help='keep the floor close to the person sharp (people on a mat)')
     p.add_argument('--out', default='assets')
     a = p.parse_args()
 
     rgb = Image.open(a.source)
     rgb = ImageOps.exif_transpose(rgb).convert('RGB')    # phone photos are often stored sideways
     person, subject = subject_masks(rgb)
-    img = lens_blur(grade(rgb), subject)
+    if a.main:
+        person, subject = main_subject(person, subject)
+    img = lens_blur(grade(rgb), subject, near=a.near)
     img = vignette(crop(img, person, a.kind, a.top), *a.focus)
 
     sizes = (900, 600) if a.kind == 'card' else (1600, 800)

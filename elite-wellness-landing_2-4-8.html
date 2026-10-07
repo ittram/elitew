@@ -714,6 +714,10 @@ body.show-grid .grid-overlay{display:block}
 .pl-n{font-size:12px;line-height:18px;color:var(--silver-grey);margin-top:10px}
 @media (max-width:768px){ .pl{margin-top:40px} .pl-t{font-size:14px} .pl-t td+td,.pl-t th+th{padding-left:16px} .pl-grp{margin-top:28px} }
 </style>
+<style>
+@media (min-width:1101px){ .classes-grid{grid-template-columns:repeat(5,1fr)} .classes-grid .class-card{grid-column:auto} }
+@media (min-width:769px) and (max-width:1100px){ .classes-grid{grid-template-columns:repeat(6,1fr)} .classes-grid .class-card{grid-column:span 2} .classes-grid .class-card:nth-child(n+4){grid-column:span 3} }
+</style>
 </head>
 <body>
 
@@ -819,7 +823,7 @@ body.show-grid .grid-overlay{display:block}
       </div>
     </div>
     <div class="class-card">
-      <img class="class-img" src="assets/class-trx.webp" srcset="assets/class-trx-600.webp 600w, assets/class-trx.webp 900w" sizes="(max-width:768px) 86vw, (max-width:1100px) 50vw, 25vw" width="900" height="1200" loading="lazy" style="object-position:50% 30%" alt="A member rowing on the TRX straps in a class at Elite Wellness">
+      <img class="class-img" src="assets/class-trx.webp" srcset="assets/class-trx-600.webp 600w, assets/class-trx.webp 900w" sizes="(max-width:768px) 86vw, (max-width:1100px) 34vw, 20vw" width="900" height="1200" loading="lazy" style="object-position:50% 30%" alt="A member rowing on the TRX straps in a class at Elite Wellness">
       <div class="class-overlay">
         <div class="class-name">TRX</div>
         <div class="class-tag">Suspension training</div>
@@ -837,6 +841,13 @@ body.show-grid .grid-overlay{display:block}
       <div class="class-overlay">
         <div class="class-name">Bike Elite</div>
         <div class="class-tag">Indoor cycling</div>
+      </div>
+    </div>
+    <div class="class-card">
+      <img class="class-img" src="assets/class-pilates.webp" srcset="assets/class-pilates-600.webp 600w, assets/class-pilates.webp 900w" sizes="(max-width:768px) 86vw, (max-width:1100px) 34vw, 20vw" width="900" height="1200" loading="lazy" style="object-position:75% 30%" alt="A member holding a pilates position on a mat in a class at Elite Wellness">
+      <div class="class-overlay">
+        <div class="class-name">Pilates</div>
+        <div class="class-tag">Mat pilates</div>
       </div>
     </div>
   </div>

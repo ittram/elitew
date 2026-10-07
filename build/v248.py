@@ -18,10 +18,33 @@ s = io.open('elite-wellness-landing_2-4-7.html', encoding='utf-8').read()
 old = '<img class="class-img" src="https://images.unsplash.com/photo-1571019614242-c5c5dee9f50b?q=80&w=800&auto=format&fit=crop" alt="PLACEHOLDER: replace with a real TRX class photo">'
 new = ('<img class="class-img" src="assets/class-trx.webp" '
        'srcset="assets/class-trx-600.webp 600w, assets/class-trx.webp 900w" '
-       'sizes="(max-width:768px) 86vw, (max-width:1100px) 50vw, 25vw" width="900" height="1200" loading="lazy" '
+       'sizes="(max-width:768px) 86vw, (max-width:1100px) 34vw, 20vw" width="900" height="1200" loading="lazy" '
        'style="object-position:50% 30%" '
        'alt="A member rowing on the TRX straps in a class at Elite Wellness">')
 assert s.count(old) == 1
 s = s.replace(old, new)
+
+# ---- 7 October: Pilates joins the classes, with a real photo (build/photo.py --main --near) ----
+BIKE_END = """        <div class="class-name">Bike Elite</div>
+        <div class="class-tag">Indoor cycling</div>
+      </div>
+    </div>
+"""
+PILATES = """    <div class="class-card">
+      <img class="class-img" src="assets/class-pilates.webp" srcset="assets/class-pilates-600.webp 600w, assets/class-pilates.webp 900w" sizes="(max-width:768px) 86vw, (max-width:1100px) 34vw, 20vw" width="900" height="1200" loading="lazy" style="object-position:75% 30%" alt="A member holding a pilates position on a mat in a class at Elite Wellness">
+      <div class="class-overlay">
+        <div class="class-name">Pilates</div>
+        <div class="class-tag">Mat pilates</div>
+      </div>
+    </div>
+"""
+assert s.count(BIKE_END) == 1
+s = s.replace(BIKE_END, BIKE_END + PILATES)
+# five classes: one row of five on desktop; on a tablet three over two on a six column row; phones keep the carousel
+s = s.replace('</head>', """<style>
+@media (min-width:1101px){ .classes-grid{grid-template-columns:repeat(5,1fr)} .classes-grid .class-card{grid-column:auto} }
+@media (min-width:769px) and (max-width:1100px){ .classes-grid{grid-template-columns:repeat(6,1fr)} .classes-grid .class-card{grid-column:span 2} .classes-grid .class-card:nth-child(n+4){grid-column:span 3} }
+</style>
+</head>""", 1)
 io.open('elite-wellness-landing_2-4-8.html', 'w', encoding='utf-8').write(s)
 print('2.4.8', len(s))
