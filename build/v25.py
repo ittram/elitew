@@ -43,7 +43,7 @@ JS = r'''<script>
 /* 2.5.%(v)d: the price builder (%(label)s). Passes and membership are priced here; personal training
    keeps the same plan card and books a first talk with a coach on WhatsApp. */
 (function(){
-  var V=%(v)d; /* 1 three steps, 2 a photo, 3 cards first, 4 best value chosen, 5 the plan as a strip */
+  var V=%(v)d, WHOLE=%(whole)s; /* 1 three steps, 2 a photo, 3 cards first, 4 best value chosen, 5 the plan as a strip */
   var E=window.EWPricing, opts=document.getElementById('pc-opts'), kEl=document.getElementById('pc-k'), qEl=document.getElementById('pc-q'), box=document.getElementById('pc-plan'), pc=document.getElementById('pc');
   if(!E||!opts||!box) return;
   var P=E.P, money=E.money, off=P.member.plans[0].desk-P.member.plans[0].dd;
@@ -75,7 +75,7 @@ JS = r'''<script>
   ];
 
   /* nothing is chosen until the visitor chooses (2.5.4: the best value is chosen for them) */
-  var st=V===4?{kind:'mem',stay:null,plan:'un',pay:'dd',insured:false}:{kind:null,stay:null,plan:null,pay:V===3?'dd':null,insured:false}, cur=null;
+  var st=V===4?{kind:'mem',stay:null,plan:'un',pay:'dd',insured:false}:{kind:null,stay:null,plan:null,pay:V===3?'desk':null,insured:false}, cur=null;
 
   function radio(name,value,checked){ return '<input type="radio" name="'+name+'" value="'+value+'"'+(checked?' checked':'')+'>' }
   function set(legend,body,hint,id){ return '<fieldset class="pc-set"'+(id?' id="'+id+'"':'')+'><legend class="pc-leg">'+legend+'</legend>'+(hint?'<p class="pc-hint">'+hint+'</p>':'')+body+'</fieldset>' }
@@ -94,34 +94,33 @@ JS = r'''<script>
   function oRow(name,id,on,label,right){
     return '<label class="pk-o">'+radio(name,id,on)+'<i>'+label+'</i>'+(right?'<b>'+right+'</b>':'')+'</label>';
   }
-  function cardSum(){
-    var s=summary();
-    if(!s.ready) return '';
-    return '<div class="pk-sum"><button class="btn" type="button" id="pc-go">'+(st.kind==='pass'?'Get this pass':'Get this plan')+'</button></div>';
-  }
+  /* every card has the same five rows, lined up across the three: name, one line, the options,
+     the small print, the button. The button is there from the start, greyed out until the choice is made */
+  function goBtn(t,ready){ return '<button class="btn" type="button"'+(ready?' id="pc-go"':' disabled')+'>'+t+'</button>' }
+  var PT_IMG='<img src="assets/pt-session-800.webp" srcset="assets/pt-session-800.webp 800w, assets/pt-session.webp 1600w" sizes="(max-width:768px) 84vw, 30vw" width="1600" height="1200" loading="lazy" alt="A coach guiding a member through a lunge in a personal training session at Elite Wellness">';
   function card(k){
-    var on=st.kind===k.id, hd='<label class="pk-hd">'+radio('kind',k.id,on)+'<span class="pk-ic">'+IC[k.id]+'</span><span class="pk-n">'+k.name+'</span>';
-    if(k.id==='pt') return '<div class="pk-i is-pt">'+
-      '<img class="pk-bg" src="assets/pt-session-800.webp" srcset="assets/pt-session-800.webp 800w, assets/pt-session.webp 1600w" sizes="(max-width:768px) 84vw, 30vw" width="1600" height="1200" loading="lazy" alt="A coach guiding a member through a lunge in a personal training session at Elite Wellness">'+
-      '<div class="pk-ov">'+hd+'<span class="pk-sub">Made around you</span></label>'+
-        '<p class="pk-p">'+PT_TEXT+'</p>'+
-        '<p class="pk-from">From <b>'+money(ptFrom)+'</b> a session, one to one</p>'+
-        '<a class="btn" id="pt-wa" href="'+WA+encodeURIComponent(BOOK_MSG)+'" target="_blank" rel="noopener">Book a time on WhatsApp</a>'+
-        '<p class="pc-alt">Prefer to talk? Call <a href="tel:+351926565836">+351 926 565 836</a></p>'+
-      '</div></div>';
-    var body;
-    if(k.id==='pass') body='<div class="pk-l" role="radiogroup" aria-label="Choose a pass">'+
-        P.visitor.map(function(v){ return oRow('stay',v.id,on&&st.stay===v.id,v.name,money(v.price)) }).join('')+
-        '<em>'+k.foot+'</em></div>';
-    else {
-      var desk=st.pay==='desk';
+    var on=st.kind===k.id, body, foot, act;
+    if(k.id==='pt'){
+      body='<div class="pk-l"><p class="pk-k">Made around you</p><div class="pk-pic">'+PT_IMG+'</div><p class="pk-p">'+PT_TEXT+'</p></div>';
+      foot='From '+money(ptFrom)+' a session, one to one. Prefer to talk? Call <a href="tel:+351926565836">+351 926 565 836</a>';
+      act='<a class="btn" id="pt-wa" href="'+WA+encodeURIComponent(BOOK_MSG)+'" target="_blank" rel="noopener">Book a time on WhatsApp</a>';
+    } else if(k.id==='pass'){
+      body='<div class="pk-l" role="radiogroup" aria-label="Choose a pass"><p class="pk-k">How long</p>'+
+        P.visitor.map(function(v){ return oRow('stay',v.id,on&&st.stay===v.id,v.name,money(v.price)) }).join('')+'</div>';
+      foot=k.foot+'. Paid at reception.';
+      act=goBtn('Get this pass',on&&st.stay);
+    } else {
+      var dd=st.pay==='dd';
       body='<div class="pk-l" role="radiogroup" aria-label="How often will you train?"><p class="pk-k">How often</p>'+
-          P.member.plans.map(function(p){ return oRow('plan',p.id,on&&st.plan===p.id,p.name+(p.best?'<span class="tag pk-tag">Recommended</span>':''),money(desk?p.desk:p.dd)) }).join('')+
-          '<em>'+(desk?'Every 2 weeks at reception.':'Every 2 weeks with direct debit, '+money(off)+' off the reception price.')+'</em></div>'+
-        '<label class="pk-sw"><input type="checkbox" id="pk-dd"'+(st.pay!=='desk'?' checked':'')+'><span><b>Direct debit<span class="pk-off">'+money(off)+' off</span></b>'+
-          '<small>'+(st.pay!=='desk'?'Paid automatically every 2 weeks':'Off: you pay at reception every 2 weeks')+'</small></span></label>';
+          P.member.plans.map(function(p){ return oRow('plan',p.id,on&&st.plan===p.id,p.name+(p.best?'<span class="tag pk-tag">Recommended</span>':''),money(dd?p.dd:p.desk)) }).join('')+
+        '<label class="pk-sw"><input type="checkbox" id="pk-dd"'+(dd?' checked':'')+'><span><b>Direct debit<span class="pk-off">'+money(off)+' off</span></b>'+
+          '<small>'+(dd?'On: '+money(off)+' off every payment, '+money(P.member.ddSavingYear)+' a year':'Turn on to save '+money(off)+' every 2 weeks')+'</small></span></label></div>';
+      foot=(dd?'Every 2 weeks by direct debit':'Every 2 weeks at reception')+', plus '+money(P.insurance.year)+' sports insurance once a year.';
+      act=goBtn('Get this plan',on&&st.plan);
     }
-    return '<div class="pk-i'+(on?' is-on':'')+'">'+hd+'<span class="pk-d">'+k.desc+'</span></label>'+body+(on?cardSum():'')+'</div>';
+    return '<div class="pk-i'+(on?' is-on':'')+'">'+
+      '<label class="pk-hd">'+radio('kind',k.id,on)+'<span class="pk-ic">'+IC[k.id]+'</span><span class="pk-n">'+k.name+'</span></label>'+
+      '<p class="pk-d">'+k.desc+'</p>'+body+'<p class="pk-ft">'+foot+'</p><div class="pk-act">'+act+'</div></div>';
   }
   function products(){
     if(V===3) return '<div class="pk">'+KINDS.map(card).join('')+'</div>';
@@ -323,6 +322,7 @@ JS = r'''<script>
     co=new IntersectionObserver(function(es){ root.classList.toggle('card-visible', es[0].isIntersecting&&root.classList.contains('has-plan')) },{threshold:0.5});
   }
   if(mq.addEventListener) mq.addEventListener('change',mark); else mq.addListener(mark);
+  if(WHOLE) pc.classList.add('ph-whole');
   renderOpts(); renderPlan(); guide();
 })();
 </script>'''
@@ -390,22 +390,23 @@ CSS = r'''<style id="v25-css">
 .pc-ph{margin:-32px -32px 24px;aspect-ratio:4/3;overflow:hidden;background:#222}
 .pc-ph img{width:100%;height:100%;object-fit:cover;object-position:50% 0}
 
-/* ---------- 2.5.3: everything in the cards: the choice, the price and the button. No plan box ---------- */
+/* ---------- 2.5.3: everything in the cards. One structure for all three, lined up row by row ---------- */
 .v3 .pc-opts{display:contents}
 .v3 .pc-k{grid-column:1 / -1}
 .v3 .pc-q,.v3 .pc-plan{display:none}
-.v3 .pk-i{display:flex;flex-direction:column;padding:32px;cursor:default}
+/* five rows shared by the three cards (subgrid), so names, lines, options, small print and buttons sit level */
+.v3 .pk{grid-template-rows:repeat(5,auto);row-gap:0}
+.v3 .pk-i{grid-row:span 5;display:grid;grid-template-rows:subgrid;padding:32px;cursor:default}
 .v3 .pk-i::after{display:none}
 .v3 .pk-i.is-on,.v3 .pk-i:has(input:checked){background:var(--white);color:var(--black);border-color:var(--black)}
 .v3 .pk-i:has(input:checked) .pk-d{color:#4A4A4A}
 .v3 .pk-i:has(input:checked) .pk-ic{color:var(--royal-blue)}
 .v3 .pk-hd{display:block;cursor:pointer}
-.v3 .pk-n{padding-right:0}
-.v3 .pk-d{min-height:40px}
-.v3 .pk-l{display:block;margin-top:24px;box-shadow:inset 0 1px 0 var(--black)}
-.v3 .pk-l+.pk-l{margin-top:16px}
+.v3 .pk-n{min-height:0;padding-right:0}
+.v3 .pk-d{margin-top:8px}
+.v3 .pk-l{display:flex;flex-direction:column;margin-top:24px;box-shadow:inset 0 1px 0 var(--black)}
 .v3 .pk-k{padding:12px 0 4px;font-weight:800;font-size:11px;line-height:16px;letter-spacing:.14em;text-transform:uppercase;color:var(--silver-grey)}
-/* each option: the same ring the product boxes had, in front of the name */
+/* each option: a ring in front of the name */
 .v3 .pk-o{display:grid;grid-template-columns:20px minmax(0,1fr) auto;align-items:center;column-gap:12px;padding:12px 0;box-shadow:inset 0 -1px 0 var(--light-grey);font-size:15px;line-height:20px;cursor:pointer}
 .v3 .pk-o::before{content:"";width:20px;height:20px;border-radius:50%;box-shadow:inset 0 0 0 2px var(--light-grey);transition:box-shadow .15s,background .15s}
 @media (hover:hover){ .v3 .pk-o:hover::before{box-shadow:inset 0 0 0 2px var(--black)} }
@@ -414,15 +415,9 @@ CSS = r'''<style id="v25-css">
 .v3 .pk-o:has(input:focus-visible)::before{outline:2px solid var(--royal-blue);outline-offset:2px}
 .v3 .pk-o i{font-style:normal}
 .v3 .pk-o b{white-space:nowrap}
-.v3 .pk-o small{font-weight:400;font-size:12px;line-height:16px;color:#6A6A6A}
 .v3 .pk-off{margin-left:8px;font-weight:800;font-size:11px;letter-spacing:.08em;text-transform:uppercase;color:var(--royal-blue);white-space:nowrap}
 .v3 .pk-tag{margin-left:8px;vertical-align:2px;background:var(--accent);color:var(--black);font-weight:800;font-size:9px;line-height:16px;letter-spacing:.08em;text-transform:uppercase;padding:0 4px;white-space:nowrap}
-.v3 .pk-l em{display:block;margin-top:12px;font-style:normal;font-size:12px;line-height:16px;color:#5A5A5A}
-.v3 .pk-hint{margin-top:auto;padding-top:24px;font-size:14px;line-height:20px;font-weight:700}
-/* the price and the button, in the card */
-.v3 .pk-sum{margin-top:auto;padding-top:24px}
-.v3 .pk-sum .btn{width:100%}
-/* direct debit: a switch, on by default; off is the reception price */
+/* direct debit: a switch, off to start; turned on, every plan shows its discounted price */
 .v3 .pk-sw{display:flex;align-items:center;gap:16px;margin-top:16px;padding:16px;background:var(--off-white);cursor:pointer}
 .v3 .pk-sw input{appearance:none;flex:0 0 48px;width:48px;height:28px;margin:0;border-radius:14px;background:#C9C9C6;position:relative;cursor:pointer;transition:background .15s}
 .v3 .pk-sw input::after{content:"";position:absolute;top:4px;left:4px;width:20px;height:20px;border-radius:50%;background:var(--white);box-shadow:0 1px 2px rgba(0,0,0,.2);transition:transform .15s}
@@ -431,20 +426,18 @@ CSS = r'''<style id="v25-css">
 .v3 .pk-sw input:focus-visible{outline:2px solid var(--royal-blue);outline-offset:2px}
 .v3 .pk-sw b{display:block;font-size:15px;line-height:20px}
 .v3 .pk-sw small{display:block;font-size:12px;line-height:16px;color:#5A5A5A}
-@media (prefers-reduced-motion:reduce){ .v3 .pk-sw input,.v3 .pk-sw input::after{transition:none} }
-/* personal training: the photo fills the card and the words sit on it. The words are taken out of the flow,
-   so the card is exactly as tall as the other two and never sets the height of the row */
-.v3 .pk-i.is-pt,.v3 .pk-i.is-pt:has(input:checked){position:relative;padding:0;background:var(--black);color:var(--white);border-color:var(--black);overflow:hidden}
-.v3 .pk-bg{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:50% 0}
-.v3 .is-pt::before{content:"";position:absolute;inset:0;background:linear-gradient(180deg,rgba(0,0,0,0) 12%,rgba(0,0,0,.6) 40%,rgba(0,0,0,.92) 62%);z-index:1}
-.v3 .pk-ov{position:absolute;left:0;right:0;bottom:0;z-index:2;padding:32px}
-.v3 .is-pt .pk-ic,.v3 .is-pt:has(input:checked) .pk-ic{color:var(--white)}
-.v3 .pk-sub{display:block;margin-top:4px;font-weight:800;font-size:11px;line-height:16px;letter-spacing:.14em;text-transform:uppercase;color:rgba(255,255,255,.72)}
-.v3 .pk-p{margin-top:12px;font-size:14px;line-height:21px;color:rgba(255,255,255,.88)}
-.v3 .pk-from{margin-top:16px;font-size:13px;line-height:20px;color:rgba(255,255,255,.8)}
-.v3 .pk-from b{font-family:var(--font-display);font-weight:400;font-size:28px;line-height:28px;color:var(--white);margin:0 4px;vertical-align:-3px}
-.v3 .is-pt .btn{width:100%;margin-top:16px}
-.v3 .is-pt .pc-alt{margin-top:12px}
+/* the small print and the button close every card at the same height */
+.v3 .pk-ft{padding-top:12px;font-size:12px;line-height:16px;color:#5A5A5A}
+.v3 .pk-ft a{color:var(--royal-blue);font-weight:700;text-decoration:none;white-space:nowrap}
+.v3 .pk-act{padding-top:24px}
+.v3 .pk-act .btn{width:100%}
+.v3 .pk-act .btn:disabled{background:var(--light-grey);border-color:var(--light-grey);color:var(--silver-grey);cursor:not-allowed}
+/* personal training: the same card, with the session photo where the options are */
+.v3 .pk-pic{position:relative;flex:1 1 auto;min-height:144px;margin-top:8px;overflow:hidden;background:#222}
+.v3 .pk-pic img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:50% 15%}
+.v3.ph-whole .pk-pic{flex:0 0 auto;min-height:0;aspect-ratio:4/3}
+.v3 .pk-p{margin-top:12px;font-size:14px;line-height:21px;color:#3A3A3A}
+@media (prefers-reduced-motion:reduce){ .v3 .pk-sw input,.v3 .pk-sw input::after,.v3 .pk-o::before{transition:none} }
 
 /* ---------- 2.5.5: the plan is a strip under the options ---------- */
 .pc.v5{display:block}
@@ -476,8 +469,6 @@ CSS = r'''<style id="v25-css">
   .ptx{display:block}
   .ptx-ph{aspect-ratio:16/9;margin-bottom:24px}
   .v3 .pk-i{padding:24px}
-  .v3 .pk-ov{padding:24px}
-  .v3 .pk-p{display:-webkit-box;-webkit-line-clamp:5;-webkit-box-orient:vertical;overflow:hidden}
   .v3 .pk-tag{display:table;margin:4px 0 0}
   .v5 .pc-card{grid-template-columns:minmax(0,1fr) minmax(0,1fr);column-gap:32px}
   .v5 .pc-lines{grid-row:2 / span 2}
@@ -503,10 +494,9 @@ CSS = r'''<style id="v25-css">
   /* 2.5.3 on a phone: the cards are a carousel, the next one peeks in from the right */
   .v3 .pk{display:flex;gap:12px;margin:0 -24px;padding:0 24px 4px;overflow-x:auto;scroll-snap-type:x mandatory;scroll-padding:0 24px;overscroll-behavior-x:contain;scrollbar-width:none}
   .v3 .pk::-webkit-scrollbar{display:none}
-  .v3 .pk-i{flex:0 0 84%;scroll-snap-align:start;padding:24px}
+  .v3 .pk-i{flex:0 0 84%;scroll-snap-align:start;padding:24px;display:flex;flex-direction:column}
+  .v3 .pk-l{flex:1 0 auto}
   .v3 .pk-n{min-height:0;font-size:28px;line-height:32px}
-  .v3 .pk-i.is-pt{padding:0;min-height:600px}
-  .v3 .pk-p{display:block;-webkit-line-clamp:unset}
   .v3 .pk-tag{display:inline;margin:0 0 0 8px}
   .v3 .pk-d{display:block;min-height:0}
   .v3 .pk-ic{width:32px;height:32px;margin-bottom:16px}
@@ -522,17 +512,17 @@ CSS = r'''<style id="v25-css">
 '''
 
 
-def make(v, label):
+def make(v, label, whole=False, name=None):
     s = io.open(BASE, encoding='utf-8').read()
     a = s.index('<div class="pc" id="pc">')
     b = s.index('<div class="pt-band" id="pt-band"></div>') + len('<div class="pt-band" id="pt-band"></div>')
     s = s[:a] + MARKUP % {'v': v} + s[b:]
     a = s.index('<script>\n/* 2.4.9: the price builder')
     b = s.index('</script>', a) + len('</script>')
-    s = s[:a] + JS % {'v': v, 'label': label} + s[b:]
+    s = s[:a] + JS % {'v': v, 'label': label, 'whole': 'true' if whole else 'false'} + s[b:]
     a = s.index('<style id="price-list-css">')
     s = s[:a] + CSS + s[a:]
-    out = 'elite-wellness-landing_2-5-%d.html' % v
+    out = 'elite-wellness-landing_2-5-%s.html' % (name or v)
     io.open(out, 'w', encoding='utf-8').write(s)
     print(out)
 
@@ -540,3 +530,4 @@ def make(v, label):
 if __name__ == '__main__':
     for v, label in VARIANTS.items():
         make(v, label)
+    make(3, 'Cards first, the photo whole', whole=True, name='3-1')
