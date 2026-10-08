@@ -792,24 +792,39 @@ body.show-grid .grid-overlay{display:block}
 .pc-ph{margin:-32px -32px 24px;aspect-ratio:4/3;overflow:hidden;background:#222}
 .pc-ph img{width:100%;height:100%;object-fit:cover;object-position:50% 0}
 
-/* ---------- 2.5.3: cards first, the plan comes when there is one ---------- */
+/* ---------- 2.5.3: cards first, the options live in the cards, the plan comes when there is one ---------- */
 .v3 .pc-opts{display:contents}
 .v3 .pc-k{grid-column:1 / -1}
 .v3 .pc-q{grid-column:1 / span 7;min-width:0}
 .v3 .pc-plan{grid-column:9 / span 4}
 .v3.empty .pc-plan{display:none}
-.v3.empty .pk-l{display:block;margin-top:24px;box-shadow:inset 0 1px 0 var(--black)}
-.v3.empty .pk-l>span{display:flex;justify-content:space-between;gap:16px;padding:10px 0;box-shadow:inset 0 -1px 0 var(--light-grey);font-size:15px;line-height:20px}
-.v3.empty .pk-l i{font-style:normal}
-.v3.empty .pk-l b{white-space:nowrap}
-.v3.empty .pk-l em{display:block;margin-top:12px;font-style:normal;font-size:12px;line-height:16px;color:#5A5A5A}
-.v3.empty .pk-go{display:flex;justify-content:center;margin-top:auto;padding:14px 16px;border:2px solid var(--royal-blue);font-family:var(--font-display);font-size:1rem;line-height:1;text-transform:uppercase;color:var(--royal-blue);transition:background .15s,color .15s}
-.v3.empty .pk-l+.pk-go{margin-top:24px}
-@media (hover:hover){ .v3.empty .pk-i:hover .pk-go{background:var(--royal-blue);color:var(--white)} }
-.v3.empty .pk-f,.v3.empty .pk-x{display:none}
-.v3.empty .pk-i{padding:32px}
-.v3.empty .pk-i::after{top:32px;right:32px}
-.v3.empty .pk-d{min-height:40px}
+.v3 .pk-i{display:flex;flex-direction:column;padding:32px;cursor:default}
+.v3 .pk-i::after{top:32px;right:32px}
+.v3 .pk-i.is-on,.v3 .pk-i:has(input:checked){background:var(--white);color:var(--black);border-color:var(--black)}
+.v3 .pk-i:has(input:checked) .pk-d{color:#4A4A4A}
+.v3 .pk-i:has(input:checked) .pk-ic{color:var(--royal-blue)}
+.v3 .pk-i.is-on::after{background:var(--white);box-shadow:inset 0 0 0 6px var(--black)}
+.v3 .pk-hd{display:block;cursor:pointer}
+.v3 .pk-d{min-height:40px}
+.v3 .pk-l{display:block;margin-top:24px;box-shadow:inset 0 1px 0 var(--black)}
+.v3 .pk-o{position:relative;display:flex;justify-content:space-between;align-items:center;gap:16px;margin:0 -12px;padding:10px 12px;box-shadow:inset 0 -1px 0 var(--light-grey);font-size:15px;line-height:20px;cursor:pointer;transition:background .15s,color .15s}
+.v3 .pk-o i{font-style:normal}
+.v3 .pk-o b{white-space:nowrap}
+.v3 .pk-o.is-fact{cursor:default}
+@media (hover:hover){ .v3 .pk-o:not(.is-fact):hover{background:var(--off-white)} }
+.v3 .pk-o:has(input:checked){background:var(--royal-blue);color:var(--white);box-shadow:none}
+.v3 .pk-o:has(input:focus-visible){outline:2px solid var(--royal-blue);outline-offset:2px}
+.v3 .pk-tag{margin-left:8px;vertical-align:2px;background:var(--accent);color:var(--black);font-weight:800;font-size:9px;line-height:16px;letter-spacing:.08em;text-transform:uppercase;padding:0 4px;white-space:nowrap}
+.v3 .pk-l em{display:block;margin-top:12px;font-style:normal;font-size:12px;line-height:16px;color:#5A5A5A}
+.v3 .pk-go{display:flex;justify-content:center;margin-top:auto;padding:14px 16px;border:2px solid var(--royal-blue);font-family:var(--font-display);font-size:1rem;line-height:1;text-transform:uppercase;color:var(--royal-blue);cursor:pointer;transition:background .15s,color .15s}
+.v3 .pk-l+.pk-go{margin-top:24px}
+@media (hover:hover){ .v3 .pk-go:hover{background:var(--royal-blue);color:var(--white)} }
+.v3 .pk-i.is-on .pk-go{background:var(--royal-blue);color:var(--white)}
+.v3 .pk-go:has(input:focus-visible){outline:2px solid var(--royal-blue);outline-offset:2px}
+.v3 .pk-f,.v3 .pk-x{display:none}
+.pk-inc{clear:both;list-style:none;margin:0;padding:0;box-shadow:inset 0 1px 0 var(--light-grey)}
+.pk-inc li{position:relative;padding:12px 0 12px 32px;box-shadow:inset 0 -1px 0 var(--light-grey);font-size:15px;line-height:24px}
+.pk-inc li::before{content:"";position:absolute;left:4px;top:18px;width:12px;height:6px;border-left:2px solid var(--royal-blue);border-bottom:2px solid var(--royal-blue);transform:rotate(-45deg)}
 
 /* ---------- 2.5.5: the plan is a strip under the options ---------- */
 .pc.v5{display:block}
@@ -842,8 +857,8 @@ body.show-grid .grid-overlay{display:block}
   .ptx-ph{aspect-ratio:16/9;margin-bottom:24px}
   .v3 .pc-q{grid-column:1 / span 7}
   .v3 .pc-plan{grid-column:8 / span 5}
-  .v3.empty .pk-i{padding:24px}
-  .v3.empty .pk-i::after{top:24px;right:24px}
+  .v3 .pk-i{padding:24px}
+  .v3 .pk-i::after{top:24px;right:24px}
   .v5 .pc-card{grid-template-columns:minmax(0,1fr) minmax(0,1fr);column-gap:32px}
   .v5 .pc-lines{grid-row:2 / span 2}
   .v5 .pc-total{grid-column:2;grid-row:4;margin-top:24px}
@@ -865,12 +880,15 @@ body.show-grid .grid-overlay{display:block}
   .pp-t{padding:24px}
   .pp-h{font-size:32px;line-height:36px}
   .pc-ph{margin:-24px -24px 24px}
-  .v3.empty .pk{grid-template-columns:1fr;gap:16px}
-  .v3.empty .pk-i{padding:24px}
-  .v3.empty .pk-n{min-height:0;font-size:28px;line-height:32px}
-  .v3.empty .pk-d{display:block;min-height:0}
-  .v3.empty .pk-ic{width:32px;height:32px;margin-bottom:16px}
-  .v3.empty .pk-i::after{top:24px;right:24px;width:20px;height:20px}
+  /* 2.5.3 on a phone: the cards are a carousel, the next one peeks in from the right */
+  .v3 .pk{display:flex;gap:12px;margin:0 -24px;padding:0 24px 4px;overflow-x:auto;scroll-snap-type:x mandatory;scroll-padding:0 24px;overscroll-behavior-x:contain;scrollbar-width:none}
+  .v3 .pk::-webkit-scrollbar{display:none}
+  .v3 .pk-i{flex:0 0 84%;scroll-snap-align:start;padding:24px}
+  .v3 .pk-i::after{top:24px;right:24px;width:20px;height:20px}
+  .v3 .pk-n{min-height:0;font-size:28px;line-height:32px;padding-right:32px}
+  .v3 .pk-d{display:block;min-height:0}
+  .v3 .pk-ic{width:32px;height:32px;margin-bottom:16px}
+  .v3 .pk-o{font-size:15px;padding:12px}
   .v5 .pc-plan{margin-top:32px}
   .g-prog{gap:8px 16px}
   .g-prog li{letter-spacing:.08em}
@@ -1653,15 +1671,28 @@ body.show-grid .grid-overlay{display:block}
     var tag=items.some(function(i){return i.tag});
     return '<div class="op-row c'+items.length+(tag?' has-tag':'')+'">'+items.map(function(i){ return tile(name,i) }).join('')+'</div>';
   }
+  /* 2.5.3: each card holds its own options, so choosing one is a single tap and fills the plan */
+  var OPT={pass:{name:'stay',items:P.visitor.map(function(v){ return {id:v.id,name:v.name,p:money(v.price)} })},
+           mem:{name:'plan',items:P.member.plans.map(function(p){ return {id:p.id,name:p.name,p:money(p.dd),tag:p.best?'Recommended':''} })}};
+  function card(k){
+    var o=OPT[k.id], on=st.kind===k.id;
+    var rows=o
+      ?o.items.map(function(i){ return '<label class="pk-o">'+radio(o.name,i.id,on&&st[o.name]===i.id)+'<i>'+i.name+(i.tag?'<span class="tag pk-tag">'+i.tag+'</span>':'')+'</i><b>'+i.p+'</b></label>' }).join('')
+      :k.list.map(function(r){ return '<span class="pk-o is-fact"><i>'+r[0]+'</i><b>'+r[1]+'</b></span>' }).join('');
+    return '<div class="pk-i'+(on?' is-on':'')+'">'+
+      '<label class="pk-hd">'+radio('kind',k.id,on)+'<span class="pk-ic">'+IC[k.id]+'</span>'+
+        '<span class="pk-n">'+k.name+'</span><span class="pk-d">'+k.desc+'</span></label>'+
+      '<div class="pk-l" role="group" aria-label="'+k.name+'">'+rows+'<em>'+k.foot+'</em></div>'+
+      (o?'':'<label class="pk-go">'+radio('kind2',k.id,false)+k.go+'</label>')+
+    '</div>';
+  }
   function products(){
+    if(V===3) return '<div class="pk">'+KINDS.map(card).join('')+'</div>';
     return '<div class="pk">'+KINDS.map(function(k){
-      var inside=V===3
-        ?'<span class="pk-l">'+k.list.map(function(r){ return '<span><i>'+r[0]+'</i><b>'+r[1]+'</b></span>' }).join('')+'<em>'+k.foot+'</em></span><span class="pk-go">'+k.go+'</span>'
-        :'';
       return '<label class="pk-i">'+radio('kind',k.id,st.kind===k.id)+
         '<span class="pk-ic">'+IC[k.id]+'</span>'+
         '<span class="pk-n">'+k.name+'</span><span class="pk-d">'+k.desc+'</span>'+
-        '<span class="pk-x">'+k.next+'</span>'+inside+
+        '<span class="pk-x">'+k.next+'</span>'+
         '<span class="pk-f"><small>From</small><b>'+k.from+'</b><small>'+k.per+'</small></span></label>';
     }).join('')+'</div>';
   }
@@ -1681,9 +1712,15 @@ body.show-grid .grid-overlay{display:block}
       '<ol class="ptx-s">'+STEPS.map(function(s,i){ return '<li><i>'+(i+1)+'</i><span><b>'+s[0]+'</b>'+s[1]+'</span></li>' }).join('')+'</ol></div></div>';
   }
   function renderOpts(){
+    var pk=kEl.querySelector('.pk'), x=pk?pk.scrollLeft:0; /* 2.5.3 on a phone: the carousel stays where it was */
     kEl.innerHTML=set('Choose how you want to train',products());
+    if(x) kEl.querySelector('.pk').scrollLeft=x;
     var h='';
-    if(st.kind==='pass')
+    if(V===3&&st.kind==='pass')
+      h=set('Included in every pass','<ul class="pk-inc">'+[P.includes[0],'Sports insurance',P.includes[2]].map(function(x){ return '<li>'+x+'</li>' }).join('')+'</ul>');
+    else if(V===3&&st.kind==='mem')
+      h=set('How will you pay?',payRow(),'','pc-pay');
+    else if(st.kind==='pass')
       h=set('Choose a pass',row(P.visitor.map(function(v){ return {id:v.id,name:v.name,p:money(v.price)} }),'stay'));
     else if(st.kind==='mem')
       h=set('How often will you train?',row(P.member.plans.map(function(p){ return {id:p.id,name:p.name,p:money(p.desk),s:'every 2 weeks',tag:p.best?'Recommended':''} }),'plan'))+
@@ -1806,6 +1843,14 @@ body.show-grid .grid-overlay{display:block}
 
   opts.addEventListener('change',function(e){
     var t=e.target; if(t.type!=='radio') return;
+    if(V===3&&t.name!=='pay'){
+      var kind=t.name==='stay'?'pass':t.name==='plan'?'mem':t.value;
+      if(st.kind!==kind) E.track('pricing_kind',{kind:kind});
+      st.kind=kind; if(t.name==='stay'||t.name==='plan') st[t.name]=t.value;
+      renderOpts(); renderPlan(); guide();
+      var back=opts.querySelector('input[name="'+(t.name==='kind2'?'kind':t.name)+'"][value="'+t.value+'"]'); if(back) back.focus();
+      return;
+    }
     if(t.name==='kind'){
       if(st.kind!==t.value) E.track('pricing_kind',{kind:t.value});
       st.kind=t.value; renderOpts();
