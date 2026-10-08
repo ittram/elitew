@@ -43,7 +43,7 @@ JS = r'''<script>
 /* 2.5.%(v)d: the price builder (%(label)s). Passes and membership are priced here; personal training
    keeps the same plan card and books a first talk with a coach on WhatsApp. */
 (function(){
-  var V=%(v)d, WHOLE=%(whole)s; /* 1 three steps, 2 a photo, 3 cards first, 4 best value chosen, 5 the plan as a strip */
+  var V=%(v)d, PHOTO='%(photo)s'; /* 2.5.3: personal training photo cropped to fill, whole (2.5.3.1) or the full card (2.5.3.2) */ /* 1 three steps, 2 a photo, 3 cards first, 4 best value chosen, 5 the plan as a strip */
   var E=window.EWPricing, opts=document.getElementById('pc-opts'), kEl=document.getElementById('pc-k'), qEl=document.getElementById('pc-q'), box=document.getElementById('pc-plan'), pc=document.getElementById('pc');
   if(!E||!opts||!box) return;
   var P=E.P, money=E.money, off=P.member.plans[0].desk-P.member.plans[0].dd;
@@ -101,7 +101,9 @@ JS = r'''<script>
   function card(k){
     var on=st.kind===k.id, body, foot, act;
     if(k.id==='pt'){
-      body='<div class="pk-l"><p class="pk-k">Made around you</p><div class="pk-pic">'+PT_IMG+'</div><p class="pk-p">'+PT_TEXT+'</p></div>';
+      body=PHOTO==='full'
+        ?'<div class="pk-l"><p class="pk-k">Made around you</p><p class="pk-p">'+PT_TEXT+'</p></div>'
+        :'<div class="pk-l"><p class="pk-k">Made around you</p><div class="pk-pic">'+PT_IMG+'</div><p class="pk-p">'+PT_TEXT+'</p></div>';
       foot='From '+money(ptFrom)+' a session, one to one. Prefer to talk? Call <a href="tel:+351926565836">+351 926 565 836</a>';
       act='<a class="btn" id="pt-wa" href="'+WA+encodeURIComponent(BOOK_MSG)+'" target="_blank" rel="noopener">Book a time on WhatsApp</a>';
     } else if(k.id==='pass'){
@@ -118,7 +120,7 @@ JS = r'''<script>
       foot=(dd?'Every 2 weeks by direct debit':'Every 2 weeks at reception')+', plus '+money(P.insurance.year)+' sports insurance once a year.';
       act=goBtn('Get this plan',on&&st.plan);
     }
-    return '<div class="pk-i'+(on?' is-on':'')+'">'+
+    return '<div class="pk-i'+(on?' is-on':'')+(k.id==='pt'?' is-pt':'')+'">'+(k.id==='pt'&&PHOTO==='full'?'<div class="pk-bg">'+PT_IMG+'</div>':'')+
       '<label class="pk-hd">'+radio('kind',k.id,on)+'<span class="pk-ic">'+IC[k.id]+'</span><span class="pk-n">'+k.name+'</span></label>'+
       '<p class="pk-d">'+k.desc+'</p>'+body+'<p class="pk-ft">'+foot+'</p><div class="pk-act">'+act+'</div></div>';
   }
@@ -322,7 +324,7 @@ JS = r'''<script>
     co=new IntersectionObserver(function(es){ root.classList.toggle('card-visible', es[0].isIntersecting&&root.classList.contains('has-plan')) },{threshold:0.5});
   }
   if(mq.addEventListener) mq.addEventListener('change',mark); else mq.addListener(mark);
-  if(WHOLE) pc.classList.add('ph-whole');
+  if(PHOTO!=='crop') pc.classList.add('ph-'+PHOTO);
   renderOpts(); renderPlan(); guide();
 })();
 </script>'''
@@ -437,6 +439,21 @@ CSS = r'''<style id="v25-css">
 .v3 .pk-pic img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:50% 15%}
 .v3.ph-whole .pk-pic{flex:0 0 auto;min-height:0;aspect-ratio:4/3}
 .v3 .pk-p{margin-top:12px;font-size:14px;line-height:21px;color:#3A3A3A}
+/* 2.5.3.2: the photo is the whole personal training card; the same five rows sit on it in white,
+   dark at the top for the name, clear through the middle, dark again where the words and the button are */
+.v3.ph-full .is-pt,.v3.ph-full .is-pt:has(input:checked){position:relative;overflow:hidden;background:var(--black);border-color:var(--black);color:var(--white)}
+.v3.ph-full .pk-bg{position:absolute;inset:0}
+/* the photo starts under the name, so the faces land in the clear middle and the name sits on black */
+.v3.ph-full .pk-bg img{position:absolute;left:0;top:28%;width:100%;height:72%;object-fit:cover;object-position:40% 0}
+.v3.ph-full .is-pt::before{content:"";position:absolute;inset:0;z-index:1;background:linear-gradient(180deg,#000 28%,rgba(0,0,0,.3) 34%,rgba(0,0,0,0) 38%,rgba(0,0,0,0) 46%,rgba(0,0,0,.65) 58%,rgba(0,0,0,.94) 68%)}
+.v3.ph-full .is-pt>:not(.pk-bg){position:relative;z-index:2}
+.v3.ph-full .is-pt .pk-ic,.v3.ph-full .is-pt:has(input:checked) .pk-ic{color:var(--white)}
+.v3.ph-full .is-pt .pk-d,.v3.ph-full .is-pt:has(input:checked) .pk-d{color:rgba(255,255,255,.84)}
+.v3.ph-full .is-pt .pk-l{justify-content:flex-end;box-shadow:none}
+.v3.ph-full .is-pt .pk-k{padding-top:0;color:var(--accent)}
+.v3.ph-full .is-pt .pk-p{margin-top:8px;color:rgba(255,255,255,.9)}
+.v3.ph-full .is-pt .pk-ft{color:rgba(255,255,255,.72)}
+.v3.ph-full .is-pt .pk-ft a{color:var(--white)}
 @media (prefers-reduced-motion:reduce){ .v3 .pk-sw input,.v3 .pk-sw input::after,.v3 .pk-o::before{transition:none} }
 
 /* ---------- 2.5.5: the plan is a strip under the options ---------- */
@@ -512,14 +529,14 @@ CSS = r'''<style id="v25-css">
 '''
 
 
-def make(v, label, whole=False, name=None):
+def make(v, label, photo='crop', name=None):
     s = io.open(BASE, encoding='utf-8').read()
     a = s.index('<div class="pc" id="pc">')
     b = s.index('<div class="pt-band" id="pt-band"></div>') + len('<div class="pt-band" id="pt-band"></div>')
     s = s[:a] + MARKUP % {'v': v} + s[b:]
     a = s.index('<script>\n/* 2.4.9: the price builder')
     b = s.index('</script>', a) + len('</script>')
-    s = s[:a] + JS % {'v': v, 'label': label, 'whole': 'true' if whole else 'false'} + s[b:]
+    s = s[:a] + JS % {'v': v, 'label': label, 'photo': photo} + s[b:]
     a = s.index('<style id="price-list-css">')
     s = s[:a] + CSS + s[a:]
     out = 'elite-wellness-landing_2-5-%s.html' % (name or v)
@@ -530,4 +547,5 @@ def make(v, label, whole=False, name=None):
 if __name__ == '__main__':
     for v, label in VARIANTS.items():
         make(v, label)
-    make(3, 'Cards first, the photo whole', whole=True, name='3-1')
+    make(3, 'Cards first, the photo whole', photo='whole', name='3-1')
+    make(3, 'Cards first, a full photo card', photo='full', name='3-2')

@@ -1112,7 +1112,7 @@ body.show-grid .grid-overlay{display:block}
     <h2 class="section-header">Prices</h2>
     <span class="section-script">a few taps, one price</span>
   </div>
-  <div class="pc v2" id="pc">
+  <div class="pc v3" id="pc">
     <form class="pc-opts" id="pc-opts" onsubmit="return false"><div class="pc-k" id="pc-k"></div><div class="pc-q" id="pc-q"></div></form>
     <aside class="pc-plan" id="pc-plan" aria-label="Your plan"></aside>
   </div>
@@ -1651,10 +1651,10 @@ body.show-grid .grid-overlay{display:block}
 })();
 </script>
 <script>
-/* 2.5.2: the price builder (Empty plan, a photo). Passes and membership are priced here; personal training
+/* 2.5.3: the price builder (Cards first, a full photo card). Passes and membership are priced here; personal training
    keeps the same plan card and books a first talk with a coach on WhatsApp. */
 (function(){
-  var V=2, PHOTO='crop'; /* 2.5.3: personal training photo cropped to fill, whole (2.5.3.1) or the full card (2.5.3.2) */ /* 1 three steps, 2 a photo, 3 cards first, 4 best value chosen, 5 the plan as a strip */
+  var V=3, PHOTO='full'; /* 2.5.3: personal training photo cropped to fill, whole (2.5.3.1) or the full card (2.5.3.2) */ /* 1 three steps, 2 a photo, 3 cards first, 4 best value chosen, 5 the plan as a strip */
   var E=window.EWPricing, opts=document.getElementById('pc-opts'), kEl=document.getElementById('pc-k'), qEl=document.getElementById('pc-q'), box=document.getElementById('pc-plan'), pc=document.getElementById('pc');
   if(!E||!opts||!box) return;
   var P=E.P, money=E.money, off=P.member.plans[0].desk-P.member.plans[0].dd;
