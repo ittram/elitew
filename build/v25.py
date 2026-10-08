@@ -97,7 +97,7 @@ JS = r'''<script>
   /* every card has the same five rows, lined up across the three: name, one line, the options,
      the small print, the button. The button is there from the start, greyed out until the choice is made */
   function goBtn(t,ready){ return '<button class="btn" type="button"'+(ready?' id="pc-go"':' disabled')+'>'+t+'</button>' }
-  var PT_IMG='<img src="assets/pt-session-800.webp" srcset="assets/pt-session-800.webp 800w, assets/pt-session.webp 1600w" sizes="(max-width:768px) 84vw, 30vw" width="1600" height="1200" loading="lazy" alt="A coach guiding a member through a lunge in a personal training session at Elite Wellness">';
+  var PT_IMG='<img src="assets/pt-session-800.webp" srcset="assets/pt-session-800.webp 800w, assets/pt-session.webp 1600w" sizes="(max-width:768px) 92vw, 30vw" width="1600" height="1200" loading="lazy" alt="A coach guiding a member through a lunge in a personal training session at Elite Wellness">';
   function card(k){
     var on=st.kind===k.id, body, foot, act;
     if(k.id==='pt'){
@@ -511,7 +511,7 @@ CSS = r'''<style id="v25-css">
   /* 2.5.3 on a phone: the cards are a carousel, the next one peeks in from the right */
   .v3 .pk{display:flex;gap:12px;margin:0 -24px;padding:0 24px 4px;overflow-x:auto;scroll-snap-type:x mandatory;scroll-padding:0 24px;overscroll-behavior-x:contain;scrollbar-width:none}
   .v3 .pk::-webkit-scrollbar{display:none}
-  .v3 .pk-i{flex:0 0 84%;scroll-snap-align:start;padding:24px;display:flex;flex-direction:column}
+  .v3 .pk-i{flex:0 0 92%;scroll-snap-align:start;padding:24px;display:flex;flex-direction:column}
   .v3 .pk-l{flex:1 0 auto}
   .v3 .pk-n{min-height:0;font-size:28px;line-height:32px}
   .v3 .pk-tag{display:inline;margin:0 0 0 8px}
