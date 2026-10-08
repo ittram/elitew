@@ -75,7 +75,7 @@ JS = r'''<script>
   ];
 
   /* nothing is chosen until the visitor chooses (2.5.4: the best value is chosen for them) */
-  var st=V===4?{kind:'mem',stay:null,plan:'un',pay:'dd',insured:false}:{kind:null,stay:null,plan:null,pay:null,insured:false}, cur=null;
+  var st=V===4?{kind:'mem',stay:null,plan:'un',pay:'dd',insured:false}:{kind:null,stay:null,plan:null,pay:V===3?'dd':null,insured:false}, cur=null;
 
   function radio(name,value,checked){ return '<input type="radio" name="'+name+'" value="'+value+'"'+(checked?' checked':'')+'>' }
   function set(legend,body,hint,id){ return '<fieldset class="pc-set"'+(id?' id="'+id+'"':'')+'><legend class="pc-leg">'+legend+'</legend>'+(hint?'<p class="pc-hint">'+hint+'</p>':'')+body+'</fieldset>' }
@@ -95,15 +95,9 @@ JS = r'''<script>
     return '<label class="pk-o">'+radio(name,id,on)+'<i>'+label+'</i>'+(right?'<b>'+right+'</b>':'')+'</label>';
   }
   function cardSum(){
-    var s=summary(), p=st.plan?E.memberPlan(st.plan):null;
-    if(!s.ready) return st.kind==='mem'&&(st.plan||st.pay)?'<p class="pk-hint">'+s.hint+'</p>':'';
-    var why=st.kind==='pass'?'Sports insurance included.'
-      :money(st.pay==='dd'?p.dd:p.desk)+' for the first 2 weeks'+(st.insured?'.':', plus '+money(P.insurance.year)+' sports insurance once a year.');
-    return '<div class="pk-sum">'+
-      (st.kind==='mem'?'<label class="pc-ins"><input type="checkbox" id="pc-ins"'+(st.insured?' checked':'')+'><span>My sports insurance is already paid this year</span></label>':'')+
-      '<div class="pc-total"><span>'+s.totalLabel+'</span><b>'+money(s.price)+'</b></div>'+
-      '<p class="pk-note">'+why+' '+s.notes.join(' ')+'</p>'+
-      '<button class="btn" type="button" id="pc-go">'+(st.kind==='pass'?'Get this pass':'Get this plan')+'</button></div>';
+    var s=summary();
+    if(!s.ready) return '';
+    return '<div class="pk-sum"><button class="btn" type="button" id="pc-go">'+(st.kind==='pass'?'Get this pass':'Get this plan')+'</button></div>';
   }
   function card(k){
     var on=st.kind===k.id, hd='<label class="pk-hd">'+radio('kind',k.id,on)+'<span class="pk-ic">'+IC[k.id]+'</span><span class="pk-n">'+k.name+'</span>';
@@ -111,7 +105,7 @@ JS = r'''<script>
       '<img class="pk-bg" src="assets/pt-session-800.webp" srcset="assets/pt-session-800.webp 800w, assets/pt-session.webp 1600w" sizes="(max-width:768px) 84vw, 30vw" width="1600" height="1200" loading="lazy" alt="A coach guiding a member through a lunge in a personal training session at Elite Wellness">'+
       '<div class="pk-ov">'+hd+'<span class="pk-sub">Made around you</span></label>'+
         '<p class="pk-p">'+PT_TEXT+'</p>'+
-        '<p class="pk-from"><small>From</small><b>'+money(ptFrom)+'</b><small>a session, one to one. Your coach agrees the plan and its price with you.</small></p>'+
+        '<p class="pk-from">From <b>'+money(ptFrom)+'</b> a session, one to one</p>'+
         '<a class="btn" id="pt-wa" href="'+WA+encodeURIComponent(BOOK_MSG)+'" target="_blank" rel="noopener">Book a time on WhatsApp</a>'+
         '<p class="pc-alt">Prefer to talk? Call <a href="tel:+351926565836">+351 926 565 836</a></p>'+
       '</div></div>';
@@ -120,13 +114,12 @@ JS = r'''<script>
         P.visitor.map(function(v){ return oRow('stay',v.id,on&&st.stay===v.id,v.name,money(v.price)) }).join('')+
         '<em>'+k.foot+'</em></div>';
     else {
-      var desk=on&&st.pay==='desk';
+      var desk=st.pay==='desk';
       body='<div class="pk-l" role="radiogroup" aria-label="How often will you train?"><p class="pk-k">How often</p>'+
           P.member.plans.map(function(p){ return oRow('plan',p.id,on&&st.plan===p.id,p.name+(p.best?'<span class="tag pk-tag">Recommended</span>':''),money(desk?p.desk:p.dd)) }).join('')+
           '<em>'+(desk?'Every 2 weeks at reception.':'Every 2 weeks with direct debit, '+money(off)+' off the reception price.')+'</em></div>'+
-        '<div class="pk-l" role="radiogroup" aria-label="How will you pay?"><p class="pk-k">How you pay</p>'+
-          oRow('pay','dd',on&&st.pay==='dd','Direct debit<span class="pk-off">'+money(off)+' off</span>','<small>Paid automatically</small>')+
-          oRow('pay','desk',on&&st.pay==='desk','At reception','<small>Standard price</small>')+'</div>';
+        '<label class="pk-sw"><input type="checkbox" id="pk-dd"'+(st.pay!=='desk'?' checked':'')+'><span><b>Direct debit<span class="pk-off">'+money(off)+' off</span></b>'+
+          '<small>'+(st.pay!=='desk'?'Paid automatically every 2 weeks':'Off: you pay at reception every 2 weeks')+'</small></span></label>';
     }
     return '<div class="pk-i'+(on?' is-on':'')+'">'+hd+'<span class="pk-d">'+k.desc+'</span></label>'+body+(on?cardSum():'')+'</div>';
   }
@@ -285,9 +278,9 @@ JS = r'''<script>
 
   opts.addEventListener('change',function(e){
     var t=e.target;
-    if(V===3&&t.id==='pc-ins'){
-      st.insured=t.checked; E.track('pricing_insured',{insured:st.insured});
-      renderOpts(); renderPlan(); document.getElementById('pc-ins').focus(); return;
+    if(V===3&&t.id==='pk-dd'){
+      st.pay=t.checked?'dd':'desk'; if(st.kind!=='mem') E.track('pricing_kind',{kind:'mem'}); st.kind='mem';
+      renderOpts(); renderPlan(); document.getElementById('pk-dd').focus(); return;
     }
     if(t.type!=='radio') return;
     if(V===3){
@@ -428,28 +421,30 @@ CSS = r'''<style id="v25-css">
 .v3 .pk-hint{margin-top:auto;padding-top:24px;font-size:14px;line-height:20px;font-weight:700}
 /* the price and the button, in the card */
 .v3 .pk-sum{margin-top:auto;padding-top:24px}
-.v3 .pk-sum .pc-total{margin-top:0;padding-top:16px;box-shadow:inset 0 1px 0 var(--black);align-items:flex-end}
-.v3 .pk-sum .pc-total span{color:#5A5A5A}
-.v3 .pk-sum .pc-total b{color:var(--royal-blue)}
-.v3 .pk-note{margin-top:8px;font-size:12px;line-height:16px;color:#5A5A5A}
-.v3 .pk-sum .btn{width:100%;margin-top:16px}
-.v3 .pk-sum .pc-ins{margin:0 0 16px;color:#3A3A3A}
-.v3 .pk-sum .pc-ins input{background:var(--light-grey)}
-.v3 .pk-sum .pc-ins input:checked{background:var(--royal-blue)}
-.v3 .pk-sum .pc-ins input:focus-visible{outline-color:var(--royal-blue)}
-/* personal training: the session photo, the words on top of it, one button */
-.v3 .pk-i.is-pt,.v3 .pk-i.is-pt:has(input:checked){position:relative;min-height:560px;padding:0;background:var(--black);color:var(--white);border-color:var(--black);overflow:hidden}
-.v3 .pk-bg{position:absolute;top:0;left:0;width:100%;height:60%;object-fit:cover;object-position:50% 0}
-.v3 .is-pt::before{content:"";position:absolute;top:0;left:0;right:0;height:60%;background:linear-gradient(180deg,rgba(0,0,0,0) 35%,#000 100%);z-index:1}
-.v3 .pk-ov{position:relative;z-index:2;display:flex;flex-direction:column;margin-top:auto;padding:200px 32px 32px}
+.v3 .pk-sum .btn{width:100%}
+/* direct debit: a switch, on by default; off is the reception price */
+.v3 .pk-sw{display:flex;align-items:center;gap:16px;margin-top:16px;padding:16px;background:var(--off-white);cursor:pointer}
+.v3 .pk-sw input{appearance:none;flex:0 0 48px;width:48px;height:28px;margin:0;border-radius:14px;background:#C9C9C6;position:relative;cursor:pointer;transition:background .15s}
+.v3 .pk-sw input::after{content:"";position:absolute;top:4px;left:4px;width:20px;height:20px;border-radius:50%;background:var(--white);box-shadow:0 1px 2px rgba(0,0,0,.2);transition:transform .15s}
+.v3 .pk-sw input:checked{background:var(--royal-blue)}
+.v3 .pk-sw input:checked::after{transform:translateX(20px)}
+.v3 .pk-sw input:focus-visible{outline:2px solid var(--royal-blue);outline-offset:2px}
+.v3 .pk-sw b{display:block;font-size:15px;line-height:20px}
+.v3 .pk-sw small{display:block;font-size:12px;line-height:16px;color:#5A5A5A}
+@media (prefers-reduced-motion:reduce){ .v3 .pk-sw input,.v3 .pk-sw input::after{transition:none} }
+/* personal training: the photo fills the card and the words sit on it. The words are taken out of the flow,
+   so the card is exactly as tall as the other two and never sets the height of the row */
+.v3 .pk-i.is-pt,.v3 .pk-i.is-pt:has(input:checked){position:relative;padding:0;background:var(--black);color:var(--white);border-color:var(--black);overflow:hidden}
+.v3 .pk-bg{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:50% 0}
+.v3 .is-pt::before{content:"";position:absolute;inset:0;background:linear-gradient(180deg,rgba(0,0,0,0) 12%,rgba(0,0,0,.6) 40%,rgba(0,0,0,.92) 62%);z-index:1}
+.v3 .pk-ov{position:absolute;left:0;right:0;bottom:0;z-index:2;padding:32px}
 .v3 .is-pt .pk-ic,.v3 .is-pt:has(input:checked) .pk-ic{color:var(--white)}
 .v3 .pk-sub{display:block;margin-top:4px;font-weight:800;font-size:11px;line-height:16px;letter-spacing:.14em;text-transform:uppercase;color:rgba(255,255,255,.72)}
-.v3 .pk-p{margin-top:16px;font-size:14px;line-height:22px;color:rgba(255,255,255,.84)}
-.v3 .pk-from{margin-top:24px;padding-top:16px;box-shadow:inset 0 1px 0 rgba(255,255,255,.24)}
-.v3 .pk-from small{display:block;font-size:12px;line-height:16px;color:rgba(255,255,255,.72)}
-.v3 .pk-from small:first-child{font-weight:800;font-size:11px;letter-spacing:.14em;text-transform:uppercase}
-.v3 .pk-from b{display:block;font-family:var(--font-display);font-weight:400;font-size:40px;line-height:44px}
-.v3 .is-pt .btn{width:100%;margin-top:24px}
+.v3 .pk-p{margin-top:12px;font-size:14px;line-height:21px;color:rgba(255,255,255,.88)}
+.v3 .pk-from{margin-top:16px;font-size:13px;line-height:20px;color:rgba(255,255,255,.8)}
+.v3 .pk-from b{font-family:var(--font-display);font-weight:400;font-size:28px;line-height:28px;color:var(--white);margin:0 4px;vertical-align:-3px}
+.v3 .is-pt .btn{width:100%;margin-top:16px}
+.v3 .is-pt .pc-alt{margin-top:12px}
 
 /* ---------- 2.5.5: the plan is a strip under the options ---------- */
 .pc.v5{display:block}
@@ -481,7 +476,9 @@ CSS = r'''<style id="v25-css">
   .ptx{display:block}
   .ptx-ph{aspect-ratio:16/9;margin-bottom:24px}
   .v3 .pk-i{padding:24px}
-  .v3 .pk-ov{padding:200px 24px 24px}
+  .v3 .pk-ov{padding:24px}
+  .v3 .pk-p{display:-webkit-box;-webkit-line-clamp:5;-webkit-box-orient:vertical;overflow:hidden}
+  .v3 .pk-tag{display:table;margin:4px 0 0}
   .v5 .pc-card{grid-template-columns:minmax(0,1fr) minmax(0,1fr);column-gap:32px}
   .v5 .pc-lines{grid-row:2 / span 2}
   .v5 .pc-total{grid-column:2;grid-row:4;margin-top:24px}
@@ -508,7 +505,9 @@ CSS = r'''<style id="v25-css">
   .v3 .pk::-webkit-scrollbar{display:none}
   .v3 .pk-i{flex:0 0 84%;scroll-snap-align:start;padding:24px}
   .v3 .pk-n{min-height:0;font-size:28px;line-height:32px}
-  .v3 .pk-i.is-pt{padding:0}
+  .v3 .pk-i.is-pt{padding:0;min-height:600px}
+  .v3 .pk-p{display:block;-webkit-line-clamp:unset}
+  .v3 .pk-tag{display:inline;margin:0 0 0 8px}
   .v3 .pk-d{display:block;min-height:0}
   .v3 .pk-ic{width:32px;height:32px;margin-bottom:16px}
   .v5 .pc-plan{margin-top:32px}
