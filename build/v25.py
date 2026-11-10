@@ -20,6 +20,9 @@ The five empty states:
   2.5.2  a photo of the gym until there is a plan
   2.5.3  no plan yet: three full width cards show what is inside each
   2.5.4  the best value is already chosen, so there is never an empty plan
+         (picked on 10 November 2026; its personal training card is the session
+         photo with the invitation on it, not a receipt, because that price is
+         agreed with the coach)
   2.5.5  the plan is a full width strip under the options, with progress
 
 Run from the repo root: python3 build/v25.py, then build/pricelist.py."""
@@ -144,6 +147,7 @@ JS = r'''<script>
   /* personal training on the left: the session photo, what it is, how it starts */
   var STEPS=[['Message us','Say what you want to work on.'],['Meet your coach','A first talk at the gym, to see where you are and set the goal.'],['Train','One to one, with a plan and a price agreed together.']];
   function ptHow(){
+    if(V===4) return '<div class="ptx no-ph"><ol class="ptx-s">'+STEPS.map(function(s,i){ return '<li><i>'+(i+1)+'</i><span><b>'+s[0]+'</b>'+s[1]+'</span></li>' }).join('')+'</ol></div>';
     var ph=V===2?'':'<div class="ptx-ph"><img src="assets/pt-session.webp" srcset="assets/pt-session-800.webp 800w, assets/pt-session.webp 1600w" sizes="(max-width:768px) 100vw, 25vw" width="1600" height="1200" loading="lazy" alt="A coach guiding a member through a lunge in a personal training session at Elite Wellness"></div>';
     return '<div class="ptx'+(ph?'':' no-ph')+'">'+ph+'<div class="ptx-t"><p class="ptx-h">Made around you</p>'+
       '<p class="ptx-p">Everyone starts from a different place: an injury to come back from, pain that holds you back, a goal you keep missing, or not knowing where to begin. Your coach sets the goal with you and builds every session around it.</p>'+
@@ -164,6 +168,7 @@ JS = r'''<script>
       h=set('How personal training works',ptHow());
     qEl.innerHTML=h;
     pc.classList.toggle('empty',!st.kind);
+    pc.classList.toggle('pt-on',st.kind==='pt');
   }
 
   /* the receipt, filled in as far as the choices go */
@@ -230,6 +235,21 @@ JS = r'''<script>
   function renderContact(){
     if(V===3){ off_(); document.getElementById('pc-live').textContent='Personal training: book a time on WhatsApp to talk to a coach.'; return }
     var href=WA+encodeURIComponent(BOOK_MSG);
+    if(V===4){
+      /* 2.5.4: personal training has no price to add up (it is agreed with the coach), so its card is
+         the session photo with the invitation on it, not a receipt */
+      box.innerHTML=LEG+'<div class="pc-card is-pt is-ptph">'+
+        '<div class="pc-hd"><p class="pc-n">Personal training</p><p class="pc-sub">One to one with a coach, planned around you.</p></div>'+
+        '<div class="pc-bg">'+PT_IMG+'</div>'+
+        '<div class="pc-bd"><p class="pp-k">Made around you</p><p class="pc-p">'+PT_TEXT+'</p>'+
+          '<p class="pc-note">From '+money(ptFrom)+' a session, one to one. The plan and its price are agreed with your coach.</p>'+
+          '<a class="btn" id="pt-wa" href="'+href+'" target="_blank" rel="noopener">Book a time on WhatsApp</a>'+
+          '<p class="pc-alt">Prefer to talk? Call <a href="tel:+351926565836">+351 926 565 836</a></p></div>'+
+      '</div>';
+      off_();
+      document.getElementById('pc-live').textContent='Personal training: book a time on WhatsApp to talk to a coach.';
+      return;
+    }
     var ph=V===2?'<div class="pc-ph"><img src="assets/pt-session-800.webp" srcset="assets/pt-session-800.webp 800w, assets/pt-session.webp 1600w" sizes="(max-width:768px) 100vw, 30vw" width="1600" height="1200" loading="lazy" alt="A coach guiding a member through a lunge in a personal training session at Elite Wellness"></div>':'';
     box.innerHTML=LEG+'<div class="pc-card is-pt">'+ph+(V===5?progress(true):'')+
       '<p class="pc-n">Personal training</p>'+
@@ -456,6 +476,18 @@ CSS = r'''<style id="v25-css">
 .v3.ph-full .is-pt .pk-ft a{color:var(--white)}
 @media (prefers-reduced-motion:reduce){ .v3 .pk-sw input,.v3 .pk-sw input::after,.v3 .pk-o::before{transition:none} }
 
+/* ---------- 2.5.4: personal training is a photo card, not a receipt (its price is agreed with the coach) ---------- */
+.v4 .pc-card.is-ptph{padding:0;overflow:hidden}
+.v4 .is-ptph .pc-hd{padding:32px 32px 16px}
+.v4 .is-ptph .pc-sub{margin-top:4px;font-size:14px;line-height:20px;color:rgba(255,255,255,.84)}
+.v4 .is-ptph .pc-bg{position:relative;aspect-ratio:4/3;background:#222}
+.v4 .is-ptph .pc-bg img{display:block;width:100%;height:100%;object-fit:cover;object-position:50% 0}
+.v4 .is-ptph .pc-bg::after{content:"";position:absolute;inset:0;background:linear-gradient(180deg,#000 0,rgba(0,0,0,0) 14%,rgba(0,0,0,0) 56%,rgba(0,0,0,.7) 84%,#000 100%)}
+.v4 .is-ptph .pc-bd{position:relative;margin-top:-48px;padding:0 32px 32px}
+.v4 .is-ptph .pp-k{color:var(--accent)}
+.v4 .is-ptph .pc-p{margin-top:8px;font-size:15px;line-height:24px;color:rgba(255,255,255,.9)}
+.v4 .ptx-s{margin-top:0}
+
 /* ---------- 2.5.5: the plan is a strip under the options ---------- */
 .pc.v5{display:block}
 .v5 .pc-plan{margin-top:48px}
@@ -517,6 +549,14 @@ CSS = r'''<style id="v25-css">
   .v3 .pk-tag{display:inline;margin:0 0 0 8px}
   .v3 .pk-d{display:block;min-height:0}
   .v3 .pk-ic{width:32px;height:32px;margin-bottom:16px}
+  /* 2.5.4 on a phone: the personal training card comes right under the three boxes, the steps after it */
+  .v4.pt-on{display:flex;flex-direction:column}
+  .v4.pt-on .pc-opts{display:contents}
+  .v4.pt-on .pc-k{order:1}
+  .v4.pt-on .pc-plan{order:2;margin-top:0}
+  .v4.pt-on .pc-q{order:3;margin-top:40px}
+  .v4 .is-ptph .pc-hd{padding:24px 24px 12px}
+  .v4 .is-ptph .pc-bd{padding:0 24px 24px}
   .v5 .pc-plan{margin-top:32px}
   .g-prog{gap:8px 16px}
   .g-prog li{letter-spacing:.08em}
