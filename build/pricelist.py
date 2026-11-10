@@ -51,13 +51,13 @@ def list_html(P):
     off = P['member']['plans'][0]['desk'] - P['member']['plans'][0]['dd']
     if P['pt'].get('quote'):
         # personal training is agreed with the coach: only where it starts, and how to get in touch
-        wa = 'https://wa.me/351926565836?text=' + 'Hi!%20I%20would%20like%20to%20meet%20a%20personal%20trainer%20and%20talk%20about%20what%20I%20need.'
+        wa = 'https://wa.me/351926565836?text=' + 'Hi!%20I%20would%20like%20to%20book%20a%20time%20to%20talk%20to%20a%20coach%20about%20personal%20training.'
         grp_pt = '''
       <section class="pl-grp" aria-label="Personal training">
         <h3 class="pl-h">Personal training</h3>
-        <p class="pl-s">One to one with a coach, planned around what you need.</p>
+        <p class="pl-s">One to one, planned around you.</p>
         <table class="pl-t"><tbody><tr><th scope="row">A session</th><td>from %s</td></tr></tbody></table>
-        <p class="pl-n">The plan and its price are agreed with your coach, for general fitness, rehab after an injury, nutrition or a mix. <a href="%s" target="_blank" rel="noopener">Message us on WhatsApp to agree a time</a>.</p>
+        <p class="pl-n">The price is agreed with your coach. <a href="%s" target="_blank" rel="noopener">Book a time on WhatsApp</a>.</p>
       </section>''' % (m(min(k['each'] for k in P['pt']['packs'])), wa)
     else:
         grp_pt = '''
@@ -73,7 +73,7 @@ def list_html(P):
     <div class="pl-body">
       <section class="pl-grp" aria-label="Day and week passes">
         <h3 class="pl-h">Day and week passes</h3>
-        <p class="pl-s">No commitment. Insurance, the gym and every class included.</p>
+        <p class="pl-s">No commitment. Gym, classes and insurance included.</p>
         <table class="pl-t"><tbody>%(pass)s</tbody></table>
       </section>
       <section class="pl-grp" aria-label="Membership">

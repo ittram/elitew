@@ -63,8 +63,7 @@ The events, in order: `pricing_who` or `pricing_door` or `pricing_dial` or
 they left from), plus `pricing_see_all` and `pricing_restart`.
 
 The folding steps (2.4.5.4.1 on) add `pricing_kind` (Passes, Membership or
-Personal training was chosen) and `pricing_insured` (a member said their
-insurance is already paid, which takes the 24 euro off the first payment).
+Personal training was chosen).
 
 `pricing_pt_whatsapp` counts the people who open WhatsApp to agree a time for
 personal training (2.4.9 on).

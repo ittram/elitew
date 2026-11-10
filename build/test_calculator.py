@@ -28,8 +28,6 @@ def cases():
     for p in P['member']['plans']:
         for pay, rate in (('dd', p['dd']), ('desk', p['desk'])):
             out.append(('%s, %s' % (p['name'], pay), [('kind', 'mem'), ('plan', p['id']), ('pay', pay)], False, rate + P['insurance']['year']))
-    p = P['member']['plans'][-1]
-    out.append(('%s, dd, insurance already paid' % p['name'], [('kind', 'mem'), ('plan', p['id']), ('pay', 'dd')], True, p['dd']))
     if P['pt'].get('quote'):
         # agreed with the coach: no total, a WhatsApp link to agree a time instead (checked below)
         out.append(('pt contact', [('kind', 'pt')], False, None))
