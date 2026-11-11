@@ -4,25 +4,25 @@ Tasks and issues noticed while building. Not a full backlog. Rules: `~/dev/CLAUD
 
 ## Now
 
-The order across projects is in `~/dev/PORTFOLIO.md` (Priority list). Updated 2026-11-10.
+The order across projects is in `~/dev/PORTFOLIO.md` (Priority list). Updated 2026-11-11.
 
-**[Gym site] Finish the landing page (due today, 10 Nov)**
+**[Gym site] Finish the landing page**
 - **What:** The landing page for Elite Wellness, the gym in Lagos.
-- **Where it stands:** The price section has its final version, draft 2.6, the only draft on the bar.
-  A price is always showing (the day pass is chosen when you tap Passes), the texts are cut short,
-  the insurance switch is gone, and Get this plan leads to a check screen with Buy now, then to
-  "Finish at reception". No payment is taken; the two steps count who would buy online. Martti and
-  the owner have not looked at 2.6 yet. All earlier drafts are in `archive/`, grouped by what they
-  tested. The price check passes; every total was clicked through by hand.
-  Five photos are still missing. Four are stock photos from the internet: hero frame 2 (the outdoor
-  deck in use), hero frame 3 (a class or coaching moment), the HYROX class card and the Pilates
-  class card. The fifth is Ricardo's portrait (his initial shows). Everything else is the gym's own.
-- **Next:** Martti looks at 2.6 on a phone and a desktop and says what to change. Then the photos.
-- **Needs from you:** A look at 2.6. The five photos, in this folder (not Downloads, which Claude
-  cannot read): two wide ones for the hero (4:3, landscape), two tall ones for HYROX and Pilates
-  (3:4, portrait, the whole movement in the frame), one square head and shoulders of Ricardo. And
-  where the page should go live: nothing in this folder says.
-- **Time:** About 1 hour of Claude work once the photos are in (rough guess).
+- **Where it stands:** Draft 2.7 is draft 2.6 with the last four stock photos replaced by the gym's
+  own, from the 51 photos taken in the gym in October (they sit in `assets/raw/`, which is kept out
+  of git). New: the second and third hero photos (a member holding a barbell, a class in a side
+  stretch seen from behind), the HYROX card (a coach pushing the sled) and the Pilates card (an
+  instructor and the class balancing on one leg). No stock photo is left on the page. The dumbbell
+  rack, TRX, GAP, Bike Elite and the personal training photo are unchanged: the set has nothing
+  better for them. Ricardo's portrait is still missing (his initial shows). Both drafts are on the
+  bar and the price check passes on both. Martti and the owner have not looked at either yet.
+- **Next:** Martti looks at 2.7 on a phone and a desktop. When it is signed off, 2.6 is archived and
+  CLAUDE.md names 2.7 as the page.
+- **Needs from you:** A look at 2.7. Three questions for the gym: is the balance class in the photo
+  Pilates, are the people in that photo happy to be on the site, and which photo shows Ricardo (or
+  a new head and shoulders photo of him). Still to shoot: the outdoor deck in use, and a coach with
+  a client if the personal training photo should change. And where the page should go live.
+- **Time:** A few minutes of Claude work per answer. A new photo takes about 10 minutes each.
 
 ## Noticed, not done
 
@@ -42,3 +42,10 @@ The order across projects is in `~/dev/PORTFOLIO.md` (Priority list). Updated 20
   connected when the page goes live, or the test measures nothing. How: PRICES.md, Tracking.
 - **What to bring is partly a guess (10 Nov 2026).** The last buy screen says members bring photo ID
   (from the earlier draft) and, for direct debit, their IBAN (my assumption). Ask the gym.
+- **On a phone the hero shows little of the people (11 Nov 2026).** A phone shows the dumbbell rack
+  and only the left edge of the second photo; the third photo is never seen. Seen at 390 wide on
+  2.7. If a person should be in the first screen on a phone, the order of the photos or the strip
+  has to change. The hero is still open, so it belongs to that decision.
+- **Some photos in the October set show members' faces (11 Nov 2026).** The Pilates card on 2.7 has
+  three members sharp behind the instructor, faces visible. The house rule prefers people from
+  behind. Ask the gym whether they agreed, or reshoot from behind.
