@@ -11,7 +11,8 @@ The order across projects is in `~/dev/PORTFOLIO.md` (Priority list). Updated 20
 - **Where it stands:** The site is the folder `site/`: Portuguese at the main address, English at
   `/en`. Served on its own as the main address it works (every file both pages ask for is found,
   except Ricardo's photo). A second, independent read of the Portuguese by Claude fixed about 20
-  spots; no native speaker has read it yet. Not pushed, not live.
+  spots; no native speaker has read it yet. Pushed on 11 Nov 2026: the family can read it at
+  `ittram.github.io/elitew/site/` (a test link, public but not announced). Not live at its own address.
 - **Next:** Martti picks where the live site's files are kept (a new clean private repository, or
   this one made private). Then Claude sets it up on a private test address at Cloudflare, the
   family reads the Portuguese there, and the real address is connected last.
