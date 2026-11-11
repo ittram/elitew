@@ -18,7 +18,9 @@ Dropped: the marker strokes (2.8.5), the hero entrance and drifting photos
          Open now tag in the hero (2.8.4).
 2.9.1 is 2.9 with the two buttons under the headline, to judge side by side.
 
-For the record only, like the other scripts here."""
+For the record only, like the other scripts here. 2.9 was picked as the page
+and has been edited in place since: do not run this again, it would overwrite
+those edits."""
 import io, os, sys
 sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
 import polish_2_8 as P8

@@ -179,8 +179,10 @@ EXTRA = {'2-4-5-4-1': '#prices .pl{max-width:760px;margin:48px auto 0}\n', '2-4-
 
 def render(s, name, P):
     s = strip(s)
-    assert s.count('<p class="pr-legal">') == 1, name
-    s = s.replace('<p class="pr-legal">', list_html(P) + '<p class="pr-legal">', 1)
+    # the list goes in right before the legal line; a page without that line marks the place instead
+    here = [a for a in ('<p class="pr-legal">', '<!-- price-list:here -->') if a in s]
+    assert len(here) == 1 and s.count(here[0]) == 1, name
+    s = s.replace(here[0], list_html(P) + here[0], 1)
     s = s.replace('</head>', CSS.replace('%(extra)s', EXTRA.get(name, '')) + '</head>', 1)
     s = s.replace('</body>', JS + '</body>', 1)
     return sync_copy(s, P)
