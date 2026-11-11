@@ -8,22 +8,33 @@ The order across projects is in `~/dev/PORTFOLIO.md` (Priority list). Updated 20
 
 **[Gym site] Portuguese and English, then go live**
 - **What:** The landing page for Elite Wellness, the gym in Lagos, as a real site in two languages.
-- **Where it stands:** The site now lives in the folder `site/` as two plain pages: Portuguese at
-  the main address, English at `/en`. Looks and behaviour are in two shared files, so they are
-  changed once. The Portuguese is written by Claude, speaking to people as "tu". A new check
-  (`build/check_pages.py`) compares the two pages and stops a change that is made in one only; the
-  price check covers both pages. Checked on a phone and a desktop. Not pushed, not live.
-- **Next:** The family reads the Portuguese page and corrects what sounds off. Then go live:
-  a private repository, Cloudflare Pages, the real address, and the update skills for the owner.
-- **Needs from you:** Someone from the gym to read the Portuguese page. The Google links for three
-  reviews (Alessandro, Sahirah, Emily). The address the site will live at. For the gym: check the
-  two lines about each class; is the balance class in the photo Pilates; are the people in it happy
-  to be on the site; a photo of Ricardo.
-- **Time:** 20 minutes of reading for the family. Going live: about 2 hours of Claude work, one
-  session, plus Martti creating the Cloudflare and GitHub accounts or giving access.
+- **Where it stands:** The site is the folder `site/`: Portuguese at the main address, English at
+  `/en`. Served on its own as the main address it works (every file both pages ask for is found,
+  except Ricardo's photo). A second, independent read of the Portuguese is being done by Claude;
+  no native speaker has read it yet. Not pushed, not live.
+- **Next:** Martti picks where the live site's files are kept (a new clean private repository, or
+  this one made private). Then Claude sets it up on a private test address at Cloudflare, the
+  family reads the Portuguese there, and the real address is connected last.
+- **Needs from you:** The choice above. A GitHub and a Cloudflare account for the gym (or yours).
+  The address the site will live at. Still open for the gym: the Google links for three reviews,
+  the two lines about each class, a photo of Ricardo.
+- **Time:** About 2 hours of Claude work, one session. 15 minutes for Martti to create the accounts
+  and connect them. 20 minutes of reading for the family.
+- **To see it:** in this folder's Claude session, the server "drafts" shows `localhost:8765/site/`
+  and the server "site-as-live" shows the site as it will be at its own address, `localhost:8766/`.
 
 ## Noticed, not done
 
+- **Before the site is public (11 Nov 2026).** Found while checking the site folder as it would go
+  live. (1) A link to the site shared on WhatsApp or Instagram shows no picture and no title card:
+  the page has no share picture. (2) There is no "page not found" page, so a mistyped address would
+  show a broken copy of the home page. (3) Two "todo" marks still show: whether direct debit has a
+  minimum period (Good to know) and the privacy policy (footer). (4) The page tells search engines
+  about a photo, `elite-wellness-lagos-outdoor-training-deck.jpg`, that does not exist. (5) No list
+  of pages for search engines (sitemap) yet; it needs the real address.
+- **The drafts are public today (11 Nov 2026).** This repository is public and GitHub shows it as a
+  website at `ittram.github.io/elitew/`, drafts and all. Making the repository private on a free
+  GitHub account switches that address off. Seen with `gh` while preparing to go live.
 - **"todo" marks on the page (10 Nov 2026).** The page shows small "todo" marks where five price
   questions for the gym are unanswered (PRICES.md, Still to confirm). They need answers or hiding
   before the page is public. Seen in the legal line under the price list.
