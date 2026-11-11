@@ -1,7 +1,7 @@
 # Elite Wellness landing page: house rules
 
 ## Drafts and the version bar
-- **The page is `elite-wellness-landing_2-6.html`**, the only draft in the root (2.5.4 was picked as the base on 10 November 2026; 2.6 is its final price section). Iterate on it in place. Its price calculator (script and styles) lives in that file and is edited there.
+- **The page is `elite-wellness-landing_2-9.html`** (2.5.4 was picked as the base on 10 November 2026; 2.6 is its final price section, 2.7 has the gym's own photos, 2.9 is the final polish picked on 11 November 2026). Iterate on it in place. Its polish (styles and script) is in `<style id="polish-css">` and `<script id="polish-js">` in that file. Its price calculator (script and styles) lives in that file and is edited there.
 - **Everything earlier is in `archive/<group>/`**, one folder per thing we tested, the same groups as the Archive panel (`GROUPS` in `index.html`): `prices-1-first-ideas`, `prices-2-receipt-and-steps`, `prices-3-tabs-and-boxes`, `prices-4-personal-training`, `prices-5-empty-screen`, `photos`, `footer`, `hours-and-location`, `hero-headline`, `full-page`. The scripts that wrote them are in `build/experiments/`, for the record only.
 - A **new draft file** is for a new direction or a version the user asks for: `elite-wellness-landing_<version>.html`, with dots as dashes (`1.9.6.1` → `elite-wellness-landing_1-9-6-1.html`).
 - **Small design iterations and fixes go into the current draft**, in place. Do not spin up a new version for a font size, a wrap, a colour or a bug.
@@ -30,7 +30,8 @@
 ## Design system
 - Fonts: Anton (display), Inter (body), Rock Salt (script).
 - Colours: royal blue `#2B3EAA`, greys `#8A8A8A`, `#E5E5E5`, `#F4F4F2`, black and white.
-- Second accent: **Volt `#D4F04A`**, special cases only (the entrance tag on the plan, "best value", "new!", the open now dot, button hover). Never as text on white: on white it is a filled shape with black on top. At most once per screen.
+- Second accent: **Volt `#D4F04A`**, special cases only (the entrance tag on the plan, "best value", "new!", the open now dot, the price you pay on the black plan card). Never as text on white: on white it is a filled shape with black on top. At most once per screen. **Never on a hover**: it gets overused fast, so when in doubt leave it out (Martti, 11 November 2026).
+- Buttons: a primary button leans (the slanted shape of WhatsApp in the action bar and the mobile menu), a secondary one is a plain outline. Hover: on white, blue turns black and the outline fills blue; on black or blue, white turns blue and the outline fills white; on the black plan card, blue turns white.
 - 12 column grid, 8px and 4px spacing, torn edges between bands.
 - **On a phone everything is one column.** No two column rows in the footer or anywhere else.
 - Motion is small and purposeful: the route draws itself once, the action bar slides up, nothing loops.
@@ -87,4 +88,5 @@ TIMETABLE.md is the same process for the family, using ChatGPT instead of Claude
 - The action bar: black, follows you from the hero to the end of the page, on every width, WhatsApp and Directions.
 - The price section (2.6, on the layout of 2.5.4 picked with the gym owner on 10 November 2026). Something is always chosen, so the plan never stands empty: Membership, Unlimited and direct debit when the page opens, the day pass when you tap Passes. The plan boxes show the price for the way to pay that is chosen. No insurance switch: the gym handles the insurance itself, so membership always adds it once a year (owner, 10 November 2026). Personal training is a photo card with Book a time on WhatsApp, not a receipt. Texts stay short: every word has to earn its place.
 - Buying online is a test, not a shop. Get this plan opens a sheet with the plan and Buy now; Buy now shows Finish at reception and says nothing has been charged. No payment or personal data is taken. The two steps (`pricing_review`, `pricing_confirm`) count how many people would buy online. Never word the last screen so that someone could think they paid.
+- The final polish (2.9, picked 11 November 2026, from the five 2.8 drafts in `archive/final-polish/`). Kept: blocks and the handwritten notes appear once as you reach them; tapping a class (its card or a slot in the timetable) shows two lines on what it is, when it is on, and only its slots lit; a thin line under the header shows how far down the page you are; today is marked in the opening hours; film grain lies over the photos; a flat edge above Good to know; each review card opens its own review on Google (`url` in `reviews.js`). Turned down, do not bring back: hand drawn marker strokes, an animated entrance for the hero or photos that drift, a stricter type system, an animated underline on the menu words, an Open now tag or buttons under the headline.
 - Still open: the hero headline, drafts 1.2, 1.2.1, 1.3, 1.5 and 1.6, parked in `archive/hero-headline/` until we decide.

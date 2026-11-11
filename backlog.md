@@ -9,20 +9,18 @@ The order across projects is in `~/dev/PORTFOLIO.md` (Priority list). Updated 20
 **[Gym site] Final polish before translation**
 - **What:** The last round of small design changes on the landing page for Elite Wellness, the gym
   in Lagos, before it is translated into Portuguese.
-- **Where it stands:** Draft 2.9 is the merged page: what Martti kept from the five 2.8 drafts
-  (blocks appearing as you scroll, class cards tied to the timetable, the progress line), plus his
-  notes of 11 November: no green on button hovers, leaning primary buttons, a flat edge above Good
-  to know, grain on the photos, two lines on what each class is, and review cards that open the
-  exact review. 2.9.1 is the same page with two buttons under the headline. The five 2.8 drafts are
-  in the archive. Checked on a phone and a desktop; price and timetable checks pass. Not pushed.
-- **Next:** Martti looks at 2.9 and 2.9.1 and picks one. Then the other is archived, with 2.6 and
-  2.7, and the translation starts.
-- **Needs from you:** Buttons under the headline, yes or no. The Google links for three reviews
-  (Alessandro, Sahirah, Emily): Google shows only five reviews to someone who is not signed in.
-  For the gym: check the two lines about each class; is the balance class in the photo Pilates; are
-  the people in it happy to be on the site; a photo of Ricardo. And where the page goes live.
-- **Time:** 10 minutes of looking for Martti, 5 minutes to copy three links. A few minutes of
-  Claude work per answer.
+- **Where it stands:** Draft 2.9 is the page, picked by Martti on 11 November 2026, without the
+  buttons under the headline. It is 2.7 (the gym's own photos) with the polish he kept: blocks
+  appearing as you scroll, class cards tied to the timetable with two lines on what each class is,
+  the progress line, no green on button hovers, leaning primary buttons, a flat edge above Good to
+  know, grain on the photos, review cards that open the exact review. 2.9.1 and the five 2.8
+  drafts are in the archive. 2.6 and 2.7 are still on the bar. Not pushed.
+- **Next:** Claude starts the Portuguese translation once Martti says go.
+- **Needs from you:** A go for the translation, and whether 2.6 and 2.7 can leave the bar. The
+  Google links for three reviews (Alessandro, Sahirah, Emily). For the gym: check the two lines
+  about each class; is the balance class in the photo Pilates; are the people in it happy to be on
+  the site; a photo of Ricardo. And where the page goes live.
+- **Time:** 5 minutes for Martti to copy three links. A few minutes of Claude work per answer.
 
 ## Noticed, not done
 
@@ -57,8 +55,6 @@ The order across projects is in `~/dev/PORTFOLIO.md` (Priority list). Updated 20
 - **Only five reviews on the page (11 Nov 2026).** With five, two rows showed the same review twice
   on one screen. The 2.8 drafts show one row until there are eight. Paste more reviews from Google
   into `reviews.js` and the second row comes back by itself.
-- **The house rules still name 2.6 as the page (11 Nov 2026).** `CLAUDE.md` says the page is 2.6.
-  Update it when the polish picks are merged and one draft is the page again.
 - **Three reviews open the gym's page, not the review (11 Nov 2026).** Martin's and Brian's cards
   open their own review. Alessandro, Sahirah and Emily need their link: on Google Maps open the
   review, tap Share, copy the link, paste it as `url` in `reviews.js`.
