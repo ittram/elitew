@@ -7,10 +7,10 @@
 <meta name="description" content="Family run gym in Lagos, Portugal. Weights, machines, classes and an outdoor training deck. Day pass €12, week pass €40.90, membership from €13 every 2 weeks with direct debit. Open Mon to Fri 7:00 to 21:00, Sat 9:00 to 13:00.">
 <link rel="alternate" hreflang="en" href="https://example.com/">
 <link rel="alternate" hreflang="pt-PT" href="https://example.com/pt">
-<link rel="icon" href="assets/favicon.svg" type="image/svg+xml">
-<link rel="icon" href="assets/favicon-32.png" sizes="32x32" type="image/png">
-<link rel="icon" href="assets/favicon-16.png" sizes="16x16" type="image/png">
-<link rel="apple-touch-icon" href="assets/apple-touch-icon.png">
+<link rel="icon" href="../../assets/favicon.svg" type="image/svg+xml">
+<link rel="icon" href="../../assets/favicon-32.png" sizes="32x32" type="image/png">
+<link rel="icon" href="../../assets/favicon-16.png" sizes="16x16" type="image/png">
+<link rel="apple-touch-icon" href="../../assets/apple-touch-icon.png">
 <meta name="theme-color" content="#2B3EAA">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -544,7 +544,7 @@ body.show-grid .grid-overlay{display:block}
   "sameAs":["https://www.instagram.com/elitewellnessbysantos/","https://www.facebook.com/elitewellnessbysantos","https://maps.app.goo.gl/ks6o4URGCYT7rzHJ8"]
 }
 </script>
-<link rel="stylesheet" href="pricing.css">
+<link rel="stylesheet" href="../../pricing.css">
 <style id="prices-css">
 /* ---------- Prices (2.6). Choose on columns 1 to 7, your plan on 9 to 12.
    Something is always chosen, so the plan always shows a real price.
@@ -748,26 +748,38 @@ a:focus-visible,button:focus-visible,summary:focus-visible,[tabindex]:focus-visi
 /* phone timetable: room for the busiest day, not for a class that does not exist */
 @media (max-width:768px){.tt-list{min-height:calc(var(--tt-rows,3) * 96px)}}
 
-/* ---------- 2.8.1: motion ---------- */
-/* the first screen arrives: the title rises out of its own line, the photos settle */
-.hero-title .ln{display:block;clip-path:inset(-.12em -2em -.03em -2em)}
-.hero-title .ln>span{display:block}
-.mo .hero-title .ln>span{animation:pz-rise 1s cubic-bezier(.16,1,.3,1) backwards}
-.mo .hero-title .ln:nth-child(2)>span{animation-delay:.09s}
-.mo .hero-rating{animation:pz-up .8s cubic-bezier(.16,1,.3,1) .4s backwards}
-.mo .hero-sub{animation:pz-up .8s cubic-bezier(.16,1,.3,1) .5s backwards}
-.mo .hero-img{scale:1.14;translate:0 var(--py,0px);animation:pz-photo 1.5s cubic-bezier(.16,1,.3,1) .25s backwards}
-.mo .hero-img:nth-child(2){animation-delay:.35s}
-.mo .hero-img:nth-child(3){animation-delay:.45s}
-@keyframes pz-rise{from{transform:translateY(104%)}}
-@keyframes pz-up{from{opacity:0;transform:translateY(16px)}}
-@keyframes pz-photo{from{opacity:0;scale:1.28}}
-/* each block comes up once as you reach it, then is left alone */
-.mo .pz-up{opacity:0;transform:translateY(28px)}
-.mo .pz-up.pz-in{opacity:1;transform:none;transition:opacity .8s cubic-bezier(.16,1,.3,1) var(--d,0s),transform .8s cubic-bezier(.16,1,.3,1) var(--d,0s)}
-/* the handwritten notes are written in, left to right */
-.mo .pz-wr{clip-path:inset(-40% 104% -40% -4%)}
-.mo .pz-wr.pz-in{clip-path:inset(-40% -4% -40% -4%);transition:clip-path .9s cubic-bezier(.4,0,.2,1) .25s}
+/* ---------- 2.8.3: feedback ---------- */
+/* everything you press gives a little */
+.btn{transition:background .2s,color .2s,border-color .2s,scale .12s}
+.nav-cta{transition:background .2s,color .2s,scale .12s}
+.pk-i,.op{transition:border-color .15s,background .15s,color .15s,scale .12s}
+.menu-cta,.tt-tabs button,.pi-nav button,.lang-btn{transition:background .2s,color .2s,scale .12s}
+.btn:active,.nav-cta:active,.pk-i:active,.op:active,.menu-cta:active,.tt-tabs button:active,.pi-nav button:active,.lang-btn:active{scale:.97}
+/* the menu knows where you are, and the line under the header shows how far */
+nav .nav-link{position:relative;padding:6px 0}
+nav .nav-link::after{content:'';position:absolute;left:0;right:0;bottom:0;height:2px;background:var(--royal-blue);transform:scaleX(0);transform-origin:left;transition:transform .3s cubic-bezier(.2,.8,.2,1)}
+nav .nav-link:hover::after,nav .nav-link.here::after{transform:scaleX(1)}
+nav .nav-link.here{color:var(--royal-blue)}
+header::after{content:'';position:absolute;left:0;bottom:-2px;width:100%;height:2px;background:var(--royal-blue);transform:scaleX(var(--read,0));transform-origin:left}
+/* a class card answers "when is it on?" */
+.class-card{cursor:pointer}
+.class-img{transition:transform .7s cubic-bezier(.2,.8,.2,1)}
+@media (hover:hover){.class-card:hover{transform:none}.class-card:hover .class-img{transform:scale(1.05)}}
+.class-days{margin-top:.6rem;font-weight:700;font-size:.8rem;line-height:1rem;color:var(--white)}
+.class-card.on{box-shadow:inset 0 0 0 0 transparent;outline:3px solid var(--white);outline-offset:-3px}
+.tt-pick{display:none;margin-top:16px;font-size:14px;line-height:24px;color:rgba(255,255,255,.85)}
+.tt.pick .tt-pick{display:block}
+.tt-pick b{color:var(--white)}
+.tt-pick button{appearance:none;border:0;background:transparent;margin-left:12px;padding:0;font:inherit;font-weight:800;color:var(--white);cursor:pointer;box-shadow:inset 0 -2px 0 rgba(255,255,255,.5)}
+.tt.pick .tt-next{display:none}
+.tt-cell>*,.tt-list li>*{transition:opacity .25s}
+.tt.pick .tt-cell:not(.hit)>*,.tt.pick .tt-list li:not(.hit)>*{opacity:.3}
+.tt.pick .tt-cell.hit:not(.is-next){background:rgba(255,255,255,.16);box-shadow:inset 0 0 0 2px var(--white)}
+.tt-tabs button.has:not([aria-selected="true"]){box-shadow:inset 0 0 0 2px var(--white),inset 0 -6px 0 var(--white)}
+/* opening hours: today's line is marked */
+.hours-row li.today .hr-d{color:var(--white)}
+.hr-now{font-style:normal;margin-left:8px;padding:0 6px;background:var(--white);color:var(--royal-blue);font-size:10px;line-height:16px;display:inline-block}
+@media (prefers-reduced-motion:reduce){.btn,.nav-cta,.pk-i,.op,.class-img,nav .nav-link::after{transition:none}}
 
 @supports (interpolate-size:allow-keywords){
   :root{interpolate-size:allow-keywords}
@@ -812,7 +824,7 @@ a:focus-visible,button:focus-visible,summary:focus-visible,[tabindex]:focus-visi
 <!-- ============ HEADER ============ -->
 <header>
   <a class="logo" href="#top" aria-label="Elite Wellness by Santos">
-    <img class="logo-img" src="assets/elite-wellness-logo.png" alt="Elite Wellness by Santos" width="720" height="215">
+    <img class="logo-img" src="../../assets/elite-wellness-logo.png" alt="Elite Wellness by Santos" width="720" height="215">
   </a>
   <nav>
     <a class="nav-link" href="#classes">Classes</a>
@@ -847,21 +859,21 @@ a:focus-visible,button:focus-visible,summary:focus-visible,[tabindex]:focus-visi
 <section class="hero" id="top">
   <div class="hero-grid">
     <p class="hero-rating"><a href="https://maps.app.goo.gl/ks6o4URGCYT7rzHJ8" target="_blank" rel="noopener" aria-label="4.8 out of 5 from 153 Google reviews, opens Google Maps in a new tab"><span class="stars">★★★★★</span>&nbsp; 4.8 · 153 Google reviews</a></p>
-    <h1 class="hero-title"><span class="ln"><span>Train</span></span> <span class="ln"><span>In Lagos</span></span></h1>
+    <h1 class="hero-title">Train<br>In Lagos</h1>
     <p class="hero-sub">A family run gym in Lagos. Weights, machines, classes and space to train outdoors.</p>
   </div>
   <div class="hero-image-strip torn-top">
     <!-- all three are the gym's own photos. Black and white is baked in, the CSS filter only adds the contrast -->
-    <img class="hero-img" src="assets/hero-free-weights.webp"
-         srcset="assets/hero-free-weights-800.webp 800w, assets/hero-free-weights.webp 1600w"
+    <img class="hero-img" src="../../assets/hero-free-weights.webp"
+         srcset="../../assets/hero-free-weights-800.webp 800w, ../../assets/hero-free-weights.webp 1600w"
          sizes="34vw" width="1600" height="1200" fetchpriority="high" decoding="async"
          alt="The free weights at Elite Wellness: a rack of hex dumbbells on the gym floor">
-    <img class="hero-img" src="assets/hero-deadlift.webp"
-         srcset="assets/hero-deadlift-800.webp 800w, assets/hero-deadlift.webp 1536w"
+    <img class="hero-img" src="../../assets/hero-deadlift.webp"
+         srcset="../../assets/hero-deadlift-800.webp 800w, ../../assets/hero-deadlift.webp 1536w"
          sizes="(max-width:768px) 68vw, 34vw" width="1536" height="1152" decoding="async" style="object-position:50% 60%"
          alt="A member holding a loaded barbell at the top of a deadlift at Elite Wellness">
-    <img class="hero-img" src="assets/hero-class-stretch.webp"
-         srcset="assets/hero-class-stretch-800.webp 800w, assets/hero-class-stretch.webp 1536w"
+    <img class="hero-img" src="../../assets/hero-class-stretch.webp"
+         srcset="../../assets/hero-class-stretch-800.webp 800w, ../../assets/hero-class-stretch.webp 1536w"
          sizes="(max-width:768px) 68vw, 34vw" width="1536" height="1152" decoding="async" style="object-position:50% 30%"
          alt="Members reaching into a side stretch in a class in the studio at Elite Wellness">
   </div>
@@ -907,35 +919,35 @@ a:focus-visible,button:focus-visible,summary:focus-visible,[tabindex]:focus-visi
   </div>
   <div class="classes-grid">
     <div class="class-card">
-      <img class="class-img" src="assets/class-hyrox.webp" srcset="assets/class-hyrox-600.webp 600w, assets/class-hyrox.webp 900w" sizes="(max-width:768px) 86vw, (max-width:1100px) 34vw, 20vw" width="900" height="1200" loading="lazy" style="object-position:40% 30%" alt="A coach pushing a weighted sled across the turf at Elite Wellness">
+      <img class="class-img" src="../../assets/class-hyrox.webp" srcset="../../assets/class-hyrox-600.webp 600w, ../../assets/class-hyrox.webp 900w" sizes="(max-width:768px) 86vw, (max-width:1100px) 34vw, 20vw" width="900" height="1200" loading="lazy" style="object-position:40% 30%" alt="A coach pushing a weighted sled across the turf at Elite Wellness">
       <div class="class-overlay">
         <div class="class-name">HYROX</div>
         <div class="class-tag">Hybrid training</div>
       </div>
     </div>
     <div class="class-card">
-      <img class="class-img" src="assets/class-trx-row.webp" srcset="assets/class-trx-row-600.webp 600w, assets/class-trx-row.webp 900w" sizes="(max-width:768px) 86vw, (max-width:1100px) 34vw, 20vw" width="900" height="1200" loading="lazy" style="object-position:50% 30%" alt="A member pulling up on the TRX straps anchored to the wall at Elite Wellness">
+      <img class="class-img" src="../../assets/class-trx-row.webp" srcset="../../assets/class-trx-row-600.webp 600w, ../../assets/class-trx-row.webp 900w" sizes="(max-width:768px) 86vw, (max-width:1100px) 34vw, 20vw" width="900" height="1200" loading="lazy" style="object-position:50% 30%" alt="A member pulling up on the TRX straps anchored to the wall at Elite Wellness">
       <div class="class-overlay">
         <div class="class-name">TRX</div>
         <div class="class-tag">Suspension training</div>
       </div>
     </div>
     <div class="class-card">
-      <img class="class-img" src="assets/class-gap.webp" srcset="assets/class-gap-600.webp 600w, assets/class-gap.webp 900w" sizes="(max-width:768px) 86vw, (max-width:1100px) 34vw, 20vw" width="900" height="1200" loading="lazy" style="object-position:75% 30%" alt="Members doing an ab exercise on mats in a GAP class at Elite Wellness">
+      <img class="class-img" src="../../assets/class-gap.webp" srcset="../../assets/class-gap-600.webp 600w, ../../assets/class-gap.webp 900w" sizes="(max-width:768px) 86vw, (max-width:1100px) 34vw, 20vw" width="900" height="1200" loading="lazy" style="object-position:75% 30%" alt="Members doing an ab exercise on mats in a GAP class at Elite Wellness">
       <div class="class-overlay">
         <div class="class-name">GAP</div>
         <div class="class-tag">Glutes, abs and legs</div>
       </div>
     </div>
     <div class="class-card">
-      <img class="class-img" src="assets/class-bike.webp" srcset="assets/class-bike-600.webp 600w, assets/class-bike.webp 900w" sizes="(max-width:768px) 86vw, (max-width:1100px) 34vw, 20vw" width="900" height="1200" loading="lazy" style="object-position:50% 60%" alt="Members pedalling on the spin bikes in a Bike Elite class at Elite Wellness">
+      <img class="class-img" src="../../assets/class-bike.webp" srcset="../../assets/class-bike-600.webp 600w, ../../assets/class-bike.webp 900w" sizes="(max-width:768px) 86vw, (max-width:1100px) 34vw, 20vw" width="900" height="1200" loading="lazy" style="object-position:50% 60%" alt="Members pedalling on the spin bikes in a Bike Elite class at Elite Wellness">
       <div class="class-overlay">
         <div class="class-name">Bike Elite</div>
         <div class="class-tag">Indoor cycling</div>
       </div>
     </div>
     <div class="class-card">
-      <img class="class-img" src="assets/class-pilates-balance.webp" srcset="assets/class-pilates-balance-600.webp 600w, assets/class-pilates-balance.webp 900w" sizes="(max-width:768px) 86vw, (max-width:1100px) 34vw, 20vw" width="900" height="1200" loading="lazy" style="object-position:40% 30%" alt="An instructor and members balancing on one leg on their mats in a class at Elite Wellness">
+      <img class="class-img" src="../../assets/class-pilates-balance.webp" srcset="../../assets/class-pilates-balance-600.webp 600w, ../../assets/class-pilates-balance.webp 900w" sizes="(max-width:768px) 86vw, (max-width:1100px) 34vw, 20vw" width="900" height="1200" loading="lazy" style="object-position:40% 30%" alt="An instructor and members balancing on one leg on their mats in a class at Elite Wellness">
       <div class="class-overlay">
         <div class="class-name">Pilates</div>
         <div class="class-tag">Mat pilates</div>
@@ -954,7 +966,7 @@ a:focus-visible,button:focus-visible,summary:focus-visible,[tabindex]:focus-visi
     <div class="tt-clip"><table class="tt-table" id="tt-table" aria-label="Weekly class timetable"></table></div>
     <div class="tt-tabs" id="tt-tabs" role="tablist" aria-label="Choose a day"></div>
     <ul class="tt-list" id="tt-list"></ul>
-    <noscript><p class="tt-foot"><a href="assets/timetable.webp">See the class timetable</a></p></noscript>
+    <noscript><p class="tt-foot"><a href="../../assets/timetable.webp">See the class timetable</a></p></noscript>
     <div class="tt-foot">
       <span>No booking. Just turn up and join in.</span>
       <span class="tt-updated" id="tt-updated"></span>
@@ -1019,10 +1031,10 @@ a:focus-visible,button:focus-visible,summary:focus-visible,[tabindex]:focus-visi
   <p>Elite Wellness is run by the Santos family: André, Joana and Ricardo, all qualified in physical education, and their father Jorge. It began as outdoor sessions on the Marina de Lagos during lockdown. The gym came later; the outdoor training never left.</p>
   <div class="family">
     <ul class="family-faces" aria-label="The Santos family">
-      <li title="André"><b aria-hidden="true">A</b><img src="assets/team/andre.jpg" alt="André" onerror="this.remove()"></li>
-      <li title="Joana"><b aria-hidden="true">J</b><img src="assets/team/joana.jpg" alt="Joana" onerror="this.remove()"></li>
-      <li title="Ricardo"><b aria-hidden="true">R</b><img src="assets/team/ricardo.jpg" alt="Ricardo" onerror="this.remove()"></li>
-      <li title="Jorge"><b aria-hidden="true">J</b><img src="assets/team/jorge.jpg" alt="Jorge" onerror="this.remove()"></li>
+      <li title="André"><b aria-hidden="true">A</b><img src="../../assets/team/andre.jpg" alt="André" onerror="this.remove()"></li>
+      <li title="Joana"><b aria-hidden="true">J</b><img src="../../assets/team/joana.jpg" alt="Joana" onerror="this.remove()"></li>
+      <li title="Ricardo"><b aria-hidden="true">R</b><img src="../../assets/team/ricardo.jpg" alt="Ricardo" onerror="this.remove()"></li>
+      <li title="Jorge"><b aria-hidden="true">J</b><img src="../../assets/team/jorge.jpg" alt="Jorge" onerror="this.remove()"></li>
     </ul>
     <span class="family-names">André · Joana · Ricardo · Jorge</span>
   </div>
@@ -1113,7 +1125,7 @@ a:focus-visible,button:focus-visible,summary:focus-visible,[tabindex]:focus-visi
 <footer class="site-footer" id="footer">
   <div class="ft-grid">
     <div class="ft-brand">
-      <img class="ft-logo" src="assets/elite-wellness-logo-white.png" width="720" height="215" alt="Elite Wellness by Santos">
+      <img class="ft-logo" src="../../assets/elite-wellness-logo-white.png" width="720" height="215" alt="Elite Wellness by Santos">
       <p class="ft-motto">Juntos Somos Elite</p>
       <address class="ft-body">Rua Capitão Salgueiro Maia, Lote 13, Cave<br>8600-530 Lagos, Algarve, Portugal</address>
       <p class="ft-body"><a href="tel:+351926565836">+351 926 565 836</a><br><a href="mailto:elitewellness.geral@gmail.com">elitewellness.geral@gmail.com</a></p>
@@ -1196,9 +1208,9 @@ a:focus-visible,button:focus-visible,summary:focus-visible,[tabindex]:focus-visi
 })();
 </script>
 
-<script src="prices.js"></script>
-<script src="pricing.js"></script>
-<script src="reviews.js"></script>
+<script src="../../prices.js"></script>
+<script src="../../pricing.js"></script>
+<script src="../../reviews.js"></script>
 <script>
 (function(){
   var R=window.ELITE_REVIEWS; if(!R) return;
@@ -1254,7 +1266,7 @@ a:focus-visible,button:focus-visible,summary:focus-visible,[tabindex]:focus-visi
   var t; window.addEventListener('resize',function(){clearTimeout(t);t=setTimeout(function(){ if(Math.abs(Math.max(marquee.clientWidth,window.innerWidth)-builtFor)>40) build(); },200)});
 })();
 </script>
-<script src="schedule.js"></script>
+<script src="../../schedule.js"></script>
 <script>
 (function(){
   var S=window.ELITE_SCHEDULE; if(!S) return;
@@ -1539,7 +1551,7 @@ a:focus-visible,button:focus-visible,summary:focus-visible,[tabindex]:focus-visi
     {id:'pt',   name:'Personal training', desc:'With your own coach', from:money(ptFrom),      per:'a session'}
   ];
   var STEPS=[['Message us','Say what you want to work on.'],['Meet your coach','A first talk at the gym.'],['Train','One to one, to a plan made for you.']];
-  var PT_IMG='<img src="assets/pt-session-800.webp" srcset="assets/pt-session-800.webp 800w, assets/pt-session.webp 1600w" sizes="(max-width:768px) 100vw, 30vw" width="1600" height="1200" loading="lazy" alt="A coach guiding a member through a lunge in a personal training session at Elite Wellness">';
+  var PT_IMG='<img src="../../assets/pt-session-800.webp" srcset="../../assets/pt-session-800.webp 800w, ../../assets/pt-session.webp 1600w" sizes="(max-width:768px) 100vw, 30vw" width="1600" height="1200" loading="lazy" alt="A coach guiding a member through a lunge in a personal training session at Elite Wellness">';
 
   /* each product remembers its own choice when you look at another */
   var st={kind:'mem', stay:first.id, plan:best.id, pay:'dd'}, cur=null;
@@ -1717,45 +1729,62 @@ a:focus-visible,button:focus-visible,summary:focus-visible,[tabindex]:focus-visi
   l.style.setProperty('--tt-rows', Math.max.apply(null, Object.keys(n).map(function(k){ return n[k] })));
 })();
 
-/* 2.8.1: motion */
+/* 2.8.3: feedback */
 (function(){
-  var root=document.documentElement;
-  if(!root.classList.contains('mo')||!('IntersectionObserver' in window)) return;
-  var phone=matchMedia('(max-width:768px)').matches;
-  var host=new WeakMap();   /* a note that is clipped away never counts as on screen: its parent is watched for it */
-  var io=new IntersectionObserver(function(es){
-    es.forEach(function(e){
-      if(!e.isIntersecting) return;
-      var el=host.get(e.target)||e.target; io.unobserve(e.target); el.classList.add('pz-in');
-      /* afterwards the block is exactly as it was: its own hover and transitions come back */
-      setTimeout(function(){ el.classList.remove('pz-up','pz-wr','pz-in'); el.style.removeProperty('--d') },2400);
-    });
-  },{rootMargin:'0px 0px -10% 0px',threshold:.06});
-  function add(sel,cls,gap,base){
-    [].forEach.call(document.querySelectorAll(sel),function(el,i){
-      if(el.getBoundingClientRect().top<innerHeight) return;   /* already on the first screen: leave it */
-      el.classList.add(cls||'pz-up');
-      el.style.setProperty('--d',((base||0)+Math.min(i,6)*(gap||0))+'ms');
-      if(cls==='pz-wr'){ host.set(el.parentElement,el); io.observe(el.parentElement) } else io.observe(el);
-    });
-  }
-  add('.section-header'); add('.section-script','pz-wr');
-  add('.gym-col','pz-up',90); add('.gym-map');
-  add(phone?'.classes-grid':'.class-card','pz-up',70);
-  add('.tt'); add('#pc-opts'); add('#pc-plan','pz-up',0,phone?0:120);
-  add('.rv-rating'); add('.marquee'); add('.about-band p'); add('.family','pz-up',0,120);
-  add('.find-a'); add('.find-b','pz-up',0,phone?0:100); add('.faq-item','pz-up',40);
-
-  /* the hero photos drift a little slower than the page, each at its own pace */
-  var strip=document.querySelector('.hero-image-strip'), imgs=strip?strip.querySelectorAll('.hero-img'):[], busy=false;
-  function drift(){
+  var root=document.documentElement, head=document.querySelector('header');
+  /* where you are: the menu word of the section on screen, and how far down the page */
+  var links=[].slice.call(document.querySelectorAll('nav .nav-link')).map(function(a){ return {a:a,el:document.querySelector(a.getAttribute('href'))} }).filter(function(x){ return x.el });
+  var busy=false;
+  function where(){
     busy=false;
-    var r=strip.getBoundingClientRect(), vh=innerHeight;
-    if(r.bottom<0||r.top>vh) return;
-    var p=(vh-r.top)/(vh+r.height)-.5, amp=r.height*.085;
-    [].forEach.call(imgs,function(im,i){ im.style.setProperty('--py',(-p*amp*(1+i*.25)).toFixed(1)+'px') });
+    var max=root.scrollHeight-innerHeight, line=head.offsetHeight+innerHeight*.35;
+    head.style.setProperty('--read', max>0?Math.min(1,scrollY/max).toFixed(4):0);
+    links.forEach(function(x){ var r=x.el.getBoundingClientRect(); x.a.classList.toggle('here', r.top<=line&&r.bottom>line) });
   }
-  if(strip){ addEventListener('scroll',function(){ if(!busy){ busy=true; requestAnimationFrame(drift) } },{passive:true}); drift(); }
+  addEventListener('scroll',function(){ if(!busy){ busy=true; requestAnimationFrame(where) } },{passive:true});
+  addEventListener('resize',where); where();
+
+  /* today's line in the opening hours (Lisbon time) */
+  var day=new Intl.DateTimeFormat('en-GB',{timeZone:'Europe/Lisbon',weekday:'short'}).format(new Date());
+  var li=document.querySelectorAll('.hours-row li')[day==='Sat'?1:day==='Sun'?2:0];
+  if(li){ li.classList.add('today'); var d=li.querySelector('.hr-d'), f=document.createElement('i'); f.className='hr-now'; f.textContent='Today'; d.appendChild(f); }
+
+  /* tap a class: its days are on the card, and the timetable shows only its slots */
+  var S=window.ELITE_SCHEDULE, tt=document.getElementById('timetable'), list=document.getElementById('tt-list'), tabs=document.getElementById('tt-tabs');
+  if(!S||!tt||!list) return;
+  var ORDER=['mon','tue','wed','thu','fri','sat','sun'], SHORT={mon:'Mon',tue:'Tue',wed:'Wed',thu:'Thu',fri:'Fri',sat:'Sat',sun:'Sun'};
+  var byName={}; Object.keys(S.classes).forEach(function(k){ byName[S.classes[k].name.toLowerCase()]=k });
+  var cards=[].slice.call(document.querySelectorAll('.class-card')), picked=null;
+  var chip=document.createElement('p'); chip.className='tt-pick'; chip.setAttribute('aria-live','polite'); tt.querySelector('.tt-head').appendChild(chip);
+  function slots(k){ return S.sessions.filter(function(x){ return x.class===k }).sort(function(a,b){ return ORDER.indexOf(a.day)-ORDER.indexOf(b.day)||a.time.localeCompare(b.time) }) }
+  function nameOf(el){ var n=el.querySelector('.tt-name'); return n&&n.firstChild?String(n.firstChild.nodeValue||'').trim().toLowerCase():'' }
+  function paint(){
+    var nm=picked?S.classes[picked].name.toLowerCase():'';
+    tt.classList.toggle('pick',!!picked);
+    [].forEach.call(tt.querySelectorAll('.tt-cell,.tt-list li'),function(c){ c.classList.toggle('hit',!!picked&&nameOf(c)===nm) });
+    cards.forEach(function(c){ var on=!!picked&&c.dataset.cls===picked; c.classList.toggle('on',on); c.setAttribute('aria-pressed',on?'true':'false') });
+    [].forEach.call(tabs.children,function(b){ b.classList.toggle('has',!!picked&&S.sessions.some(function(x){ return x.day===b.dataset.day&&x.class===picked })) });
+    chip.innerHTML=picked?'<b>'+S.classes[picked].name+'</b> '+slots(picked).map(function(x){ return SHORT[x.day]+' '+x.time }).join(' · ')+'<button type="button">Show all</button>':'';
+  }
+  function pick(k){
+    picked=picked===k?null:k; paint();
+    if(!picked) return;
+    /* on a phone open the first day it runs, from today on */
+    var today=ORDER.indexOf(day.toLowerCase()), days=slots(picked).map(function(x){ return x.day });
+    var first=days.filter(function(d){ return ORDER.indexOf(d)>=today })[0]||days[0];
+    var tab=first&&tabs.querySelector('[data-day="'+first+'"]'); if(tab&&tab.getAttribute('aria-selected')!=='true') tab.click();
+    tt.scrollIntoView({behavior:root.classList.contains('mo')?'smooth':'auto',block:'center'});
+  }
+  cards.forEach(function(c){
+    var nm=(c.querySelector('.class-name').textContent||'').trim(), k=byName[nm.toLowerCase()]; if(!k) return;
+    c.dataset.cls=k; c.tabIndex=0; c.setAttribute('role','button'); c.setAttribute('aria-pressed','false'); c.setAttribute('aria-label',nm+': show when it is on');
+    var days=ORDER.filter(function(d){ return S.sessions.some(function(x){ return x.day===d&&x.class===k }) }).map(function(d){ return SHORT[d] });
+    var el=document.createElement('div'); el.className='class-days'; el.textContent=days.join(' · '); c.querySelector('.class-overlay').appendChild(el);
+    c.addEventListener('click',function(){ pick(k) });
+    c.addEventListener('keydown',function(e){ if(e.key==='Enter'||e.key===' '){ e.preventDefault(); pick(k) } });
+  });
+  chip.addEventListener('click',function(e){ if(e.target.closest('button')&&picked) pick(picked) });
+  if(window.MutationObserver) new MutationObserver(paint).observe(list,{childList:true});
 })();
 
 (function(){

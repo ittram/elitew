@@ -9,19 +9,20 @@ The order across projects is in `~/dev/PORTFOLIO.md` (Priority list). Updated 20
 **[Gym site] Final polish before translation**
 - **What:** The last round of small design changes on the landing page for Elite Wellness, the gym
   in Lagos, before it is translated into Portuguese.
-- **Where it stands:** Five polish drafts are on the bar, 2.8.1 to 2.8.5, all built on 2.7 (the
-  page with the gym's own photos). All five share the same small fixes: clearer wording in seven
-  places, a real title for the browser tab, the empty slot gone from the phone timetable, and one
-  row of reviews so no review shows twice on a screen. Then each pushes one idea: Motion (2.8.1),
-  Type and spacing (2.8.2), Touch and feedback (2.8.3), First screen (2.8.4), Marker strokes
-  (2.8.5). Checked on a phone and a desktop; the price check passes on all of them. Nothing is
-  pushed. 2.6 and 2.7 are still on the bar.
-- **Next:** Martti looks through the five and says which parts to keep. Claude merges them into one
-  page (2.9), archives the rest, then the translation starts.
-- **Needs from you:** Your picks from the five. Still open from before, for the gym: is the balance
-  class in the photo Pilates, are the people in it happy to be on the site, and a photo of Ricardo.
-  And where the page should go live.
-- **Time:** 15 minutes of looking for Martti. About 1 hour for Claude to merge the picks.
+- **Where it stands:** Draft 2.9 is the merged page: what Martti kept from the five 2.8 drafts
+  (blocks appearing as you scroll, class cards tied to the timetable, the progress line), plus his
+  notes of 11 November: no green on button hovers, leaning primary buttons, a flat edge above Good
+  to know, grain on the photos, two lines on what each class is, and review cards that open the
+  exact review. 2.9.1 is the same page with two buttons under the headline. The five 2.8 drafts are
+  in the archive. Checked on a phone and a desktop; price and timetable checks pass. Not pushed.
+- **Next:** Martti looks at 2.9 and 2.9.1 and picks one. Then the other is archived, with 2.6 and
+  2.7, and the translation starts.
+- **Needs from you:** Buttons under the headline, yes or no. The Google links for three reviews
+  (Alessandro, Sahirah, Emily): Google shows only five reviews to someone who is not signed in.
+  For the gym: check the two lines about each class; is the balance class in the photo Pilates; are
+  the people in it happy to be on the site; a photo of Ricardo. And where the page goes live.
+- **Time:** 10 minutes of looking for Martti, 5 minutes to copy three links. A few minutes of
+  Claude work per answer.
 
 ## Noticed, not done
 
@@ -56,8 +57,16 @@ The order across projects is in `~/dev/PORTFOLIO.md` (Priority list). Updated 20
 - **Only five reviews on the page (11 Nov 2026).** With five, two rows showed the same review twice
   on one screen. The 2.8 drafts show one row until there are eight. Paste more reviews from Google
   into `reviews.js` and the second row comes back by itself.
-- **Volt behind blue letters in 2.8.5 (11 Nov 2026).** The highlighter stroke behind "In Lagos"
-  puts blue letters on volt. The house rule says volt on white carries black on top. If the stroke
-  is kept, the rule gets an exception; if not, the stroke turns black or grey.
 - **The house rules still name 2.6 as the page (11 Nov 2026).** `CLAUDE.md` says the page is 2.6.
   Update it when the polish picks are merged and one draft is the page again.
+- **Three reviews open the gym's page, not the review (11 Nov 2026).** Martin's and Brian's cards
+  open their own review. Alessandro, Sahirah and Emily need their link: on Google Maps open the
+  review, tap Share, copy the link, paste it as `url` in `reviews.js`.
+- **Google now says 157 reviews, the page says 153 (11 Nov 2026).** Seen on Google Maps while
+  collecting the review links. The number is typed in several places (hero, menu, reviews, the
+  data for search engines). Update it in one go before the page goes live.
+- **The class descriptions are general, not the gym's own words (11 Nov 2026).** The two lines per
+  class in `schedule.js` (`about`) say what each format is in general. Ask the coaches to check
+  them. Mobility, Abs and Circuit HIIT have no card, so their lines show only from the timetable.
+- **The photo grain is laid over in the page, not in the files (11 Nov 2026).** If it stays, it
+  could move into `build/photo.py` so every new photo gets it.

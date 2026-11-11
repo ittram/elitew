@@ -8,20 +8,29 @@
   - time: 24h "HH:MM"
   - class: one of the keys in "classes" below (add a new key for a new class)
   - isNew: true shows a "new" tag next to the class
+  - about (in classes): one or two plain sentences on what the class is; shown when a class is tapped
 */
 window.ELITE_SCHEDULE = {
   updated: "2026-10-07",
   poster: "assets/timetable.webp",
 
   classes: {
-    hyrox:    { name: "HYROX",           en: "Hybrid training",         pt: "Aula híbrida" },
-    gap:      { name: "GAP",             en: "Glutes, abs and legs",    pt: "Glúteos, abdominais e pernas" },
-    trx:      { name: "TRX",             en: "Suspension training",     pt: "Suspension training" },
-    mobility: { name: "Mobility",        en: "Flexibility and mobility", pt: "Flexibilidade e mobilidade" },
-    abs:      { name: "Abs",             en: "Core strength",           pt: "Abdominais" },
-    bike:     { name: "Bike Elite",      en: "Indoor cycling",          pt: "Bike Elite" },
-    pilates:  { name: "Pilates",         en: "Mat pilates",             pt: "Pilates" },
-    hiit:     { name: "Circuit HIIT",    en: "High intensity circuit",  pt: "Circuito HIIT" }
+    hyrox:    { name: "HYROX",           en: "Hybrid training",         pt: "Aula híbrida",
+               about: "Running mixed with strength work: sled pushes, lunges, wall balls. Built on the HYROX race format and scaled to your level." },
+    gap:      { name: "GAP",             en: "Glutes, abs and legs",    pt: "Glúteos, abdominais e pernas",
+               about: "Floor and standing work for the glutes, abs and legs, with your bodyweight or light weights." },
+    trx:      { name: "TRX",             en: "Suspension training",     pt: "Suspension training",
+               about: "Strength training on suspension straps, using your own bodyweight. You make it harder or easier by how you stand." },
+    mobility: { name: "Mobility",        en: "Flexibility and mobility", pt: "Flexibilidade e mobilidade",
+               about: "Slow, controlled stretches and joint work. Good for stiff hips, backs and shoulders, and for recovery days." },
+    abs:      { name: "Abs",             en: "Core strength",           pt: "Abdominais",
+               about: "A short, focused session for the core: abs, obliques and lower back." },
+    bike:     { name: "Bike Elite",      en: "Indoor cycling",          pt: "Bike Elite",
+               about: "Indoor cycling with climbs, sprints and recovery. You set your own resistance." },
+    pilates:  { name: "Pilates",         en: "Mat pilates",             pt: "Pilates",
+               about: "Mat pilates: slow, precise movements for core strength, posture and control." },
+    hiit:     { name: "Circuit HIIT",    en: "High intensity circuit",  pt: "Circuito HIIT",
+               about: "Short bursts of hard work with short rests, moving round a circuit of stations." }
   },
 
   sessions: [
