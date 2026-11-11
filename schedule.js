@@ -16,9 +16,9 @@ window.ELITE_SCHEDULE = {
   poster: "assets/timetable.webp",
 
   classes: {
-    hyrox:    { name: "HYROX",           en: "Hybrid training",         pt: "Aula híbrida",
+    hyrox:    { name: "HYROX",           en: "Hybrid training",         pt: "Treino híbrido",
                about: "Running mixed with strength work: sled pushes, lunges, wall balls. Built on the HYROX race format and scaled to your level.",
-               aboutPt: "Corrida misturada com trabalho de força: empurrar o trenó, lunges, wall balls. Segue o formato das provas HYROX, adaptado ao teu nível." },
+               aboutPt: "Corrida intercalada com exercícios de força: empurrar o trenó, lunges, wall balls. Segue o formato das provas HYROX, adaptado ao teu nível." },
     gap:      { name: "GAP",             en: "Glutes, abs and legs",    pt: "Glúteos, abdominais e pernas",
                about: "Floor and standing work for the glutes, abs and legs, with your bodyweight or light weights.",
                aboutPt: "Trabalho no chão e de pé para glúteos, abdominais e pernas, com o peso do corpo ou pesos leves." },

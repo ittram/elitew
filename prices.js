@@ -27,7 +27,7 @@ window.ELITE_PRICES = {
     plans: [
       { id:"w1", name:"Once a week",        namePt:"1 vez por semana",   pt:"1x semana (quinzenal)",       visits:1, dd:13.00, desk:18.00 },
       { id:"w3", name:"Three times a week", namePt:"3 vezes por semana", pt:"3x semana (quinzenal)",       visits:3, dd:19.50, desk:24.50 },
-      { id:"un", name:"Unlimited",          namePt:"Livre trânsito",     pt:"Livre trânsito (quinzenal)",  visits:0, dd:21.00, desk:26.00, best:true }
+      { id:"un", name:"Unlimited",          namePt:"Livre-trânsito",     pt:"Livre trânsito (quinzenal)",  visits:0, dd:21.00, desk:26.00, best:true }
     ],
     ddSavingYear: 130.00      // 5.00 every 2 weeks, 26 times a year
   },

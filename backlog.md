@@ -10,8 +10,8 @@ The order across projects is in `~/dev/PORTFOLIO.md` (Priority list). Updated 20
 - **What:** The landing page for Elite Wellness, the gym in Lagos, as a real site in two languages.
 - **Where it stands:** The site is the folder `site/`: Portuguese at the main address, English at
   `/en`. Served on its own as the main address it works (every file both pages ask for is found,
-  except Ricardo's photo). A second, independent read of the Portuguese is being done by Claude;
-  no native speaker has read it yet. Not pushed, not live.
+  except Ricardo's photo). A second, independent read of the Portuguese by Claude fixed about 20
+  spots; no native speaker has read it yet. Not pushed, not live.
 - **Next:** Martti picks where the live site's files are kept (a new clean private repository, or
   this one made private). Then Claude sets it up on a private test address at Cloudflare, the
   family reads the Portuguese there, and the real address is connected last.
@@ -85,6 +85,25 @@ The order across projects is in `~/dev/PORTFOLIO.md` (Priority list). Updated 20
   address for search engines. Put the real one in when it is known (the head of both pages).
 - **English reviews on the Portuguese page (11 Nov 2026).** The reviews are shown as written, in
   English, on both pages. If the gym has Portuguese reviews it likes, add them to `reviews.js`.
-- **Portuguese words to confirm with the gym (11 Nov 2026).** "Adesão" for membership, "Livre
-  trânsito" for unlimited (from the price sheet), "Deck exterior", "Racks", "Bom saber" for Good to
-  know, "Inscreve-te" on the Join button.
+- **Portuguese words for the family to decide (11 Nov 2026).** A second read by Claude (not a
+  native speaker) fixed the clear mistakes and left these as questions.
+  (1) **"Adesão" may read as a joining fee.** In Portugal the word means the act of joining, so
+  "Adesão desde 13 €" can sound like a one time fee. Gyms say "sócio" and "plano". The suggestion:
+  the tab "Sócios", the plans "Plano 3 vezes por semana", the menu "Sócios desde 13 €". It touches
+  the house rule in CLAUDE.md and the price script, so it waits for a yes.
+  (2) **"Bom saber" is a word for word copy of Good to know.** Suggested: "Informações úteis"
+  (standard) or "Antes de vires" (warmer).
+  (3) Taste: "a cada 2 semanas" or "de 2 em 2 semanas"; "ginásio de família" or "ginásio
+  familiar"; "avaliações" or "opiniões" for the Google reviews; "máquinas Smith" or "multipower";
+  "Melhor preço" or "Compensa mais" on the membership box; "Mais" or "Ler mais" on a review.
+  (4) Left as they were on purpose: the opening hours as "07:00 às 21:00" (the second read wanted
+  "Das 07:00 às 21:00"; signs in Portugal use the short form) and "Documento de identificação com
+  fotografia" (shorter would drop the photo, and what to bring is still unconfirmed).
+  (5) The data file keeps the price sheet's own words, and for the single personal training
+  session they are "Sessão avulso". Correct Portuguese is "Sessão avulsa". If the printed sheet
+  really says "avulso", it is worth fixing on the sheet. The site does not show this line.
+  Confirmed fine by the second read: "Livre-trânsito" (now with its hyphen), "Inscreve-te",
+  "Passe diário", "Treina em Lagos", and the "tu" form throughout.
+- **Does membership have a minimum period? (11 Nov 2026).** Good to know answers "Is there a
+  contract?" for passes but does not say whether members commit to a minimum time. It is one of the
+  "todo" marks. Ask the gym.
