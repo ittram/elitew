@@ -25,6 +25,10 @@ The order across projects is in `~/dev/PORTFOLIO.md` (Priority list). Updated 20
 
 ## Noticed, not done
 
+- **Three team photos carry a hidden "made with" tag (11 Nov 2026).** `assets/team/andre.jpg`,
+  `joana.jpg` and `jorge.jpg` hold a content credentials (C2PA) block. No location or camera data.
+  Seen while checking the photos before a push; they were already public. `build/strip_c2pa.py`
+  removes it.
 - **Before the site is public (11 Nov 2026).** Found while checking the site folder as it would go
   live. (1) A link to the site shared on WhatsApp or Instagram shows no picture and no title card:
   the page has no share picture. (2) There is no "page not found" page, so a mistyped address would
