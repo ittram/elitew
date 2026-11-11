@@ -1,3 +1,7 @@
 
 # Screenshots Claude takes while building; they stay on this machine.
 Claude outputs/
+
+# Raw photos from the gym: never in git (the repo is public, phone photos carry location).
+# Only the finished webp files in assets/ are committed, after build/strip_c2pa.py.
+assets/raw/
