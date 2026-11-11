@@ -138,6 +138,32 @@ def pages(P):
                 why = 'is on the sheet but must not be on the site (show only what prices.js allows)' if v in hidden else 'is not a price in prices.js'
                 err('%s: %s %s: "%s"' % (name, m(v), why, ctx))
         print('  %s checked' % name)
+    # the site: two plain pages and one shared script
+    for f, lang in PL.SITE:
+        p = os.path.join(ROOT, f)
+        if not os.path.exists(p):
+            continue
+        s = io.open(p, encoding='utf-8').read()
+        if PL.render_site(s, P, lang) != s:
+            err('%s: the price list or the prices in the copy are out of date; run python3 build/pricelist.py' % f)
+        body = re.sub(r'<!-- price-list:start.*?<!-- price-list:end -->', '', s, flags=re.S)
+        text = re.sub(r'<script\b(?![^>]*ld\+json)[^>]*>.*?</script>', '', body, flags=re.S)
+        # €12 on the English page, 12 € on the Portuguese one
+        amount = r'(\d+(?:,\d{1,2})?)[ \u00a0]?€' if lang == 'pt' else r'€\s?(\d+(?:[.,]\d{1,2})?)'
+        for mo in re.finditer(amount, text):
+            v = round(float(mo.group(1).replace(',', '.')), 2)
+            if v not in allowed:
+                ctx = re.sub(r'\s+', ' ', re.sub(r'<[^>]+>', ' ', text[max(0, mo.start() - 60):mo.end() + 20])).strip()
+                why = 'is on the sheet but must not be on the site (show only what prices.js allows)' if v in hidden else 'is not a price in prices.js'
+                err('%s: %s %s: "%s"' % (f, m(v), why, ctx))
+        if lang == 'pt' and re.search(r'€\s?\d', text):
+            err('%s: a price is written the English way (€12); the Portuguese page writes 12 €' % f)
+        print('  %s checked' % f)
+    js = os.path.join(ROOT, 'site', 'site.js')
+    if os.path.exists(js):
+        for x in re.findall(r'€\s?\d[\d.,]*|\d[\d.,]*[ \u00a0]?€', io.open(js, encoding='utf-8').read()):
+            err('site/site.js: a price is written into the script (%s); scripts must read prices.js' % x)
+        print('  site/site.js checked')
 
 
 if __name__ == '__main__':

@@ -14,6 +14,7 @@
   - `pt` is the line as printed on the sheet, so the check script can print the
     list in the sheet's own words and order
   - a price with `todo` is not confirmed yet and the page says so out loud
+  - `name` is what the English page calls it, `namePt` what the Portuguese page calls it
 */
 window.ELITE_PRICES = {
   updated: "2026-10-01",
@@ -24,27 +25,27 @@ window.ELITE_PRICES = {
   member: {
     every: 14,                // days per payment
     plans: [
-      { id:"w1", name:"Once a week",        pt:"1x semana (quinzenal)",       visits:1, dd:13.00, desk:18.00 },
-      { id:"w3", name:"Three times a week", pt:"3x semana (quinzenal)",       visits:3, dd:19.50, desk:24.50 },
-      { id:"un", name:"Unlimited",          pt:"Livre trânsito (quinzenal)",  visits:0, dd:21.00, desk:26.00, best:true }
+      { id:"w1", name:"Once a week",        namePt:"1 vez por semana",   pt:"1x semana (quinzenal)",       visits:1, dd:13.00, desk:18.00 },
+      { id:"w3", name:"Three times a week", namePt:"3 vezes por semana", pt:"3x semana (quinzenal)",       visits:3, dd:19.50, desk:24.50 },
+      { id:"un", name:"Unlimited",          namePt:"Livre trânsito",     pt:"Livre trânsito (quinzenal)",  visits:0, dd:21.00, desk:26.00, best:true }
     ],
     ddSavingYear: 130.00      // 5.00 every 2 weeks, 26 times a year
   },
 
   visitor: [
-    { id:"d1", name:"1 day",   pt:"Diária (1 session)",      days:1,  price:12.00 },
-    { id:"s1", name:"1 week",  pt:"1 semana (1 week)",       days:7,  price:40.90 },
-    { id:"s2", name:"2 weeks", pt:"2 semanas (2 weeks)",     days:14, price:51.90 },
-    { id:"s3", name:"3 weeks", pt:"3 semanas (3 weeks)",     days:21, price:61.90 },
-    { id:"s4", name:"4 weeks", pt:"4 semanas (4 weeks)",     days:28, price:69.90 }
+    { id:"d1", name:"1 day",   namePt:"1 dia",     pt:"Diária (1 session)",      days:1,  price:12.00 },
+    { id:"s1", name:"1 week",  namePt:"1 semana",  pt:"1 semana (1 week)",       days:7,  price:40.90 },
+    { id:"s2", name:"2 weeks", namePt:"2 semanas", pt:"2 semanas (2 weeks)",     days:14, price:51.90 },
+    { id:"s3", name:"3 weeks", namePt:"3 semanas", pt:"3 semanas (3 weeks)",     days:21, price:61.90 },
+    { id:"s4", name:"4 weeks", namePt:"4 semanas", pt:"4 semanas (4 weeks)",     days:28, price:69.90 }
   ],
 
   /* not on the site: the owner folds assessments into personal quotes (7 Oct 2026); kept as the sheet has them */
   assessments: {
     onSite: false,
     packs: [
-      { id:"at", name:"Training", pt:"Pack treino (trimestral)",   months:3, price:55.00 },
-      { id:"an", name:"Nutrition", pt:"Pack nutrição (trimestral)", months:3, price:70.00 }
+      { id:"at", name:"Training", namePt:"Treino", pt:"Pack treino (trimestral)",   months:3, price:55.00 },
+      { id:"an", name:"Nutrition", namePt:"Nutrição", pt:"Pack nutrição (trimestral)", months:3, price:70.00 }
     ],
     todo: "[PLACEHOLDER: what each pack includes, e.g. an assessment with a coach and a new programme each month for three months]"
   },
@@ -55,10 +56,10 @@ window.ELITE_PRICES = {
   pt: {
     quote: true,
     packs: [
-      { id:"one", name:"Single session", pt:"Sessão avulso",                 sessions:1,  each:55.00, total:55.00 },
-      { id:"p8",  name:"8 sessions",     pt:"Pack 8 sessões (válido 2 meses)",  sessions:8,  each:47.50, total:380.00, months:2 },
-      { id:"p12", name:"12 sessions",    pt:"Pack 12 sessões (válido 2 meses)", sessions:12, each:42.50, total:510.00, months:2 },
-      { id:"p20", name:"20 sessions",    pt:"Pack 20 sessões (válido 3 meses)", sessions:20, each:32.50, total:650.00, months:3 }
+      { id:"one", name:"Single session", namePt:"Sessão avulsa", pt:"Sessão avulso",                 sessions:1,  each:55.00, total:55.00 },
+      { id:"p8",  name:"8 sessions",     namePt:"8 sessões",  pt:"Pack 8 sessões (válido 2 meses)",  sessions:8,  each:47.50, total:380.00, months:2 },
+      { id:"p12", name:"12 sessions",    namePt:"12 sessões", pt:"Pack 12 sessões (válido 2 meses)", sessions:12, each:42.50, total:510.00, months:2 },
+      { id:"p20", name:"20 sessions",    namePt:"20 sessões", pt:"Pack 20 sessões (válido 3 meses)", sessions:20, each:32.50, total:650.00, months:3 }
     ],
     second: 17.50,            // "Pessoa extra", a session
     note: "Packs of two sessions a week or fewer do not include the gym on the other days. To train on the other days, add a member plan."

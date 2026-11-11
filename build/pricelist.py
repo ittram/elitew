@@ -11,6 +11,7 @@ replaces its own block and rewrites the same phrases.
 Run it after changing prices.js, and after rebuilding any draft. Then run
 build/check_prices.py."""
 import io, json, os, re, subprocess, sys, html
+import urllib.parse
 
 ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
@@ -22,81 +23,133 @@ def load(source=None):
     return json.loads(out)
 
 
-def m(n):
+def m(n, lang='en'):
+    """12 is €12 on the English page and 12 € on the Portuguese one; 40.9 is €40.90 and 40,90 €."""
     s = '%.2f' % n
-    return '€' + (s[:-3] if s.endswith('.00') else s)
+    s = s[:-3] if s.endswith('.00') else s
+    return s.replace('.', ',') + u' €' if lang == 'pt' else '€' + s
 
 
 def todo(t):
     return '<span class="pr-todo" title="%s">todo</span>' % html.escape(t, quote=True)
 
 
-def list_html(P):
-    rows_pass = ''.join('<tr><th scope="row">%s</th><td>%s%s</td></tr>' % (v['name'], m(v['price']), todo(v['todo']) if v.get('todo') else '') for v in P['visitor'])
+# the words of the full price list, once for each page
+LIST = {
+    'en': dict(show='See the full price list', hide='Hide the full price list',
+               passes='Day and week passes', passes_s='No commitment. Gym, classes and insurance included.',
+               mem='Membership', mem_s='Paid every 2 weeks, plus %s sports insurance once a year.',
+               desk='At reception', dd='Direct debit', best='Recommended',
+               mem_n='Direct debit takes %s off every payment, %s a year.',
+               pt='Personal training', pt_s='One to one, planned around you.', pt_row='A session', pt_from='from %s',
+               pt_n='The price is agreed with your coach. <a href="%s" target="_blank" rel="noopener">Book a time on WhatsApp</a>.',
+               wa='Hi! I would like to book a time to talk to a coach about personal training.',
+               pt_s2='One to one with a coach.', total='Total', valid='%s, valid %d months',
+               pt_n2='Bring someone with you and the second person is %s a session. %s',
+               assess='Assessments', assess_s='Packs for training or nutrition.', months='%s, %d months'),
+    'pt': dict(show='Ver a tabela de preços completa', hide='Esconder a tabela de preços',
+               passes='Passes diários e semanais', passes_s='Sem compromisso. Ginásio, aulas e seguro incluídos.',
+               mem='Adesão', mem_s='Paga a cada 2 semanas, mais o seguro desportivo de %s uma vez por ano.',
+               desk='Na receção', dd='Débito direto', best='Recomendado',
+               mem_n='O débito direto tira %s a cada pagamento, %s por ano.',
+               pt='Treino personalizado', pt_s='Individual, planeado à tua medida.', pt_row='Uma sessão', pt_from='desde %s',
+               pt_n='O preço é combinado com o teu treinador. <a href="%s" target="_blank" rel="noopener">Marca pelo WhatsApp</a>.',
+               wa='Olá! Gostava de marcar uma conversa com um treinador sobre treino personalizado.',
+               pt_s2='Individual, com um treinador.', total='Total', valid='%s, válido %d meses',
+               pt_n2='Traz alguém contigo e a segunda pessoa paga %s por sessão. %s',
+               assess='Avaliações', assess_s='Packs de treino ou nutrição.', months='%s, %d meses'),
+}
+
+
+def nm(x, lang):
+    return x.get('namePt', x['name']) if lang == 'pt' else x['name']
+
+
+def list_html(P, lang='en'):
+    W = LIST[lang]
+    mm = lambda n: m(n, lang)
+    rows_pass = ''.join('<tr><th scope="row">%s</th><td>%s%s</td></tr>' % (nm(v, lang), mm(v['price']), todo(v['todo']) if v.get('todo') else '') for v in P['visitor'])
     # reception is the normal price and comes first; direct debit is the discount off it
     rows_mem = ''.join('<tr><th scope="row">%s%s</th><td class="std">%s</td><td>%s</td></tr>' % (
-        p['name'], ' <span class="pl-tag">Recommended</span>' if p.get('best') else '', m(p['desk']), m(p['dd'])) for p in P['member']['plans'])
+        nm(p, lang), ' <span class="pl-tag">%s</span>' % W['best'] if p.get('best') else '', mm(p['desk']), mm(p['dd'])) for p in P['member']['plans'])
     rows_pt = ''.join('<tr><th scope="row">%s</th><td class="dim">%s</td><td>%s</td></tr>' % (
-        k['name'] if k['sessions'] == 1 else '%s, valid %d months' % (k['name'], k['months']), m(k['each']), m(k['total'])) for k in P['pt']['packs'])
+        nm(k, lang) if k['sessions'] == 1 else W['valid'] % (nm(k, lang), k['months']), mm(k['each']), mm(k['total'])) for k in P['pt']['packs'])
     A = P.get('assessments')
     grp_as = ''
     if A and A.get('onSite', True):
-        rows_as = ''.join('<tr><th scope="row">%s, %d months</th><td>%s</td></tr>' % (a['name'], a['months'], m(a['price'])) for a in A['packs'])
+        rows_as = ''.join('<tr><th scope="row">%s</th><td>%s</td></tr>' % (W['months'] % (nm(a, lang), a['months']), mm(a['price'])) for a in A['packs'])
         grp_as = ('''
-      <section class="pl-grp" aria-label="Assessments">
-        <h3 class="pl-h">Assessments</h3>
-        <p class="pl-s">Packs for training or nutrition.%s</p>
+      <section class="pl-grp" aria-label="%s">
+        <h3 class="pl-h">%s</h3>
+        <p class="pl-s">%s%s</p>
         <table class="pl-t"><tbody>%s</tbody></table>
-      </section>''' % (todo(A['todo']) if A.get('todo') else '', rows_as))
+      </section>''' % (W['assess'], W['assess'], W['assess_s'], todo(A['todo']) if A.get('todo') else '', rows_as))
     off = P['member']['plans'][0]['desk'] - P['member']['plans'][0]['dd']
     if P['pt'].get('quote'):
         # personal training is agreed with the coach: only where it starts, and how to get in touch
-        wa = 'https://wa.me/351926565836?text=' + 'Hi!%20I%20would%20like%20to%20book%20a%20time%20to%20talk%20to%20a%20coach%20about%20personal%20training.'
+        wa = 'https://wa.me/351926565836?text=' + urllib.parse.quote(W['wa'], safe='!')
         grp_pt = '''
-      <section class="pl-grp" aria-label="Personal training">
-        <h3 class="pl-h">Personal training</h3>
-        <p class="pl-s">One to one, planned around you.</p>
-        <table class="pl-t"><tbody><tr><th scope="row">A session</th><td>from %s</td></tr></tbody></table>
-        <p class="pl-n">The price is agreed with your coach. <a href="%s" target="_blank" rel="noopener">Book a time on WhatsApp</a>.</p>
-      </section>''' % (m(min(k['each'] for k in P['pt']['packs'])), wa)
+      <section class="pl-grp" aria-label="%s">
+        <h3 class="pl-h">%s</h3>
+        <p class="pl-s">%s</p>
+        <table class="pl-t"><tbody><tr><th scope="row">%s</th><td>%s</td></tr></tbody></table>
+        <p class="pl-n">%s</p>
+      </section>''' % (W['pt'], W['pt'], W['pt_s'], W['pt_row'], W['pt_from'] % mm(min(k['each'] for k in P['pt']['packs'])), W['pt_n'] % wa)
     else:
         grp_pt = '''
-      <section class="pl-grp" aria-label="Personal training">
-        <h3 class="pl-h">Personal training</h3>
-        <p class="pl-s">One to one with a coach.</p>
-        <table class="pl-t"><thead><tr><td></td><th scope="col">A session</th><th scope="col">Total</th></tr></thead><tbody>%s</tbody></table>
-        <p class="pl-n">Bring someone with you and the second person is %s a session. %s</p>
-      </section>''' % (rows_pt, m(P['pt']['second']), P['pt']['note'])
+      <section class="pl-grp" aria-label="%s">
+        <h3 class="pl-h">%s</h3>
+        <p class="pl-s">%s</p>
+        <table class="pl-t"><thead><tr><td></td><th scope="col">%s</th><th scope="col">%s</th></tr></thead><tbody>%s</tbody></table>
+        <p class="pl-n">%s</p>
+      </section>''' % (W['pt'], W['pt'], W['pt_s2'], W['pt_row'], W['total'], rows_pt, W['pt_n2'] % (mm(P['pt']['second']), P['pt']['note']))
     return '''<!-- price-list:start (generated by build/pricelist.py from prices.js) -->
   <details class="pl" id="price-list">
-    <summary class="pl-sum"><span class="pl-show">See the full price list</span><span class="pl-hide">Hide the full price list</span></summary>
+    <summary class="pl-sum"><span class="pl-show">%(show)s</span><span class="pl-hide">%(hide)s</span></summary>
     <div class="pl-body">
-      <section class="pl-grp" aria-label="Day and week passes">
-        <h3 class="pl-h">Day and week passes</h3>
-        <p class="pl-s">No commitment. Gym, classes and insurance included.</p>
+      <section class="pl-grp" aria-label="%(passes)s">
+        <h3 class="pl-h">%(passes)s</h3>
+        <p class="pl-s">%(passes_s)s</p>
         <table class="pl-t"><tbody>%(pass)s</tbody></table>
       </section>
-      <section class="pl-grp" aria-label="Membership">
-        <h3 class="pl-h">Membership</h3>
-        <p class="pl-s">Paid every 2 weeks, plus %(ins)s sports insurance once a year.</p>
-        <table class="pl-t"><thead><tr><td></td><th scope="col">At reception</th><th scope="col">Direct debit</th></tr></thead><tbody>%(mem)s</tbody></table>
-        <p class="pl-n">Direct debit takes %(off)s off every payment, %(save)s a year.</p>
+      <section class="pl-grp" aria-label="%(mem)s">
+        <h3 class="pl-h">%(mem)s</h3>
+        <p class="pl-s">%(mem_s)s</p>
+        <table class="pl-t"><thead><tr><td></td><th scope="col">%(desk)s</th><th scope="col">%(dd)s</th></tr></thead><tbody>%(rows_mem)s</tbody></table>
+        <p class="pl-n">%(mem_n)s</p>
       </section>%(ptg)s%(as)s
     </div>
   </details>
 <!-- price-list:end -->
-  ''' % {'pass': rows_pass, 'mem': rows_mem, 'ptg': grp_pt, 'as': grp_as, 'ins': m(P['insurance']['year']),
-         'save': m(P['member']['ddSavingYear']), 'off': m(off), 'second': m(P['pt']['second']), 'ptnote': P['pt']['note']}
+  ''' % {'show': W['show'], 'hide': W['hide'], 'passes': W['passes'], 'passes_s': W['passes_s'], 'mem': W['mem'],
+         'mem_s': W['mem_s'] % mm(P['insurance']['year']), 'desk': W['desk'], 'dd': W['dd'],
+         'mem_n': W['mem_n'] % (mm(off), mm(P['member']['ddSavingYear'])),
+         'pass': rows_pass, 'rows_mem': rows_mem, 'ptg': grp_pt, 'as': grp_as}
 
 
-def copy_rules(P):
+def every_price(P):
+    A = P.get('assessments', {})
+    return [v['price'] for v in P['visitor']] + [p['desk'] for p in P['member']['plans']] + \
+           ([min(k['each'] for k in P['pt']['packs'])] if P['pt'].get('quote') else [k['total'] for k in P['pt']['packs']]) + \
+           ([a['price'] for a in A.get('packs', [])] if A.get('onSite', True) else [])
+
+
+def copy_rules(P, lang='en'):
     """The phrases in the page copy that quote a price, and what they must say."""
     day, week = P['visitor'][0]['price'], P['visitor'][1]['price']
     low = min(p['dd'] for p in P['member']['plans'])
-    A = P.get('assessments', {})
-    every = [v['price'] for v in P['visitor']] + [p['desk'] for p in P['member']['plans']] + \
-            ([min(k['each'] for k in P['pt']['packs'])] if P['pt'].get('quote') else [k['total'] for k in P['pt']['packs']]) + \
-            ([a['price'] for a in A.get('packs', [])] if A.get('onSite', True) else [])
+    every = every_price(P)
+    if lang == 'pt':
+        amt = u'\\d+(?:,\\d{2})?[  ]€'
+        mm = lambda n: m(n, 'pt')
+        return [
+            (r'(?i)(passe diário(?: custa)? )' + amt, lambda g: g.group(1) + mm(day)),
+            (r'(?i)(passe semanal(?: custa)? )' + amt, lambda g: g.group(1) + mm(week)),
+            (r'(?i)(adesão desde )' + amt, lambda g: g.group(1) + mm(low)),
+            (r'(a cada 2 semanas, desde )' + amt, lambda g: g.group(1) + mm(low)),
+            (r'(seguro desportivo de )' + amt, lambda g: g.group(1) + mm(P['insurance']['year'])),
+            (r'"priceRange":"[^"]*"', lambda g: '"priceRange":"%s a %s"' % (mm(min(every)), mm(max(every)))),
+        ]
     return [
         (r'(?i)(day pass(?: is)? )€[\d.]+', r'\g<1>' + m(day)),
         (r'(?i)(week pass(?: is)? )€[\d.]+', r'\g<1>' + m(week)),
@@ -107,10 +160,22 @@ def copy_rules(P):
     ]
 
 
-def sync_copy(s, P):
-    for pat, rep in copy_rules(P):
+def sync_copy(s, P, lang='en'):
+    for pat, rep in copy_rules(P, lang):
         s = re.sub(pat, rep, s)
     return s
+
+
+# the site itself: two plain pages, one for each language. Their styles and scripts are in
+# site/site.css and site/site.js, so here only the list and the prices in the copy are written
+SITE = [('site/index.html', 'pt'), ('site/en/index.html', 'en')]
+
+
+def render_site(s, P, lang):
+    s = re.sub(r'<!-- price-list:start.*?<!-- price-list:end -->\n  ', '', s, flags=re.S)
+    assert s.count('<!-- price-list:here -->') == 1, lang
+    s = s.replace('<!-- price-list:here -->', list_html(P, lang) + '<!-- price-list:here -->', 1)
+    return sync_copy(s, P, lang)
 
 
 def live_drafts():
@@ -200,3 +265,10 @@ if __name__ == '__main__':
         out = render(io.open(p, encoding='utf-8').read(), draft_name(f), P)   # read before opening for write
         io.open(p, 'w', encoding='utf-8').write(out)
         print(draft_name(f), 'price list and copy written from prices.js')
+    if len(sys.argv) == 1:
+        for f, lang in SITE:
+            p = os.path.join(ROOT, f)
+            if os.path.exists(p):
+                out = render_site(io.open(p, encoding='utf-8').read(), P, lang)
+                io.open(p, 'w', encoding='utf-8').write(out)
+                print(f, 'price list and copy written from prices.js')

@@ -6,21 +6,21 @@ Tasks and issues noticed while building. Not a full backlog. Rules: `~/dev/CLAUD
 
 The order across projects is in `~/dev/PORTFOLIO.md` (Priority list). Updated 2026-11-11.
 
-**[Gym site] Final polish before translation**
-- **What:** The last round of small design changes on the landing page for Elite Wellness, the gym
-  in Lagos, before it is translated into Portuguese.
-- **Where it stands:** Draft 2.9 is the page, picked by Martti on 11 November 2026, without the
-  buttons under the headline. It is 2.7 (the gym's own photos) with the polish he kept: blocks
-  appearing as you scroll, class cards tied to the timetable with two lines on what each class is,
-  the progress line, no green on button hovers, leaning primary buttons, a flat edge above Good to
-  know, grain on the photos, review cards that open the exact review. 2.9.1 and the five 2.8
-  drafts are in the archive. 2.6 and 2.7 are still on the bar. Not pushed.
-- **Next:** Claude starts the Portuguese translation once Martti says go.
-- **Needs from you:** A go for the translation, and whether 2.6 and 2.7 can leave the bar. The
-  Google links for three reviews (Alessandro, Sahirah, Emily). For the gym: check the two lines
-  about each class; is the balance class in the photo Pilates; are the people in it happy to be on
-  the site; a photo of Ricardo. And where the page goes live.
-- **Time:** 5 minutes for Martti to copy three links. A few minutes of Claude work per answer.
+**[Gym site] Portuguese and English, then go live**
+- **What:** The landing page for Elite Wellness, the gym in Lagos, as a real site in two languages.
+- **Where it stands:** The site now lives in the folder `site/` as two plain pages: Portuguese at
+  the main address, English at `/en`. Looks and behaviour are in two shared files, so they are
+  changed once. The Portuguese is written by Claude, speaking to people as "tu". A new check
+  (`build/check_pages.py`) compares the two pages and stops a change that is made in one only; the
+  price check covers both pages. Checked on a phone and a desktop. Not pushed, not live.
+- **Next:** The family reads the Portuguese page and corrects what sounds off. Then go live:
+  a private repository, Cloudflare Pages, the real address, and the update skills for the owner.
+- **Needs from you:** Someone from the gym to read the Portuguese page. The Google links for three
+  reviews (Alessandro, Sahirah, Emily). The address the site will live at. For the gym: check the
+  two lines about each class; is the balance class in the photo Pilates; are the people in it happy
+  to be on the site; a photo of Ricardo.
+- **Time:** 20 minutes of reading for the family. Going live: about 2 hours of Claude work, one
+  session, plus Martti creating the Cloudflare and GitHub accounts or giving access.
 
 ## Noticed, not done
 
@@ -66,3 +66,14 @@ The order across projects is in `~/dev/PORTFOLIO.md` (Priority list). Updated 20
   them. Mobility, Abs and Circuit HIIT have no card, so their lines show only from the timetable.
 - **The photo grain is laid over in the page, not in the files (11 Nov 2026).** If it stays, it
   could move into `build/photo.py` so every new photo gets it.
+- **The site folder borrows files through links (11 Nov 2026).** In `site/`, the photos and the
+  price, timetable and review files are links to the ones in the root, so the drafts and the site
+  share one copy. For going live they must become real files in the new repository, and the raw
+  photos must stay out of it.
+- **The address is a stand in (11 Nov 2026).** Both pages name `https://example.com/` as their
+  address for search engines. Put the real one in when it is known (the head of both pages).
+- **English reviews on the Portuguese page (11 Nov 2026).** The reviews are shown as written, in
+  English, on both pages. If the gym has Portuguese reviews it likes, add them to `reviews.js`.
+- **Portuguese words to confirm with the gym (11 Nov 2026).** "Adesão" for membership, "Livre
+  trânsito" for unlimited (from the price sheet), "Deck exterior", "Racks", "Bom saber" for Good to
+  know, "Inscreve-te" on the Join button.

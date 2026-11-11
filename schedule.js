@@ -8,7 +8,8 @@
   - time: 24h "HH:MM"
   - class: one of the keys in "classes" below (add a new key for a new class)
   - isNew: true shows a "new" tag next to the class
-  - about (in classes): one or two plain sentences on what the class is; shown when a class is tapped
+  - in classes: en and pt are the short line under the name on the English and the Portuguese page;
+    about and aboutPt are one or two plain sentences on what the class is, shown when a class is tapped
 */
 window.ELITE_SCHEDULE = {
   updated: "2026-10-07",
@@ -16,21 +17,29 @@ window.ELITE_SCHEDULE = {
 
   classes: {
     hyrox:    { name: "HYROX",           en: "Hybrid training",         pt: "Aula híbrida",
-               about: "Running mixed with strength work: sled pushes, lunges, wall balls. Built on the HYROX race format and scaled to your level." },
+               about: "Running mixed with strength work: sled pushes, lunges, wall balls. Built on the HYROX race format and scaled to your level.",
+               aboutPt: "Corrida misturada com trabalho de força: empurrar o trenó, lunges, wall balls. Segue o formato das provas HYROX, adaptado ao teu nível." },
     gap:      { name: "GAP",             en: "Glutes, abs and legs",    pt: "Glúteos, abdominais e pernas",
-               about: "Floor and standing work for the glutes, abs and legs, with your bodyweight or light weights." },
-    trx:      { name: "TRX",             en: "Suspension training",     pt: "Suspension training",
-               about: "Strength training on suspension straps, using your own bodyweight. You make it harder or easier by how you stand." },
+               about: "Floor and standing work for the glutes, abs and legs, with your bodyweight or light weights.",
+               aboutPt: "Trabalho no chão e de pé para glúteos, abdominais e pernas, com o peso do corpo ou pesos leves." },
+    trx:      { name: "TRX",             en: "Suspension training",     pt: "Treino em suspensão",
+               about: "Strength training on suspension straps, using your own bodyweight. You make it harder or easier by how you stand.",
+               aboutPt: "Treino de força em fitas de suspensão, com o peso do teu corpo. Ficas com mais ou menos carga conforme a posição dos pés." },
     mobility: { name: "Mobility",        en: "Flexibility and mobility", pt: "Flexibilidade e mobilidade",
-               about: "Slow, controlled stretches and joint work. Good for stiff hips, backs and shoulders, and for recovery days." },
+               about: "Slow, controlled stretches and joint work. Good for stiff hips, backs and shoulders, and for recovery days.",
+               aboutPt: "Alongamentos lentos e controlados e trabalho articular. Bom para ancas, costas e ombros presos, e para dias de recuperação." },
     abs:      { name: "Abs",             en: "Core strength",           pt: "Abdominais",
-               about: "A short, focused session for the core: abs, obliques and lower back." },
-    bike:     { name: "Bike Elite",      en: "Indoor cycling",          pt: "Bike Elite",
-               about: "Indoor cycling with climbs, sprints and recovery. You set your own resistance." },
-    pilates:  { name: "Pilates",         en: "Mat pilates",             pt: "Pilates",
-               about: "Mat pilates: slow, precise movements for core strength, posture and control." },
+               about: "A short, focused session for the core: abs, obliques and lower back.",
+               aboutPt: "Uma sessão curta e focada no core: abdominais, oblíquos e lombar." },
+    bike:     { name: "Bike Elite",      en: "Indoor cycling",          pt: "Ciclismo indoor",
+               about: "Indoor cycling with climbs, sprints and recovery. You set your own resistance.",
+               aboutPt: "Ciclismo indoor com subidas, sprints e recuperação. És tu que escolhes a resistência." },
+    pilates:  { name: "Pilates",         en: "Mat pilates",             pt: "Pilates de solo",
+               about: "Mat pilates: slow, precise movements for core strength, posture and control.",
+               aboutPt: "Pilates de solo: movimentos lentos e precisos para a força do core, a postura e o controlo." },
     hiit:     { name: "Circuit HIIT",    en: "High intensity circuit",  pt: "Circuito HIIT",
-               about: "Short bursts of hard work with short rests, moving round a circuit of stations." }
+               about: "Short bursts of hard work with short rests, moving round a circuit of stations.",
+               aboutPt: "Períodos curtos de esforço intenso com pausas curtas, a rodar por um circuito de estações." }
   },
 
   sessions: [
