@@ -12,6 +12,7 @@ The site is the folder `site/`. Nothing is built: what is in the folder is what 
 - Portuguese is European Portuguese and speaks to people as **tu**. Membership is **Adesão**, never "mensalidade" (it is paid every 2 weeks, not monthly). Personal training is **Treino personalizado**, reception is **receção**, directions is **Como chegar**. Prices are written `12 €` and `40,90 €` on the Portuguese page and `€12` and `€40.90` on the English one; the scripts do this by themselves.
 - Hyphens inside Portuguese words (Inscreve-te, Pergunta-nos) are part of the spelling and stay. The rule against dashes is about "—", "–" and " - " between words.
 - Look at both pages at 1440 and 390 before saying it is done: `site/` and `site/en/` on the local server.
+- The version bar (`index.html` in the root) shows the site first, as the chips **PT** and **EN**, and opens the Portuguese page. They are in the `SITE` list in that file, not in `DRAFTS`: the price scripts read `DRAFTS` and must not treat the site as a draft. The pages also open straight from the disk, without a server.
 - The site was made from draft 2.9 on 11 November 2026 (`build/experiments/make_site.py`, for the record: do not run it again). The drafts below are the history of how the design was decided; new design experiments can still be drafts, and what is chosen is then made in `site/`.
 
 ## Drafts and the version bar

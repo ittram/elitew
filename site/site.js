@@ -152,6 +152,8 @@ function track(name,props){
 /* ---------- the language button keeps you in the same section ---------- */
 (function(){
   var a=$('lang-btn'); if(!a) return;
+  /* opened as a file from the disk, a folder address shows a list of files, so name the page itself */
+  if(location.protocol==='file:') a.setAttribute('href',a.getAttribute('href')+'index.html');
   a.addEventListener('click',function(){ if(location.hash) a.href=a.getAttribute('href').replace(/#.*$/,'')+location.hash });
 })();
 

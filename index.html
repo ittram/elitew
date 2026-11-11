@@ -346,6 +346,18 @@ const GROUPS = [
   { name:'Full page drafts', folder:'full-page', about:'The first whole pages, and the floor plan in 1.8.' },
 ];
 
+/* The site itself: the two pages in site/, made from draft 2.9. They are not drafts, so they are kept
+   out of DRAFTS (build/pricelist.py and build/test_calculator.py read that list). They come first on the bar
+   and the Portuguese page is what opens. */
+const SITE = [
+  { file:'site/index.html', v:'PT', label:'The site', date:'11 Nov 2026', site:true,
+    tested:'The real site, in Portuguese: the page at the main address. Made from draft 2.9.',
+    next:'Changes are made here now, in site/, in both languages. The Portuguese still needs a read by the family.' },
+  { file:'site/en/index.html', v:'EN', label:'The site', date:'11 Nov 2026', site:true,
+    tested:'The real site, in English: the page at /en. The same page as the Portuguese one, word for word.',
+    next:'Changes are made here now, in site/, in both languages.' }
+];
+
 /* newest version first, whatever order the list above is written in */
 const vnum = v => v.split('.').map(Number);
 const cmpv = (A, B) => { for (let i = 0; i < Math.max(A.length, B.length); i++) { const x = A[i] || 0, y = B[i] || 0; if (x !== y) return x - y; } return 0; };
@@ -360,27 +372,28 @@ const openLink = document.getElementById('openLink');
 const infoPanel = document.getElementById('infoPanel');
 const archBtn = document.getElementById('archBtn'), archPanel = document.getElementById('archPanel');
 const grid = new URLSearchParams(location.search).get('grid') === '1' ? '?grid=1' : '';
-const live = DRAFTS.filter(d => !d.archived), archived = DRAFTS.filter(d => d.archived);
+const live = SITE.concat(DRAFTS.filter(d => !d.archived)), archived = DRAFTS.filter(d => d.archived);
 const esc = s => String(s).replace(/[&<>"]/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));
 let current = null;
 
 live.forEach(d => {
   const b = document.createElement('button');
-  b.className = 'chip'; b.setAttribute('role','tab'); b.dataset.v = d.v; b.title = 'Click again to see what this draft tests';
+  b.className = 'chip'; b.setAttribute('role','tab'); b.dataset.v = d.v; b.title = d.site ? 'Click again to read about this page' : 'Click again to see what this draft tests';
   b.innerHTML = (d.status === 'latest' ? '<i class="dot" aria-hidden="true"></i>' : '') + '<b>' + esc(d.v) + '</b><span>' + esc(d.label) + '</span>';
   b.addEventListener('click', e => { if (current && current.v === d.v) { e.stopPropagation(); toggle(null, infoPanel); } else show(d.v); });
   chips.appendChild(b);
 });
 
 function statusTag(d){
+  if (d.site) return '<span class="status open">The site</span>';
   if (d.archived) return '<span class="status">Archived</span>';
   if (d.status === 'latest') return '<span class="status latest">Latest</span>';
   return '<span class="status open">Open decision</span>';
 }
 function renderInfo(d){
-  infoPanel.innerHTML = '<h2>Draft ' + esc(d.v) + ': ' + esc(d.label) + '</h2>' +
+  infoPanel.innerHTML = '<h2>' + (d.site ? esc(d.label) + ', ' + (d.v === 'PT' ? 'Portuguese' : 'English') : 'Draft ' + esc(d.v) + ': ' + esc(d.label)) + '</h2>' +
     '<div class="meta">' + statusTag(d) + '<span>' + esc(d.date) + '</span>' + (SECTIONS[d.at] ? '<span>Opens at ' + esc(SECTIONS[d.at]) + '</span>' : '') + '</div>' +
-    '<div class="label">What we tested</div><p>' + esc(d.tested) + '</p>' +
+    '<div class="label">' + (d.site ? 'What it is' : 'What we tested') + '</div><p>' + esc(d.tested) + '</p>' +
     (d.next ? '<div class="label">Where it stands</div><p>' + esc(d.next) + '</p>' : '') +
     (d.why ? '<div class="label">Why archived</div><p>' + esc(d.why) + '</p>' : '');
 }
@@ -393,11 +406,11 @@ function renderArchive(){
   archPanel.querySelectorAll('button[data-v]').forEach(b => b.addEventListener('click', () => { show(b.dataset.v); close(); }));
 }
 function show(v, push = true){
-  const d = DRAFTS.find(x => x.v === v) || live[0];
+  const d = SITE.concat(DRAFTS).find(x => x.v === v) || live[0];
   current = d;
   viewer.src = d.file + grid + (d.at && d.at[0] === '#' ? d.at : '');
   openLink.href = d.file + grid;
-  document.title = 'Draft ' + d.v + ': ' + d.label + ' | Elite Wellness';
+  document.title = (d.site ? 'The site, ' + d.v : 'Draft ' + d.v + ': ' + d.label) + ' | Elite Wellness';
   chips.querySelectorAll('.chip').forEach(c => {
     const on = c.dataset.v === d.v; c.classList.toggle('active', on); c.setAttribute('aria-selected', on);
     if (on) c.scrollIntoView({ inline:'nearest', block:'nearest', behavior:'smooth' });
@@ -436,7 +449,7 @@ viewer.addEventListener('load', () => {
   } catch (e) { /* file:// keeps us out of the frame; the hash in the src already got us close */ }
 });
 
-/* open the draft in the link (#1.7), otherwise the latest */
+/* open the page in the link (#EN, #1.7), otherwise the site in Portuguese */
 show(decodeURIComponent(location.hash.slice(1)) || live[0].v, false);
 window.addEventListener('hashchange', () => show(decodeURIComponent(location.hash.slice(1)), false));
 </script>

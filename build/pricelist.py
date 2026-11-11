@@ -184,8 +184,8 @@ def live_drafts():
     out = []
     for e in re.findall(r"\{ v:'[^']+', file:'([^']+)'(.*?)\}", idx, re.S):
         f, rest = e
-        if 'archived:true' in rest.split('tested:')[0]:
-            continue
+        if 'archived:true' in rest.split('tested:')[0] or f.startswith('site/'):
+            continue    # the two pages of the site are written by render_site, not as drafts
         p = os.path.join(ROOT, f)
         if os.path.exists(p) and 'src="prices.js"' in io.open(p, encoding='utf-8').read():
             out.append(f)
