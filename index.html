@@ -346,16 +346,13 @@ const GROUPS = [
   { name:'Full page drafts', folder:'full-page', about:'The first whole pages, and the floor plan in 1.8.' },
 ];
 
-/* The site itself: the two pages in site/, made from draft 2.9. They are not drafts, so they are kept
-   out of DRAFTS (build/pricelist.py and build/test_calculator.py read that list). They come first on the bar
-   and the Portuguese page is what opens. */
+/* The site itself: the two pages in site/, made from draft 2.9. It is not a draft, so it is kept out of
+   DRAFTS (build/pricelist.py and build/test_calculator.py read that list). It comes first on the bar and is what
+   opens, in Portuguese; the EN button in the page itself switches to English. */
 const SITE = [
-  { file:'site/index.html', v:'PT', label:'The site', date:'11 Nov 2026', site:true,
-    tested:'The real site, in Portuguese: the page at the main address. Made from draft 2.9.',
-    next:'Changes are made here now, in site/, in both languages. The Portuguese still needs a read by the family.' },
-  { file:'site/en/index.html', v:'EN', label:'The site', date:'11 Nov 2026', site:true,
-    tested:'The real site, in English: the page at /en. The same page as the Portuguese one, word for word.',
-    next:'Changes are made here now, in site/, in both languages.' }
+  { file:'site/index.html', v:'Site', label:'Portuguese and English', date:'11 Nov 2026', site:true,
+    tested:'The real site, made from draft 2.9. It opens in Portuguese, the page at the main address. The round EN button in its header switches to English, the page at /en.',
+    next:'Changes are made here now, in site/, in both languages. The Portuguese still needs a read by the family.' }
 ];
 
 /* newest version first, whatever order the list above is written in */
@@ -391,7 +388,7 @@ function statusTag(d){
   return '<span class="status open">Open decision</span>';
 }
 function renderInfo(d){
-  infoPanel.innerHTML = '<h2>' + (d.site ? esc(d.label) + ', ' + (d.v === 'PT' ? 'Portuguese' : 'English') : 'Draft ' + esc(d.v) + ': ' + esc(d.label)) + '</h2>' +
+  infoPanel.innerHTML = '<h2>' + (d.site ? 'The site: ' + esc(d.label) : 'Draft ' + esc(d.v) + ': ' + esc(d.label)) + '</h2>' +
     '<div class="meta">' + statusTag(d) + '<span>' + esc(d.date) + '</span>' + (SECTIONS[d.at] ? '<span>Opens at ' + esc(SECTIONS[d.at]) + '</span>' : '') + '</div>' +
     '<div class="label">' + (d.site ? 'What it is' : 'What we tested') + '</div><p>' + esc(d.tested) + '</p>' +
     (d.next ? '<div class="label">Where it stands</div><p>' + esc(d.next) + '</p>' : '') +
@@ -410,7 +407,7 @@ function show(v, push = true){
   current = d;
   viewer.src = d.file + grid + (d.at && d.at[0] === '#' ? d.at : '');
   openLink.href = d.file + grid;
-  document.title = (d.site ? 'The site, ' + d.v : 'Draft ' + d.v + ': ' + d.label) + ' | Elite Wellness';
+  document.title = (d.site ? 'The site' : 'Draft ' + d.v + ': ' + d.label) + ' | Elite Wellness';
   chips.querySelectorAll('.chip').forEach(c => {
     const on = c.dataset.v === d.v; c.classList.toggle('active', on); c.setAttribute('aria-selected', on);
     if (on) c.scrollIntoView({ inline:'nearest', block:'nearest', behavior:'smooth' });
@@ -449,7 +446,7 @@ viewer.addEventListener('load', () => {
   } catch (e) { /* file:// keeps us out of the frame; the hash in the src already got us close */ }
 });
 
-/* open the page in the link (#EN, #1.7), otherwise the site in Portuguese */
+/* open the page in the link (#Site, #1.7), otherwise the site */
 show(decodeURIComponent(location.hash.slice(1)) || live[0].v, false);
 window.addEventListener('hashchange', () => show(decodeURIComponent(location.hash.slice(1)), false));
 </script>
