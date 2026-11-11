@@ -6,23 +6,22 @@ Tasks and issues noticed while building. Not a full backlog. Rules: `~/dev/CLAUD
 
 The order across projects is in `~/dev/PORTFOLIO.md` (Priority list). Updated 2026-11-11.
 
-**[Gym site] Finish the landing page**
-- **What:** The landing page for Elite Wellness, the gym in Lagos.
-- **Where it stands:** Draft 2.7 is draft 2.6 with the last four stock photos replaced by the gym's
-  own, from the 51 photos taken in the gym in October (they sit in `assets/raw/`, which is kept out
-  of git). New: the second and third hero photos (a member holding a barbell, a class in a side
-  stretch seen from behind), the HYROX card (a coach pushing the sled) and the Pilates card (an
-  instructor and the class balancing on one leg). No stock photo is left on the page. The dumbbell
-  rack, TRX, GAP, Bike Elite and the personal training photo are unchanged: the set has nothing
-  better for them. Ricardo's portrait is still missing (his initial shows). Both drafts are on the
-  bar and the price check passes on both. Martti and the owner have not looked at either yet.
-- **Next:** Martti looks at 2.7 on a phone and a desktop. When it is signed off, 2.6 is archived and
-  CLAUDE.md names 2.7 as the page.
-- **Needs from you:** A look at 2.7. Three questions for the gym: is the balance class in the photo
-  Pilates, are the people in that photo happy to be on the site, and which photo shows Ricardo (or
-  a new head and shoulders photo of him). Still to shoot: the outdoor deck in use, and a coach with
-  a client if the personal training photo should change. And where the page should go live.
-- **Time:** A few minutes of Claude work per answer. A new photo takes about 10 minutes each.
+**[Gym site] Final polish before translation**
+- **What:** The last round of small design changes on the landing page for Elite Wellness, the gym
+  in Lagos, before it is translated into Portuguese.
+- **Where it stands:** Five polish drafts are on the bar, 2.8.1 to 2.8.5, all built on 2.7 (the
+  page with the gym's own photos). All five share the same small fixes: clearer wording in seven
+  places, a real title for the browser tab, the empty slot gone from the phone timetable, and one
+  row of reviews so no review shows twice on a screen. Then each pushes one idea: Motion (2.8.1),
+  Type and spacing (2.8.2), Touch and feedback (2.8.3), First screen (2.8.4), Marker strokes
+  (2.8.5). Checked on a phone and a desktop; the price check passes on all of them. Nothing is
+  pushed. 2.6 and 2.7 are still on the bar.
+- **Next:** Martti looks through the five and says which parts to keep. Claude merges them into one
+  page (2.9), archives the rest, then the translation starts.
+- **Needs from you:** Your picks from the five. Still open from before, for the gym: is the balance
+  class in the photo Pilates, are the people in it happy to be on the site, and a photo of Ricardo.
+  And where the page should go live.
+- **Time:** 15 minutes of looking for Martti. About 1 hour for Claude to merge the picks.
 
 ## Noticed, not done
 
@@ -49,3 +48,16 @@ The order across projects is in `~/dev/PORTFOLIO.md` (Priority list). Updated 20
 - **Some photos in the October set show members' faces (11 Nov 2026).** The Pilates card on 2.7 has
   three members sharp behind the instructor, faces visible. The house rule prefers people from
   behind. Ask the gym whether they agreed, or reshoot from behind.
+- **Squat rack: the page says two different things (11 Nov 2026).** Good to know says "Two squat
+  racks, Smith machines and a full free weight setup". The floor plan list says "A squat stand, a
+  landmine and a pull up rig". Seen while reviewing 2.7. Ask the gym which is right.
+- **"Terms of entry" in the footer jumps to Good to know (11 Nov 2026).** It reads like a legal
+  page but there is none. Seen while reviewing 2.7. Either write the terms or take the link out.
+- **Only five reviews on the page (11 Nov 2026).** With five, two rows showed the same review twice
+  on one screen. The 2.8 drafts show one row until there are eight. Paste more reviews from Google
+  into `reviews.js` and the second row comes back by itself.
+- **Volt behind blue letters in 2.8.5 (11 Nov 2026).** The highlighter stroke behind "In Lagos"
+  puts blue letters on volt. The house rule says volt on white carries black on top. If the stroke
+  is kept, the rule gets an exception; if not, the stroke turns black or grey.
+- **The house rules still name 2.6 as the page (11 Nov 2026).** `CLAUDE.md` says the page is 2.6.
+  Update it when the polish picks are merged and one draft is the page again.
