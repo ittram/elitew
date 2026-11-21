@@ -122,7 +122,7 @@ def language(spt, sen, pt, en):
     if 'id="lang-btn" href="en/"' not in spt: err('the Portuguese page has no language button to en/')
     if 'id="lang-btn" href="../"' not in sen: err('the English page has no language button back to the Portuguese page')
     for s, name, base in ((spt, 'Portuguese', ''), (sen, 'English', '../')):
-        for f in ('site.css', 'prices.js', 'schedule.js', 'reviews.js', 'site.js'):
+        for f in ('site.css', 'prices.js', 'schedule.js', 'reviews.js', 'instagram.js', 'site.js'):
             # site.css and site.js carry a version (site.js?v=3.2) so a browser never pairs a new page with old files
             if not re.search(r'"%s(?:\?v=[\w.]+)?"' % re.escape(base + f), s): err('the %s page does not load %s%s' % (name, base, f))
         if s.count('hreflang="pt-PT"') < 1 or s.count('hreflang="en"') < 1: err('the %s page does not name both languages for search engines (hreflang)' % name)

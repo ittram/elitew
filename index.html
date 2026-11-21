@@ -349,15 +349,15 @@ const GROUPS = [
 /* The site itself: the two pages in site/, made from draft 2.9, and the versions of it we are comparing. They are not
    drafts, so they are kept out of DRAFTS. They come first on the bar, newest first; the first one is what opens,
    in Portuguese, and the EN button in the page itself switches to English and stays in the same version.
-   A version of the site is the same two pages with a word in the address (?ig=feed); site/site.js reads it.
+   A version of the site is the same two pages with a word in the address (?ig=posts); site/site.js reads it.
    The entry with site:true is the site as it is at its plain address. */
 const SITE = [
-  { file:'site/index.html?ig=photos', v:'3.2', label:'Instagram, our photos', date:'21 Nov 2026', status:'latest', at:'#instagram',
-    tested:'Instagram before the footer, the second way: a strip of six of the gym\'s own photos in the house black and white, each opening the profile, and a Follow button. Nothing loads from Instagram, so it is fast, needs no cookie question and always looks like the rest of the page. It is not a live feed: the photos change only when we change them.',
-    next:'To decide between 3.1, 3.2 and no Instagram section. If this one: pick six photos (or send new ones) and it goes into the site.' },
-  { file:'site/index.html?ig=feed', v:'3.1', label:'Instagram, live feed', date:'21 Nov 2026', status:'open', at:'#instagram',
-    tested:'Instagram before the footer, the first way: Instagram\'s own embed of the profile, with the newest posts, the follower count and a Follow button. It is live and needs no upkeep. It looks like Instagram, not like the page, it loads from instagram.com only when you scroll near it, and it sets Instagram\'s cookies, which is a question for the cookie rules before the site goes live.',
-    next:'To decide between 3.1, 3.2 and no Instagram section. Could not be tested in the sandbox, which cannot reach Instagram: look at it on the test link.' },
+  { file:'site/index.html?ig=posts', v:'3.3', label:'Instagram, real posts', date:'21 Nov 2026', status:'latest', at:'#instagram',
+    tested:'Instagram before the footer as a strip of tall cards (4:5, as Instagram shows posts) from edge to edge. It scrolls sideways: arrows on a desktop, a swipe on a phone, up to twelve posts. The cards are the gym\'s real posts, in colour, and each opens its post. They come from instagram.js: either by themselves from a feed service the gym connects its account to, or listed by hand.',
+    next:'The cards are numbered placeholders until there are posts: I could not read them from Instagram myself. Needed from the gym: connect the account to a feed service and send the feed address, or send the pictures and links of 8 to 12 posts. Then decide between 3.3, 3.2 and no Instagram section.' },
+  { file:'site/index.html?ig=photos', v:'3.2', label:'Instagram, our photos', date:'21 Nov 2026', status:'open', at:'#instagram',
+    tested:'The same strip as 3.3 (tall cards, edge to edge, scrolls sideways), filled with eight of the gym\'s own photos in the house black and white. Each opens the profile. Nothing loads from Instagram and nothing needs connecting, but it is not the real feed and not in colour.',
+    next:'First shown as six squares, made taller and scrollable on 21 November 2026 (Martti). The fallback if the real posts in 3.3 cannot be had. 3.1, Instagram\'s own profile embed, was turned down: small squares that do not fill the screen.' },
   { file:'site/index.html', v:'3.0', label:'Site, prices first', date:'21 Nov 2026', site:true,
     tested:'The real site as it is now, in Portuguese and English. New on 21 November 2026, after a customer\'s feedback: prices and the classes with the timetable come right after the hero, and one line under the headline says whether the gym is open, what a day pass costs and the street. Compare with 2.9, the page before this change (English only), where the gym and its plan came first.',
     next:'Changes are made here, in site/, in both languages. The Portuguese still needs a read by the family.' }

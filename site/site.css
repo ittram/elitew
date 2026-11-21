@@ -827,26 +827,37 @@ header::after{content:'';position:absolute;left:0;bottom:-2px;width:100%;height:
 @media (max-width:768px){ :lang(pt) .pk-n{font-size:14px} }
 @media (max-width:374px){ :lang(pt) .pk-n{font-size:13px} }
 
-/* ---------- Instagram, before the footer. Two ways to show it, one is picked with ?ig=feed or ?ig=photos ---------- */
+/* ---------- Instagram, before the footer: a strip of tall cards from edge to edge that scrolls sideways.
+   Two ways to fill it, one is picked with ?ig=posts or ?ig=photos ---------- */
 .ig-section{padding:8rem 0 7rem;text-align:center;background:var(--white)}
 .ig-section[hidden]{display:none}
-.ig-feed,.ig-photos{display:none}
-.ig-section.ig-is-feed .ig-feed{display:block;max-width:540px;margin:0 auto;padding:0 24px;box-sizing:content-box}
-.ig-feed .instagram-media{margin:0 auto!important;min-width:0!important;width:100%!important}
-.ig-feed blockquote a{font-weight:700;color:var(--royal-blue)}
-.ig-section.ig-is-photos .ig-photos{display:grid;grid-template-columns:repeat(6,1fr);list-style:none}
-.ig-photos li{aspect-ratio:1;overflow:hidden;background:#333}
-.ig-photos a{display:block;width:100%;height:100%}
-.ig-photos img{width:100%;height:100%;object-fit:cover;filter:grayscale(100%) contrast(1.05);transition:transform .7s cubic-bezier(.2,.8,.2,1)}
-.ig-photos a:hover img,.ig-photos a:focus-visible img{transform:scale(1.05)}
-.ig-follow{margin-top:48px;padding:0 24px}
+.ig-strip{display:none;list-style:none;gap:8px;overflow-x:auto;scroll-snap-type:x proximity;scrollbar-width:none;padding:0 4rem;scroll-padding:0 4rem}
+.ig-strip::-webkit-scrollbar{display:none}
+.ig-section.ig-is-posts .ig-posts,.ig-section.ig-is-photos .ig-photos{display:flex}
+/* four and a half cards on a desktop, so the cut one says there is more */
+.ig-strip li{flex:0 0 calc((100vw - 4rem - 32px) / 4.5);aspect-ratio:4 / 5;overflow:hidden;background:var(--light-grey);position:relative;scroll-snap-align:start}
+.ig-strip a{display:block;width:100%;height:100%}
+.ig-strip img{width:100%;height:100%;object-fit:cover;transition:transform .7s cubic-bezier(.2,.8,.2,1)}
+.ig-photos img{filter:grayscale(100%) contrast(1.05)}
+.ig-strip a:hover img,.ig-strip a:focus-visible img{transform:scale(1.04)}
+/* a small play mark on a video */
+.ig-strip .is-video::after{content:"";position:absolute;top:16px;right:16px;border-style:solid;border-width:9px 0 9px 15px;border-color:transparent transparent transparent var(--white);filter:drop-shadow(0 1px 3px rgba(0,0,0,.5));pointer-events:none}
+/* no posts yet: numbered cards, so the layout can be judged */
+.ig-strip .ig-empty{display:grid;place-items:center;font-family:var(--font-display);font-size:4rem;line-height:1;color:var(--silver-grey)}
+.ig-foot{display:flex;align-items:center;justify-content:space-between;gap:24px;margin-top:32px;padding:0 4rem}
+.ig-nav{display:flex;gap:8px}
+.ig-nav button{width:48px;height:48px;border:2px solid var(--royal-blue);background:var(--white);color:var(--royal-blue);font-size:18px;line-height:1;cursor:pointer;display:grid;place-items:center;transition:background .2s,color .2s,scale .12s}
+.ig-nav button:hover,.ig-nav button:focus-visible{background:var(--royal-blue);color:var(--white);outline:none}
+.ig-nav button:active{scale:.97}
+.ig-nav button:disabled{opacity:.3;cursor:default;background:var(--white);color:var(--royal-blue)}
+@media (max-width:1100px){.ig-strip li{flex-basis:calc((100vw - 4rem - 16px) / 2.6)}}
 @media (max-width:768px){
   .ig-section{padding:5rem 0 4.5rem}
-  /* a phone flips through the photos sideways, like the class cards */
-  .ig-section.ig-is-photos .ig-photos{display:flex;gap:8px;overflow-x:auto;scroll-snap-type:x mandatory;padding:0 24px;scrollbar-width:none}
-  .ig-photos::-webkit-scrollbar{display:none}
-  .ig-photos li{flex:0 0 62vw;scroll-snap-align:center}
-  .ig-follow{margin-top:32px}
-  .ig-follow .btn{font-size:.95rem;padding:16px 16px}
+  /* a phone swipes through the cards, like the class cards, so no arrows */
+  .ig-strip{padding:0 1.5rem;scroll-padding:0 1.5rem;scroll-snap-type:x mandatory}
+  .ig-strip li{flex-basis:72vw}
+  .ig-nav{display:none}
+  .ig-foot{justify-content:center;padding:0 1.5rem}
+  .ig-foot .btn{font-size:.95rem;padding:16px 16px}
 }
-@media (prefers-reduced-motion:reduce){.ig-photos img{transition:none}}
+@media (prefers-reduced-motion:reduce){.ig-strip img{transition:none}}

@@ -45,6 +45,8 @@ var WORDS={
     showAll:'Show all classes',
     /* floor plan */
     planTitle:"What's where", planHint:'Tap any area on the plan',
+    /* instagram */
+    igPost:function(n){ return 'Instagram post '+n }, igEmpty:'[PLACEHOLDER: a post from Instagram, e.g. the Saturday HYROX class. See instagram.js]',
     /* prices */
     qKind:'How do you want to train?', from:'From',
     kinds:{
@@ -93,6 +95,8 @@ var WORDS={
     classCard:function(n){ return n+': o que é e quando há' },
     showAll:'Mostrar todas as aulas',
     planTitle:'Onde fica cada coisa', planHint:'Toca numa zona da planta',
+    /* instagram */
+    igPost:function(n){ return 'Publicação do Instagram '+n }, igEmpty:'[PLACEHOLDER: uma publicação do Instagram, por exemplo a aula de HYROX de sábado. Vê instagram.js]',
     qKind:'Como queres treinar?', from:'Desde',
     kinds:{
       pass:{name:'Passes',               desc:'Sem compromisso',     per:'por um dia'},
@@ -158,20 +162,48 @@ function track(name,props){
   a.addEventListener('click',function(){ a.href=a.getAttribute('href').replace(/[?#].*$/,'')+location.search+location.hash });
 })();
 
-/* ---------- Instagram, before the footer: two ways to show it, still to pick ----------
-   The section is in both pages, hidden. ?ig=feed shows Instagram's own embed of the profile; its script is
-   fetched from instagram.com only when you get near it. ?ig=photos shows the gym's own photos, which open the
-   profile; nothing is fetched from Instagram. When one is picked: take `hidden` off the section, delete the
-   other way from both pages and this switch. */
+/* ---------- Instagram, before the footer: two ways to fill the strip, still to pick ----------
+   The section is in both pages, hidden. ?ig=posts builds the cards from instagram.js (the gym's real posts,
+   from a feed service or listed by hand; numbered placeholders while there are none). ?ig=photos shows the
+   gym's own photos, already in the page. When one is picked: take `hidden` off the section, delete the other
+   way from both pages and this switch. */
 (function(){
   var sec=$('instagram'), way=new URLSearchParams(location.search).get('ig');
-  if(!sec||(way!=='feed'&&way!=='photos')) return;
+  if(!sec||(way!=='posts'&&way!=='photos')) return;
   sec.hidden=false; sec.classList.add('ig-is-'+way);
-  if(way!=='feed') return;
-  var load=function(){ var sc=document.createElement('script'); sc.async=true; sc.src='https://www.instagram.com/embed.js'; document.body.appendChild(sc) };
-  if(!('IntersectionObserver' in window)){ load(); return }
-  var io=new IntersectionObserver(function(es){ if(es[0].isIntersecting){ io.disconnect(); load() } },{rootMargin:'600px 0px'});
-  io.observe(sec);
+  var strip=sec.querySelector(way==='posts'?'.ig-posts':'.ig-photos'), IG=window.EW_INSTAGRAM||{};
+  /* the arrows move the strip by about three cards and grey out at each end */
+  var btns=all('.ig-nav button',sec);
+  var ends=function(){
+    var max=strip.scrollWidth-strip.clientWidth-2;
+    btns.forEach(function(b){ b.disabled=+b.getAttribute('data-step')<0?strip.scrollLeft<=2:strip.scrollLeft>=max });
+  };
+  btns.forEach(function(b){ b.addEventListener('click',function(){ strip.scrollBy({left:+b.getAttribute('data-step')*strip.clientWidth*.66,behavior:mo?'smooth':'auto'}) }) });
+  strip.addEventListener('scroll',ends,{passive:true}); window.addEventListener('resize',ends);
+  if(way==='photos'){ ends(); return }
+
+  var esc=function(t){ return String(t==null?'':t).replace(/[&<>"]/g,function(c){ return {'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c] }) };
+  var local=function(u){ return /^https?:/.test(u)?u:BASE+u };
+  var draw=function(posts){
+    posts=(posts||[]).filter(function(p){ return p&&p.img }).slice(0,12);
+    strip.innerHTML=posts.length
+      ? posts.map(function(p,i){
+          return '<li'+(p.video?' class="is-video"':'')+'><a href="'+esc(p.url||IG.profile)+'" target="_blank" rel="noopener"><img src="'+esc(local(p.img))+'" loading="lazy" alt="'+esc((LANG==='pt'&&p.altPt)||p.alt||T.igPost(i+1))+'"></a></li>';
+        }).join('')
+      : [1,2,3,4,5,6,7,8].map(function(n){
+          return '<li class="ig-empty" title="'+esc(T.igEmpty)+'"><span aria-hidden="true">'+(n<10?'0':'')+n+'</span></li>';
+        }).join('');
+    ends();
+  };
+  draw(IG.posts);
+  /* a feed service gives the newest posts as a list; take what we need from it */
+  if(IG.feed&&window.fetch) fetch(IG.feed).then(function(r){ return r.json() }).then(function(d){
+    var list=(Array.isArray(d)?d:d.posts||[]).map(function(p){
+      var sz=p.sizes||{}, m=sz.medium||sz.large||sz.small||{};
+      return {url:p.permalink, img:m.mediaUrl||p.thumbnailUrl||p.mediaUrl, alt:(p.prunedCaption||p.caption||'').slice(0,140), video:p.mediaType==='VIDEO'};
+    });
+    if(list.length) draw(list);
+  }).catch(function(){});
 })();
 
 /* ---------- the action bar follows you; the map fades in instead of flashing white ---------- */

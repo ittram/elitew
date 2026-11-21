@@ -36,7 +36,7 @@
   "sameAs":["https://www.instagram.com/elitewellnessbysantos/","https://www.facebook.com/elitewellnessbysantos","https://maps.app.goo.gl/ks6o4URGCYT7rzHJ8"]
 }
 </script>
-<link rel="stylesheet" href="../site.css?v=3.2">
+<link rel="stylesheet" href="../site.css?v=3.3">
 <script>/* 2.8: motion only where it is wanted */document.documentElement.classList.add('js');if(!matchMedia('(prefers-reduced-motion:reduce)').matches)document.documentElement.classList.add('mo')</script>
 </head>
 <body>
@@ -349,26 +349,30 @@
   </div>
 </section>
 
-<!-- ============ INSTAGRAM: two ways, still to pick. Hidden until the address says which:
-     ?ig=feed is Instagram's own embed of the profile (live, loads from instagram.com),
-     ?ig=photos is a strip of the gym's own photos that opens the profile (nothing loads from Instagram). See site.js ============ -->
+<!-- ============ INSTAGRAM: a strip of tall cards from edge to edge that scrolls sideways. Two ways to fill it,
+     still to pick. Hidden until the address says which:
+     ?ig=posts is the gym's real posts, in colour, from instagram.js (see the note at the top of that file),
+     ?ig=photos is the gym's own black and white photos; each opens the profile. See site.js ============ -->
 <section class="ig-section" id="instagram" hidden>
   <div class="section-kicker">
     <h2 class="section-header">Instagram</h2>
     <span class="section-script">the week at the gym</span>
   </div>
-  <div class="ig-feed">
-    <blockquote class="instagram-media" data-instgrm-permalink="https://www.instagram.com/elitewellnessbysantos/" data-instgrm-version="14"><a href="https://www.instagram.com/elitewellnessbysantos/" target="_blank" rel="noopener">Elite Wellness on Instagram</a></blockquote>
-  </div>
-  <ul class="ig-photos" aria-label="Photos from the gym, on Instagram">
-    <li><a href="https://www.instagram.com/elitewellnessbysantos/" target="_blank" rel="noopener"><img src="../assets/class-hyrox-600.webp" width="600" height="600" loading="lazy" style="object-position:40% 30%" alt="A coach pushing a weighted sled across the turf at Elite Wellness"></a></li>
-    <li><a href="https://www.instagram.com/elitewellnessbysantos/" target="_blank" rel="noopener"><img src="../assets/hero-deadlift-800.webp" width="600" height="600" loading="lazy" style="object-position:50% 60%" alt="A member holding a loaded barbell at the top of a deadlift at Elite Wellness"></a></li>
-    <li><a href="https://www.instagram.com/elitewellnessbysantos/" target="_blank" rel="noopener"><img src="../assets/class-trx-row-600.webp" width="600" height="600" loading="lazy" style="object-position:50% 30%" alt="A member pulling up on the TRX straps anchored to the wall at Elite Wellness"></a></li>
-    <li><a href="https://www.instagram.com/elitewellnessbysantos/" target="_blank" rel="noopener"><img src="../assets/hero-class-stretch-800.webp" width="600" height="600" loading="lazy" style="object-position:50% 30%" alt="Members reaching into a side stretch in a class in the studio at Elite Wellness"></a></li>
-    <li><a href="https://www.instagram.com/elitewellnessbysantos/" target="_blank" rel="noopener"><img src="../assets/class-bike-600.webp" width="600" height="600" loading="lazy" style="object-position:50% 60%" alt="Members pedalling on the spin bikes in a Bike Elite class at Elite Wellness"></a></li>
-    <li><a href="https://www.instagram.com/elitewellnessbysantos/" target="_blank" rel="noopener"><img src="../assets/hero-free-weights-800.webp" width="600" height="600" loading="lazy" style="object-position:50% 50%" alt="The free weights at Elite Wellness: a rack of hex dumbbells on the gym floor"></a></li>
+  <ul class="ig-strip ig-posts" id="ig-posts" aria-label="Our latest posts on Instagram"></ul>
+  <ul class="ig-strip ig-photos" aria-label="Photos from the gym, on Instagram">
+    <li><a href="https://www.instagram.com/elitewellnessbysantos/" target="_blank" rel="noopener"><img src="../assets/class-hyrox-600.webp" width="600" height="750" loading="lazy" style="object-position:40% 30%" alt="A coach pushing a weighted sled across the turf at Elite Wellness"></a></li>
+    <li><a href="https://www.instagram.com/elitewellnessbysantos/" target="_blank" rel="noopener"><img src="../assets/hero-deadlift-800.webp" width="600" height="750" loading="lazy" style="object-position:50% 60%" alt="A member holding a loaded barbell at the top of a deadlift at Elite Wellness"></a></li>
+    <li><a href="https://www.instagram.com/elitewellnessbysantos/" target="_blank" rel="noopener"><img src="../assets/class-trx-row-600.webp" width="600" height="750" loading="lazy" style="object-position:50% 30%" alt="A member pulling up on the TRX straps anchored to the wall at Elite Wellness"></a></li>
+    <li><a href="https://www.instagram.com/elitewellnessbysantos/" target="_blank" rel="noopener"><img src="../assets/hero-class-stretch-800.webp" width="600" height="750" loading="lazy" style="object-position:60% 30%" alt="Members reaching into a side stretch in a class in the studio at Elite Wellness"></a></li>
+    <li><a href="https://www.instagram.com/elitewellnessbysantos/" target="_blank" rel="noopener"><img src="../assets/class-bike-600.webp" width="600" height="750" loading="lazy" style="object-position:50% 60%" alt="Members pedalling on the spin bikes in a Bike Elite class at Elite Wellness"></a></li>
+    <li><a href="https://www.instagram.com/elitewellnessbysantos/" target="_blank" rel="noopener"><img src="../assets/class-gap-600.webp" width="600" height="750" loading="lazy" style="object-position:75% 30%" alt="Members doing an ab exercise on mats in a GAP class at Elite Wellness"></a></li>
+    <li><a href="https://www.instagram.com/elitewellnessbysantos/" target="_blank" rel="noopener"><img src="../assets/hero-free-weights-800.webp" width="600" height="750" loading="lazy" style="object-position:40% 50%" alt="The free weights at Elite Wellness: a rack of hex dumbbells on the gym floor"></a></li>
+    <li><a href="https://www.instagram.com/elitewellnessbysantos/" target="_blank" rel="noopener"><img src="../assets/class-pilates-balance-600.webp" width="600" height="750" loading="lazy" style="object-position:40% 30%" alt="An instructor and members balancing on one leg on their mats in a class at Elite Wellness"></a></li>
   </ul>
-  <p class="ig-follow"><a class="btn" href="https://www.instagram.com/elitewellnessbysantos/" target="_blank" rel="noopener">Follow @elitewellnessbysantos</a></p>
+  <div class="ig-foot">
+    <div class="ig-nav"><button type="button" data-step="-1" aria-label="Earlier photos">&larr;</button><button type="button" data-step="1" aria-label="More photos">&rarr;</button></div>
+    <a class="btn" href="https://www.instagram.com/elitewellnessbysantos/" target="_blank" rel="noopener">Follow @elitewellnessbysantos</a>
+  </div>
 </section>
 
 <!-- ============ FINAL CTA ============ -->
@@ -432,6 +436,7 @@
 <script src="../prices.js"></script>
 <script src="../schedule.js"></script>
 <script src="../reviews.js"></script>
-<script src="../site.js?v=3.2"></script>
+<script src="../instagram.js"></script>
+<script src="../site.js?v=3.3"></script>
 </body>
 </html>
