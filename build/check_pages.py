@@ -123,7 +123,8 @@ def language(spt, sen, pt, en):
     if 'id="lang-btn" href="../"' not in sen: err('the English page has no language button back to the Portuguese page')
     for s, name, base in ((spt, 'Portuguese', ''), (sen, 'English', '../')):
         for f in ('site.css', 'prices.js', 'schedule.js', 'reviews.js', 'site.js'):
-            if ('"%s%s"' % (base, f)) not in s: err('the %s page does not load %s%s' % (name, base, f))
+            # site.css and site.js carry a version (site.js?v=3.2) so a browser never pairs a new page with old files
+            if not re.search(r'"%s(?:\?v=[\w.]+)?"' % re.escape(base + f), s): err('the %s page does not load %s%s' % (name, base, f))
         if s.count('hreflang="pt-PT"') < 1 or s.count('hreflang="en"') < 1: err('the %s page does not name both languages for search engines (hreflang)' % name)
         if re.search(r'<style\b', s): warn('the %s page has styles of its own; styles belong in site/site.css so both pages get them' % name)
         if re.search(r'<script\b(?![^>]*(?:src=|ld\+json))[^>]*>(?!/\* 2\.8)', s): warn('the %s page has a script of its own; scripts belong in site/site.js so both pages get them' % name)

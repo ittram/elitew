@@ -4,7 +4,7 @@
 The site is the folder `site/`. Nothing is built: what is in the folder is what goes live.
 
 - `site/index.html` is the **Portuguese** page, the main address. `site/en/index.html` is the **English** page. They are the same page in two languages.
-- `site/site.css` holds every style and `site/site.js` everything the page does. Both pages load them, so a change to looks or behaviour is made once. Never put a style or a script into a page.
+- `site/site.css` holds every style and `site/site.js` everything the page does. Both pages load them, so a change to looks or behaviour is made once. Never put a style or a script into a page. The pages load them with a version (`site.js?v=3.2`): raise it in both pages whenever either file changes, or a browser shows the new page with the old files it kept.
 - Prices, the timetable and the reviews come from `prices.js`, `schedule.js` and `reviews.js` (in `site/` they are links to the files in the root, with `assets/`).
 - **A change to words is made in both pages**, in the same place. Words a script writes (the price calculator, the timetable, open now, the buy screens) are in `WORDS` at the top of `site/site.js`, once in English and once in Portuguese: change both.
 - **A change to structure** (a new paragraph, question, button, section) is made in both pages too.
