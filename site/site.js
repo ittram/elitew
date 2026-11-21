@@ -154,7 +154,24 @@ function track(name,props){
   var a=$('lang-btn'); if(!a) return;
   /* opened as a file from the disk, a folder address shows a list of files, so name the page itself */
   if(location.protocol==='file:') a.setAttribute('href',a.getAttribute('href')+'index.html');
-  a.addEventListener('click',function(){ if(location.hash) a.href=a.getAttribute('href').replace(/#.*$/,'')+location.hash });
+  /* ...and in the same version of the page, when the address names one (?ig=feed) */
+  a.addEventListener('click',function(){ a.href=a.getAttribute('href').replace(/[?#].*$/,'')+location.search+location.hash });
+})();
+
+/* ---------- Instagram, before the footer: two ways to show it, still to pick ----------
+   The section is in both pages, hidden. ?ig=feed shows Instagram's own embed of the profile; its script is
+   fetched from instagram.com only when you get near it. ?ig=photos shows the gym's own photos, which open the
+   profile; nothing is fetched from Instagram. When one is picked: take `hidden` off the section, delete the
+   other way from both pages and this switch. */
+(function(){
+  var sec=$('instagram'), way=new URLSearchParams(location.search).get('ig');
+  if(!sec||(way!=='feed'&&way!=='photos')) return;
+  sec.hidden=false; sec.classList.add('ig-is-'+way);
+  if(way!=='feed') return;
+  var load=function(){ var sc=document.createElement('script'); sc.async=true; sc.src='https://www.instagram.com/embed.js'; document.body.appendChild(sc) };
+  if(!('IntersectionObserver' in window)){ load(); return }
+  var io=new IntersectionObserver(function(es){ if(es[0].isIntersecting){ io.disconnect(); load() } },{rootMargin:'600px 0px'});
+  io.observe(sec);
 })();
 
 /* ---------- the action bar follows you; the map fades in instead of flashing white ---------- */
